@@ -35,7 +35,7 @@ document.documentElement.setAttribute("data-theme",t);})();
 <link rel="manifest" href="manifest.webmanifest?v=92">
 <link rel="apple-touch-icon" href="img/apple-touch-icon.png?v=92">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
-<link rel="stylesheet" href="preview-kneeland-style.css">
+<link rel="stylesheet" href="style.css?v=92">
 <link rel="icon" type="image/png" sizes="48x48" href="img/favicon-48.png?v=92">
 <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png?v=92">
 <!-- v4 load pass: the two Today backgrounds (one per theme) are the
@@ -234,6 +234,7 @@ document.documentElement.setAttribute("data-theme",t);})();
         <button class="otl-more" type="button" data-otl-open aria-haspopup="dialog" aria-controls="otl-sheet" aria-expanded="false">See hours &amp; what&rsquo;s on &rarr;</button>
       </article>
       <article class="founding-cell taken" data-pv-cell>
+        <img class="founding-ribbon cell-ribbon" src="img/founding-ribbon.png?v=92" alt="Founding Sponsor" title="Founding Sponsor">
         <div class="otl-logo-box"><img src="img/preview-kneeland-brothers-logo.png" alt="Kneeland Brothers Roofing logo" style="border-radius:0"></div>
         <p class="cell-eyebrow">Founding Sponsor · Spot 2 of 3</p>
         <h3>Kneeland Brothers LLC</h3>
@@ -884,6 +885,21 @@ document.documentElement.setAttribute("data-theme",t);})();
         <span class="dir-addr">735 S Columbia River Hwy</span>
       </div>
     </article>
+    <article class="dir-item" data-dircat="handyman">
+      <img class="dir-photo" src="img/dir-kneeland-brothers.jpg" alt="A new roof by Kneeland Brothers on a Columbia County home" loading="lazy" decoding="async">
+      <img class="founding-ribbon dir-ribbon" src="img/founding-ribbon.png?v=92" alt="Founding Sponsor" title="Founding Sponsor — Kneeland Brothers LLC">
+      <div class="dir-item-main">
+        <h3>Kneeland Brothers LLC</h3>
+        <p class="dir-meta">Scappoose &middot; <span data-i18n="dirhandyman">Handyman &amp; home repair</span></p>
+        <p class="dir-desc">Roof replacement and repair from a family crew born and raised in Columbia County — free estimates, financing, and a warranty on every new roof.</p>
+        <button class="otl-more dir-otl-more" type="button" data-pv-open aria-haspopup="dialog" aria-controls="pv-sheet" aria-expanded="false">See hours &amp; what&rsquo;s on &rarr;</button>
+      </div>
+      <div class="dir-contact">
+        <a class="dir-call" href="tel:+15033196871">&#128222; (503) 319-6871</a>
+        <span class="dir-addr">33459 SW JP West Rd</span>
+      </div>
+    </article>
+
     <article class="dir-item" data-dircat="beauty" data-lat="45.85957" data-lng="-122.81905">
       <!-- Listed from the business's own Add Your Local Service form submission, Nov 14, 2026 (Jennifer Stalker RN). Basic directory listing. Phone, website and description corrected Nov 15, 2026 to match her form response (971-478-1852, biolumemedspas.com, her own description). Address corrected Nov 15, 2026: 2050 Columbia Blvd was unsupported by any source; verified address is 115 N 21st St, St Helens, OR 97051 (her own website + Places listing), map pin updated to the Places coordinates. -->
       <div class="dir-item-main">
@@ -1286,6 +1302,9 @@ document.documentElement.setAttribute("data-theme",t);})();
     <h2>Community Partners — the local businesses that fund this site</h2>
     <p class="partners-first"><strong class="partners-name">Oregon Trail Lanes</strong> <img class="founding-ribbon wall-ribbon" src="img/founding-ribbon.png?v=92" alt="Founding Sponsor" title="Founding Sponsor"></p>
     <p class="partners-meta"><span class="dir-badge">Founding Sponsor · 2026</span><span class="partners-town">· St. Helens</span></p>
+    <p class="partners-first"><strong class="partners-name">Kneeland Brothers LLC</strong> <img class="founding-ribbon wall-ribbon" src="img/founding-ribbon.png?v=92" alt="Founding Sponsor" title="Founding Sponsor"></p>
+    <p class="partners-meta"><span class="dir-badge">Founding Sponsor · 2026</span><span class="partners-town">· Scappoose</span></p>
+
     <p class="partners-empty"><a href="sponsor.html">Your logo here — become a partner &rarr;</a></p>
   </section>
   <p class="footer-byline" data-i18n="footerbyline"><strong>Columbia County Live</strong> — by <strong>Nomad Development Group</strong></p>
@@ -1906,6 +1925,7 @@ document.documentElement.setAttribute("data-theme",t);})();
   </div>
   <div class="otl-sheet-body">
     <article class="otl-card">
+      <img class="founding-ribbon sheet-ribbon" src="img/founding-ribbon.png?v=92" alt="Founding Sponsor" title="Founding Sponsor">
       <div class="otl-body">
         <div class="otl-logo-box" style="margin-bottom:16px"><img src="img/preview-kneeland-brothers-logo.png" alt="Kneeland Brothers Roofing logo" style="border-radius:0"></div>
         <h3>Kneeland Brothers LLC <span class="dir-badge">Founding Sponsor · 2026</span></h3>
@@ -1992,7 +2012,7 @@ document.documentElement.setAttribute("data-theme",t);})();
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/satellite.js/5.0.0/satellite.min.js"></script>
-<script src="preview-kneeland-app.js"></script>
+<script src="app.js?v=92"></script>
 
 <script>
 /* Sponsor demo page: this prospect's full-card sheet, wired exactly like

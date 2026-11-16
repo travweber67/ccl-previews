@@ -1353,7 +1353,7 @@ html[data-theme="dark"] .r-poor .crab-pill{color:#f1998f}
 /* ---------- founding sponsor panel (full glass surface #2) ---------- */
 .founding-panel{
   position:relative;border-radius:20px;overflow:hidden;isolation:isolate;
-  background:#2a2118 url("img/dusk/founding-sunset.jpg") center 62%/cover no-repeat;
+  background:#2a2118 url("img/dusk/bay-night.jpg") center 62%/cover no-repeat;
   box-shadow:0 2px 3px rgba(30,40,20,.18),0 18px 40px rgba(30,40,20,.22);
 }
 .founding-inner{

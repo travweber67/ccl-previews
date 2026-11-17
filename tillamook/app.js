@@ -6395,18 +6395,22 @@ const LANG_ES = {
   tabmore: 'Eventos y más',
   fseyebrow: 'Presentado por nuestros patrocinadores fundadores',
   fslogohere: 'Tu logo aquí',
-  fs1eyebrow: 'Patrocinador fundador · Lugar 1 de 3 — Disponible',
+  fs1eyebrow: 'Patrocinador fundador · Lugar 1 de 4 — Disponible',
   fs1h3: 'Tu negocio aquí',
-  fs1p: 'Uno de solo tres lugares fundadores, para siempre — tu nombre y logo en la página de Hoy que todo visitante abre primero. $49/mes, bloqueado mientras te quedes, y una prueba gratuita de 30 días antes de pagar algo.',
+  fs1p: 'Uno de solo cuatro lugares fundadores, para siempre — tu nombre y logo en la página de Hoy que todo visitante abre primero. $49/mes, bloqueado mientras te quedes, y una prueba gratuita de 30 días antes de pagar algo.',
   fs1cta: 'Reclama el lugar 1 &rarr;',
-  fs2eyebrow: 'Patrocinador fundador · Lugar 2 de 3 — Disponible',
+  fs2eyebrow: 'Patrocinador fundador · Lugar 2 de 4 — Disponible',
   fs2h3: 'Tu negocio aquí',
-  fs2p: 'Uno de solo tres lugares fundadores, para siempre — tu nombre y logo en la página de Hoy que todo visitante abre primero. $49/mes, bloqueado mientras te quedes, y una prueba gratuita de 30 días antes de pagar algo.',
+  fs2p: 'Uno de solo cuatro lugares fundadores, para siempre — tu nombre y logo en la página de Hoy que todo visitante abre primero. $49/mes, bloqueado mientras te quedes, y una prueba gratuita de 30 días antes de pagar algo.',
   fs2cta: 'Reclama el lugar 2 &rarr;',
-  fs3eyebrow: 'Patrocinador fundador · Lugar 3 de 3 — Disponible',
+  fs3eyebrow: 'Patrocinador fundador · Lugar 3 de 4 — Disponible',
   fs3h3: 'Tu negocio aquí',
-  fs3p: 'Uno de solo tres lugares fundadores, para siempre — tu nombre y logo en la página de Hoy que todo visitante abre primero. $49/mes, bloqueado mientras te quedes, y una prueba gratuita de 30 días antes de pagar algo.',
+  fs3p: 'Uno de solo cuatro lugares fundadores, para siempre — tu nombre y logo en la página de Hoy que todo visitante abre primero. $49/mes, bloqueado mientras te quedes, y una prueba gratuita de 30 días antes de pagar algo.',
   fs3cta: 'Reclama el lugar 3 &rarr;',
+  fs4eyebrow: 'Patrocinador fundador · Lugar 4 de 4 — Disponible',
+  fs4h3: 'Tu negocio aquí',
+  fs4p: 'Uno de solo cuatro lugares fundadores, para siempre — tu nombre y logo en la página de Hoy que todo visitante abre primero. $49/mes, bloqueado mientras te quedes, y una prueba gratuita de 30 días antes de pagar algo.',
+  fs4cta: 'Reclama el lugar 4 &rarr;',
   fsfoot: 'Cada patrocinador fundador conserva una insignia permanente de «Patrocinador Fundador · 2026» — aunque después cambie de nivel. El período fundador cierra el 31 de enero de 2027 — después de eso, nunca más habrá patrocinadores fundadores nuevos.',
   commuteh2: '🚗 El veredicto del viaje',
   commutenote: 'La respuesta en una línea para manejar ahora mismo. El panorama completo del corredor — incidentes y cámaras — está en la pestaña Viajes.',
@@ -9136,7 +9140,11 @@ const PHOTO_FORM_URL = ''; // TCL v1: photo submissions ride the email route onl
    them on phones (County Watch just before Tonight & Tomorrow, the
    nonprofit notice just before the County Briefing), carrying the
    .in-flow styling permanently. Moved in the HTML, never duplicated,
-   ids and links unchanged. */
+   ids and links unchanged.
+   tcl-v10 (2026-11-16): the spots themselves live in the flow now
+   too — FOUR of them (Travis's call for Tillamook), spread evenly
+   through Today on the same .in-flow styling; the clustered panel
+   is gone, its eyebrow + foot note float above Spot 1. */
 
 /* ---------- your commute: typical drive times (v9, 2026-11-05) ----------
    Travis's last pre-ship addition: one card at the top of Travel —

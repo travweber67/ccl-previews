@@ -33,7 +33,7 @@ document.documentElement.setAttribute("data-theme",t);})();
 <link rel="manifest" href="manifest.webmanifest?v=1">
 <link rel="apple-touch-icon" href="img/apple-touch-icon.png?v=1">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
-<link rel="stylesheet" href="style.css?v=10">
+<link rel="stylesheet" href="style.css?v=11">
 <link rel="icon" type="image/png" sizes="48x48" href="img/favicon-48.png?v=1">
 <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png?v=1">
 <!-- v4 load pass: the two Today backgrounds (one per theme) are the
@@ -210,15 +210,16 @@ document.documentElement.setAttribute("data-theme",t);})();
   </div>
 </section>
 
-<!-- tcl-v9 (2026-11-16): the founding spots were first inserted here
-     as one clustered panel of three (Travis had flagged that he could
-     not see any sponsor spots in the preview).
-     tcl-v10 (2026-11-16, Travis's call): FOUR founding spots for
-     Tillamook (Columbia County has three), and they no longer sit
-     clustered in one block at the top — each spot is its own frosted
-     card spread evenly through Today's flow, on the .in-flow
-     treatment the two house cells have carried since v55. All four
-     are OPEN invitations (the 112-business bench is built; nobody has
+
+
+<!-- tcl-v10 (2026-11-16): FOUR FOUNDING SPOTS, SPREAD THROUGH TODAY —
+     the founding panel existed only in the preview (tcl-v9) as one
+     clustered block of three. Travis's call: Tillamook gets FOUR
+     founding spots (Columbia County has three), spread evenly
+     through Today's flow as individual frosted cards — the .in-flow
+     treatment the two house cells have carried since v55 — and it
+     lands in the repo directly in this spread form. All four are
+     OPEN invitations (the 112-business bench is built; nobody has
      been contacted). The header and the foot note live here with
      Spot 1; Spot 2 stands after the Commute Verdict, Spot 3 after
      Tonight & Tomorrow, and Spot 4 after the County Briefing. -->
@@ -256,6 +257,7 @@ document.documentElement.setAttribute("data-theme",t);})();
       aria-label="Search this page: sections, towns, and events">
   </div>
   <div id="finder-results" class="finder-results" hidden></div>
+  <p class="finder-hint" data-i18n="finderhint">One search across every card on this page, all nine towns, and the events calendars — tap a result and the page takes you straight there.</p>
 </section>
 
 
@@ -1364,7 +1366,7 @@ document.documentElement.setAttribute("data-theme",t);})();
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/satellite.js/5.0.0/satellite.min.js"></script>
-<script src="app.js?v=10"></script>
+<script src="app.js?v=11"></script>
 <link rel="stylesheet" href="offline-map/offline-map.css">
 <script>window.OFFLINE_MAP_CONFIG = {countyEn: "Tillamook County", countyEs: "Condado de Tillamook", packFile: "tillamook-county-z15.pmtiles", packSize: 12229103, lowroadsFile: "tillamook-lowroads.pmtiles", lowroadsSize: 1877305, bounds: [-124.06, 45.05, -123.28, 45.82], storageKey: "tcl.offlinemap.localFiles"};</script>
 <script src="offline-map/offline-map.js"></script>

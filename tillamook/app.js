@@ -6411,7 +6411,7 @@ const LANG_ES = {
   fs4h3: 'Tu negocio aquí',
   fs4p: 'Uno de solo cuatro lugares fundadores, para siempre — tu nombre y logo en la página de Hoy que todo visitante abre primero. $49/mes, bloqueado mientras te quedes, y una prueba gratuita de 30 días antes de pagar algo.',
   fs4cta: 'Reclama el lugar 4 &rarr;',
-  fsfoot: 'Cada patrocinador fundador conserva una insignia permanente de «Patrocinador Fundador · 2026» — aunque después cambie de nivel. El período fundador cierra el 31 de enero de 2027 — después de eso, nunca más habrá patrocinadores fundadores nuevos.',
+  fsfoot: 'Cada patrocinador fundador conserva una insignia permanente de «Patrocinador Fundador · 2026» y un lugar en el muro de Socios Comunitarios de abajo — aunque después cambie de nivel. El período fundador cierra el 31 de enero de 2027 — después de eso, nunca más habrá patrocinadores fundadores nuevos.',
   commuteh2: '🚗 El veredicto del viaje',
   commutenote: 'La respuesta en una línea para manejar ahora mismo. El panorama completo del corredor — incidentes y cámaras — está en la pestaña Viajes.',
   driveh2: '🧭 Tu viaje — ¿cuánto dura el manejo?',
@@ -7815,9 +7815,8 @@ initDark();
    chips all name cards, and the page first switches to the view that
    holds the card, then scrolls and flashes as it always did. The Leaflet
    gotcha is handled here too: the map is built while its view may be
-   hidden, so every switch to Travel calls invalidateSize(). The last
-   view is remembered (tcl-view-v1). */
-const VIEW_KEY = 'tcl-view-v1';
+   hidden, so every switch to Travel calls invalidateSize(). Every open
+   starts on Today at the top (see initViews). */
 const VIEW_IDS = ['today', 'travel', 'outdoors', 'more', 'emergency', 'help'];
 let cclViewCur = 'today';
 
@@ -7845,7 +7844,6 @@ function cclShowView(name) {
     b.classList.toggle('active', on);
     if (b.setAttribute) b.setAttribute('aria-pressed', on ? 'true' : 'false');
   });
-  try { window.localStorage.setItem(VIEW_KEY, name); } catch (e) { /* storage unavailable — choice is session-only */ }
   if (name === 'travel' && typeof map !== 'undefined' && map && map.invalidateSize) {
     setTimeout(() => { try { map.invalidateSize(); } catch (e) { /* map still booting */ } }, 60);
   }
@@ -7877,11 +7875,16 @@ function cclRouteAnchor(a) {
   }, 30);
 }
 function initViews() {
-  let start = 'today';
-  try {
-    const p = window.localStorage.getItem(VIEW_KEY);
-    if (p && VIEW_IDS.indexOf(p) !== -1) start = p;
-  } catch (e) { /* storage unavailable */ }
+  /* Always open on Today, at the top (Travis, 2026-11-16): the app used
+     to restore the last view from localStorage ('tcl-view-v1'); that
+     restore is gone — the key is no longer read or written, and any
+     stale saved value is cleared here. Other saved preferences (theme,
+     language, pins, town) are untouched. The browser's own scroll
+     restoration is switched off as well, so a reopen or reload cannot
+     land mid-page either. */
+  try { window.localStorage.removeItem('tcl-view-v1'); } catch (e) { /* storage unavailable */ }
+  try { if ('scrollRestoration' in window.history) window.history.scrollRestoration = 'manual'; } catch (e) { /* older browser */ }
+  const start = 'today';
   document.querySelectorAll('.tab-btn').forEach(b => {
     b.addEventListener('click', () => {
       cclShowView(b.dataset ? b.dataset.viewBtn : null);
@@ -7899,6 +7902,8 @@ function initViews() {
     });
   } catch (e) { /* anchors keep their default jump as a fallback */ }
   cclShowView(start);
+  if (window.scrollTo) { try { window.scrollTo(0, 0); } catch (e) { /* noop */ } }
+  window.addEventListener('load', () => { if (window.scrollTo) { try { window.scrollTo(0, 0); } catch (e) { /* noop */ } } });
 }
 initViews();
 
@@ -9140,11 +9145,7 @@ const PHOTO_FORM_URL = ''; // TCL v1: photo submissions ride the email route onl
    them on phones (County Watch just before Tonight & Tomorrow, the
    nonprofit notice just before the County Briefing), carrying the
    .in-flow styling permanently. Moved in the HTML, never duplicated,
-   ids and links unchanged.
-   tcl-v10 (2026-11-16): the spots themselves live in the flow now
-   too — FOUR of them (Travis's call for Tillamook), spread evenly
-   through Today on the same .in-flow styling; the clustered panel
-   is gone, its eyebrow + foot note float above Spot 1. */
+   ids and links unchanged. */
 
 /* ---------- your commute: typical drive times (v9, 2026-11-05) ----------
    Travis's last pre-ship addition: one card at the top of Travel —

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Keep it Local Columbia County | Columbia County Businesses & Events</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="demo-bar">Demo rebuild preview by <b>Nomad Development Group</b> &middot; Same content, refreshed build &middot; Not the live site</div>
+<header class="site">
+  <a class="logo" href="index.html">Keep it <span>Local</span></a>
+  <nav>
+    <a href="directory.html">Directory</a>
+    <a href="events.html">Events</a>
+    <a href="bundles.html">Explore the Bundles</a>
+    <a href="index.html#about">About Us</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <h1>Find What You Need</h1>
+  <h2>In Columbia County Oregon</h2>
+  <p>Welcome to Columbia County's largest online directory of local businesses, organizations, and events.</p>
+  <form class="searchbar" action="directory.html" method="get">
+    <input type="search" name="q" placeholder="Search by keyword or location..." aria-label="Search the directory">
+    <button type="submit">Find A Business</button>
+  </form>
+</section>
+
+<div class="wrap">
+  <h2 class="sec">Looking for Something Specific?</h2>
+  <p class="sub">Click by category below</p>
+  <div class="tiles" id="tiles"></div>
+
+  <h2 class="sec">Featured Businesses</h2>
+  <p class="sub">Showing Places 1-15 of 602 on the live directory &middot; this demo carries a 57-listing sample</p>
+  <div class="grid" id="featured"></div>
+
+  <section class="ai" id="ai-intake">
+    <h2>New: Listings Without the Manual Entry</h2>
+    <p>The one thing this rebuild adds. Instead of typing every listing and event in by hand, the directory now runs an AI intake flow, the same system behind Columbia County Live:</p>
+    <div class="steps">
+      <div class="step"><b>1</b>A business sends a flyer, a photo, or a simple email. No forms to wrestle, no account password maze.</div>
+      <div class="step"><b>2</b>An AI agent drafts the full listing: description, category, town, phone, website, and photo, in the directory's format.</div>
+      <div class="step"><b>3</b>Sierra approves with one click. Nothing goes public without her say-so, and edits are just as fast.</div>
+      <div class="step"><b>4</b>It publishes to the website and streams into the "Columbia County, OR" app, one entry, two surfaces, like today.</div>
+    </div>
+  </section>
+
+  <h2 class="sec">Upcoming Events</h2>
+  <div id="events"></div>
+  <p class="sub"><a href="events.html">See all events &rarr;</a></p>
+
+  <section class="holiday">
+    <h2>Keep it Local for the Holidays</h2>
+    <p>The 10th annual county-wide holiday campaign is running now. Pick up a Wonderland Card, collect stamps at participating businesses, and play the Bigfoot Trail game in the app for a shot at the $5,000 prize.</p>
+    <div class="nums">
+      <div><b>106</b>participating businesses</div>
+      <div><b>Nov 13 - Jan 8</b>campaign dates</div>
+      <div><b>70+</b>Bigfoot Trail stops</div>
+      <div><b>$5,000</b>Wonderland Card prize</div>
+    </div>
+  </section>
+
+  <h2 class="sec">What's New?</h2>
+  <p class="sub">Let's give a warm welcome to the new listings on the site!</p>
+  <div class="grid" id="whatsnew"></div>
+
+  <h2 class="sec" id="about">About Us</h2>
+  <p>We believe that supporting local helps communities flourish. With this at the heart of what we do, we are a small business marketing nonprofit that bolsters Columbia County Oregon's economy by persuading residents and visitors to shop, taste, play, and choose local first. To do so, we show off local businesses here on our online directory, on social media, and through our seasonal programs.</p>
+  <p style="margin-top:10px">Photo Credit: Anthony Krueger / Local Resident / Photo of Clatskanie, OR</p>
+
+  <h2 class="sec">Meet Our Incredible Sponsors</h2>
+  <p>Our program is, in large part, made possible because of our incredible sponsors. These are the organizations that invested in our small business community's success, advocate for supporting local, and love Columbia County. A huge thanks to our sponsors for being so supportive of our program and community, we appreciate you! Sponsors include Wauna Credit Union, InRoads Credit Union, Columbia River PUD, Clatskanie PUD, Richardson's Furniture, Sass at Home, and Crooked Creek Brewery.</p>
+
+  <h2 class="sec">Shop. Taste. Play. Choose Local First</h2>
+  <p>Between the evergreen hills, along winding streams, and in the presence of the mighty Columbia River, there are vibrant communities here in Columbia County, OR. Come see all our community has to offer.</p>
+</div>
+
+<footer class="site">
+  <div class="cols">
+    <div><h4>Find Local</h4><a href="directory.html">Directory Page</a><a href="events.html">Find Local Events</a></div>
+    <div><h4>Get Started</h4><a href="bundles.html">How to Make a Listing</a><a href="bundles.html">Register</a><a href="bundles.html">Featured Bundle</a><a href="bundles.html">Business Bundle</a><a href="bundles.html">Sponsor Bundle</a></div>
+    <div><h4>Manage</h4><a href="bundles.html">Add Place</a><a href="events.html">Add Event</a><a href="bundles.html">Login</a></div>
+    <div><h4>About Us</h4><a href="index.html#about">About Keep it Local</a><a href="index.html">Keep it Local for the Holidays</a><a href="bundles.html">FAQs</a><a href="index.html">News</a><a href="index.html">Contact Us</a></div>
+  </div>
+  <p class="fine">Find by Category: Shop &middot; Taste &middot; Play &middot; Services &middot; Community &middot; Events<br>Demo rebuild preview prepared by Nomad Development Group, November 2026. Content mirrors keepitlocalcc.com as published on Nov 18, 2026.</p>
+</footer>
+
+<script src="data.js"></script>
+<script src="app.js"></script>
+<script>
+document.getElementById('tiles').innerHTML = CATEGORIES.map(c=>{
+  const n = c==='Events' ? EVENTS.length : LISTINGS.filter(l=>l.cat===c).length;
+  const href = c==='Events' ? 'events.html' : 'directory.html?cat='+encodeURIComponent(c);
+  return '<a class="tile" href="'+href+'">'+c+'<small>'+(c==='Events'?'upcoming':'sample listings')+': '+n+'</small></a>';
+}).join('');
+renderInto('featured', LISTINGS.filter(l=>l.featured).slice(0,9));
+renderInto('whatsnew', LISTINGS.filter(l=>l.isnew).slice(0,6));
+document.getElementById('events').innerHTML = EVENTS.map(e=>
+ '<div class="event"><div class="when">'+e.date+'<br>'+e.price+'</div><div><h3>'+e.title+'</h3><p>'+e.desc+'</p><p class="sub" style="margin:6px 0 0">'+e.place+'</p></div></div>').join('');
+</script>
+</body>
+</html>

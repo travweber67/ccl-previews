@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Listing - Keep it Local</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="demo-bar">Demo rebuild preview by <b>Nomad Development Group</b> &middot; Not the live site</div>
+<header class="site">
+  <a class="logo" href="index.html">Keep it <span>Local</span></a>
+  <nav>
+    <a href="directory.html">Directory</a>
+    <a href="events.html">Events</a>
+    <a href="bundles.html">Explore the Bundles</a>
+    <a href="index.html#about">About Us</a>
+  </nav>
+</header>
+<div class="wrap">
+  <p class="sub"><a href="directory.html">&larr; Back to the Directory</a></p>
+  <div class="detail" id="detail"></div>
+</div>
+<footer class="site">
+  <div class="cols">
+    <div><h4>Find Local</h4><a href="directory.html">Directory Page</a><a href="events.html">Find Local Events</a></div>
+    <div><h4>Get Started</h4><a href="bundles.html">How to Make a Listing</a><a href="bundles.html">Register</a><a href="bundles.html">Featured Bundle</a><a href="bundles.html">Business Bundle</a><a href="bundles.html">Sponsor Bundle</a></div>
+    <div><h4>Manage</h4><a href="bundles.html">Add Place</a><a href="events.html">Add Event</a><a href="bundles.html">Login</a></div>
+    <div><h4>About Us</h4><a href="index.html#about">About Keep it Local</a><a href="index.html">Keep it Local for the Holidays</a><a href="bundles.html">FAQs</a><a href="index.html">News</a><a href="index.html">Contact Us</a></div>
+  </div>
+  <p class="fine">Demo rebuild preview prepared by Nomad Development Group, November 2026.</p>
+</footer>
+<script src="data.js"></script>
+<script>
+const id=new URLSearchParams(location.search).get('id')||'mee-maws-attic';
+const l=LISTINGS.find(x=>x.id===id)||LISTINGS[0];
+document.title=l.name+' - Keep it Local';
+let h='<h1 style="font-size:32px;color:var(--green-d)">'+l.name+'</h1><div class="meta">'+l.town+' &middot; '+l.cat+'</div>';
+h+='<h3>About</h3><p>'+l.desc+'</p>';
+if(l.img)h+='<img src="'+l.img+'" alt="'+l.name+'">';
+if(l.addr)h+='<h3>Address</h3><p>'+l.addr+'</p><p><a href="https://maps.google.com/?q='+encodeURIComponent(l.addr)+'" target="_blank" rel="noopener">Get Directions</a></p>';
+h+='<h3>Get in Touch</h3>';
+if(l.phone)h+='<p><b>Phone:</b> <a href="tel:'+l.phone.replace(/[^0-9+]/g,'')+'">'+l.phone+'</a></p>';
+if(l.web)h+='<p><b>Website:</b> <a href="https://'+l.web.replace(/^https?:\/\//,'')+'" target="_blank" rel="noopener">'+l.web+'</a></p>';
+if(l.email)h+='<p><b>Email:</b> '+l.email+'</p>';
+if(!l.phone&&!l.web&&!l.email)h+='<p>Contact details as published on the live listing.</p>';
+document.getElementById('detail').innerHTML=h;
+</script>
+</body>
+</html>

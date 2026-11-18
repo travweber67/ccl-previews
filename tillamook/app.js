@@ -9147,6 +9147,52 @@ const PHOTO_FORM_URL = ''; // TCL v1: photo submissions ride the email route onl
    .in-flow styling permanently. Moved in the HTML, never duplicated,
    ids and links unchanged. */
 
+/* ---------- tcl-v12: founding spots 2-4 weave through Today on phones ----------
+   Mirrors Columbia County Live's v90 phone mover, extended to four
+   spots. Travis (2026-11-18): on desktop the four founding spots sit
+   in ONE row across the top in the .founding-cells grid; on a phone
+   that grid would stack all four at the top, a wall of sponsor cards
+   before any content. So at the grid's own breakpoint (899px, where
+   its four columns become one), spot 1 keeps the grid and spots 2, 3
+   and 4 move down the view to the natural breaks the pre-grid build
+   used: spot 2 just before the County Watch house cell (after the
+   commute / before-you-go cluster), spot 3 just before the nonprofit
+   house cell (after Tonight & Tomorrow), spot 4 just before the
+   end-of-Today signpost (after the County Briefing). Wider than
+   899px nothing moves: the cells stay in the grid, in order, and the
+   desktop bar is exactly as designed. The move is structural — the
+   nodes themselves relocate, so every link and button rides along;
+   nothing is copied or rebuilt. Tillamook's cells wear their
+   .in-flow glass in both homes, so this mover only relocates and
+   does not toggle classes. */
+(function () {
+  var grid = document.querySelector('.founding-cells');
+  var watch = document.getElementById('founding-cell-watch');
+  var nonprofit = document.getElementById('founding-cell-nonprofit');
+  var signpost = document.getElementById('today-signpost');
+  if (!grid || !watch || !nonprofit || !signpost || !window.matchMedia) return;
+  var cells = grid.querySelectorAll(':scope > .founding-cell');
+  if (cells.length < 4) return;
+  var spot2 = cells[1];
+  var spot3 = cells[2];
+  var spot4 = cells[3];
+  var mq = window.matchMedia('(max-width: 899px)');
+  function weave() {
+    watch.parentNode.insertBefore(spot2, watch);
+    nonprofit.parentNode.insertBefore(spot3, nonprofit);
+    signpost.parentNode.insertBefore(spot4, signpost);
+  }
+  function restore() {
+    grid.appendChild(spot2);
+    grid.appendChild(spot3);
+    grid.appendChild(spot4);
+  }
+  function apply() { if (mq.matches) { weave(); } else { restore(); } }
+  if (mq.addEventListener) { mq.addEventListener('change', apply); }
+  else if (mq.addListener) { mq.addListener(apply); }
+  apply();
+})();
+
 /* ---------- your commute: typical drive times (v9, 2026-11-05) ----------
    Travis's last pre-ship addition: one card at the top of Travel —
    right above the roads card and its My Route strip — answering

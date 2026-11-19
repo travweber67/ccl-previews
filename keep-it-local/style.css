@@ -154,7 +154,7 @@ body.drawer-open{overflow:hidden}
 .hb-field:first-child{flex:1.8}
 .hb-field.seg{flex:1;background:rgba(255,255,255,.10);margin:0 3px;box-shadow:inset 0 1px 0 rgba(255,255,255,.20)}
 .herobar input,.herobar select{padding-top:0;padding-bottom:0}
-.herobar select{appearance:none;-webkit-appearance:none;padding-right:18px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23ffd9ae' stroke-width='1.6' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 2px center}
+.herobar select{appearance:none;-webkit-appearance:none;padding-right:18px;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23c3e7ed' stroke-width='1.6' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 2px center}
 .hb-go{height:52px;padding:0 34px;display:inline-flex;align-items:center;justify-content:center;gap:8px}
 @media(max-width:760px){
   .herobar{flex-direction:column;align-items:stretch;gap:6px;padding:8px;border-radius:26px}
@@ -664,3 +664,163 @@ footer.site .s-strip img{display:block;height:36px;width:auto;max-width:170px;ob
 .about-photo figcaption{margin-top:8px;font-size:12.5px;color:#6a7263}
 footer.site .hero-credit{margin-top:6px}
 footer.site .hero-credit a{color:#cfd6cc;text-decoration:underline}
+
+/* ---- Pass 25: dark / light mode (Travis, Nov 18, 2026, ~10:39 PM).
+   A small round toggle sits in the top-right corner of the header on
+   every page. First visit follows the visitor's system preference
+   (prefers-color-scheme); a manual tap overrides and is remembered
+   (localStorage 'kil-theme'); the choice is set on <html data-theme>
+   by a tiny inline script in <head> before first paint, so there is
+   no flash of the wrong theme. PALETTE (Travis, ~10:41 PM): keep it
+   RESTRAINED — deep ink/charcoal grounds with only a whisper of
+   green, green as a supporting tone (header band, headings, links),
+   and gold strictly as the accent it already is (headline gradient,
+   buttons, stats, the card halo). Nothing new turns gold or green.
+   DARK HERO: the homepage + directory hero photo swaps to Anthony
+   Krueger's Clatskanie dusk aerial (img/about-clatskanie.jpg) — a
+   night hero for night mode — under a deeper shade so the headline,
+   welcome and pill stay perfectly readable; light mode keeps the
+   approved river hero (img/hero.jpg, untouched). His credit line
+   rides at the dark hero's lower edge, and a permanent footer note
+   keeps the attribution in both modes. The big About photo is gone
+   (it lives in the dark hero now); About is clean text again. ---- */
+/* the toggle: compact 36px round glass button, top-right of header */
+.theme-toggle{margin-left:auto;flex:none;width:36px;height:36px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;background:rgba(9,32,21,.45);border:1px solid rgba(255,255,255,.45);color:#ffe9b0;cursor:pointer;backdrop-filter:blur(8px) saturate(1.3);-webkit-backdrop-filter:blur(8px) saturate(1.3);box-shadow:0 2px 10px rgba(5,15,10,.35);padding:0;transition:background .15s ease,transform .1s ease}
+.theme-toggle:hover{background:rgba(9,32,21,.68)}
+.theme-toggle:active{transform:translateY(1px)}
+.theme-toggle:focus-visible{outline:2px solid #ffb400;outline-offset:2px}
+.theme-toggle svg{width:18px;height:18px;display:block}
+.theme-toggle .ic-sun{display:none}
+[data-theme="dark"] .theme-toggle .ic-moon{display:none}
+[data-theme="dark"] .theme-toggle .ic-sun{display:block}
+/* Krueger credit: rides the dark hero only (the photo is the dark hero) */
+.hero-photo-credit{display:none}
+[data-theme="dark"] .hero-photo-credit{display:block;position:absolute;left:24px;bottom:10px;z-index:5;font-family:Arial,sans-serif;font-size:11.5px;letter-spacing:.2px;color:rgba(238,231,212,.78);text-shadow:0 1px 4px rgba(0,0,0,.6)}
+@media(max-width:760px){[data-theme="dark"] .hero-photo-credit{left:18px;bottom:8px;font-size:10.5px}}
+/* dark hero: Krueger's night aerial + a deeper shade for readability */
+[data-theme="dark"] .hero{background:linear-gradient(98deg,rgba(2,18,27,.90) 0%,rgba(2,18,27,.76) 34%,rgba(2,18,27,.50) 55%,rgba(2,18,27,.20) 76%,rgba(2,18,27,.08) 100%),url('img/about-clatskanie.jpg') center 26%/cover no-repeat}
+/* the wave's page-ground band follows the dark ground */
+[data-theme="dark"] .hero-wave path[fill="#e9edef"]{fill:#031520}
+/* dark palette: remap the core variables, then fix the places that
+   hardcode light surfaces or dark-on-light text */
+:root{color-scheme:light}
+html[data-theme="dark"]{color-scheme:dark;--cream:#031520;--ink:#e8f1f2;--card:#0a2c3f;--line:#1d4557;--muted:#9db8c0}
+[data-theme="dark"] .demo-bar{background:#010d13}
+[data-theme="dark"] footer.site{background:#010d13}
+[data-theme="dark"] a{color:#4db8c7}
+[data-theme="dark"] footer.site a{color:#d5e4e8}
+[data-theme="dark"] .drawer a{color:var(--ink)}
+[data-theme="dark"] .bf-cta{color:#fff}
+[data-theme="dark"] .addstrip-btn{color:#fff}
+[data-theme="dark"] h2.sec,[data-theme="dark"] .event .when,[data-theme="dark"] .price,[data-theme="dark"] .tile{color:#71bfa0}
+[data-theme="dark"] .panel-title h2,[data-theme="dark"] .bf-in h2,[data-theme="dark"] .detail h3,[data-theme="dark"] .wrap h3{color:#dceef2}
+[data-theme="dark"] .wrap h3,[data-theme="dark"] .detail h1{--green-d:#dceef2}
+[data-theme="dark"] .bf-steps li b{color:#c3e7ed}
+[data-theme="dark"] .card p,[data-theme="dark"] .panel-desc,[data-theme="dark"] .bf-lede,[data-theme="dark"] .bf-steps li{color:#c3d2d6}
+[data-theme="dark"] .card-img{background:#123043}
+[data-theme="dark"] .drawer a:hover{background:rgba(255,255,255,.07)}
+[data-theme="dark"] .filters input,[data-theme="dark"] .filters select{background:var(--card);color:var(--ink)}
+[data-theme="dark"] .herobar select option{background:#0a2c3f;color:var(--ink)}
+[data-theme="dark"] table.bundles{background:var(--card)}
+[data-theme="dark"] .detail{background:var(--card)}
+[data-theme="dark"] .yes{color:#4db8c7}
+[data-theme="dark"] .s-chip{background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.30);box-shadow:0 2px 8px rgba(0,0,0,.35)}
+[data-theme="dark"] .s-chip:hover{background:rgba(255,255,255,.13);border-color:#71bfa0}
+[data-theme="dark"] .bf-bonus{background:rgba(245,166,35,.13);border-color:rgba(245,166,35,.45);color:#f0dfa8}
+[data-theme="dark"] .bf-bonus b{color:#ffd34d}
+/* the Pass 16 gold halo stays, softened one step on the dark ground */
+[data-theme="dark"] .card{box-shadow:0 0 14px 2px rgba(17,150,171,.20),0 10px 22px -12px rgba(0,0,0,.55)}
+@media (hover:hover) and (pointer:fine){
+  [data-theme="dark"] .card:hover{box-shadow:0 0 26px 7px rgba(113,191,160,.38),0 0 50px 14px rgba(17,150,171,.18),0 16px 28px -12px rgba(0,0,0,.6)}
+}
+
+/* ---- Pass 26: RE-SKIN to her real palette (Travis approved Nov 18,
+   2026, ~10:45 PM; research: work/app-palette.md). The demo's forest
+   green + gold came from a misread of her desktop site. Pixel-sampled
+   from her LIVE site (mobile + desktop, which are one system), her
+   brand is: navy #00354e on every dark ground (header, hero wash,
+   search, footer), teal #1196ab on every action (buttons, links,
+   icons), mint #71bfa0 as the soft accent (CTA bands, pills), ice
+   #c3e7ed for icon discs and pale tints, page grounds white / #e8ecee,
+   white cards. Her logo itself is navy + teal on white; gold and
+   forest green measure at ~0.000% of her pages. So this pass swaps
+   the COLOR LAYER ONLY — layout, weave, panel, photos, typography
+   (Fraunces stays) and structure are untouched:
+   - variables re-anchor: --green -> teal (links/actions), --green-d
+     -> navy (headings/grounds), --orange -> teal, --cream -> her
+     light blue-gray #e9edef, --ink -> deep slate-navy, lines/muted
+     go cool blue-gray.
+   - navy takes the grounds the variables can't split out (header
+     band, drawer head, bundle table heads, footer, demo bar).
+   - the hero wash goes navy at Pass 13's exact stops (the shade
+     still lets go on the right; readability math unchanged).
+   - the headline's second line keeps its lit-from-above WONK
+     gradient treatment, reworked to her system: ice -> mint -> teal.
+     The swoosh under it is now mint (HTML attribute).
+   - the card GLOW (Pass 16 construction, hover pop unchanged)
+     retints gold -> a soft teal halo with a mint outer falloff over
+     a navy contact shadow.
+   - GOLD RETIRES everywhere except inside the Holidays feature,
+     where it stays as seasonal campaign art (Pass 18/20/21 stats,
+     Bigfoot button, bonus note) — her own holidays page breaks
+     palette for seasonal graphics the same way.
+   - DARK MODE (Pass 25) was retinted to the same system in this
+     round: deep navy-ink grounds darker than #00354e, teal actions,
+     mint accents. Pass 25's palette note is superseded by this one.
+   The wave bands follow: page-ground band -> #e9edef (HTML), middle
+   band -> navy, top band -> teal (HTML attributes). ---- */
+:root{--green:#1196ab;--green-d:#00354e;--orange:#1196ab;--cream:#e9edef;--ink:#1d3542;--line:#d3dde1;--muted:#5d707a}
+header.site{background:#00354e}
+.demo-bar{background:#00354e}
+.drawer-head{background:#00354e}
+table.bundles th{background:#00354e}
+footer.site{background:#00354e;color:#d5e4e8}
+footer.site a{color:#d5e4e8}
+footer.site .fine{color:#93a9b4}
+footer.site .sponsor-line{color:#d5e4e8}
+footer.site .hero-credit a{color:#d5e4e8}
+.hero{background:linear-gradient(98deg,rgba(0,38,56,.93) 0%,rgba(0,38,56,.84) 34%,rgba(0,38,56,.58) 52%,rgba(0,38,56,.22) 68%,rgba(0,38,56,0) 84%,rgba(0,38,56,0) 100%),url('img/hero.jpg') center/cover no-repeat}
+.hero h1 .gold{background:linear-gradient(180deg,#eafcff 0%,#c3e7ed 32%,#71bfa0 64%,#1196ab 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:#1196ab}
+.logo-word small{color:#c3e7ed}
+.drawer-head .dt small{color:#c3e7ed}
+.hb-ic{color:#c3e7ed}
+.dd-chev{color:#c3e7ed}
+.herobar{background:rgba(0,38,56,.55)}
+.hb-go{background:linear-gradient(180deg,#17a8bf,#1196ab);color:#fff}
+.dd-menu{background:rgba(0,35,52,.95)}
+.dd-opt.sel{color:#8fd8e4;background:rgba(17,150,171,.28)}
+.dd-opt.sel:hover,.dd-opt.sel.act{background:rgba(17,150,171,.40)}
+.card{box-shadow:0 0 16px 2px rgba(17,150,171,.30),0 8px 18px -10px rgba(0,53,78,.28)}
+@media (hover:hover) and (pointer:fine){
+  .card:hover{box-shadow:0 0 28px 8px rgba(113,191,160,.55),0 0 54px 16px rgba(17,150,171,.26),0 16px 28px -12px rgba(0,53,78,.32)}
+}
+.addstrip{background:linear-gradient(100deg,#00354e 0%,#0d3f57 58%,#1196ab 135%);border-color:rgba(0,53,78,.55);box-shadow:0 10px 24px rgba(0,53,78,.30),inset 0 1px 0 rgba(255,255,255,.18)}
+.addstrip-ribbon{background:#71bfa0;color:#00354e;border-left-color:#1196ab;box-shadow:0 4px 10px rgba(0,53,78,.35)}
+.addstrip-btn{background:linear-gradient(180deg,#17a8bf,#1196ab);color:#fff;box-shadow:0 5px 16px rgba(17,150,171,.45),inset 0 1px 0 rgba(255,255,255,.35)}
+.badge.new{background:#71bfa0;color:#00354e}
+.s-chip{border-color:rgba(0,53,78,.35);box-shadow:0 2px 8px rgba(0,53,78,.10),inset 0 1px 0 rgba(255,255,255,.65)}
+.s-chip:hover{border-color:#71bfa0;box-shadow:0 6px 16px rgba(0,53,78,.16),0 0 14px 2px rgba(113,191,160,.45)}
+.s-chip:focus-visible{outline-color:#1196ab}
+.s-chip-logo{border-color:rgba(0,53,78,.18)}
+footer.site .s-strip:hover{border-color:#71bfa0}
+footer.site .s-strip:focus-visible{outline-color:#71bfa0}
+.scrim,.panel-scrim,.bf-scrim{background:rgba(0,25,38,.5)}
+.panel-x{background:rgba(0,35,52,.55)}
+.panel-x:hover{background:rgba(0,35,52,.82)}
+.panel-logo{box-shadow:0 2px 8px rgba(0,53,78,.10)}
+.holiday{background-color:#00354e;box-shadow:0 14px 34px -14px rgba(0,35,52,.45)}
+.holiday-panel{background:rgba(0,35,52,.46)}
+.bf-steps li::before{color:#c3e7ed}
+.theme-toggle{background:rgba(0,35,52,.45);color:#c3e7ed}
+.theme-toggle:hover{background:rgba(0,35,52,.68)}
+.theme-toggle:focus-visible{outline-color:#71bfa0}
+[data-theme="dark"] .addstrip{background:linear-gradient(100deg,#0d3f57 0%,#0d3f57 55%,#1196ab 145%)}
+/* Pass 26 cleanup: secondary tints the main block missed — body-copy
+   gray goes slate-navy, the card photo placeholder goes cool, the
+   drawer hover goes ice, and the Bigfoot CTA's shadow/focus leave
+   the old green/gold tints (its button stays seasonal gold). */
+.card p,.panel-desc,.bf-lede,.bf-steps li{color:#3d4f59}
+.card-img{background:#dfe7ea}
+.drawer a:hover{background:#e2f0f3}
+.bf-cta:hover{box-shadow:0 8px 20px rgba(0,35,52,.35)}
+.bf-cta:focus-visible{outline-color:#1196ab}

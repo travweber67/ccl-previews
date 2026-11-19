@@ -363,3 +363,23 @@ body.drawer-open{overflow:hidden}
    headline, pill, wave all unchanged. Phone stays content-height; cover
    center-crops the taller frame and the falls core still reads. ---- */
 .hero{min-height:680px}
+
+/* ---- Pass 12: hero photo swap + height revert (Travis, Nov 18, 2026,
+   ~8:47 PM): the zoomed-out Beaver Falls still read "really bad and
+   really blurry" and the 680px hero "looks silly." His ruling: use the
+   ENTIRE photo at the hero's previous size without zooming in — and if
+   the entire photo can't fit without its edges being cut, use a
+   DIFFERENT photo. Beaver Falls is 4:3; a 3.84:1 band can't hold it
+   whole, so the condition is met and the photo changes. New hero =
+   CC-1: Columbia River + Lewis and Clark Bridge from Rainier Riverfront
+   Park (CC BY 4.0, DPLA via Wikimedia Commons), a natively wide river
+   panorama. img/hero.jpg is now a 2560x666 band composed from the FULL
+   WIDTH of the 2000x1335 original (only the vertical slice the band
+   requires: y 350-870 — bridge line in the upper-middle behind the
+   headline block, open water below), light grade only (autocontrast
+   cutoff 1, contrast x1.05, saturation x1.12, sharpen x1.08), no zoom
+   magnification beyond display size. Height reverts 680 -> 552px
+   (Pass 8 value); background re-anchored center (was center 62% for
+   the falls crop). Treated Beaver Falls files stay banked in work/.
+   Logo, welcome size, pill, wave, dropdowns all untouched. ---- */
+.hero{min-height:552px;background:linear-gradient(98deg,rgba(11,48,33,.92) 0%,rgba(11,48,33,.68) 44%,rgba(11,48,33,.16) 78%,rgba(11,48,33,.06) 100%),url('img/hero.jpg') center/cover no-repeat}

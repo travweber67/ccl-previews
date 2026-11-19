@@ -1420,3 +1420,84 @@ table.loc td:first-child{font-weight:bold}
   .dirpill{font-size:11.5px;padding:3px 9px}
   .holiday-panel .hol-door{margin-left:0}
 }
+
+/* ---- Pass 40: Travis's live-review fold-ins + the mobile polish
+   pass (Nov 19, 2026, ~2:56–3:03 AM). Two halves.
+   (A) Holidays hub presentation (ALL viewports, Travis's live
+   review): the 106-row Participating Locations tables collapse to
+   their first 4 rows per town behind a "See all N in <Town>"
+   expander in the events list's .ev-more language; the Wonderland
+   Card instructions become numbered step cards with gold numerals
+   plus gold fact chips ($5,000 / $150 per city / drawn live
+   Jan 15), her financial-institution paragraph staying as a small
+   note; the Bigfoot scan steps become a real numbered step list
+   and the Bonus Challenge a gold callout. Her words, facts and
+   numbers are unchanged — presentation only; the Terms blocks
+   stay plain small print on purpose.
+   (B) Mobile polish (≤900px unless noted): the hero search bar
+   rebuilds as a big keyword field + round teal search button on
+   row 1 and the two dropdowns as small half-width pills on row 2
+   (the full-width Search cap goes away; same fields, same hooks);
+   the hero photo overlay lightens so the picture reads as a
+   photo, gradient concentrated behind the top text; the holidays
+   panel stats go 2x2 with tighter padding and a more transparent
+   glass; the events month grid drops its in-cell chips and add
+   buttons (a Pass 29 rule had re-flexed .mg-ev over the earlier
+   ≤760 hide) — number + dots only, day-tap unchanged; the bundles
+   matrix fits the phone instead of slicing its Sponsor column;
+   Directions pills gain a little height. Desktop rendering is
+   untouched by part B: every rule sits inside a ≤900px (or
+   ≤700px) query. ---- */
+/* (A) holidays presentation */
+.hol-chips{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 6px}
+.hol-chip{font-family:Montserrat,Arial,sans-serif;font-weight:800;font-size:14px;color:#7a5200;background:rgba(255,180,0,.18);border:1.5px solid #ffb400;border-radius:999px;padding:7px 14px}
+.wsteps{display:grid;gap:10px;margin:12px 0 14px;max-width:840px}
+.wstep{display:flex;gap:14px;align-items:flex-start;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;box-shadow:0 2px 8px rgba(0,53,78,.06)}
+.wstep-n{font-family:'Fraunces',Georgia,'Times New Roman',serif;font-weight:880;font-variation-settings:'opsz' 40,'wght' 880,'WONK' 1;font-size:30px;line-height:1;color:#e09c00;flex:none}
+.wstep p{margin:0}
+.hol-note{font-size:13.5px;color:var(--muted);max-width:840px}
+.hol-steps{list-style:none;counter-reset:bfstep;margin:10px 0 18px;padding:0;max-width:840px}
+.hol-steps li{counter-increment:bfstep;position:relative;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px 12px 58px;margin-bottom:8px}
+.hol-steps li::before{content:counter(bfstep);position:absolute;left:16px;top:9px;font-family:'Fraunces',Georgia,'Times New Roman',serif;font-weight:880;font-variation-settings:'opsz' 40,'wght' 880,'WONK' 1;font-size:24px;color:#e09c00}
+.hol-callout{background:rgba(255,180,0,.10);border:1.5px solid rgba(255,180,0,.6);border-left:6px solid #ffb400;border-radius:12px;padding:6px 18px 14px;margin:18px 0;max-width:840px}
+.hol-callout h3{margin-top:12px}
+.loc-more-wrap{text-align:center;margin:-8px 0 20px}
+.loc-more{background:var(--card);border:1.5px solid #1196ab;color:#1196ab;font-family:Arial,sans-serif;font-weight:800;font-size:15px;padding:11px 26px;border-radius:999px;cursor:pointer}
+.loc-more:hover{background:#1196ab;color:#fff}
+.loc-more:focus-visible{outline:3px solid #71bfa0;outline-offset:2px}
+.loc-more .loc-chev{font-size:12px}
+table.loc tbody tr.loc-x{display:none}
+table.loc.loc-open tbody tr.loc-x{display:table-row}
+[data-theme="dark"] .hol-chip{color:#ffd34d;background:rgba(255,180,0,.13)}
+[data-theme="dark"] .wstep-n,[data-theme="dark"] .hol-steps li::before{color:#ffb400}
+[data-theme="dark"] .hol-callout{background:rgba(255,180,0,.07)}
+/* (B) mobile polish */
+@media(max-width:900px){
+  /* hero search: row 1 big keyword + round teal go; row 2 two pills */
+  .herobar{flex-direction:row;flex-wrap:wrap;align-items:center;gap:8px;padding:8px;border-radius:26px}
+  .herobar .hb-field{order:1;flex:1 1 calc(100% - 56px);min-width:0;width:auto;height:54px;margin:0;padding:0 16px}
+  .herobar .hb-field input{font-size:16.5px}
+  .herobar .hb-go{order:2;flex:0 0 auto;width:48px;height:48px;margin:0;padding:0;border-radius:50%;font-size:0;line-height:0;color:#fff;background:linear-gradient(180deg,#1aa3bb,#0e8296);box-shadow:0 4px 12px rgba(8,26,17,.30)}
+  .herobar .hb-go::before{content:"";width:21px;height:21px;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2.4' stroke-linecap='round'%3E%3Ccircle cx='10.5' cy='10.5' r='6.5'/%3E%3Cpath d='M15.5 15.5L21 21'/%3E%3C/svg%3E") center/contain no-repeat}
+  .herobar .hb-field.seg{order:3;flex:1 1 0;width:auto;height:42px;margin:0;padding:0 14px}
+  .herobar .hb-field.seg .dd-btn{font-size:14.5px}
+  /* hero photo: lighter dye, gradient held behind the top text */
+  .hero{background:linear-gradient(180deg,rgba(0,38,56,.80) 0%,rgba(0,38,56,.58) 38%,rgba(0,38,56,.34) 68%,rgba(0,38,56,.20) 100%),url('img/hero.jpg') center/cover no-repeat}
+  [data-theme="dark"] .hero{background:radial-gradient(ellipse 105% 82% at 50% 38%,rgba(2,18,27,.36) 0%,rgba(2,18,27,.18) 55%,rgba(2,18,27,0) 80%),linear-gradient(180deg,rgba(2,18,27,.42) 0%,rgba(2,18,27,.24) 46%,rgba(2,18,27,.10) 100%),url('img/about-clatskanie.jpg') center 26%/cover no-repeat}
+  /* holidays panel: 2x2 stats, tighter, glass a touch clearer */
+  .holiday-panel{padding:20px 18px;background:rgba(0,35,52,.34)}
+  .holiday .nums{display:grid;grid-template-columns:1fr 1fr;gap:16px 12px;margin-top:14px}
+  .holiday .nums div b{font-size:26px}
+  /* events month grid: number + dots only */
+  .mg-ev,.mg-more{display:none}
+  .mg-dots{display:flex;gap:3px;margin-top:5px}
+  .mg-dots i{width:6px;height:6px;border-radius:50%;background:#1196ab}
+  .mg-cell{min-height:52px}
+}
+@media(max-width:700px){
+  /* bundles matrix fits the phone; Directions pills a little taller */
+  table.bundles{table-layout:fixed;font-size:12.5px}
+  table.bundles th{font-size:13.5px}
+  table.bundles th,table.bundles td{padding:7px 6px;overflow-wrap:anywhere}
+  .dirpill{padding:6px 12px;font-size:12px}
+}

@@ -1332,3 +1332,35 @@ p.sub.sec-intro{font-size:clamp(19px,1.55vw,22px);line-height:1.45}
   .news-arrow-prev{left:-4px}
   .news-arrow-next{right:-4px}
 }
+
+/* ---- Pass 38: News row edge fade + uncut glow (Travis, Nov 19,
+   ~2:30 AM, from his close-up of the live row's right edge: the
+   peeking card was guillotined at the scroll edge — "instead of
+   being just cut off like this, it should kind of fade away" —
+   and the cards' teal halo was sliced by the scroll box).
+   (1) ROOM: the row's padding grows on all four sides (block
+   20/22 -> 34/36, inline 6 -> 26; phone block 16/18 -> 30/32,
+   inline 4 -> 20) and equal negative margins hand the growth
+   back, so the cards sit in exactly the same place at exactly
+   the same size (the wider scrollport offsets the wider padding
+   in the flex-basis math — the measured one-card step is
+   unchanged) and the wrap's height is unchanged, while the rest
+   halo (0 0 16px 2px, ~18px reach) now blooms fully inside the
+   scroll box at rest, mid-scroll and at the end position.
+   (2) FADE: a mask on the row itself dissolves cards + glow at
+   whichever edge has more content behind it — right at rest,
+   both mid-scroll, left only at the end — driven by the same
+   scroll-state updater that toggles the arrows (classes f-r /
+   f-l set in news.js). A mask is theme-independent: the page
+   ground differs light vs dark, so a colored overlay would have
+   to be painted per theme. The arrow discs are siblings of the
+   row, outside the mask, z-index above it — they stay fully
+   opaque and crisp on top of the fade. ---- */
+.news-row{padding:34px 26px 36px;margin:-14px -20px;--nfl:0px;--nfr:0px;-webkit-mask-image:linear-gradient(to right,transparent 0,#000 var(--nfl),#000 calc(100% - var(--nfr)),transparent 100%);mask-image:linear-gradient(to right,transparent 0,#000 var(--nfl),#000 calc(100% - var(--nfr)),transparent 100%)}
+.news-row.f-r{--nfr:64px}
+.news-row.f-l{--nfl:64px}
+@media(max-width:900px){
+  .news-row{padding:30px 20px 32px;margin:-14px -16px}
+  .news-row.f-r{--nfr:48px}
+  .news-row.f-l{--nfl:48px}
+}

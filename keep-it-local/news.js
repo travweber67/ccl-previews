@@ -64,15 +64,19 @@ function kilNewsHomeCard(p){
         var gap=parseFloat(getComputedStyle(home).columnGap)||22;
         return card.getBoundingClientRect().width+gap;
       }
+      var padL=parseFloat(getComputedStyle(home).paddingLeft)||0;
       function upd(){
         var max=home.scrollWidth-home.clientWidth, x=home.scrollLeft;
-        prev.hidden=x<=12;
-        next.hidden=max<=2||x>=max-12;
+        var atStart=x<=padL+6, atEnd=max<=2||x>=max-12;
+        prev.hidden=atStart;
+        next.hidden=atEnd;
+        home.classList.toggle("f-l",!atStart);
+        home.classList.toggle("f-r",!atEnd);
       }
       next.addEventListener("click",function(){home.scrollBy({left:step(),behavior:smooth?"smooth":"auto"});});
       prev.addEventListener("click",function(){home.scrollBy({left:-step(),behavior:smooth?"smooth":"auto"});});
       home.addEventListener("scroll",upd,{passive:true});
-      window.addEventListener("resize",upd);
+      window.addEventListener("resize",function(){padL=parseFloat(getComputedStyle(home).paddingLeft)||0;upd();});
       upd();
       setTimeout(upd,600);
     }

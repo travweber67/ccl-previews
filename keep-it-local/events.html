@@ -4,6 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#00354e">
+<link rel="apple-touch-icon" href="img/icons/apple-touch-icon.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Keep it Local">
 <title>Events Archive - Keep it Local</title>
 <script>(function(){var t='light';try{var s=window.localStorage.getItem('kil-theme');if(s==='dark'||s==='light'){t=s;}else if(window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches){t='dark';}}catch(e){}document.documentElement.setAttribute('data-theme',t);})();</script>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
@@ -42,6 +49,8 @@
   <a href="events.html">Events</a>
   <a href="https://docs.google.com/forms/d/e/1FAIpQLSfU93t_QGHyFiDihI21XO8fY7tObjT_ytt5qG82A3WyPfxDtg/viewform" target="_blank" rel="noopener">Add a Listing</a>
   <a href="index.html#about">About Us</a>
+  <button class="drawer-install" id="installBtn" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M4 21h16"/></svg>Install the App</button>
+  <p class="drawer-install-hint" id="installHint" hidden></p>
 </nav>
 <div class="wrap">
   <h2 class="sec">Columbia County's Local Events</h2>
@@ -89,5 +98,6 @@
 <script src="events.js"></script>
 <script src="theme.js"></script>
 <script src="nav.js"></script>
+<script src="install.js"></script>
 </body>
 </html>

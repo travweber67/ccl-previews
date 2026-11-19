@@ -1501,3 +1501,15 @@ table.loc.loc-open tbody tr.loc-x{display:table-row}
   table.bundles th,table.bundles td{padding:7px 6px;overflow-wrap:anywhere}
   .dirpill{padding:6px 12px;font-size:12px}
 }
+
+/* ---- Pass 41: Item 11 — install-as-app (PWA). The ONLY visual delta is
+   one drawer line: an "Install the App" button that matches the drawer
+   links, plus a quiet hint paragraph install.js fills in when the
+   browser offers no install prompt of its own (iOS steps, or the
+   browser-menu route). No banners, no popups, nothing auto-prompts.
+   The service worker (sw.js) and manifest carry no styling. ---- */
+.drawer-install{display:flex;align-items:center;gap:10px;width:100%;padding:11px 20px;background:none;border:0;border-bottom:1px solid var(--line);color:var(--ink);font:inherit;font-size:16.5px;text-align:left;cursor:pointer}
+.drawer-install svg{width:19px;height:19px;flex:none;color:var(--green)}
+.drawer-install:hover{background:#e2f0f3}
+.drawer-install-hint{margin:0;padding:10px 20px 12px;font-size:14px;line-height:1.5;color:var(--muted);border-bottom:1px solid var(--line)}
+[data-theme="dark"] .drawer-install:hover{background:rgba(255,255,255,.07)}

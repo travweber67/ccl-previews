@@ -11,7 +11,7 @@
 <div class="demo-bar">Demo rebuild preview by <b>Nomad Development Group</b> &middot; Same content, refreshed build &middot; Not the live site</div>
 <div class="hero-wrap">
 <header class="site over">
-  <button class="logo-btn" id="menuBtn" aria-label="Open the menu" aria-haspopup="true" aria-expanded="false"><img src="img/logo.webp" alt="Keep it Local Columbia County"><span class="logo-word">Keep it Local<small>Columbia County</small></span><span class="burger" aria-hidden="true"><i></i><i></i><i></i></span></button>
+  <button class="logo-btn" id="menuBtn" aria-label="Open the menu" aria-haspopup="true" aria-expanded="false"><span class="logo-badge"><img src="img/logo.webp" alt="Keep it Local Columbia County"><small class="menu-cap">Menu</small></span><span class="logo-word">Keep it Local<small>Columbia County</small></span></button>
 </header>
 <section class="hero">
   <div class="hero-in">
@@ -27,7 +27,7 @@
     <button type="submit" class="hb-go">&#128269; Search</button>
   </form>
 </div>
-  <div class="hero-wave" aria-hidden="true"><svg viewBox="0 0 1440 120" preserveAspectRatio="none"><path d="M0,72 C260,114 520,30 820,44 C1100,57 1280,94 1440,52 L1440,120 L0,120 Z" fill="#faf6ef"/><path d="M0,64 C260,106 520,22 820,36 C1100,49 1280,86 1440,44 L1440,56 C1280,98 1100,61 820,48 C520,34 260,118 0,76 Z" fill="#f5a623"/><path d="M0,76 C260,118 520,34 820,48 C1100,61 1280,98 1440,56 L1440,72 C1280,112 1100,76 820,63 C520,49 260,130 0,90 Z" fill="#14503a"/></svg></div>
+  <div class="hero-wave" aria-hidden="true"><svg viewBox="0 0 1440 120" preserveAspectRatio="none"><path d="M0,86 C300,106 620,102 900,78 C1150,60 1330,58 1440,64 L1440,120 L0,120 Z" fill="#faf6ef"/><path d="M0,68 C320,94 640,90 920,62 C1160,42 1330,38 1440,42 L1440,64 C1330,58 1150,60 900,78 C620,102 300,106 0,86 Z" fill="#14503a"/><path d="M0,56 C320,82 640,78 920,50 C1160,30 1330,26 1440,30 L1440,42 C1330,38 1160,42 920,62 C640,90 320,94 0,68 Z" fill="#f5a623"/></svg></div>
 </section>
 </div>
 <div class="scrim" id="scrim"></div>
@@ -44,16 +44,12 @@
   <a href="directory.html?cat=Services">Services</a>
   <a href="directory.html?cat=Community">Community</a>
   <a href="events.html">Events</a>
+  <a href="https://docs.google.com/forms/d/e/1FAIpQLSfU93t_QGHyFiDihI21XO8fY7tObjT_ytt5qG82A3WyPfxDtg/viewform" target="_blank" rel="noopener">Add a Listing</a>
   <a href="index.html#about">About Us</a>
 </nav>
 
 <div class="wrap">
-  <h2 class="sec">Looking for Something Specific?</h2>
-  <p class="sub">Click by category below</p>
-  <div class="tiles" id="tiles"></div>
-
-  <h2 class="sec">Featured Businesses</h2>
-  <p class="sub">Showing Places 1-15 of 602 on the live directory &middot; this demo carries a 57-listing sample</p>
+  <div class="addstrip"><p><b>Run a local business or nonprofit?</b> Adding a listing is easy, quick, and free. Basic listings are free, with paid upgrades when you want more reach.</p><a class="addstrip-btn" href="https://docs.google.com/forms/d/e/1FAIpQLSfU93t_QGHyFiDihI21XO8fY7tObjT_ytt5qG82A3WyPfxDtg/viewform" target="_blank" rel="noopener">Add Your Listing</a></div>
   <div class="grid" id="featured"></div>
 
   <h2 class="sec">Upcoming Events</h2>
@@ -102,11 +98,6 @@
 const hbCat=document.getElementById('hbCat'),hbTown=document.getElementById('hbTown');
 CATEGORIES.filter(c=>c!=='Events').forEach(c=>hbCat.innerHTML+='<option>'+c+'</option>');
 TOWNS.forEach(t=>hbTown.innerHTML+='<option>'+t+'</option>');
-document.getElementById('tiles').innerHTML = CATEGORIES.map(c=>{
-  const n = c==='Events' ? EVENTS.length : LISTINGS.filter(l=>l.cat===c).length;
-  const href = c==='Events' ? 'events.html' : 'directory.html?cat='+encodeURIComponent(c);
-  return '<a class="tile" href="'+href+'">'+c+'<small>'+(c==='Events'?'upcoming':'sample listings')+': '+n+'</small></a>';
-}).join('');
 renderInto('featured', LISTINGS.filter(l=>l.featured).slice(0,9));
 renderInto('whatsnew', LISTINGS.filter(l=>l.isnew).slice(0,6));
 document.getElementById('events').innerHTML = EVENTS.map(e=>

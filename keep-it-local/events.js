@@ -81,9 +81,14 @@ function kilCard(ev){
      sourcing order — the event's OWN real image first (img/events/…),
      its venue's real photo second, else a folk illustration made for
      THIS event alone (img/ev/…): unique per event, matched to the
-     event's type, composed so its subject fits the panel. ev.pos
-     optionally tunes the crop point for portrait flyers. */
-  if(ev.img)h+='<div class="ev-pic" style="background-image:url(\''+kilEsc(ev.img)+'\')'+(ev.pos?';background-position:'+kilEsc(ev.pos):"")+'" aria-hidden="true"></div>';
+     event's type, composed so its subject fits the panel.
+     Pass 32: ev.fit marks a real poster/poster — it renders WHOLE
+     (object-fit:contain over a blurred, dimmed extension of itself),
+     never cover-cropped; photos and illustrations keep cover. */
+  if(ev.img){
+    if(ev.fit)h+='<div class="ev-pic ev-pic-fit" aria-hidden="true"><img class="ev-fit-bg" src="'+kilEsc(ev.img)+'" alt=""><img class="ev-fit-fg" src="'+kilEsc(ev.img)+'" alt=""></div>';
+    else h+='<div class="ev-pic" style="background-image:url(\''+kilEsc(ev.img)+'\')'+(ev.pos?';background-position:'+kilEsc(ev.pos):"")+'" aria-hidden="true"></div>';
+  }
   h+='</article>';
   return h;
 }

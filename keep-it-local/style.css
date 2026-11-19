@@ -999,7 +999,7 @@ footer.site .s-strip:focus-visible{outline-color:#71bfa0}
    made for that event alone — unique per event, type-accurate,
    composed with its subject inside the frame (the shared type
    panels and their repeats/clips are gone). Card mechanics are
-   unchanged; portrait flyers carry a per-event crop point
+   unchanged; portrait posters carry a per-event crop point
    (ev.pos). (B) The illustrated county map is replaced by a real
    Leaflet map — Leaflet 1.9.4 + OpenStreetMap base tiles, the
    setup Columbia County Live uses — fitted to the county bounds,
@@ -1032,8 +1032,6 @@ footer.site .s-strip:focus-visible{outline-color:#71bfa0}
 .ev-next{grid-column:2;grid-row:1/span 2}
 .ev-season{grid-column:1;grid-row:2;align-self:stretch;position:relative;margin:0;border-radius:14px;overflow:hidden;border:1px solid var(--line);box-shadow:0 2px 10px rgba(0,53,78,.07);min-height:280px;background:var(--card)}
 .ev-season img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 42%;display:block}
-.ev-season figcaption{position:absolute;left:12px;bottom:12px;max-width:calc(100% - 24px);font-family:Arial,sans-serif;font-size:12.5px;font-weight:700;color:#00354e;background:rgba(246,248,244,.88);border-radius:999px;padding:5px 12px;box-shadow:0 1px 4px rgba(0,53,78,.25)}
-[data-theme="dark"] .ev-season figcaption{background:rgba(3,21,32,.82);color:#e8f1f2}
 @media(max-width:900px){
  .ev-home{grid-template-rows:none}
  .ev-next{grid-column:auto;grid-row:auto;order:2}
@@ -1049,3 +1047,73 @@ footer.site .s-strip:focus-visible{outline-color:#71bfa0}
    width and in both themes. The numbers keep their seasonal gold
    (Pass 18), which lives only inside the Holidays feature. ---- */
 .holiday .nums div{text-align:center}
+
+/* ---- Pass 32 (Travis, Nov 19, ~12:40–12:42 AM — three fixes).
+   (1) EVENT POSTERS FIT WHOLE, NEVER CROPPED: the Pass 30 cover
+   panels sliced real posters — Board Game Night lost the top of
+   its headline and half of "NIGHT", Produce Distribution was
+   cut top and bottom. Poster/poster images (ev.fit in
+   events-data.js: Board Game Night, Story Time, Produce
+   Distribution, Holiday Boutique, Open Mic poster, Breakfast
+   with Santa) now render with object-fit:contain over a
+   blurred, dimmed extension of the same image on a deep-navy
+   bed, so every word and edge shows; photos (Shrine Breakfast
+   waffles) and the generated illustrations keep cover. The
+   Amani poster's blank white side pillars were trimmed from the
+   source file (content x 388–1052 kept with margin; original
+   backed up in work/) so the poster itself fills more of the
+   panel. The phone top banner obeys the same rule — posters get
+   a taller letterboxed banner instead of a slice.
+   (2) FOOTER SPONSOR LOGOS BIG ON EVERY PAGE: Pass 23's 36px
+   footer marks were too small to read. The strip (all five
+   pages share this CSS) now runs the logos at 68px tall on
+   their light plates with roomier chips and gaps; on phones
+   the logos keep their size and wrap to fewer per row (width
+   capped only so a very wide mark cannot overflow the screen).
+   The light plates stay in dark mode too, so brand colors
+   stay true.
+   (3) The Beaver Falls seasonal panel's on-photo caption label
+   is removed (index.html figcaption + its rules above) — the
+   photo stands on its own; the CC BY-SA credit line stays in
+   the page footer where the license wants it. ---- */
+/* (1) poster fit treatment */
+.ev-pic-fit{position:relative;overflow:hidden;background:#0a2c3f}
+.ev-pic-fit img{position:absolute;inset:0;width:100%;height:100%;display:block}
+.ev-pic-fit .ev-fit-bg{object-fit:cover;filter:blur(16px) brightness(.62) saturate(1.15);transform:scale(1.25)}
+.ev-pic-fit .ev-fit-fg{object-fit:contain}
+@media(max-width:760px){
+ .ev-pic.ev-pic-fit{flex-basis:168px}
+}
+/* (2) footer sponsor strip, enlarged */
+footer.site .sponsor-strip{gap:14px;max-width:1240px}
+footer.site .s-strip{padding:10px 12px;border-radius:12px}
+footer.site .s-strip img{height:68px;max-width:320px;border-radius:8px;padding:8px 14px}
+@media(max-width:480px){
+ footer.site .s-strip img{max-width:76vw}
+}
+
+/* ---- Pass 33 (Travis, Nov 19, ~12:47 AM — top-row glow sliced
+   under the wave, AGAIN). ROOT CAUSE, measured this time: it was
+   never an overflow clip — a DOM probe of the first card's ancestor
+   chain shows overflow:visible on .grid and .wrap, and the card's
+   own overflow:hidden cannot clip its own box-shadow. It is PAINT
+   ORDER. .hero-wrap is position:relative (z-index auto), so in the
+   root stacking context it paints ABOVE the non-positioned .wrap
+   subtree — including the first row's halo, wherever the halo
+   extends past .wrap's top edge into the hero's box. Pass 19's
+   padding-top:34px only moved the boundary: the rest halo
+   (0 0 16px 2px, ~18-30px of reach with blur falloff) just fits,
+   but the hover halo (0 0 28px 8px + 0 0 54px 16px, ~70px reach,
+   plus the -6px lift and 1.025 scale) crosses the edge by ~45px
+   and is overpainted by the wave, so its top follows the wave's
+   curve — the "slice" in Travis's screenshot. FIX: lift the card
+   grids themselves into the positioned layer. .grid gets
+   position:relative + z-index:1, so cards and their halos paint
+   above the hero/wave, while the search bar's dropdowns
+   (.herobar-wrap, z-index 6, inside the hero) and every overlay
+   (scrim 55, drawer 60, panels 70) still paint above the cards.
+   No padding added, no gap band, the wave is untouched — the glow
+   now simply renders whole, at rest and on hover, on the home
+   Featured + What's New grids and the directory results grid,
+   which share this rule. ---- */
+.grid{position:relative;z-index:1}

@@ -962,15 +962,9 @@ footer.site .s-strip:focus-visible{outline-color:#71bfa0}
 .ev-more:hover{background:#1196ab;color:#fff}
 .ev-more:focus-visible{outline:3px solid #71bfa0;outline-offset:2px}
 .ev-more-n{font-weight:700;opacity:.85}
-/* (1) illustrated map panel */
+/* (1) map panel frame (the illustrated map it held is replaced
+   by a real Leaflet map in Pass 30, below) */
 .ev-map{max-width:560px;margin-left:auto;margin-right:auto;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px;box-shadow:0 2px 10px rgba(0,53,78,.07)}
-.kil-mapwrap{position:relative;border-radius:9px;overflow:hidden;line-height:0}
-.kil-mapimg{display:block;width:100%;height:auto}
-.kil-town{position:absolute;transform:translate(-50%,-50%);font-family:Fraunces,Georgia,serif;font-style:italic;font-weight:600;font-size:clamp(11px,2.6vw,16px);letter-spacing:.3px;color:#00354e;text-shadow:0 0 5px rgba(246,241,224,.95),0 0 10px rgba(246,241,224,.85),0 1px 2px rgba(246,241,224,.9);white-space:nowrap;pointer-events:none;line-height:1}
-.kil-pin{position:absolute;transform:translate(-50%,-50%);width:25px;height:25px;padding:0;border:2.5px solid #fff;border-radius:50%;background:#1196ab;box-shadow:0 1px 5px rgba(0,53,78,.45);cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1}
-.kil-pin-dot{width:8px;height:8px;border-radius:50%;background:#fff}
-.kil-pin:hover,.kil-pin:focus-visible{background:#0d7e91;outline:none;box-shadow:0 0 0 3px #71bfa0,0 1px 5px rgba(0,53,78,.45)}
-.kil-pin-n{position:absolute;top:-11px;left:50%;transform:translateX(-50%);font-family:Arial,sans-serif;font-size:11px;font-weight:800;color:#00354e;background:#c3e7ed;border-radius:999px;padding:0 5px;line-height:1.5;box-shadow:0 1px 3px rgba(0,53,78,.35)}
 /* (4) home day pills — desktop hidden, mobile replaces mini-month */
 .ev-pills{display:none}
 .ev-next-top{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
@@ -997,6 +991,52 @@ footer.site .s-strip:focus-visible{outline-color:#71bfa0}
  .ev-card{flex-direction:column;padding:0}
  .ev-body{padding:14px}
  .ev-pic{order:-1;flex:0 0 108px;width:100%}
- .kil-pin{width:22px;height:22px}
- .kil-pin-dot{width:7px;height:7px}
+}
+
+/* ---- Pass 30: Item 8 corrections (Travis, Nov 19, ~12:15–12:19 AM).
+   (A) Event-card images re-sourced: the event's own real image
+   first, its venue's real photo second, else a folk illustration
+   made for that event alone — unique per event, type-accurate,
+   composed with its subject inside the frame (the shared type
+   panels and their repeats/clips are gone). Card mechanics are
+   unchanged; portrait flyers carry a per-event crop point
+   (ev.pos). (B) The illustrated county map is replaced by a real
+   Leaflet map — Leaflet 1.9.4 + OpenStreetMap base tiles, the
+   setup Columbia County Live uses — fitted to the county bounds,
+   pins at the geocoded venues. (C) The home events block's left
+   column gains a seasonal photo panel under the mini-month,
+   filling the void beside the taller list; on mobile it becomes
+   a full-width card after the list. ---- */
+/* (B) real map */
+.kil-lmap{height:470px;border-radius:9px;overflow:hidden;background:#dce9ec;font-family:Arial,sans-serif;z-index:0}
+.kil-lpin-wrap{background:none;border:0}
+.kil-lpin{position:relative;display:flex;align-items:center;justify-content:center;width:26px;height:26px;border:2.5px solid #fff;border-radius:50%;background:#1196ab;box-shadow:0 1px 5px rgba(0,53,78,.45);cursor:pointer}
+.kil-lpin-dot{width:8px;height:8px;border-radius:50%;background:#fff}
+.kil-lpin-n{position:absolute;top:-12px;left:50%;transform:translateX(-50%);font-family:Arial,sans-serif;font-size:11px;font-weight:800;color:#00354e;background:#c3e7ed;border-radius:999px;padding:0 5px;line-height:1.5;box-shadow:0 1px 3px rgba(0,53,78,.35)}
+.kil-pop{font-family:Arial,sans-serif;font-size:13.5px;font-weight:700;color:#00354e;line-height:1.45}
+.leaflet-popup-content-wrapper{border-radius:10px}
+.leaflet-popup-content{margin:10px 14px}
+.leaflet-bar a{color:#00354e}
+.leaflet-control-attribution{background:rgba(255,255,255,.75)!important;color:#5a6d75!important;font-size:10px!important}
+.leaflet-control-attribution a{color:#1196ab!important}
+[data-theme="dark"] .kil-lmap{background:#0a2c3f}
+[data-theme="dark"] .leaflet-popup-content-wrapper{background:#0a2c3f;color:#e8f1f2}
+[data-theme="dark"] .leaflet-popup-tip{background:#0a2c3f}
+[data-theme="dark"] .kil-pop{color:#e8f1f2}
+[data-theme="dark"] .leaflet-bar a{background:#0a2c3f;color:#e8f1f2;border-color:#14424f}
+[data-theme="dark"] .leaflet-control-attribution{background:rgba(3,21,32,.75)!important;color:#9fb6bd!important}
+@media(max-width:760px){.kil-lmap{height:400px}}
+/* (C) seasonal photo panel, home events block */
+.ev-home{grid-template-rows:auto 1fr}
+.ev-mini{grid-column:1;grid-row:1}
+.ev-next{grid-column:2;grid-row:1/span 2}
+.ev-season{grid-column:1;grid-row:2;align-self:stretch;position:relative;margin:0;border-radius:14px;overflow:hidden;border:1px solid var(--line);box-shadow:0 2px 10px rgba(0,53,78,.07);min-height:280px;background:var(--card)}
+.ev-season img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 42%;display:block}
+.ev-season figcaption{position:absolute;left:12px;bottom:12px;max-width:calc(100% - 24px);font-family:Arial,sans-serif;font-size:12.5px;font-weight:700;color:#00354e;background:rgba(246,248,244,.88);border-radius:999px;padding:5px 12px;box-shadow:0 1px 4px rgba(0,53,78,.25)}
+[data-theme="dark"] .ev-season figcaption{background:rgba(3,21,32,.82);color:#e8f1f2}
+@media(max-width:900px){
+ .ev-home{grid-template-rows:none}
+ .ev-next{grid-column:auto;grid-row:auto;order:2}
+ .ev-season{grid-column:auto;grid-row:auto;order:3;min-height:0;aspect-ratio:16/10}
+ .ev-pills{order:1}
 }

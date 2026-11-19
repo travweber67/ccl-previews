@@ -6,10 +6,12 @@
    the Add to Calendar controls. ONE calendar action everywhere
    (Travis, Nov 18, ~11:53 PM): the .ics download, which opens the
    visitor's own calendar app — no separate Google Calendar link.
-   Data: events-data.js (KIL_EVENTS). Map: img/county-map.jpg (a
-   folk-art illustration) with an HTML pin/label overlay calibrated
-   to the artwork. The pure builder (kilIcs) carries no DOM code so
-   it can be exercised headlessly. */
+   Data: events-data.js (KIL_EVENTS). Map (Pass 30): a real Leaflet
+   map on the events page, set up the way Columbia County Live does
+   it — Leaflet 1.9.4 + OpenStreetMap tiles, fitted to the Columbia
+   County bounds, pins at the geocoded venue coordinates. The pure
+   builder (kilIcs) carries no DOM code so it can be exercised
+   headlessly. */
 "use strict";
 const KIL_MONTHS = ["January","February","March","April","May","June","July","August","September","October","November","December"];
 const KIL_MON3 = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
@@ -75,11 +77,13 @@ function kilCard(ev){
   h+='<div class="ev-actions"><button type="button" class="ev-btn" data-ics="'+kilSlug(ev)+'">Add to Calendar</button>';
   if(ev.url)h+='<a class="ev-src" target="_blank" rel="noopener" href="'+kilEsc(ev.url)+'">Event details &rarr;</a>';
   h+='</div></div></div>';
-  /* picture panel (Fix 5): ev.img is either the event's REAL image
-     from the source data (img/events/…) or a folk-art panel keyed to
-     the event type (img/ev-art-*.jpg) — an illustration, never a
-     stand-in photo. */
-  if(ev.img)h+='<div class="ev-pic" style="background-image:url(\''+kilEsc(ev.img)+'\')" aria-hidden="true"></div>';
+  /* picture panel (Fix 5, revised Pass 30): ev.img follows the
+     sourcing order — the event's OWN real image first (img/events/…),
+     its venue's real photo second, else a folk illustration made for
+     THIS event alone (img/ev/…): unique per event, matched to the
+     event's type, composed so its subject fits the panel. ev.pos
+     optionally tunes the crop point for portrait flyers. */
+  if(ev.img)h+='<div class="ev-pic" style="background-image:url(\''+kilEsc(ev.img)+'\')'+(ev.pos?';background-position:'+kilEsc(ev.pos):"")+'" aria-hidden="true"></div>';
   h+='</article>';
   return h;
 }
@@ -253,76 +257,54 @@ function kilRenderList(){
   });
 }
 function kilResetFilter(){kilFilterDay=null;kilListOpen=false;kilMonthGrid();kilRenderList();}
-/* Illustrated county map (Fix 1): the old geojson outline SVG is
-   replaced by a folk-art illustration of the county (img/county-
-   map.jpg — woodcut-style, river along the east edge, bridge at
-   Rainier, courthouse at St. Helens, timber west). Town labels and
-   the clickable event blips live in an HTML overlay positioned in
-   % of the artwork, so they scale with it at every width.
-   Calibration: each town's label/anchor sits on the village the
-   artist drew there (positions measured on the shipped artwork).
-   A venue's pin starts from its town's anchor plus its true
-   offset from the town center — projected through an affine fit
-   of the artwork (least squares over the five drawn towns) and
-   damped — so pins cluster at the drawn towns the way a reader
-   expects, with each town's relative spread preserved. Pins that
-   would land on top of each other fan out on a small ring. */
-const KIL_MAP_TOWNS=[
-  {n:"Rainier",lng:-122.9364,lat:46.0950,ax:52.4,ay:11.3,lx:45.5,ly:8.0},
-  {n:"Clatskanie",lng:-123.2020,lat:46.1105,ax:34.3,ay:30.1,lx:34.3,ly:25.6},
-  {n:"Columbia City",lng:-122.8083,lat:45.8955,ax:64.5,ay:37.8,lx:55.5,ly:35.8},
-  {n:"St. Helens",lng:-122.7979,lat:45.8695,ax:63.4,ay:40.9,lx:52.5,ly:42.0},
-  {n:"Warren",lng:-122.8417,lat:45.8340,ax:60.4,ay:46.5,lx:51.5,ly:49.5},
-  {n:"Scappoose",lng:-122.8769,lat:45.7625,ax:76.8,ay:83.6,lx:64.5,ly:85.5},
-  {n:"Vernonia",lng:-123.1967,lat:45.8645,ax:20.1,ay:84.4,lx:20.1,ly:79.8}
-];
-function kilMapProj(lng,lat){return [38.056052*lng-59.847159*lat+7484.7652,-110.489386*lng-227.516923*lat-3089.2579];}
-function kilMapPin(lng,lat){
-  let town=null,bd=1e18;
-  KIL_MAP_TOWNS.forEach(function(t){const dx=(lng-t.lng)*0.694,dy=lat-t.lat,d=dx*dx+dy*dy;if(d<bd){bd=d;town=t;}});
-  const pv=kilMapProj(lng,lat),pt=kilMapProj(town.lng,town.lat);
-  let dx=(pv[0]-pt[0])*0.55,dy=(pv[1]-pt[1])*0.55;
-  dx=Math.max(-5.5,Math.min(5.5,dx));dy=Math.max(-5.5,Math.min(5.5,dy));
-  return [town.ax+dx,town.ay+dy];
-}
+/* Real county map (Pass 30; Travis, Nov 19, ~12:15 AM — supersedes
+   the folk-art illustration): built the way Columbia County Live
+   builds its maps — Leaflet 1.9.4 from unpkg + the OpenStreetMap
+   base tile layer, nothing else on it (no trails or overlays).
+   Opens fitted to the Columbia County bounds (the bbox of the
+   county boundary CCL publishes: W -123.366, S 45.7211,
+   E -122.7601, N 46.189), zoom + pan on (scroll-wheel zoom off,
+   CCL's pattern, so the page never gets scroll-trapped; the +/-
+   control, double-click and pinch all zoom). Pins sit at the
+   events' geocoded venue coordinates, grouped by venue with a
+   count badge where events share a spot; a pin click names its
+   event(s) in a popup AND scrolls to + flashes the first event's
+   card in the list below. */
+let kilLeafletMap=null;
 function kilBuildMap(){
   const box=document.getElementById("evMap");
   if(!box)return;
-  let h='<div class="kil-mapwrap"><img class="kil-mapimg" src="img/county-map.jpg" alt="Illustrated folk map of Columbia County, Oregon">';
-  KIL_MAP_TOWNS.forEach(function(t){h+='<span class="kil-town" style="left:'+t.lx+'%;top:'+t.ly+'%">'+t.n+"</span>";});
+  if(typeof L==="undefined"){
+    box.innerHTML='<p class="sub">The map could not load just now. Every event above lists its location.</p>';
+    return;
+  }
+  box.innerHTML='<div id="kilMap" class="kil-lmap" role="application" aria-label="Map of event locations across Columbia County"></div>';
+  const map=L.map("kilMap",{scrollWheelZoom:false});
+  kilLeafletMap=map;
+  L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png",{
+    maxZoom:18,
+    attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+  }).addTo(map);
+  map.fitBounds([[45.7211,-123.366],[46.189,-122.7601]],{padding:[4,4]});
   const groups={};
   kilUpcoming().forEach(function(ev){if(ev.lat===null||ev.lat===undefined)return;const k=ev.lat+","+ev.lng;(groups[k]=groups[k]||[]).push(ev);});
-  const pins=Object.keys(groups).map(function(k){
-    const evs=groups[k],c=kilMapPin(evs[0].lng,evs[0].lat);
-    return {evs:evs,x:c[0],y:c[1]};
+  Object.keys(groups).forEach(function(k){
+    const evs=groups[k],first=evs[0];
+    const icon=L.divIcon({
+      className:"kil-lpin-wrap",
+      html:'<span class="kil-lpin"><span class="kil-lpin-dot"></span>'+(evs.length>1?'<span class="kil-lpin-n">'+evs.length+"</span>":"")+"</span>",
+      iconSize:[26,26],iconAnchor:[13,13]
+    });
+    const mk=L.marker([first.lat,first.lng],{icon:icon,title:evs.map(function(ev){return ev.t;}).join(" · ")}).addTo(map);
+    mk.bindPopup('<div class="kil-pop">'+evs.map(function(ev){return kilEsc(ev.t);}).join("<br>")+"</div>");
+    mk.on("click",function(){
+      const card=document.getElementById("ev-"+kilSlug(first));
+      if(card){card.scrollIntoView({behavior:"smooth",block:"center"});card.classList.remove("flash");void card.offsetWidth;card.classList.add("flash");}
+    });
   });
-  /* fan out pins that land within ~2.8% of each other */
-  const seen=[];
-  pins.forEach(function(p){
-    let grp=null;
-    for(let i=0;i<seen.length;i++){const q=seen[i],dx=p.x-q.x,dy=p.y-q.y;if(dx*dx+dy*dy<7.84){grp=q.grp;break;}}
-    if(!grp){grp=[];seen.push({x:p.x,y:p.y,grp:grp});}
-    grp.push(p);p.grp=grp;
-  });
-  const done=[];
-  pins.forEach(function(p){if(done.indexOf(p.grp)>=0)return;done.push(p.grp);
-    if(p.grp.length>1){
-      let cx=0,cy=0;p.grp.forEach(function(q){cx+=q.x;cy+=q.y;});cx/=p.grp.length;cy/=p.grp.length;
-      p.grp.forEach(function(q,i){const a=-Math.PI/2+i*(2*Math.PI/p.grp.length);q.x=cx+3.4*Math.cos(a);q.y=cy+3.4*Math.sin(a);});
-    }
-  });
-  pins.forEach(function(p){
-    const titles=p.evs.map(function(ev){return ev.t;}).join(" · ");
-    h+='<button type="button" class="kil-pin" data-target="ev-'+kilSlug(p.evs[0])+'" style="left:'+p.x.toFixed(1)+'%;top:'+p.y.toFixed(1)+'%" title="'+kilEsc(titles)+'" aria-label="'+kilEsc(titles)+'"><span class="kil-pin-dot"></span>'+(p.evs.length>1?'<span class="kil-pin-n">'+p.evs.length+"</span>":"")+"</button>";
-  });
-  h+="</div>";
-  box.innerHTML=h;
-  box.addEventListener("click",function(e){
-    const g=e.target.closest?e.target.closest(".kil-pin"):null;
-    if(!g)return;
-    const card=document.getElementById(g.getAttribute("data-target"));
-    if(card){card.scrollIntoView({behavior:"smooth",block:"center"});card.classList.remove("flash");void card.offsetWidth;card.classList.add("flash");}
-  });
+  /* the panel is laid out before Leaflet measures it in some
+     browsers; a beat later, re-measure so tiles fill the frame */
+  setTimeout(function(){try{map.invalidateSize();}catch(e){}},150);
 }
 function kilRenderEventsPage(){
   const now=new Date();

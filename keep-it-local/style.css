@@ -1297,3 +1297,38 @@ p.sub.sec-intro{font-size:clamp(19px,1.55vw,22px);line-height:1.45}
 .big-cta{display:inline-block;background:var(--green);color:#fff;font-weight:800;font-size:20px;padding:16px 34px;border-radius:999px;box-shadow:0 10px 24px -10px rgba(0,53,78,.45)}
 .big-cta:hover{background:var(--green-d);color:#fff}
 @media(max-width:900px){.big-cta{display:block;text-align:center;font-size:19px;padding:16px 20px}}
+
+/* ---- Pass 37: the home News block becomes a horizontal scroll
+   row (Travis, Nov 19, ~2:14 AM — the News round approved with one
+   change: an arrow on the right side of the block that scrolls the
+   cards sideways; ~2:15 AM correction: the "See all news →" link
+   STAYS under the row, since a full News page exists and the link
+   is its door — arrow scroll and link coexist). The row holds the
+   latest 6 posts (was 3 in a static grid): about 3 cards show on
+   desktop with the next card peeking at the edge; phones swipe
+   natively and keep the arrows too. Round teal arrows ride the
+   row's edges, vertically centered on the cards — the left arrow
+   appears only once the row has scrolled, the right arrow hides
+   when the end is reached. The row is keyboard-focusable and
+   scrolls with the arrow keys. The row's padding gives the cards'
+   glow room so the scroll box never slices the halos. ---- */
+.news-scrollwrap{position:relative}
+.news-row{display:flex;gap:22px;overflow-x:auto;overflow-y:hidden;padding:20px 6px 22px;scroll-snap-type:x proximity;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.news-row::-webkit-scrollbar{display:none}
+.news-row .news-mini{flex:0 0 calc((100% - 44px)/3 - 14px);scroll-snap-align:start}
+.news-row:focus-visible{outline:2px solid #1196ab;outline-offset:2px;border-radius:14px}
+.news-arrow{position:absolute;top:50%;transform:translateY(-50%);z-index:3;width:46px;height:46px;border-radius:50%;border:0;background:#1196ab;color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 10px 22px -8px rgba(0,53,78,.55);transition:background .2s ease}
+.news-arrow:hover{background:#00354e}
+.news-arrow:focus-visible{outline:2px solid #00354e;outline-offset:2px}
+.news-arrow[hidden]{display:none}
+.news-arrow-prev{left:-8px}
+.news-arrow-next{right:-8px}
+[data-theme="dark"] .news-arrow:hover{background:#4db8c7}
+[data-theme="dark"] .news-arrow:focus-visible{outline-color:#4db8c7}
+@media(max-width:900px){
+  .news-row{gap:16px;padding:16px 4px 18px}
+  .news-row .news-mini{flex-basis:calc(100% - 52px)}
+  .news-arrow{width:42px;height:42px}
+  .news-arrow-prev{left:-4px}
+  .news-arrow-next{right:-4px}
+}

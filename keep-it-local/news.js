@@ -1,7 +1,9 @@
 /* Keep It Local demo — news engine (News round, Nov 19, 2026).
    Renders her real news posts (news-data.js, carried verbatim from
    keepitlocalcc.com/news/): the News page list of expandable post
-   cards, and the home page's compact latest-3 block. A post card
+   cards, and the home page's latest-6 horizontal scroll row with
+   arrow controls (the "See all news" link under the row stays as
+   the door to the full page). A post card
    shows its featured image, title and real published date, and her
    excerpt; "Read the full post" expands the complete body in place
    (no dead-end links). Home cards link to news.html#<slug>, and the
@@ -52,6 +54,27 @@ function kilNewsHomeCard(p){
   }
   var home=document.getElementById("newsHome");
   if(home){
-    home.innerHTML=NEWS_POSTS.slice(0,3).map(kilNewsHomeCard).join("");
+    home.innerHTML=NEWS_POSTS.slice(0,6).map(kilNewsHomeCard).join("");
+    var prev=document.getElementById("newsPrev"), next=document.getElementById("newsNext");
+    if(prev&&next){
+      var smooth=!window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      function step(){
+        var card=home.querySelector(".news-mini");
+        if(!card)return 320;
+        var gap=parseFloat(getComputedStyle(home).columnGap)||22;
+        return card.getBoundingClientRect().width+gap;
+      }
+      function upd(){
+        var max=home.scrollWidth-home.clientWidth, x=home.scrollLeft;
+        prev.hidden=x<=12;
+        next.hidden=max<=2||x>=max-12;
+      }
+      next.addEventListener("click",function(){home.scrollBy({left:step(),behavior:smooth?"smooth":"auto"});});
+      prev.addEventListener("click",function(){home.scrollBy({left:-step(),behavior:smooth?"smooth":"auto"});});
+      home.addEventListener("scroll",upd,{passive:true});
+      window.addEventListener("resize",upd);
+      upd();
+      setTimeout(upd,600);
+    }
   }
 })();

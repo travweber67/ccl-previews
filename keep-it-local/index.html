@@ -125,7 +125,11 @@
   </div>
 
   <h2 class="sec">News</h2>
-  <div class="grid news-home-grid" id="newsHome"></div>
+  <div class="news-scrollwrap">
+    <div class="news-row" id="newsHome" tabindex="0" role="region" aria-label="Latest news stories"></div>
+    <button type="button" class="news-arrow news-arrow-prev" id="newsPrev" aria-label="Previous news" hidden><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M15 5l-7 7 7 7" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+    <button type="button" class="news-arrow news-arrow-next" id="newsNext" aria-label="More news"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+  </div>
   <p class="sub"><a href="news.html">See all news &rarr;</a></p>
 
   <h2 class="sec">Shop. Taste. Play. Choose Local First</h2>

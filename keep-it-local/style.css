@@ -133,3 +133,6 @@ body.drawer-open{overflow:hidden}
   .herobar-wrap{margin-top:26px}
   .hb-field.seg{margin:3px 0}
 }
+
+/* Pass 2c: welcome text left-aligns under the headline (reference) */
+.hero p.hero-sub{margin:0}

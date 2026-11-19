@@ -9,25 +9,43 @@
 </head>
 <body>
 <div class="demo-bar">Demo rebuild preview by <b>Nomad Development Group</b> &middot; Same content, refreshed build &middot; Not the live site</div>
-<header class="site">
-  <a class="logo" href="index.html"><img src="img/logo.webp" alt="Keep it Local Columbia County"></a>
-  <nav>
-    <a href="directory.html">Directory</a>
-    <a href="events.html">Events</a>
-    <a href="bundles.html">Explore the Bundles</a>
-    <a href="index.html#about">About Us</a>
-  </nav>
+<div class="hero-wrap">
+<header class="site over">
+  <button class="logo-btn" id="menuBtn" aria-label="Open the menu" aria-haspopup="true" aria-expanded="false"><img src="img/logo.webp" alt="Keep it Local Columbia County"><span class="logo-word">Keep it Local<small>Columbia County</small></span><span class="burger" aria-hidden="true"><i></i><i></i><i></i></span></button>
 </header>
-
 <section class="hero">
-  <h1>Find What You Need</h1>
-  <h2>In Columbia County Oregon</h2>
-  <p>Welcome to Columbia County's largest online directory of local businesses, organizations, and events.</p>
-  <form class="searchbar" action="directory.html" method="get">
-    <input type="search" name="q" placeholder="Search by keyword or location..." aria-label="Search the directory">
-    <button type="submit">Find A Business</button>
-  </form>
+  <div class="hero-in">
+    <h1>Find What&rsquo;s in <span class="gold">Columbia County</span></h1>
+    <div class="goldbar"></div>
+    <p class="hero-sub">Welcome to Columbia County&rsquo;s most robust directory of local businesses, nonprofits, and organizations! Find what you need all in one place here.</p>
+  </div>
+  <div class="hero-wave" aria-hidden="true"><svg viewBox="0 0 1440 100" preserveAspectRatio="none"><path d="M0,58 C240,96 480,22 760,36 C1040,50 1240,86 1440,44 L1440,100 L0,100 Z" fill="#faf6ef"/><path d="M0,58 C240,96 480,22 760,36 C1040,50 1240,86 1440,44" fill="none" stroke="#f5a623" stroke-width="5"/><path d="M0,70 C240,104 460,36 700,46" fill="none" stroke="#1e6b4f" stroke-width="9" opacity="0.85"/></svg></div>
 </section>
+</div>
+<div class="scrim" id="scrim"></div>
+<nav class="drawer" id="drawer" aria-hidden="true" aria-label="Site menu">
+  <div class="drawer-head"><img src="img/logo.webp" alt=""><span class="dt">Keep it Local<small>Columbia County</small></span><button class="drawer-x" id="drawerClose" aria-label="Close the menu">&times;</button></div>
+  <a href="index.html">Home</a>
+  <a href="directory.html">Directory</a>
+  <a href="events.html">Events</a>
+  <a href="bundles.html">Explore the Bundles</a>
+  <a href="index.html#about">About Us</a>
+  <div class="drawer-cat">Browse by Category</div>
+  <a href="directory.html?cat=Shop">Shop</a>
+  <a href="directory.html?cat=Taste">Taste</a>
+  <a href="directory.html?cat=Play">Play</a>
+  <a href="directory.html?cat=Services">Services</a>
+  <a href="directory.html?cat=Community">Community</a>
+  <a href="events.html">Events</a>
+</nav>
+<div class="herobar-wrap">
+  <form class="herobar" action="directory.html" method="get" role="search">
+    <label class="hb-field"><span class="hb-ic">&#128269;</span><input type="search" name="q" placeholder="Search by keyword or location..." aria-label="Search by keyword or location"></label>
+    <label class="hb-field"><span class="hb-ic">&#9638;</span><select name="cat" id="hbCat" aria-label="Filter by category"><option value="">All Categories</option></select></label>
+    <label class="hb-field"><span class="hb-ic">&#128205;</span><select name="town" id="hbTown" aria-label="Filter by town"><option value="">All Towns</option></select></label>
+    <button type="submit" class="hb-go">&#128269; Search</button>
+  </form>
+</div>
 
 <div class="wrap">
   <h2 class="sec">Looking for Something Specific?</h2>
@@ -81,6 +99,9 @@
 <script src="data.js"></script>
 <script src="app.js"></script>
 <script>
+const hbCat=document.getElementById('hbCat'),hbTown=document.getElementById('hbTown');
+CATEGORIES.filter(c=>c!=='Events').forEach(c=>hbCat.innerHTML+='<option>'+c+'</option>');
+TOWNS.forEach(t=>hbTown.innerHTML+='<option>'+t+'</option>');
 document.getElementById('tiles').innerHTML = CATEGORIES.map(c=>{
   const n = c==='Events' ? EVENTS.length : LISTINGS.filter(l=>l.cat===c).length;
   const href = c==='Events' ? 'events.html' : 'directory.html?cat='+encodeURIComponent(c);
@@ -91,5 +112,6 @@ renderInto('whatsnew', LISTINGS.filter(l=>l.isnew).slice(0,6));
 document.getElementById('events').innerHTML = EVENTS.map(e=>
  '<div class="event"><div class="when">'+e.date+'<br>'+e.price+'</div><div><h3>'+e.title+'</h3><p>'+e.desc+'</p><p class="sub" style="margin:6px 0 0">'+e.place+'</p></div></div>').join('');
 </script>
+<script src="nav.js"></script>
 </body>
 </html>

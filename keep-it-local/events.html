@@ -10,14 +10,24 @@
 <body>
 <div class="demo-bar">Demo rebuild preview by <b>Nomad Development Group</b> &middot; Not the live site</div>
 <header class="site">
-  <a class="logo" href="index.html"><img src="img/logo.webp" alt="Keep it Local Columbia County"></a>
-  <nav>
-    <a href="directory.html">Directory</a>
-    <a href="events.html">Events</a>
-    <a href="bundles.html">Explore the Bundles</a>
-    <a href="index.html#about">About Us</a>
-  </nav>
+  <button class="logo-btn" id="menuBtn" aria-label="Open the menu" aria-haspopup="true" aria-expanded="false"><img src="img/logo.webp" alt="Keep it Local Columbia County"><span class="logo-word">Keep it Local<small>Columbia County</small></span><span class="burger" aria-hidden="true"><i></i><i></i><i></i></span></button>
 </header>
+<div class="scrim" id="scrim"></div>
+<nav class="drawer" id="drawer" aria-hidden="true" aria-label="Site menu">
+  <div class="drawer-head"><img src="img/logo.webp" alt=""><span class="dt">Keep it Local<small>Columbia County</small></span><button class="drawer-x" id="drawerClose" aria-label="Close the menu">&times;</button></div>
+  <a href="index.html">Home</a>
+  <a href="directory.html">Directory</a>
+  <a href="events.html">Events</a>
+  <a href="bundles.html">Explore the Bundles</a>
+  <a href="index.html#about">About Us</a>
+  <div class="drawer-cat">Browse by Category</div>
+  <a href="directory.html?cat=Shop">Shop</a>
+  <a href="directory.html?cat=Taste">Taste</a>
+  <a href="directory.html?cat=Play">Play</a>
+  <a href="directory.html?cat=Services">Services</a>
+  <a href="directory.html?cat=Community">Community</a>
+  <a href="events.html">Events</a>
+</nav>
 <div class="wrap">
   <h2 class="sec">Columbia County's Local Events</h2>
   <p class="sub">Search by keyword or location... &middot; Hosting a public event in Columbia County? Add it here.</p>
@@ -42,5 +52,6 @@
 document.getElementById('events').innerHTML = EVENTS.map(e=>
  '<div class="event"><div class="when">'+e.date+'<br>'+e.price+'</div><div><h3>'+e.title+'</h3><p>'+e.desc+'</p><p class="sub" style="margin:6px 0 0">'+e.place+(e.phone?' &middot; '+e.phone:'')+(e.web?' &middot; '+e.web:'')+'</p></div></div>').join('');
 </script>
+<script src="nav.js"></script>
 </body>
 </html>

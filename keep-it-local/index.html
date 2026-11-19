@@ -69,8 +69,29 @@
       <div><b>70+</b>Bigfoot Trail stops</div>
       <div><b>$5,000</b>Wonderland Card prize</div>
     </div>
+    <button type="button" class="bf-btn" data-bf-open>Play the Bigfoot Trail</button>
     </div>
   </section>
+
+  <div class="bf-scrim" id="bfScrim"></div>
+  <aside class="bf-panel" id="bfPanel" role="dialog" aria-modal="true" aria-hidden="true" aria-label="How the Bigfoot Trail works">
+    <button class="panel-x" id="bfClose" aria-label="Close Bigfoot Trail details">&times;</button>
+    <div class="bf-body">
+      <div class="bf-in">
+        <h2>The Bigfoot Trail</h2>
+        <p class="bf-lede">Bigfoot is exploring Columbia County&rsquo;s Wonderland, and he has left a trail of footprints behind in 70+ local businesses. Track them down with the free app and collect them as you shop.</p>
+        <ol class="bf-steps">
+          <li><b>Get the app.</b> Download the free &ldquo;Columbia County, OR&rdquo; app and open the Bigfoot Trail.</li>
+          <li><b>Find a footprint.</b> Look for the wooden footprint sign hanging in participating businesses. It says &ldquo;You Found One!&rdquo;</li>
+          <li><b>Scan to check in.</b> Scan the footprint&rsquo;s QR code with the app&rsquo;s Bigfoot Trail feature to collect it.</li>
+          <li><b>Collect 7.</b> Find 7 footprints to earn a free collectible ornament and an entry into the $500 cash prize drawing.</li>
+        </ol>
+        <p class="bf-bonus"><b>Bonus challenge:</b> visit 50 trail locations and earn 30 filled Wonderland Cards.</p>
+        <p class="bf-note">The trail runs in the app from Nov 13 to Jan 8, alongside the Wonderland Card. Every stop is a local business taking part in Keep it Local for the Holidays.</p>
+        <a class="bf-cta" href="https://keepitlocalcc.com/holidays" target="_blank" rel="noopener">See the Bigfoot Trail locations &rarr;</a>
+      </div>
+    </div>
+  </aside>
 
   <h2 class="sec">What's New?</h2>
   <p class="sub">Let's give a warm welcome to the new listings on the site!</p>
@@ -85,13 +106,13 @@
   <h2 class="sec">Meet Our Incredible Sponsors</h2>
   <p>Our program is, in large part, made possible because of our incredible sponsors. These are the organizations that invested in our small business community's success, advocate for supporting local, and love Columbia County. A huge thanks to our sponsors for being so supportive of our program and community, we appreciate you!</p>
   <div class="sponsor-chips">
-    <button type="button" class="s-chip" data-panel-open="wauna-credit-union">Wauna Credit Union</button>
-    <a class="s-chip" href="https://inroadscu.org" target="_blank" rel="noopener">InRoads Credit Union</a>
-    <button type="button" class="s-chip" data-panel-open="columbia-river-pud">Columbia River PUD</button>
-    <button type="button" class="s-chip" data-panel-open="clatskanie-pud">Clatskanie PUD</button>
-    <button type="button" class="s-chip" data-panel-open="richardsons-furniture">Richardson&rsquo;s Furniture</button>
-    <button type="button" class="s-chip" data-panel-open="sass-at-home">Sass at Home</button>
-    <button type="button" class="s-chip" data-panel-open="crooked-creek-brewery">Crooked Creek Brewery</button>
+    <button type="button" class="s-chip" data-panel-open="wauna-credit-union" aria-label="Wauna Credit Union"><img class="s-chip-logo" src="img/logos/wauna-credit-union.png" alt=""><span class="vh">Wauna Credit Union</span></button>
+    <a class="s-chip" href="https://inroadscu.org" target="_blank" rel="noopener" aria-label="InRoads Credit Union"><img class="s-chip-logo" src="img/logos/inroads-credit-union.png" alt=""><span class="vh">InRoads Credit Union</span></a>
+    <button type="button" class="s-chip" data-panel-open="columbia-river-pud" aria-label="Columbia River PUD"><img class="s-chip-logo" src="img/logos/columbia-river-pud.jpg" alt=""><span class="vh">Columbia River PUD</span></button>
+    <button type="button" class="s-chip" data-panel-open="clatskanie-pud" aria-label="Clatskanie PUD"><img class="s-chip-logo" src="img/logos/clatskanie-pud.jpg" alt=""><span class="vh">Clatskanie PUD</span></button>
+    <button type="button" class="s-chip" data-panel-open="richardsons-furniture" aria-label="Richardson's Furniture"><img class="s-chip-logo" src="img/logos/richardsons-furniture.jpg" alt=""><span class="vh">Richardson&rsquo;s Furniture</span></button>
+    <button type="button" class="s-chip" data-panel-open="sass-at-home" aria-label="Sass at Home"><img class="s-chip-logo" src="img/logos/sass-at-home.png" alt=""><span class="vh">Sass at Home</span></button>
+    <button type="button" class="s-chip" data-panel-open="crooked-creek-brewery" aria-label="Crooked Creek Brewery"><img class="s-chip-logo" src="img/logos/crooked-creek-brewery.png" alt=""><span class="vh">Crooked Creek Brewery</span></button>
   </div>
 
   <h2 class="sec">Shop. Taste. Play. Choose Local First</h2>
@@ -113,6 +134,40 @@
 <script src="app.js"></script>
 <script src="logos.js"></script>
 <script src="panel.js"></script>
+<script>
+// Bigfoot Trail explainer (Item 7 add-on): the Holidays panel button opens
+// a slide-out explainer in the same pattern as the listing panel (scrim,
+// Esc / scrim / X close, focus return, body scroll lock). It explains the
+// real game and doors through to her live holidays page; the game itself
+// runs in her app, not here.
+(function(){
+  var panel=document.getElementById('bfPanel'), scrim=document.getElementById('bfScrim'),
+      x=document.getElementById('bfClose'), lastFocus=null;
+  if(!panel||!scrim||!x)return;
+  function open(from){
+    lastFocus=from||document.activeElement;
+    panel.classList.add('open'); scrim.classList.add('show');
+    panel.setAttribute('aria-hidden','false');
+    document.body.classList.add('panel-open');
+    x.focus({preventScroll:true});
+  }
+  function close(){
+    panel.classList.remove('open'); scrim.classList.remove('show');
+    panel.setAttribute('aria-hidden','true');
+    document.body.classList.remove('panel-open');
+    if(lastFocus&&lastFocus.focus)lastFocus.focus({preventScroll:true});
+  }
+  document.addEventListener('click',function(e){
+    var b=e.target.closest?e.target.closest('[data-bf-open]'):null;
+    if(b){e.preventDefault();open(b);}
+  });
+  x.addEventListener('click',close);
+  scrim.addEventListener('click',close);
+  document.addEventListener('keydown',function(e){
+    if(e.key==='Escape'&&panel.classList.contains('open'))close();
+  });
+})();
+</script>
 <script src="herobar.js"></script>
 <script>
 kilDropdown(document.getElementById('hbCatField'),{id:'hbCat',name:'cat',allLabel:'All Categories',ariaLabel:'Filter by category',options:CATEGORIES.filter(c=>c!=='Events')});

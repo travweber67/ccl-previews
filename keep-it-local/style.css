@@ -531,6 +531,56 @@ footer.site .sponsor-line b{color:#fff}
 .holiday .nums div b{color:#ffb400}
 @media(max-width:600px){.holiday{padding:18px}.holiday-panel{padding:20px}}
 
+/* ---- Pass 20: Item 7 panel refinement (Travis, Nov 18, 2026,
+   ~10:08 PM — he likes the section; two refinements). The frosted
+   panel no longer stretches across the whole section: it is a
+   contained card (~66% of the section width, left) so the snowy
+   forest and the falling snow breathe around it on the right, top
+   and bottom; the section padding grows a touch to open that frame
+   up. The panel also goes a tiny bit more transparent (alpha
+   .55 -> .46) with the blur eased to match (10px -> 7px), so the
+   snow reads faintly drifting behind the glass. Stats and copy are
+   untouched and stay on the dark green glass for readability. On
+   phones the panel stays near-full width (section padding is its
+   margin) so the stats never crowd. ---- */
+.holiday{padding:38px 30px}
+.holiday-panel{max-width:66%;margin-right:auto;background:rgba(10,38,26,.46);backdrop-filter:blur(7px) saturate(1.25);-webkit-backdrop-filter:blur(7px) saturate(1.25)}
+.holiday-panel .nums{gap:22px}
+@media(max-width:600px){.holiday{padding:18px}.holiday-panel{max-width:none}}
+
+/* ---- Pass 21: Bigfoot Trail doorway (Travis, Nov 18, 2026, ~10:10 PM).
+   The Holidays section carried a "70+ Bigfoot Trail stops" stat but
+   never said what the Trail is. A gold "Play the Bigfoot Trail" button
+   in the frosted panel now opens an explainer in the Item 2 panel
+   pattern (slide-out from the right, scrim, cream + deep green +
+   gold). Content is her published mechanics only: footprints hidden
+   in participating businesses, the free "Columbia County, OR" app
+   scans each footprint's QR code to check in, 7 finds earn the
+   collectible ornament + $500 drawing entry, 50 locations is the
+   bonus challenge. The CTA doors through to her live holidays page;
+   no game is built here — the real one runs in her app. ---- */
+.bf-btn{display:inline-block;margin-top:20px;font-family:Montserrat,Arial,sans-serif;font-weight:800;font-size:15.5px;letter-spacing:.2px;color:#4a2f00;background:linear-gradient(180deg,#ffd34d,#ffb400);border:1px solid rgba(255,255,255,.35);border-radius:999px;padding:12px 24px;cursor:pointer;box-shadow:0 6px 18px rgba(4,18,11,.35),inset 0 1px 0 rgba(255,255,255,.55);transition:transform .15s ease,box-shadow .15s ease}
+.bf-btn:hover{transform:translateY(-2px);box-shadow:0 10px 22px rgba(4,18,11,.4),0 0 16px 3px rgba(255,198,26,.45),inset 0 1px 0 rgba(255,255,255,.55)}
+.bf-btn:focus-visible{outline:2px solid #ffd34d;outline-offset:2px}
+.bf-scrim{position:fixed;inset:0;background:rgba(12,26,20,.5);opacity:0;pointer-events:none;transition:opacity .25s;z-index:65}
+.bf-scrim.show{opacity:1;pointer-events:auto}
+.bf-panel{position:fixed;top:0;right:0;height:100dvh;width:440px;max-width:94vw;background:var(--cream);z-index:70;transform:translateX(106%);transition:transform .3s ease;box-shadow:-14px 0 44px rgba(8,26,17,.35);font-family:Arial,sans-serif}
+.bf-panel.open{transform:translateX(0)}
+.bf-body{height:100%;overflow-y:auto}
+.bf-in{padding:26px 24px 34px}
+.bf-in h2{font-family:'Fraunces',Georgia,'Times New Roman',serif;font-weight:880;font-variation-settings:'opsz' 60,'wght' 880,'WONK' 1;font-size:28px;line-height:1.12;color:var(--green-d);margin-bottom:10px;padding-right:40px}
+.bf-lede{font-family:Georgia,'Times New Roman',serif;font-size:15.5px;line-height:1.6;color:#3c4a42}
+.bf-steps{margin:18px 0 0;padding:0;list-style:none;counter-reset:bf}
+.bf-steps li{position:relative;font-size:15px;line-height:1.55;color:#3c4a42;padding:0 0 14px 42px;counter-increment:bf}
+.bf-steps li::before{content:counter(bf);position:absolute;left:0;top:0;width:28px;height:28px;border-radius:50%;background:var(--green-d);color:#ffd9ae;font-family:Montserrat,Arial,sans-serif;font-weight:800;font-size:14px;display:flex;align-items:center;justify-content:center}
+.bf-steps li b{color:var(--green-d)}
+.bf-bonus{margin-top:6px;background:#fdf3d3;border:1px solid #e8cf8a;border-radius:10px;padding:12px 14px;font-size:14.5px;line-height:1.55;color:#5a4a12}
+.bf-bonus b{color:#7a5c00}
+.bf-note{margin-top:14px;font-size:14px;line-height:1.55;color:var(--muted)}
+.bf-cta{display:block;margin-top:18px;text-align:center;font-family:Montserrat,Arial,sans-serif;font-weight:800;font-size:15.5px;color:#fff;background:var(--green-d);border-radius:999px;padding:13px 20px;text-decoration:none;transition:transform .15s ease,box-shadow .15s ease}
+.bf-cta:hover{text-decoration:none;transform:translateY(-2px);box-shadow:0 8px 20px rgba(9,40,26,.35)}
+.bf-cta:focus-visible{outline:2px solid #ffb400;outline-offset:2px}
+
 /* ---- Pass 19: top-row halo room (Travis, Nov 18, 2026, ~9:54 PM,
    from his screenshot of the live demo). Pass 3d had trimmed the
    feed's top padding to 12px, but the Pass 16 halo reaches ~18px
@@ -545,3 +595,19 @@ footer.site .sponsor-line b{color:#fff}
    every .wrap feed, including the directory's first row under its
    header band. ---- */
 .wrap{padding-top:34px}
+
+/* ---- Pass 22: sponsor chips carry real logos (Travis, Nov 18, 2026,
+   ~10:14 PM). The seven Champion Sponsor chips trade their text names
+   for the businesses' ACTUAL logos, height-normalized (36px) on a
+   small white plate inside the same frosted chip, so JPG marks with
+   white backgrounds and transparent PNGs read as one consistent row.
+   Six logos were already verified in hand from the Item 2 panel work
+   (work/panel-logos.md); InRoads — not one of the 57 listings — comes
+   from her own site, where its listing presents the color logo
+   (InRoads_logo_Color-cropped). Nothing redrawn or substituted.
+   The name stays for screen readers (visually hidden span +
+   aria-label); click behavior is unchanged, and the footer's
+   "Champion Sponsors:" text line stays as-is. ---- */
+.vh{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.s-chip{padding:7px 12px}
+.s-chip-logo{display:block;height:36px;width:auto;max-width:170px;object-fit:contain;background:#fff;border:1px solid rgba(20,80,58,.18);border-radius:7px;padding:4px 9px}

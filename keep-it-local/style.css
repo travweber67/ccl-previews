@@ -350,3 +350,16 @@ body.drawer-open{overflow:hidden}
    520px (Pass 7), line wraps naturally at the new size; headline, pill,
    logo, wave and hero height all untouched. ---- */
 .hero-sub{font-size:clamp(19px,1.55vw,22px)}
+
+/* ---- Pass 11: hero zoom-out round — Beaver Falls recomposed lip-to-pool
+   (Travis, Nov 18, 2026: "why does it have to be so zoomed in on the
+   waterfall? zoom out so the waterfall falls right behind the text").
+   img/hero.jpg is now a 2560x1063 (2.41:1) treated crop of the full-res
+   original: whole falls in frame, lip at top, plunge pool at the bottom,
+   falls column centered behind the headline block. Same treatment as the
+   sharpness round (shadow chroma NR + shadow-protected saturation).
+   Hero grows taller to hold the composition: min-height 552 -> 680px
+   desktop (Travis traded first-screen card space for this); padding,
+   headline, pill, wave all unchanged. Phone stays content-height; cover
+   center-crops the taller frame and the falls core still reads. ---- */
+.hero{min-height:680px}

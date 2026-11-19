@@ -611,3 +611,29 @@ footer.site .sponsor-line b{color:#fff}
 .vh{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
 .s-chip{padding:7px 12px}
 .s-chip-logo{display:block;height:36px;width:auto;max-width:170px;object-fit:contain;background:#fff;border:1px solid rgba(20,80,58,.18);border-radius:7px;padding:4px 9px}
+
+/* ---- Pass 23: sponsor logos at identifiable size + footer logo strip
+   on every page (Travis, Nov 18, 2026, ~10:25 PM). Pass 22's 36px chip
+   logos were too small to read — sponsors pay to be IDENTIFIABLE, so
+   the home-feed chips now carry the marks at 64px on their white
+   plates, chips padded to match (the row wraps to two rows on desktop;
+   that is fine). AND the footer gains the logo strip on EVERY page,
+   under the "Champion Sponsors:" line: on her real site the sponsors
+   appear mid-page AND in a footer block on every page because BOTH
+   placements are paid deliverables in her Sponsor bundle ("footer
+   logo on every page" + homepage sponsor placement, verified in her
+   bundle matrix) — so this duplication is deliberate, the one
+   exception to the one-sponsor-treatment rule. Footer plates sit on a
+   faint light chip over the dark green so every mark reads; footer
+   logos run ~36px. Click behavior matches the chips: on pages with
+   the Item 2 panel (home, directory) the six listing sponsors open
+   their panel and InRoads links out; on the other pages the six link
+   to their listing page instead (no panel there to open). ---- */
+.sponsor-chips{gap:12px}
+.s-chip{padding:10px 16px}
+.s-chip-logo{height:64px;max-width:280px;border-radius:9px;padding:6px 12px}
+footer.site .sponsor-strip{display:flex;flex-wrap:wrap;gap:10px;max-width:1100px;margin:12px auto 0}
+footer.site .s-strip{display:inline-flex;align-items:center;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.16);border-radius:10px;padding:6px 8px;cursor:pointer;text-decoration:none;font:inherit;transition:border-color .15s ease,background .15s ease,transform .15s ease}
+footer.site .s-strip:hover{background:rgba(255,255,255,.13);border-color:#ffb400;transform:translateY(-1px);text-decoration:none}
+footer.site .s-strip:focus-visible{outline:2px solid #ffb400;outline-offset:2px}
+footer.site .s-strip img{display:block;height:36px;width:auto;max-width:170px;object-fit:contain;background:#fff;border-radius:6px;padding:4px 8px}

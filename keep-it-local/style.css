@@ -343,3 +343,10 @@ body.drawer-open{overflow:hidden}
   /* same +25 / -25 trade on phone: 108/64 -> 133/39, total unchanged */
   .hero{padding:133px 18px 39px}
 }
+
+/* ---- Pass 10: correction round 7 — welcome line up 2-3 notches
+   (Travis, Nov 18, 2026). ONLY the welcome line's font-size changes:
+   clamp(16px,1.3vw,19px) -> clamp(19px,1.55vw,22px). Max-width stays
+   520px (Pass 7), line wraps naturally at the new size; headline, pill,
+   logo, wave and hero height all untouched. ---- */
+.hero-sub{font-size:clamp(19px,1.55vw,22px)}

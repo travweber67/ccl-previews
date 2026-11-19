@@ -1595,3 +1595,33 @@ footer.site .s-strip[data-panel-open="clatskanie-pud"] img{height:128px}
   footer.site .s-strip img{height:92px;max-width:76vw}
   footer.site .s-strip[data-panel-open="clatskanie-pud"] img{height:112px}
 }
+
+/* ---- Pass 46b: header logo bigger, DESKTOP ONLY (Travis, Nov 19,
+   2026, ~2:44 PM — a same-pass add-on to Pass 46; it reopens the
+   round-6 "logo button closed" item at his direct instruction, with
+   his refinement: desktop only, mobile is fine as-is, and NOTHING
+   else in the hero/header may change or move — the only element
+   allowed to shift is the "Keep it Local / Columbia County"
+   wordmark beside the logo, sliding right to make room).
+   MEASURED CONSTRAINT (DOM probe of the live tree at 1280): the
+   MENU caption's ink bottom sits ~8px above the headline's first
+   glyph tops — the round-6 build already spent the hero's vertical
+   clearance. So the growth is absorbed INSIDE the button: logo
+   80px -> 90px, ring padding 7px -> 6px, ring-to-caption gap
+   3px -> 0, caption 12px -> 10.5px. (A first try at 92px left the
+   caption kissing the headline's first glyphs in the QC zoom, so
+   it stepped back to 90px.) Net button growth ~+2px with a clear
+   caption-to-headline ink gap preserved, hero padding and every
+   other element byte-identical. Scoped to min-width:761px so
+   phones keep the exact current header (verified: the 390px
+   header band is pixel-identical before/after). On the in-flow
+   header pages (bundles/listing/news/holidays) the band simply
+   grows by the same ~2px; the theme toggle is right-anchored and
+   unmoved everywhere. Per Travis's fallback clause, 90px is as
+   large as fits without moving anything else. ---- */
+@media(min-width:761px){
+  .logo-btn img{height:90px;width:90px}
+  .logo-ring{padding:6px}
+  .logo-btn{gap:0}
+  .menu-cap{font-size:10.5px}
+}

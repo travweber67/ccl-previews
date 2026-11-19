@@ -1364,3 +1364,59 @@ p.sub.sec-intro{font-size:clamp(19px,1.55vw,22px);line-height:1.45}
   .news-row.f-r{--nfr:48px}
   .news-row.f-l{--nfl:48px}
 }
+/* ---- Pass 39: the Holidays hub page (holidays.html) — her full
+   /holidays depth carried into the demo (queued mobile-audit item
+   §9(1)(a)): Wonderland Card mechanics + terms, Participating
+   Locations tables by town with Directions, the Bigfoot Trail
+   (scan steps, ornament redemption, bonus challenge, terms), the
+   Columbia County E-Gift Card (which also closes the Sponsor-tier
+   E-Gift Card parity gap), and the Wonderland Bazaar. The page
+   wears the demo's system (navy/teal/mint, Fraunces headings,
+   card glow); seasonal gold stays inside the Holidays feature
+   per the standing palette exception — here as the section
+   title rule, the hero date line, and the E-Gift Card eyebrow.
+   The footer "Keep It Local for the Holidays" link repoints
+   from the interim index.html#holidays anchor to this page on
+   every page, and the home Holidays panel gains a plain door
+   to it (.hol-door). ---- */
+.hol h2.sec{clear:both;border-bottom:3px solid #ffb400;padding-bottom:7px}
+.hol h3{font-family:'Fraunces',Georgia,'Times New Roman',serif;font-weight:880;font-variation-settings:'opsz' 40,'wght' 880,'WONK' 1;font-size:21px;color:var(--green-d);margin:22px 0 6px}
+.hol p{margin-bottom:12px;max-width:840px}
+.hol-list{margin:8px 0 18px 22px}
+.hol-list li{margin-bottom:7px;max-width:840px}
+.holiday-panel.wide{max-width:100%}
+.hol-dates{font-family:Montserrat,Arial,sans-serif;font-weight:800;font-size:16px;letter-spacing:.4px;color:#ffd34d;margin-bottom:12px}
+.hol-hero-img{float:right;width:264px;max-width:42%;border-radius:10px;margin:2px 0 12px 20px;box-shadow:0 8px 22px rgba(4,18,11,.4)}
+.hol-hero .holiday-panel a{color:#aee3ec;text-decoration:underline}
+.hol-toc{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.hol-toc a{font-family:Montserrat,Arial,sans-serif;font-size:13px;font-weight:800;color:#00354e;background:rgba(195,231,237,.94);border-radius:999px;padding:7px 13px}
+.hol-hero .holiday-panel .hol-toc a{color:#00354e;text-decoration:none}
+.hol-toc a:hover{background:#71bfa0;text-decoration:none}
+.hol-fig{float:right;width:290px;max-width:46%;margin:6px 0 14px 22px}
+.hol-fig img{width:100%;display:block;border-radius:12px;border:1px solid var(--line);box-shadow:0 0 16px 2px rgba(17,150,171,.30),0 8px 18px -10px rgba(0,53,78,.28)}
+table.loc{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--line);font-family:Arial,sans-serif;font-size:14.5px;margin:6px 0 22px}
+table.loc th,table.loc td{border:1px solid var(--line);padding:9px 12px;text-align:left;vertical-align:top}
+table.loc th{background:#00354e;color:#fff;font-size:15px}
+table.loc td:first-child{font-weight:bold}
+.dirpill{display:inline-block;background:#1196ab;color:#fff;font-size:12.5px;font-weight:bold;border-radius:999px;padding:4px 11px;white-space:nowrap;margin:1px 2px 1px 0}
+.dirpill:hover{background:#00354e;text-decoration:none}
+.hol-eyebrow{font-family:Montserrat,Arial,sans-serif;font-weight:800;font-size:14px;letter-spacing:1.6px;text-transform:uppercase;color:#a8740a;margin:32px 0 0}
+.hol-nomargin{margin-top:2px}
+.hol-when{font-family:Montserrat,Arial,sans-serif;font-weight:800;color:var(--green-d);font-size:16.5px;line-height:1.55}
+.hol-buy{text-decoration:none;margin-top:4px}
+.holiday-panel .hol-door{display:inline-block;margin:14px 0 0 16px;font-family:Montserrat,Arial,sans-serif;font-weight:800;font-size:14.5px;color:#c3e7ed}
+.holiday-panel .hol-door:hover{color:#fff}
+[data-theme="dark"] .hol h3{color:#71bfa0}
+[data-theme="dark"] .hol-eyebrow{color:#ffd34d}
+[data-theme="dark"] .hol-when{color:#71bfa0}
+[data-theme="dark"] .dirpill{color:#fff}
+[data-theme="dark"] .dirpill:hover{background:#4db8c7;color:#00354e}
+[data-theme="dark"] .hol-buy{color:#4a2f00}
+@media(max-width:700px){
+  .hol-fig{float:none;width:100%;max-width:340px;margin:0 0 14px}
+  .hol-hero-img{float:none;width:100%;max-width:300px;margin:0 0 14px}
+  table.loc{font-size:13px}
+  table.loc th,table.loc td{padding:7px 8px}
+  .dirpill{font-size:11.5px;padding:3px 9px}
+  .holiday-panel .hol-door{margin-left:0}
+}

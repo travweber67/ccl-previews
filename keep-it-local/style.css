@@ -6,8 +6,8 @@ a:hover{text-decoration:underline}
 .demo-bar{background:var(--ink);color:#f3ead9;text-align:center;font-family:Arial,sans-serif;font-size:13px;padding:7px 12px}
 .demo-bar b{color:var(--orange)}
 header.site{background:var(--green);color:#fff;padding:14px 20px;display:flex;flex-wrap:wrap;align-items:center;gap:14px}
-.logo{font-size:26px;font-weight:bold;color:#fff;letter-spacing:.3px}
-.logo span{color:#ffd9ae}
+.logo{display:inline-flex;align-items:center;line-height:0}
+.logo img{height:64px;width:64px;border-radius:50%;background:#fff;padding:2px;box-shadow:0 1px 4px rgba(0,0,0,.25)}
 header.site nav{margin-left:auto;display:flex;gap:18px;font-family:Arial,sans-serif;font-size:15px}
 header.site nav a{color:#fff}
 .hero{background:linear-gradient(160deg,var(--green) 0%,var(--green-d) 70%);color:#fff;text-align:center;padding:56px 20px 48px}
@@ -24,7 +24,8 @@ p.sub{color:var(--muted);margin-bottom:16px;font-family:Arial,sans-serif;font-si
 .tile{background:var(--card);border:1px solid var(--line);border-top:5px solid var(--orange);border-radius:10px;padding:20px 8px;text-align:center;font-size:19px;color:var(--green-d);box-shadow:0 1px 3px rgba(0,0,0,.05)}
 .tile small{display:block;font-family:Arial,sans-serif;font-size:12px;color:var(--muted);margin-top:4px}
 .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:18px;box-shadow:0 1px 3px rgba(0,0,0,.05);display:flex;flex-direction:column}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:18px;box-shadow:0 1px 3px rgba(0,0,0,.05);display:flex;flex-direction:column;overflow:hidden}
+.card-img{display:block;width:calc(100% + 36px);max-width:none;height:170px;object-fit:cover;margin:-18px -18px 14px;background:#e9e2d2}
 .card h3{font-size:19px;margin-bottom:2px}
 .card h3 a{color:var(--ink)}
 .meta{font-family:Arial,sans-serif;font-size:12.5px;color:var(--orange);text-transform:uppercase;letter-spacing:.6px;margin-bottom:8px}
@@ -50,7 +51,7 @@ table.bundles th{background:var(--green);color:#fff;font-size:16px}
 .yes{color:var(--green);font-weight:bold}.no{color:#b9b2a4}
 ol.steps-list{margin:10px 0 20px 22px}
 .detail{background:#fff;border:1px solid var(--line);border-radius:12px;padding:26px}
-.detail img{max-width:100%;border-radius:10px;margin:14px 0}
+.detail img{width:100%;max-height:430px;object-fit:cover;border-radius:10px;margin:14px 0}
 .detail h3{color:var(--green-d);margin:18px 0 4px}
 footer.site{background:var(--ink);color:#d8d2c4;margin-top:40px;padding:30px 20px;font-family:Arial,sans-serif;font-size:14px}
 footer.site .cols{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;max-width:1100px;margin:0 auto}

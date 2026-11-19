@@ -59,6 +59,8 @@
   <p class="sub"><a href="events.html">See all events &rarr;</a></p>
 
   <section class="holiday">
+    <canvas class="snow" id="snowCanvas" aria-hidden="true"></canvas>
+    <div class="holiday-panel">
     <h2>Keep it Local for the Holidays</h2>
     <p>The 10th annual county-wide holiday campaign is running now. Pick up a Wonderland Card, collect stamps at participating businesses, and play the Bigfoot Trail game in the app for a shot at the $5,000 prize.</p>
     <div class="nums">
@@ -66,6 +68,7 @@
       <div><b>Nov 13 - Jan 8</b>campaign dates</div>
       <div><b>70+</b>Bigfoot Trail stops</div>
       <div><b>$5,000</b>Wonderland Card prize</div>
+    </div>
     </div>
   </section>
 
@@ -80,7 +83,16 @@
   <p style="margin-top:10px">Photo Credit: Anthony Krueger / Local Resident / Photo of Clatskanie, OR</p>
 
   <h2 class="sec">Meet Our Incredible Sponsors</h2>
-  <p>Our program is, in large part, made possible because of our incredible sponsors. These are the organizations that invested in our small business community's success, advocate for supporting local, and love Columbia County. A huge thanks to our sponsors for being so supportive of our program and community, we appreciate you! Sponsors include Wauna Credit Union, InRoads Credit Union, Columbia River PUD, Clatskanie PUD, Richardson's Furniture, Sass at Home, and Crooked Creek Brewery.</p>
+  <p>Our program is, in large part, made possible because of our incredible sponsors. These are the organizations that invested in our small business community's success, advocate for supporting local, and love Columbia County. A huge thanks to our sponsors for being so supportive of our program and community, we appreciate you!</p>
+  <div class="sponsor-chips">
+    <button type="button" class="s-chip" data-panel-open="wauna-credit-union">Wauna Credit Union</button>
+    <a class="s-chip" href="https://inroadscu.org" target="_blank" rel="noopener">InRoads Credit Union</a>
+    <button type="button" class="s-chip" data-panel-open="columbia-river-pud">Columbia River PUD</button>
+    <button type="button" class="s-chip" data-panel-open="clatskanie-pud">Clatskanie PUD</button>
+    <button type="button" class="s-chip" data-panel-open="richardsons-furniture">Richardson&rsquo;s Furniture</button>
+    <button type="button" class="s-chip" data-panel-open="sass-at-home">Sass at Home</button>
+    <button type="button" class="s-chip" data-panel-open="crooked-creek-brewery">Crooked Creek Brewery</button>
+  </div>
 
   <h2 class="sec">Shop. Taste. Play. Choose Local First</h2>
   <p>Between the evergreen hills, along winding streams, and in the presence of the mighty Columbia River, there are vibrant communities here in Columbia County, OR. Come see all our community has to offer.</p>
@@ -93,6 +105,7 @@
     <div><h4>Manage</h4><a href="bundles.html">Add Place</a><a href="events.html">Add Event</a><a href="bundles.html">Login</a></div>
     <div><h4>About Us</h4><a href="index.html#about">About Keep it Local</a><a href="index.html">Keep it Local for the Holidays</a><a href="bundles.html">FAQs</a><a href="index.html">News</a><a href="index.html">Contact Us</a></div>
   </div>
+  <p class="sponsor-line"><b>Champion Sponsors:</b> Wauna Credit Union &middot; InRoads Credit Union &middot; Columbia River PUD &middot; Clatskanie PUD &middot; Richardson&rsquo;s Furniture &middot; Sass at Home &middot; Crooked Creek Brewery</p>
   <p class="fine">Find by Category: Shop &middot; Taste &middot; Play &middot; Services &middot; Community &middot; Events<br>Demo rebuild preview prepared by Nomad Development Group, November 2026. Content mirrors keepitlocalcc.com as published on Nov 18, 2026.</p>
 </footer>
 
@@ -110,5 +123,55 @@ document.getElementById('events').innerHTML = EVENTS.map(e=>
  '<div class="event"><div class="when">'+e.date+'<br>'+e.price+'</div><div><h3>'+e.title+'</h3><p>'+e.desc+'</p><p class="sub" style="margin:6px 0 0">'+e.place+'</p></div></div>').join('');
 </script>
 <script src="nav.js"></script>
+<script>
+// Item 7 falling snow: a light canvas layer over the Holidays photo,
+// under the frosted content panel. Slow top-to-bottom fall, low flake
+// count (fewer on small screens), pointer-events none, paused when the
+// section is off-screen, and never started for reduced-motion visitors.
+(function(){
+  var canvas=document.getElementById('snowCanvas');
+  if(!canvas)return;
+  if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  var ctx=canvas.getContext('2d');
+  var flakes=[],W=0,H=0,running=false,raf=0,last=0;
+  function size(){
+    var r=canvas.parentElement.getBoundingClientRect();
+    W=Math.max(1,Math.round(r.width)); H=Math.max(1,Math.round(r.height));
+    canvas.width=W; canvas.height=H;
+    var target=W<600?30:Math.min(80,Math.round(W/16));
+    flakes=[];
+    for(var i=0;i<target;i++)flakes.push({
+      x:Math.random()*W, y:Math.random()*H,
+      r:.8+Math.random()*1.9, s:20+Math.random()*32,
+      o:.3+Math.random()*.55, ph:Math.random()*6.283, sw:8+Math.random()*16
+    });
+  }
+  function frame(t){
+    if(!running)return;
+    var dt=Math.min(.05,(t-last)/1000||0); last=t;
+    ctx.clearRect(0,0,W,H);
+    ctx.fillStyle='#fff';
+    for(var i=0;i<flakes.length;i++){
+      var f=flakes[i];
+      f.y+=f.s*dt; f.ph+=dt*.7;
+      if(f.y>H+4){f.y=-4;f.x=Math.random()*W;}
+      ctx.globalAlpha=f.o;
+      ctx.beginPath();
+      ctx.arc(f.x+Math.sin(f.ph)*f.sw*.3,f.y,f.r,0,6.283);
+      ctx.fill();
+    }
+    ctx.globalAlpha=1;
+    raf=requestAnimationFrame(frame);
+  }
+  function start(){if(running)return;running=true;last=performance.now();raf=requestAnimationFrame(frame);}
+  function stop(){running=false;if(raf)cancelAnimationFrame(raf);}
+  size();
+  window.addEventListener('resize',size);
+  if('IntersectionObserver' in window){
+    new IntersectionObserver(function(en){en[0].isIntersecting?start():stop();},{threshold:.02}).observe(canvas.parentElement);
+  } else start();
+  document.addEventListener('visibilitychange',function(){document.hidden?stop():start();});
+})();
+</script>
 </body>
 </html>

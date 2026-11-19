@@ -493,3 +493,55 @@ body.panel-open{overflow:hidden}
 @media (hover:hover) and (pointer:fine){
   .card:hover{box-shadow:0 0 28px 8px rgba(255,198,26,.60),0 0 54px 16px rgba(255,217,77,.30),0 16px 28px -12px rgba(20,80,58,.32)}
 }
+
+/* ---- Pass 17: Item 6 — sponsors stand out (Travis, Nov 18, 2026,
+   ~9:52 PM). The seven Champion Sponsors were buried as a name list
+   inside the About-area paragraph. They now get ONE treatment, per
+   the consolidation rule: a row of small frosted chips in the home
+   feed's sponsors position (bold deep green on frosted white, gold
+   edge on hover) plus one tidy footer line — never two logo parades.
+   Six of the seven are demo listings, so their chips open the Item 2
+   panel via panel.js's [data-panel-open] hook; InRoads Credit Union
+   is not one of the 57 sample listings, so its chip links to the
+   credit union's real website, inroadscu.org. ---- */
+.sponsor-chips{display:flex;flex-wrap:wrap;gap:10px;margin:16px 0 6px}
+.s-chip{display:inline-flex;align-items:center;font-family:Montserrat,Arial,sans-serif;font-weight:800;font-size:14.5px;letter-spacing:.2px;color:var(--green-d);background:rgba(255,255,255,.68);backdrop-filter:blur(8px) saturate(1.25);-webkit-backdrop-filter:blur(8px) saturate(1.25);border:1px solid rgba(20,80,58,.35);border-radius:999px;padding:9px 17px;box-shadow:0 2px 8px rgba(20,60,40,.10),inset 0 1px 0 rgba(255,255,255,.65);cursor:pointer;text-decoration:none;transition:transform .15s ease,box-shadow .15s ease,border-color .15s ease,background .15s ease}
+.s-chip:hover{text-decoration:none;background:rgba(255,255,255,.92);border-color:#ffb400;transform:translateY(-2px);box-shadow:0 6px 16px rgba(20,60,40,.16),0 0 14px 2px rgba(255,198,26,.35)}
+.s-chip:focus-visible{outline:2px solid #ffb400;outline-offset:2px}
+footer.site .sponsor-line{max-width:1100px;margin:20px auto 0;padding-top:14px;border-top:1px solid rgba(255,255,255,.14);color:#cfd6cc;font-size:13px}
+footer.site .sponsor-line b{color:#fff}
+
+/* ---- Pass 18: Item 7 — Holidays visual (Travis, Nov 18, 2026,
+   ~9:52 PM, new spec superseding the main-street concept). The flat
+   green section becomes a photorealistic holiday scene: a snowy
+   Pacific Northwest pine forest at dusk, one fir wrapped in warm
+   golden lights, wrapped presents in the foreground snow (generated
+   for this section; picked from three candidates as the most
+   photographic). Content moves onto a dark frosted panel over a
+   soft dark wash so the four stats stay big and readable; the stat
+   numbers shift from orange to the brighter campaign gold #ffb400
+   for contrast over the photo. A canvas snow layer (see the inline
+   script in index.html) falls slowly between the photo and the
+   panel; it is pointer-events:none, low-count, paused off-screen,
+   and never started under prefers-reduced-motion. ---- */
+.holiday{position:relative;overflow:hidden;background:#0d2c1e url('img/holidays.jpg') center 72%/cover no-repeat;padding:30px;box-shadow:0 14px 34px -14px rgba(9,32,21,.45)}
+.holiday::before{content:"";position:absolute;inset:0;z-index:0;background:linear-gradient(180deg,rgba(9,32,21,.40),rgba(9,32,21,.16) 45%,rgba(9,32,21,.44))}
+.holiday .snow{position:absolute;inset:0;width:100%;height:100%;z-index:1;pointer-events:none}
+.holiday-panel{position:relative;z-index:2;background:rgba(10,38,26,.55);backdrop-filter:blur(10px) saturate(1.25);-webkit-backdrop-filter:blur(10px) saturate(1.25);border:1px solid rgba(255,255,255,.28);border-radius:12px;padding:26px 28px;box-shadow:0 10px 30px rgba(4,18,11,.35)}
+.holiday .nums div b{color:#ffb400}
+@media(max-width:600px){.holiday{padding:18px}.holiday-panel{padding:20px}}
+
+/* ---- Pass 19: top-row halo room (Travis, Nov 18, 2026, ~9:54 PM,
+   from his screenshot of the live demo). Pass 3d had trimmed the
+   feed's top padding to 12px, but the Pass 16 halo reaches ~18px
+   up in its static state (and ~70px on hover), and the positioned
+   hero block paints above the non-positioned feed — so the first
+   row's glow ran into the hero section's bottom edge and was
+   sliced off in a hard horizontal line. The feed now starts 34px
+   below the hero: the static halo blooms and fades completely in
+   the open, and on hover the halo's bright core completes before
+   its faint tail tucks under the wave (the wave still paints on
+   top — the glow never paints over the wave graphic). Applies to
+   every .wrap feed, including the directory's first row under its
+   header band. ---- */
+.wrap{padding-top:34px}

@@ -64,6 +64,8 @@
   }
 
   document.addEventListener('click',function(e){
+    var opener=e.target.closest?e.target.closest('[data-panel-open]'):null;
+    if(opener){e.preventDefault();open(opener.getAttribute('data-panel-open'),opener);return;}
     var card=e.target.closest?e.target.closest('.card'):null;
     if(!card)return;
     if(e.target.closest('.links a'))return; // phone / website links stay links

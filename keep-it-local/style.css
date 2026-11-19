@@ -399,3 +399,43 @@ body.drawer-open{overflow:hidden}
    no HDR. Photo, crop, 552px height and everything else untouched.
    This closes the hero. ---- */
 .hero{background:linear-gradient(98deg,rgba(11,48,33,.93) 0%,rgba(11,48,33,.84) 34%,rgba(11,48,33,.58) 52%,rgba(11,48,33,.22) 68%,rgba(11,48,33,0) 84%,rgba(11,48,33,0) 100%),url('img/hero.jpg') center/cover no-repeat}
+
+/* ---- Pass 14: merged round — Item 2 slide-out listing panel + Item 10
+   card contrast / underglow / hover pop (Travis merged them Nov 18, 2026,
+   ~9:00 PM; Item 10 direction added ~9:10 PM). ---- */
+/* Item 10: the listing cards are white on the cream ground (#faf6ef) with
+   only a hairline border and a 1px shadow — they nearly disappear into
+   the background. Give them a warm gold underglow (her palette) layered
+   under a soft green-tinted contact shadow so they read as FLOATING
+   above the page. Static state already carries the treatment, so touch
+   devices (no hover) get the same separation. */
+.card{box-shadow:0 1px 2px rgba(20,60,40,.07),0 10px 22px -10px rgba(20,80,58,.30),0 26px 34px -14px rgba(245,166,35,.55);cursor:pointer}
+@media (hover:hover) and (pointer:fine){
+  .card{transition:transform .28s cubic-bezier(.22,.61,.36,1),box-shadow .28s ease}
+  .card:hover{transform:translateY(-6px) scale(1.025);position:relative;z-index:2;box-shadow:0 2px 3px rgba(20,60,40,.08),0 18px 32px -12px rgba(20,80,58,.36),0 40px 50px -16px rgba(245,166,35,.65)}
+}
+/* Item 2: slide-out listing panel from the RIGHT (the drawer pattern
+   mirrored). The page itself never navigates or scrolls, so closing the
+   panel returns the visitor to the exact scroll spot they left. */
+.panel-scrim{position:fixed;inset:0;background:rgba(12,26,20,.5);opacity:0;pointer-events:none;transition:opacity .25s;z-index:65}
+.panel-scrim.show{opacity:1;pointer-events:auto}
+.panel{position:fixed;top:0;right:0;height:100dvh;width:440px;max-width:94vw;background:var(--cream);z-index:70;transform:translateX(106%);transition:transform .3s ease;box-shadow:-14px 0 44px rgba(8,26,17,.35);font-family:Arial,sans-serif}
+.panel.open{transform:translateX(0)}
+body.panel-open{overflow:hidden}
+.panel-x{position:absolute;top:12px;right:12px;z-index:3;background:rgba(9,40,26,.55);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);border:0;color:#fff;font-size:26px;line-height:1;width:40px;height:40px;border-radius:50%;cursor:pointer}
+.panel-x:hover{background:rgba(9,40,26,.82)}
+.panel-body{height:100%;overflow-y:auto}
+.panel-photo{line-height:0}
+.panel-photo img{width:100%;height:240px;object-fit:cover;display:block}
+.panel-in{padding:20px 22px 30px}
+.panel-head{display:flex;gap:14px;align-items:center;margin-bottom:12px}
+.panel-logo{flex:none;display:inline-flex;align-items:center;justify-content:center;background:#fff;border:1px solid var(--line);border-radius:12px;padding:7px;box-shadow:0 2px 8px rgba(20,60,40,.10);max-width:118px}
+.panel-logo img{max-width:104px;max-height:56px;width:auto;height:auto;display:block}
+.panel-title h2{font-family:'Fraunces',Georgia,'Times New Roman',serif;font-weight:880;font-variation-settings:'opsz' 60,'wght' 880,'WONK' 1;font-size:26px;line-height:1.12;color:var(--green-d)}
+.panel-title .meta{margin:4px 0 0}
+.panel-desc{font-size:15.5px;color:#3c4a42;font-family:Georgia,'Times New Roman',serif;line-height:1.6}
+.panel-rows{margin-top:18px;border-top:1px solid var(--line)}
+.panel-row{display:flex;gap:14px;padding:11px 0;border-bottom:1px solid var(--line);font-size:15px;align-items:baseline;word-break:break-word}
+.panel-k{flex:none;width:74px;font-size:12px;font-weight:bold;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);padding-top:2px}
+.panel-note{margin-top:16px;color:var(--muted);font-size:14px}
+@media(max-width:600px){.panel-photo img{height:200px}.panel-title h2{font-size:23px}}

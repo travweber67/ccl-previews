@@ -439,3 +439,57 @@ body.panel-open{overflow:hidden}
 .panel-k{flex:none;width:74px;font-size:12px;font-weight:bold;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);padding-top:2px}
 .panel-note{margin-top:16px;color:var(--muted);font-size:14px}
 @media(max-width:600px){.panel-photo img{height:200px}.panel-title h2{font-size:23px}}
+
+/* ---- Pass 15: Item 10 glow fix (Travis, Nov 18, 2026, ~9:28 PM, after
+   viewing the merged round: the pop "looks good" but the glow "looks
+   kind of bad" — three defects named). Pass 14's glow was a box-shadow
+   layer on the card itself: offset 26px down with negative spread (so
+   it showed only at the bottom), in amber rgba(245,166,35) (which read
+   as a muddy brown over the cream ground), and the hover rule's
+   z-index:2 lifted the hovered card's whole shadow stack OVER the
+   listing below it.
+   The rebuild: the glow is no longer a shadow on the card. Each card
+   is its own stacking context (position:relative; z-index:0) and the
+   halo is a ::before layer at z-index:-1 inside that context — a
+   blurred bright-gold (#ffd94d -> #ffc61a) rounded rect inset -9px on
+   ALL sides, so it wraps the whole card evenly, top, sides and
+   bottom. Because sibling cards paint in DOM order, the card below a
+   hovered card always paints OVER that card's halo: the glow can
+   never spill onto another listing. The hover rule explicitly keeps
+   z-index:0 (overriding Pass 14's z-index:2) so the pop stays a pure
+   transform. Pass 14's gold shadow layer is replaced by a plain soft
+   green-tinted contact shadow, kept subtle so it cannot muddy the
+   halo. overflow:visible replaces the base overflow:hidden (which
+   would clip the halo); the card photo now clips its own top corners
+   via border-radius instead. ---- */
+.card{position:relative;z-index:0;overflow:visible;box-shadow:0 1px 2px rgba(20,60,40,.08),0 10px 20px -12px rgba(20,80,58,.28)}
+.card-img{border-radius:9px 9px 0 0}
+.card::before{content:"";position:absolute;inset:-9px;z-index:-1;border-radius:16px;background:linear-gradient(160deg,#ffd94d,#ffc61a);filter:blur(14px);opacity:.38;pointer-events:none}
+@media (hover:hover) and (pointer:fine){
+  .card{transition:transform .28s cubic-bezier(.22,.61,.36,1),box-shadow .28s ease}
+  .card::before{transition:inset .28s ease,filter .28s ease,opacity .28s ease}
+  .card:hover{transform:translateY(-6px) scale(1.025);position:relative;z-index:0;box-shadow:0 2px 3px rgba(20,60,40,.08),0 16px 28px -12px rgba(20,80,58,.34)}
+  .card:hover::before{inset:-14px;filter:blur(18px);opacity:.85}
+}
+
+/* ---- Pass 16: Item 10 glow fix, second pass (same round). Pass 15's
+   ::before halo sat INSIDE the card's stacking context, where painting
+   order puts a negative z-index child ABOVE the card's own background
+   — the blurred gold washed across every card's face instead of
+   ringing it. Rebuilt as a true box-shadow halo: an outer box-shadow
+   paints behind the card's background by definition, and because
+   sibling cards paint in DOM order (the hover rule keeps z-index:0,
+   no lift above neighbors), the card below a hovered card always
+   paints over that card's halo. Zero offsets + blur give the even
+   full-perimeter wrap; the color is pure bright gold
+   rgba(255,198,26 / #ffc61a, lit by #ffd94d in the outer falloff),
+   no amber/brown layer and no offset green shadow stacked on it.
+   overflow:hidden (base rule) is restored now that no pseudo-element
+   needs to escape the card, and the photo's temporary corner radius
+   from Pass 15 comes back off. ---- */
+.card{overflow:hidden;box-shadow:0 0 16px 2px rgba(255,198,26,.35),0 8px 18px -10px rgba(20,80,58,.25)}
+.card::before{content:none}
+.card-img{border-radius:0}
+@media (hover:hover) and (pointer:fine){
+  .card:hover{box-shadow:0 0 28px 8px rgba(255,198,26,.60),0 0 54px 16px rgba(255,217,77,.30),0 16px 28px -12px rgba(20,80,58,.32)}
+}

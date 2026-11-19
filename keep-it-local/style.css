@@ -824,3 +824,28 @@ footer.site .s-strip:focus-visible{outline-color:#71bfa0}
 .drawer a:hover{background:#e2f0f3}
 .bf-cta:hover{box-shadow:0 8px 20px rgba(0,35,52,.35)}
 .bf-cta:focus-visible{outline-color:#1196ab}
+
+/* ---- Pass 27: dark-hero shade pulled back + toggle a touch bigger
+   (Travis, Nov 18, 2026, ~11:10 PM, on the 1c6dba4 build): in dark
+   mode the navy fade across the hero "doesn't need to be so
+   prominent because the pictures are already pretty dark," and the
+   theme toggle grows "a little bit bigger, not much." DARK HERO
+   ONLY for the shade — the light hero overlay (Pass 13) is approved
+   as-is and is not touched.
+   (1) DARK HERO SHADE: Pass 25 washed the whole Krueger aerial
+   under a .90 -> .08 full-width gradient. The photo is a dusk
+   shot, already dark, so the full wash goes. What remains: a much
+   weaker frame gradient (.38 at the left edge, gone by ~84%) PLUS
+   one soft localized radial shade pooled behind the text block
+   (headline + welcome, upper left) — the only place that needs
+   help. The search pill is glass with its own ground and blur,
+   and the headline/welcome keep their layered text shadows, so
+   all three stay readable while the town lights and the open
+   right side of the photo read as the picture they are.
+   (2) TOGGLE: 36px -> 44px, icon 18px -> 22px. Still a small
+   round button in the top-right corner of every header; header
+   layout and the logo menu button untouched. ---- */
+[data-theme="dark"] .hero{background:radial-gradient(ellipse 64% 90% at 30% 40%,rgba(2,18,27,.48) 0%,rgba(2,18,27,.26) 55%,rgba(2,18,27,0) 78%),linear-gradient(98deg,rgba(2,18,27,.38) 0%,rgba(2,18,27,.26) 34%,rgba(2,18,27,.13) 55%,rgba(2,18,27,.04) 76%,rgba(2,18,27,0) 100%),url('img/about-clatskanie.jpg') center 26%/cover no-repeat}
+@media(max-width:760px){[data-theme="dark"] .hero{background:radial-gradient(ellipse 105% 82% at 50% 38%,rgba(2,18,27,.55) 0%,rgba(2,18,27,.30) 55%,rgba(2,18,27,0) 80%),linear-gradient(98deg,rgba(2,18,27,.42) 0%,rgba(2,18,27,.28) 40%,rgba(2,18,27,.12) 70%,rgba(2,18,27,0) 100%),url('img/about-clatskanie.jpg') center 26%/cover no-repeat}}
+.theme-toggle{width:44px;height:44px}
+.theme-toggle svg{width:22px;height:22px}

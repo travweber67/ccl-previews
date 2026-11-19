@@ -58,14 +58,20 @@
   <div class="grid" id="featured"></div>
 
   <h2 class="sec">Upcoming Events</h2>
-  <div id="events"></div>
-  <p class="sub"><a href="events.html">See all events &rarr;</a></p>
+  <div class="ev-home">
+    <div class="ev-mini" id="evMini"></div>
+    <div class="ev-next">
+      <h3 class="ev-next-h">What&rsquo;s coming up</h3>
+      <div id="evNext" class="ev-next-list"></div>
+      <p class="sub"><a href="events.html">See all events &rarr;</a></p>
+    </div>
+  </div>
 
   <section class="holiday">
     <canvas class="snow" id="snowCanvas" aria-hidden="true"></canvas>
     <div class="holiday-panel">
     <h2>Keep it Local for the Holidays</h2>
-    <p>The 10th annual county-wide holiday campaign is running now. Pick up a Wonderland Card, collect stamps at participating businesses, and play the Bigfoot Trail game in the app for a shot at the $5,000 prize.</p>
+    <p>The 10th annual county-wide holiday campaign is running now. Pick up a Wonderland Card and collect stamps at participating businesses for a shot at the $5,000 prize, and play the Bigfoot Trail game in the app while you shop.</p>
     <div class="nums">
       <div><b>106</b>participating businesses</div>
       <div><b>Nov 13 - Jan 8</b>campaign dates</div>
@@ -188,9 +194,9 @@ kilDropdown(document.getElementById('hbCatField'),{id:'hbCat',name:'cat',allLabe
 kilDropdown(document.getElementById('hbTownField'),{id:'hbTown',name:'town',allLabel:'All Towns',ariaLabel:'Filter by town',options:TOWNS});
 renderInto('featured', LISTINGS.filter(l=>l.featured).slice(0,9));
 renderInto('whatsnew', LISTINGS.filter(l=>l.isnew).slice(0,6));
-document.getElementById('events').innerHTML = EVENTS.map(e=>
- '<div class="event"><div class="when">'+e.date+'<br>'+e.price+'</div><div><h3>'+e.title+'</h3><p>'+e.desc+'</p><p class="sub" style="margin:6px 0 0">'+e.place+'</p></div></div>').join('');
 </script>
+<script src="events-data.js"></script>
+<script src="events.js"></script>
 <script src="theme.js"></script>
 <script src="nav.js"></script>
 <script>

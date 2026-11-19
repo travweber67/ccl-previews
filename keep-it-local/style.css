@@ -849,3 +849,94 @@ footer.site .s-strip:focus-visible{outline-color:#71bfa0}
 @media(max-width:760px){[data-theme="dark"] .hero{background:radial-gradient(ellipse 105% 82% at 50% 38%,rgba(2,18,27,.55) 0%,rgba(2,18,27,.30) 55%,rgba(2,18,27,0) 80%),linear-gradient(98deg,rgba(2,18,27,.42) 0%,rgba(2,18,27,.28) 40%,rgba(2,18,27,.12) 70%,rgba(2,18,27,0) 100%),url('img/about-clatskanie.jpg') center 26%/cover no-repeat}}
 .theme-toggle{width:44px;height:44px}
 .theme-toggle svg{width:22px;height:22px}
+
+/* ---- Pass 28: Item 8 — events calendar upgrade (Travis, Nov 18,
+   2026, ~11:22 PM). The home events block becomes her mini-month
+   calendar beside a "What's coming up" list, and the events page
+   gets a navigable month grid + the full list + a county map of
+   event locations fitted to the Columbia County bounds (the map is
+   an inline SVG of the county outline — it opens on the county,
+   never a world view, per the map zoom rule). Her two published
+   events sit first-class in one calendar with the county's
+   community events layered underneath so it never sits empty.
+   Every event carries working Add to Calendar controls (.ics
+   download + Google Calendar link) and a link to its event page
+   where one exists. Colors stay in her navy/teal/mint system in
+   both themes; gold stays inside Holidays only. ---- */
+.ev-home{display:grid;grid-template-columns:302px 1fr;gap:24px;align-items:start;margin-top:14px}
+.ev-mini{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 16px 10px;box-shadow:0 2px 10px rgba(0,53,78,.07)}
+.mini-head{font-family:Arial,sans-serif;font-weight:800;font-size:16px;letter-spacing:.4px;color:var(--green-d);text-align:center;margin-bottom:8px}
+.mini-cal{width:100%;border-collapse:collapse;font-family:Arial,sans-serif}
+.mini-cal th{font-size:11px;color:var(--muted);font-weight:700;padding:4px 0;text-transform:uppercase;letter-spacing:.5px}
+.mini-cal td{text-align:center;font-size:13.5px;padding:4px 0;color:var(--ink)}
+.mini-cal td a{display:inline-flex;align-items:center;justify-content:center;width:27px;height:27px;border-radius:50%;background:#c3e7ed;color:#00354e;font-weight:800;text-decoration:none}
+.mini-cal td a:hover{background:#71bfa0;text-decoration:none}
+.mini-cal td.today{font-weight:800}
+.mini-cal td.today a{box-shadow:0 0 0 2px #1196ab}
+.ev-next-h{font-size:20px;color:var(--green-d);margin:2px 0 12px}
+.ev-card{display:flex;gap:16px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin-bottom:12px;box-shadow:0 2px 10px rgba(0,53,78,.07)}
+.ev-badge{flex:0 0 auto;width:60px;background:#00354e;color:#fff;border-radius:10px;padding:8px 2px 7px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:0}
+.ev-mon{font-family:Arial,sans-serif;font-size:11px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;color:#71bfa0}
+.ev-day{font-size:26px;font-weight:800;line-height:1.1}
+.ev-dow{font-family:Arial,sans-serif;font-size:11px;opacity:.85}
+.ev-main{min-width:0}
+.ev-title{font-size:19px;line-height:1.3;margin:0 0 3px}
+.ev-price{display:inline-block;vertical-align:2px;background:#71bfa0;color:#00354e;font-family:Arial,sans-serif;font-size:12px;font-weight:800;padding:2px 9px;border-radius:999px;margin-left:6px}
+.ev-when{font-family:Arial,sans-serif;font-size:14px;font-weight:700;color:var(--green-d);margin:0 0 2px}
+.ev-place{font-family:Arial,sans-serif;font-size:13.5px;color:var(--muted);margin:0 0 4px}
+.ev-desc{font-size:15px;margin:4px 0 0}
+.ev-actions{display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px;margin-top:11px}
+.ev-btn{background:#1196ab;color:#fff;border:0;font-family:Arial,sans-serif;font-weight:700;font-size:14px;padding:9px 17px;border-radius:999px;cursor:pointer}
+.ev-btn:hover{filter:brightness(.92)}
+.ev-btn:focus-visible{outline:3px solid #71bfa0;outline-offset:2px}
+.ev-gcal,.ev-src{font-family:Arial,sans-serif;font-size:14px;font-weight:700}
+.ev-card.flash{animation:kilFlash 1.6s ease}
+@keyframes kilFlash{0%,60%{box-shadow:0 0 0 3px #1196ab,0 2px 10px rgba(0,53,78,.07)}100%{box-shadow:0 2px 10px rgba(0,53,78,.07)}}
+.ev-cal-head{display:flex;align-items:center;gap:16px;margin:20px 0 10px}
+.ev-month{font-size:24px;color:var(--green-d);margin:0;min-width:210px;text-align:center}
+.ev-nav{width:40px;height:40px;border-radius:50%;background:var(--card);border:1px solid var(--line);color:var(--green-d);font-size:22px;line-height:1;cursor:pointer;font-family:Arial,sans-serif}
+.ev-nav:hover{border-color:#1196ab;color:#1196ab}
+.ev-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px}
+.mg-head{font-family:Arial,sans-serif;font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);text-align:center;padding:2px 0}
+.mg-cell{background:var(--card);border:1px solid var(--line);border-radius:10px;min-height:94px;padding:7px 8px;min-width:0}
+.mg-cell.empty{background:transparent;border-color:transparent}
+.mg-cell.has{cursor:pointer}
+.mg-cell.has:hover{border-color:#1196ab}
+.mg-cell.today{box-shadow:inset 0 0 0 2px #1196ab}
+.mg-cell.sel{background:#e1f4f7;border-color:#1196ab}
+.mg-num{font-family:Arial,sans-serif;font-weight:800;font-size:14px;color:var(--green-d)}
+.mg-ev{display:block;font-family:Arial,sans-serif;font-size:11.5px;line-height:1.35;color:var(--ink);border-left:3px solid #1196ab;padding-left:5px;margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mg-more{display:block;font-family:Arial,sans-serif;font-size:11px;color:var(--muted);margin-top:3px}
+.mg-dots{display:none}
+.ev-filter-note{font-family:Arial,sans-serif;font-size:14.5px;background:#e1f4f7;color:#00354e;border-radius:10px;padding:10px 14px}
+.ev-linkbtn{background:none;border:0;padding:0;font:inherit;font-weight:700;color:#1196ab;cursor:pointer;text-decoration:underline}
+.ev-map{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px;margin-top:12px}
+.ev-map svg{display:block;width:100%;height:auto}
+.map-land{fill:#dceef0;stroke:#00354e;stroke-width:1.6}
+.map-town{font-family:Arial,sans-serif;font-size:12.5px;font-weight:700;letter-spacing:.4px;fill:#5c7a84}
+.ev-pin{cursor:pointer}
+.ev-pin .pin-body{fill:#1196ab;stroke:#fff;stroke-width:2}
+.ev-pin .pin-dot{fill:#fff}
+.ev-pin:hover .pin-body{fill:#0d7e91}
+.pin-n{font-family:Arial,sans-serif;font-size:11px;font-weight:800;fill:#00354e;text-anchor:middle}
+[data-theme="dark"] .ev-next-h,[data-theme="dark"] .ev-month,[data-theme="dark"] .mini-head{color:#71bfa0}
+[data-theme="dark"] .ev-nav{color:#e8f1f2}
+[data-theme="dark"] .ev-when{color:#4db8c7}
+[data-theme="dark"] .ev-badge{background:#10506e}
+[data-theme="dark"] .mg-cell.sel{background:#0d3a4d}
+[data-theme="dark"] .mg-num{color:#e8f1f2}
+[data-theme="dark"] .ev-filter-note{background:#0d3a4d;color:#e8f1f2}
+[data-theme="dark"] .map-land{fill:#0a2c3f;stroke:#71bfa0}
+[data-theme="dark"] .map-town{fill:#9db8c0}
+[data-theme="dark"] .mini-cal td a{background:#14424f;color:#c3e7ed}
+@media(max-width:900px){.ev-home{grid-template-columns:1fr}.ev-mini{max-width:344px;margin:0 auto;width:100%}}
+@media(max-width:760px){
+ .mg-cell{min-height:54px;padding:5px 6px}
+ .mg-ev,.mg-more{display:none}
+ .mg-dots{display:flex;gap:3px;margin-top:5px}
+ .mg-dots i{width:6px;height:6px;border-radius:50%;background:#1196ab}
+ .ev-month{min-width:0;font-size:21px}
+ .ev-card{padding:14px}
+ .ev-badge{width:52px}
+ .ev-day{font-size:22px}
+}

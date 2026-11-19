@@ -34,10 +34,18 @@
 <div class="wrap">
   <h2 class="sec">Columbia County's Local Events</h2>
   <p class="sub">Search by keyword or location... &middot; Hosting a public event in Columbia County? Add it here.</p>
+  <div class="ev-cal-head">
+    <button type="button" class="ev-nav" id="evPrevM" aria-label="Previous month">&lsaquo;</button>
+    <h3 class="ev-month" id="evMonthName">Month</h3>
+    <button type="button" class="ev-nav" id="evNextM" aria-label="Next month">&rsaquo;</button>
+  </div>
+  <div class="ev-grid" id="evGrid"></div>
+  <p class="ev-filter-note" id="evFilterNote" hidden><span></span> <button type="button" class="ev-linkbtn" id="evShowAll">Show all upcoming events</button></p>
   <h2 class="sec">Upcoming Events</h2>
-  <div id="events"></div>
-  <h2 class="sec">All Events</h2>
-  <p>The live events board carries these same two upcoming events today.</p>
+  <div id="evList"></div>
+  <h2 class="sec">Where They&rsquo;re Happening</h2>
+  <div class="ev-map" id="evMap"></div>
+  <p class="sub">Event locations across Columbia County. Tap a pin to jump to its event; a numbered pin means more than one event at that spot.</p>
   <h2 class="sec">Find Local Businesses and Organizations</h2>
   <p><a href="directory.html">Open the directory &rarr;</a></p>
 </div>
@@ -64,10 +72,9 @@
 
 </footer>
 <script src="data.js"></script>
-<script>
-document.getElementById('events').innerHTML = EVENTS.map(e=>
- '<div class="event"><div class="when">'+e.date+'<br>'+e.price+'</div><div><h3>'+e.title+'</h3><p>'+e.desc+'</p><p class="sub" style="margin:6px 0 0">'+e.place+(e.phone?' &middot; '+e.phone:'')+(e.web?' &middot; '+e.web:'')+'</p></div></div>').join('');
-</script>
+<script src="events-data.js"></script>
+<script src="county-path.js"></script>
+<script src="events.js"></script>
 <script src="theme.js"></script>
 <script src="nav.js"></script>
 </body>

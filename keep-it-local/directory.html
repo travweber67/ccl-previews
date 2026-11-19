@@ -6,6 +6,9 @@
 <meta name="robots" content="noindex, nofollow">
 <title>Places Archive - Keep it Local</title>
 <link rel="stylesheet" href="style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;800&display=swap" rel="stylesheet">
 </head>
 <body>
 <div class="demo-bar">Demo rebuild preview by <b>Nomad Development Group</b> &middot; Not the live site</div>
@@ -22,8 +25,8 @@
 <div class="herobar-wrap">
   <div class="herobar" role="search">
     <label class="hb-field"><span class="hb-ic">&#128269;</span><input type="search" id="q" placeholder="Search by keyword or location..." aria-label="Search by keyword or location"></label>
-    <label class="hb-field seg"><span class="hb-ic">&#9638;</span><select id="cat" aria-label="Filter by category"><option value="">All Categories</option></select></label>
-    <label class="hb-field seg"><span class="hb-ic">&#128205;</span><select id="town" aria-label="Filter by town"><option value="">All Towns</option></select></label>
+    <div class="hb-field seg" id="catField"><span class="hb-ic">&#9638;</span></div>
+    <div class="hb-field seg" id="townField"><span class="hb-ic">&#128205;</span></div>
     <button type="button" class="hb-go" id="dirGo">&#128269; Search</button>
   </div>
 </div>
@@ -48,7 +51,7 @@
   <a href="index.html#about">About Us</a>
 </nav>
 <div class="wrap">
-  <div class="addstrip"><p><b>Run a local business or nonprofit?</b> Adding a basic listing is easy, quick, and free.</p><a class="addstrip-btn" href="https://docs.google.com/forms/d/e/1FAIpQLSfU93t_QGHyFiDihI21XO8fY7tObjT_ytt5qG82A3WyPfxDtg/viewform" target="_blank" rel="noopener">Add Your Listing</a></div>
+  <div class="addstrip"><span class="addstrip-badge">Free Listing</span><p><b>Run a local business or nonprofit?</b> Adding a basic listing is easy, quick, and free.</p><a class="addstrip-btn" href="https://docs.google.com/forms/d/e/1FAIpQLSfU93t_QGHyFiDihI21XO8fY7tObjT_ytt5qG82A3WyPfxDtg/viewform" target="_blank" rel="noopener">Add Your Listing</a></div>
   <p class="count" id="count"></p>
   <div class="grid" id="results"></div>
   <h2 class="sec">Looking for Something Specific?</h2>
@@ -65,14 +68,13 @@
 </footer>
 <script src="data.js"></script>
 <script src="app.js"></script>
+<script src="herobar.js"></script>
 <script>
 const params=new URLSearchParams(location.search);
+const ddCat=kilDropdown(document.getElementById('catField'),{id:'cat',allLabel:'All Categories',ariaLabel:'Filter by category',options:CATEGORIES.filter(c=>c!=='Events'),value:params.get('cat')||''});
+const ddTown=kilDropdown(document.getElementById('townField'),{id:'town',allLabel:'All Towns',ariaLabel:'Filter by town',options:TOWNS,value:params.get('town')||''});
 const catSel=document.getElementById('cat'),townSel=document.getElementById('town'),qIn=document.getElementById('q');
-CATEGORIES.filter(c=>c!=='Events').forEach(c=>catSel.innerHTML+='<option>'+c+'</option>');
-TOWNS.forEach(t=>townSel.innerHTML+='<option>'+t+'</option>');
-if(params.get('cat'))catSel.value=params.get('cat');
 if(params.get('q'))qIn.value=params.get('q');
-if(params.get('town'))townSel.value=params.get('town');
 function apply(){
   const q=qIn.value.toLowerCase(),c=catSel.value,t=townSel.value;
   const list=LISTINGS.filter(l=>(!c||l.cat===c)&&(!t||l.town===t)&&(!q||(l.name+' '+l.town+' '+l.cat+' '+l.desc).toLowerCase().includes(q)));
@@ -81,7 +83,7 @@ function apply(){
 }
 [qIn,catSel,townSel].forEach(el=>el.addEventListener('input',apply));
 document.getElementById('dirGo').addEventListener('click',function(){apply();document.getElementById('results').scrollIntoView({behavior:'smooth',block:'start'});});
-document.querySelectorAll('.drawer a[href^="directory.html?cat="]').forEach(function(a){a.addEventListener('click',function(e){e.preventDefault();catSel.value=new URLSearchParams(a.getAttribute('href').split('?')[1]).get('cat');apply();history.replaceState(null,'','directory.html?cat='+encodeURIComponent(catSel.value));});});
+document.querySelectorAll('.drawer a[href^="directory.html?cat="]').forEach(function(a){a.addEventListener('click',function(e){e.preventDefault();ddCat.set(new URLSearchParams(a.getAttribute('href').split('?')[1]).get('cat'));apply();history.replaceState(null,'','directory.html?cat='+encodeURIComponent(ddCat.value));});});
 apply();
 </script>
 <script src="nav.js"></script>

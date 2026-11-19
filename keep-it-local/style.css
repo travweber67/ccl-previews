@@ -637,3 +637,30 @@ footer.site .s-strip{display:inline-flex;align-items:center;background:rgba(255,
 footer.site .s-strip:hover{background:rgba(255,255,255,.13);border-color:#ffb400;transform:translateY(-1px);text-decoration:none}
 footer.site .s-strip:focus-visible{outline:2px solid #ffb400;outline-offset:2px}
 footer.site .s-strip img{display:block;height:36px;width:auto;max-width:170px;object-fit:contain;background:#fff;border-radius:6px;padding:4px 8px}
+
+/* ---- Pass 24: headline descender fix + About photo pairing + hero
+   license credit (Travis, Nov 18, 2026, ~10:32 PM + compliance catch).
+   (a) The gold headline's "y" in "County" was clipped: with
+   background-clip:text the gradient only paints inside the element
+   box, and at line-height 1.06 the descender overflows that box and
+   renders transparent. The .gold block now carries bottom padding
+   (background paints through it, descender in full) with an equal
+   negative bottom margin, so the swoosh and everything below sit
+   exactly where they were; headline size and wording unchanged.
+   (b) The About section's Krueger credit line pointed at nothing —
+   the demo never used the photo. On her homepage the About copy sits
+   over his Clatskanie dusk aerial (uploads/2023/05/416.webp, the
+   About column's background); the photo now runs in the demo's About
+   section with the credit directly beneath it as its caption.
+   (c) The hero (CC-1, Columbia River from Rainier Riverfront Park)
+   is CC BY 4.0 and carried no attribution; a credit line now sits in
+   the footer on every page, naming the creator exactly as the
+   original file's own metadata does (Artist/Copyright: Gary
+   Halvorson, Oregon State Archives) and linking the Commons file
+   page + the license. ---- */
+.hero h1 .gold{line-height:1.12;padding-bottom:.16em;margin-bottom:-.16em}
+.about-photo{margin:18px 0 4px}
+.about-photo img{display:block;width:100%;height:auto;border-radius:14px;box-shadow:0 10px 30px rgba(20,60,40,.18)}
+.about-photo figcaption{margin-top:8px;font-size:12.5px;color:#6a7263}
+footer.site .hero-credit{margin-top:6px}
+footer.site .hero-credit a{color:#cfd6cc;text-decoration:underline}

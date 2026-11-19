@@ -261,3 +261,37 @@ body.drawer-open{overflow:hidden}
   .herobar{max-width:none}
   .hero-wave svg{height:84px}
 }
+
+/* ---- Pass 7: correction round 4 — proportions matched to Travis's reference
+   image (each element sized from the reference on its own: hero ~52% of the
+   viewport and min 600px tall on desktop, fluid Fraunces headline, pill ~82%
+   wide and chunky, card grids ~92% wide with their own margins) + Danny's
+   Barbershop card photo recomposed from the business's own listing photo
+   (Nov 18, 2026) ---- */
+.hero{min-height:600px;padding:106px 20px 118px}
+.hero-in{padding:0 24px}
+.hero h1{font-size:clamp(36px,4.8vw,92px)}
+.hero h1 .gold{font-size:1.12em}
+.swoosh{width:min(500px,74%);margin:12px 0 14px}
+.hero-sub{font-size:clamp(16px,1.3vw,19px);max-width:520px}
+.herobar-wrap{padding:0 24px;margin-top:18px}
+.herobar{max-width:1180px;padding:6px}
+.hb-field{height:58px;padding:0 20px}
+.hb-go{height:58px;padding:0 38px;font-size:16.5px}
+.hb-ic{font-size:16px}
+.herobar input{font-size:16px}
+.dd-btn{font-size:16px}
+.dd-opt{font-size:15.5px}
+.hero-wave svg{height:150px}
+.wrap{max-width:1330px;padding-left:20px;padding-right:20px}
+.card-img{height:190px}
+@media(max-width:760px){
+  .hero{min-height:0;padding:92px 18px 88px}
+  .hero-in{padding:0}
+  .herobar-wrap{padding:0}
+  .hero h1{font-size:10.5vw}
+  .hero-wave svg{height:100px}
+  .hb-field,.hb-field.seg{height:52px}
+  .hb-go{height:52px}
+  .wrap{padding-left:16px;padding-right:16px}
+}

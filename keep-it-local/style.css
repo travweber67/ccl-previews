@@ -1513,3 +1513,38 @@ table.loc.loc-open tbody tr.loc-x{display:table-row}
 .drawer-install:hover{background:#e2f0f3}
 .drawer-install-hint{margin:0;padding:10px 20px 12px;font-size:14px;line-height:1.5;color:var(--muted);border-bottom:1px solid var(--line)}
 [data-theme="dark"] .drawer-install:hover{background:rgba(255,255,255,.07)}
+
+/* ---- Pass 42: final fixes (Travis's phone review, Nov 19, 2026,
+   ~3:29–3:38 AM) + the pre-send full check.
+   (1) DARK HERO CREDIT, mobile: the .hero-photo-credit sat at the
+   hero's bottom edge (bottom:8px), where the stacked search card
+   and the wave bands cross it — half-buried. On ≤900px it now
+   hangs just below the hero (top:100% + 9px), on the page ground,
+   in clear space under the search card; nothing overlaps it. The
+   credit text is unchanged and the footer still carries it too.
+   Desktop is untouched: at 1280 the taller hero leaves the credit
+   clear of the pill, legible on the dark band under the wave.
+   Light mode never renders this credit (display:none) — checked,
+   no overlap exists there.
+   (2) LIGHT HERO TINT, round two (≤900px): Pass 40 lightened the
+   dark hero more than the light one; the river photo still read
+   as dyed. The gradient now holds its shade behind the headline
+   and welcome (.70 → .47 through the text zone) and lets go
+   (.20 → .06) over the lower photo, so the river and bridge read
+   as a photograph while the white text stays crisp on its
+   shadows. Desktop's approved Pass 13 overlay is untouched, and
+   the dark ≤900 overlay stays exactly as Pass 40 set it.
+   (3) DRAWER INSTALL ENTRY (Travis: the Pass 41 button "looks
+   ugly as heck"): it read as a bolted-on CTA — the only icon in
+   the menu, bright green, and its label indented ~29px past the
+   menu's text column by the leading icon. Now the label starts in
+   the same 20px column as every drawer link, and the download
+   glyph trails at the right edge, small (15px) and in the
+   drawer's muted tone. Same element, same id, same install.js
+   behavior (prompt capture, iOS/menu hint, hide-when-installed);
+   the hover already matched the links and still does. ---- */
+@media(max-width:900px){
+  [data-theme="dark"] .hero-photo-credit{top:100%;bottom:auto;margin-top:9px}
+  .hero{background:linear-gradient(180deg,rgba(0,38,56,.70) 0%,rgba(0,38,56,.47) 36%,rgba(0,38,56,.20) 64%,rgba(0,38,56,.06) 100%),url('img/hero.jpg') center/cover no-repeat}
+}
+.drawer-install svg{order:2;margin-left:auto;width:15px;height:15px;color:var(--muted)}

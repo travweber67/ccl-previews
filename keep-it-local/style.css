@@ -295,3 +295,29 @@ body.drawer-open{overflow:hidden}
   .hb-go{height:52px}
   .wrap{padding-left:16px;padding-right:16px}
 }
+
+/* ---- Pass 8: correction round 5 — bigger logo menu button + wordmark,
+   hero a touch shorter (type scale untouched), card grids a step wider
+   with clear margins kept (Nov 18, 2026) ---- */
+/* logo button: circular logo 48px -> 58px (+21%), ring padding with it,
+   MENU caption scales up too */
+.logo-btn img{height:58px;width:58px}
+.logo-ring{padding:6px}
+.menu-cap{font-size:11px;letter-spacing:2.5px}
+/* wordmark beside it grows a step (+~17%), same two-line treatment */
+.logo-word{font-size:27px}
+.logo-word small{font-size:14.5px;letter-spacing:1.8px}
+/* hero: 600px floor -> 552px, top/bottom spacing trimmed; headline type
+   and pill sizes stay exactly as round 4 */
+.hero{min-height:552px;padding:94px 20px 104px}
+/* gold gradient rebalanced: lit from above — bright gold holds across the
+   top and upper-middle of the letterforms (the Fraunces ascent box pushes
+   the glyph tops deep into the gradient), rich gold through the middle,
+   only the bottom edge deepens; shadow + background-clip treatment kept */
+.hero h1 .gold{background:linear-gradient(180deg,#ffe066 0%,#ffd94d 34%,#ffb400 62%,#f5a30b 84%,#e8890c 100%);-webkit-background-clip:text;background-clip:text;text-shadow:none}
+/* card grids: .wrap 1330px -> 1380px (~95.8% at 1440w, clear margins) */
+.wrap{max-width:1380px}
+@media(max-width:760px){
+  .hero{padding:84px 18px 76px}
+  .logo-word{font-size:24px}
+}

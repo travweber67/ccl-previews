@@ -323,3 +323,23 @@ body.drawer-open{overflow:hidden}
   .hero{padding:108px 18px 64px}
   .logo-word{font-size:24px}
 }
+
+/* ---- Pass 9: correction round 6 — logo menu button bigger again so the
+   small text inside her circular logo is actually readable (Travis,
+   Nov 18, 2026). Logo source is 300x300, so 80px display is a clean
+   ~3.75x downscale — no new detail invented, just more of it visible.
+   Wordmark stays at round-5 size; drawer untouched. ---- */
+/* logo: 58px -> 80px (+38%), ring padding 6 -> 7px (ring outer ~97px),
+   MENU caption 11 -> 12px */
+.logo-btn img{height:80px;width:80px}
+.logo-ring{padding:7px}
+.menu-cap{font-size:12px;letter-spacing:2.8px}
+/* knock-on: button is now ~112px tall (was ~87px), bottom edge ~126px
+   from the hero top vs ~101px before. Hero top padding rises +25px so
+   the headline's first line keeps its round-5 clearance; bottom padding
+   trims the same 25px so the 552px hero height is unchanged. */
+.hero{padding:119px 20px 79px}
+@media(max-width:760px){
+  /* same +25 / -25 trade on phone: 108/64 -> 133/39, total unchanged */
+  .hero{padding:133px 18px 39px}
+}

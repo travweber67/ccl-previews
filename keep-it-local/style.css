@@ -889,7 +889,7 @@ footer.site .s-strip:focus-visible{outline-color:#71bfa0}
 .ev-btn{background:#1196ab;color:#fff;border:0;font-family:Arial,sans-serif;font-weight:700;font-size:14px;padding:9px 17px;border-radius:999px;cursor:pointer}
 .ev-btn:hover{filter:brightness(.92)}
 .ev-btn:focus-visible{outline:3px solid #71bfa0;outline-offset:2px}
-.ev-gcal,.ev-src{font-family:Arial,sans-serif;font-size:14px;font-weight:700}
+.ev-src{font-family:Arial,sans-serif;font-size:14px;font-weight:700}
 .ev-card.flash{animation:kilFlash 1.6s ease}
 @keyframes kilFlash{0%,60%{box-shadow:0 0 0 3px #1196ab,0 2px 10px rgba(0,53,78,.07)}100%{box-shadow:0 2px 10px rgba(0,53,78,.07)}}
 .ev-cal-head{display:flex;align-items:center;gap:16px;margin:20px 0 10px}
@@ -910,15 +910,7 @@ footer.site .s-strip:focus-visible{outline-color:#71bfa0}
 .mg-dots{display:none}
 .ev-filter-note{font-family:Arial,sans-serif;font-size:14.5px;background:#e1f4f7;color:#00354e;border-radius:10px;padding:10px 14px}
 .ev-linkbtn{background:none;border:0;padding:0;font:inherit;font-weight:700;color:#1196ab;cursor:pointer;text-decoration:underline}
-.ev-map{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px;margin-top:12px}
-.ev-map svg{display:block;width:100%;height:auto}
-.map-land{fill:#dceef0;stroke:#00354e;stroke-width:1.6}
-.map-town{font-family:Arial,sans-serif;font-size:12.5px;font-weight:700;letter-spacing:.4px;fill:#5c7a84}
-.ev-pin{cursor:pointer}
-.ev-pin .pin-body{fill:#1196ab;stroke:#fff;stroke-width:2}
-.ev-pin .pin-dot{fill:#fff}
-.ev-pin:hover .pin-body{fill:#0d7e91}
-.pin-n{font-family:Arial,sans-serif;font-size:11px;font-weight:800;fill:#00354e;text-anchor:middle}
+.ev-map{margin-top:12px}
 [data-theme="dark"] .ev-next-h,[data-theme="dark"] .ev-month,[data-theme="dark"] .mini-head{color:#71bfa0}
 [data-theme="dark"] .ev-nav{color:#e8f1f2}
 [data-theme="dark"] .ev-when{color:#4db8c7}
@@ -926,8 +918,6 @@ footer.site .s-strip:focus-visible{outline-color:#71bfa0}
 [data-theme="dark"] .mg-cell.sel{background:#0d3a4d}
 [data-theme="dark"] .mg-num{color:#e8f1f2}
 [data-theme="dark"] .ev-filter-note{background:#0d3a4d;color:#e8f1f2}
-[data-theme="dark"] .map-land{fill:#0a2c3f;stroke:#71bfa0}
-[data-theme="dark"] .map-town{fill:#9db8c0}
 [data-theme="dark"] .mini-cal td a{background:#14424f;color:#c3e7ed}
 @media(max-width:900px){.ev-home{grid-template-columns:1fr}.ev-mini{max-width:344px;margin:0 auto;width:100%}}
 @media(max-width:760px){
@@ -939,4 +929,74 @@ footer.site .s-strip:focus-visible{outline-color:#71bfa0}
  .ev-card{padding:14px}
  .ev-badge{width:52px}
  .ev-day{font-size:22px}
+}
+
+/* ---- Pass 29: Item 8 fixes (Travis, Nov 18, ~11:49–11:56 PM).
+   (1) The events map is now a folk-art illustrated county
+   (img/county-map.jpg) in a capped, centered panel, with town
+   labels + clickable teal blips in an HTML overlay that scales
+   with the artwork. (2) Every month-grid chip carries its own
+   Add to Calendar button — the single .ics action everywhere;
+   the separate Google Calendar link is gone (Travis's one-button
+   decision). (3) The events-page list opens at 6 with a See more
+   pull-down. (4) On mobile the home block swaps the mini-month
+   for a swipeable day-pill strip. (5) Event cards gain a picture
+   panel on the right (real event image where the source data
+   carries one, a folk-art panel by event type otherwise). ---- */
+/* (5) card picture panel */
+.ev-card{padding:0;overflow:hidden;align-items:stretch}
+.ev-body{display:flex;gap:16px;padding:16px 18px;flex:1 1 auto;min-width:0}
+.ev-pic{flex:0 0 31%;background-size:cover;background-position:center;background-repeat:no-repeat}
+/* (2) chip Add to Calendar */
+.mg-ev{display:flex;align-items:center;gap:4px}
+.mg-ev-t{flex:1 1 auto;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mg-add{flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center;width:21px;height:21px;padding:0;border:1px solid #c3e7ed;border-radius:6px;background:#eef7f8;color:#1196ab;cursor:pointer}
+.mg-add svg{width:13px;height:13px}
+.mg-add:hover{background:#1196ab;color:#fff;border-color:#1196ab}
+.mg-add:focus-visible{outline:2px solid #1196ab;outline-offset:1px}
+[data-theme="dark"] .mg-add{background:#0d3a4d;border-color:#14424f;color:#4db8c7}
+[data-theme="dark"] .mg-add:hover{background:#1196ab;color:#fff}
+/* (3) list expander */
+.ev-more-wrap{text-align:center;margin:6px 0 14px}
+.ev-more{background:var(--card);border:1.5px solid #1196ab;color:#1196ab;font-family:Arial,sans-serif;font-weight:800;font-size:15px;padding:11px 26px;border-radius:999px;cursor:pointer}
+.ev-more:hover{background:#1196ab;color:#fff}
+.ev-more:focus-visible{outline:3px solid #71bfa0;outline-offset:2px}
+.ev-more-n{font-weight:700;opacity:.85}
+/* (1) illustrated map panel */
+.ev-map{max-width:560px;margin-left:auto;margin-right:auto;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px;box-shadow:0 2px 10px rgba(0,53,78,.07)}
+.kil-mapwrap{position:relative;border-radius:9px;overflow:hidden;line-height:0}
+.kil-mapimg{display:block;width:100%;height:auto}
+.kil-town{position:absolute;transform:translate(-50%,-50%);font-family:Fraunces,Georgia,serif;font-style:italic;font-weight:600;font-size:clamp(11px,2.6vw,16px);letter-spacing:.3px;color:#00354e;text-shadow:0 0 5px rgba(246,241,224,.95),0 0 10px rgba(246,241,224,.85),0 1px 2px rgba(246,241,224,.9);white-space:nowrap;pointer-events:none;line-height:1}
+.kil-pin{position:absolute;transform:translate(-50%,-50%);width:25px;height:25px;padding:0;border:2.5px solid #fff;border-radius:50%;background:#1196ab;box-shadow:0 1px 5px rgba(0,53,78,.45);cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1}
+.kil-pin-dot{width:8px;height:8px;border-radius:50%;background:#fff}
+.kil-pin:hover,.kil-pin:focus-visible{background:#0d7e91;outline:none;box-shadow:0 0 0 3px #71bfa0,0 1px 5px rgba(0,53,78,.45)}
+.kil-pin-n{position:absolute;top:-11px;left:50%;transform:translateX(-50%);font-family:Arial,sans-serif;font-size:11px;font-weight:800;color:#00354e;background:#c3e7ed;border-radius:999px;padding:0 5px;line-height:1.5;box-shadow:0 1px 3px rgba(0,53,78,.35)}
+/* (4) home day pills — desktop hidden, mobile replaces mini-month */
+.ev-pills{display:none}
+.ev-next-top{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.ev-home-reset{background:#e1f4f7;color:#00354e;border:1px solid #c3e7ed;font-family:Arial,sans-serif;font-weight:700;font-size:13px;padding:5px 12px;border-radius:999px;cursor:pointer;margin-bottom:10px}
+.ev-home-reset:hover{background:#71bfa0}
+[data-theme="dark"] .ev-home-reset{background:#0d3a4d;color:#e8f1f2;border-color:#14424f}
+@media(max-width:900px){
+ .ev-mini{display:none}
+ .ev-pills{display:flex;gap:8px;overflow-x:auto;padding:4px 2px 10px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+ .ev-pills::-webkit-scrollbar{display:none}
+ .ev-pill{flex:0 0 auto;display:flex;flex-direction:column;align-items:center;gap:1px;min-width:52px;padding:8px 6px 7px;border-radius:14px;border:1.5px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer;font-family:Arial,sans-serif;position:relative}
+ .ev-pill-dow{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.6px;color:var(--muted)}
+ .ev-pill-num{font-size:19px;font-weight:800;line-height:1.15;color:var(--green-d)}
+ .ev-pill-dot{width:6px;height:6px;border-radius:50%;background:#1196ab;margin-top:2px}
+ .ev-pill.today{border-color:#1196ab;box-shadow:inset 0 0 0 1.5px #1196ab}
+ .ev-pill.sel{background:#1196ab;border-color:#1196ab}
+ .ev-pill.sel .ev-pill-dow{color:#c3e7ed}
+ .ev-pill.sel .ev-pill-num{color:#fff}
+ .ev-pill.sel .ev-pill-dot{background:#fff}
+ [data-theme="dark"] .ev-pill-num{color:#e8f1f2}
+ [data-theme="dark"] .ev-pill.sel .ev-pill-num{color:#fff}
+}
+@media(max-width:760px){
+ .ev-card{flex-direction:column;padding:0}
+ .ev-body{padding:14px}
+ .ev-pic{order:-1;flex:0 0 108px;width:100%}
+ .kil-pin{width:22px;height:22px}
+ .kil-pin-dot{width:7px;height:7px}
 }

@@ -115,3 +115,21 @@ body.drawer-open{overflow:hidden}
   .herobar-wrap{margin-top:-46px}
   .logo-word{font-size:20px}
 }
+
+/* ---- Pass 2b: reference fidelity — frosted glass bar, headline, wave bands ---- */
+.hero{padding:118px 20px 58px}
+.hero h1{font-family:Arial,Helvetica,sans-serif;font-weight:800;letter-spacing:-.5px}
+.hero h1 .gold{color:#ffb400}
+.swoosh{display:block;width:300px;max-width:62%;height:14px;margin:14px 0 16px}
+.hero-sub{font-family:Arial,Helvetica,sans-serif;font-weight:600;font-size:16.5px;max-width:545px}
+.hero-wave svg{height:104px}
+.herobar-wrap{margin:34px auto 0;padding:0;max-width:1060px}
+.herobar{background:rgba(13,46,32,.52);backdrop-filter:blur(13px) saturate(1.3);-webkit-backdrop-filter:blur(13px) saturate(1.3);border:1px solid rgba(255,255,255,.55);box-shadow:0 12px 32px rgba(8,26,17,.35),inset 0 1px 0 rgba(255,255,255,.35)}
+.hb-field + .hb-field{border-left:0}
+.hb-field.seg{background:rgba(255,255,255,.09);border-radius:999px;margin:4px 2px;box-shadow:inset 0 1px 0 rgba(255,255,255,.18)}
+@media(max-width:760px){
+  .hero{padding:104px 18px 52px}
+  .hero-wave svg{height:60px}
+  .herobar-wrap{margin-top:26px}
+  .hb-field.seg{margin:3px 0}
+}

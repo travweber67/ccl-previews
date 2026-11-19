@@ -16,10 +16,18 @@
 <section class="hero">
   <div class="hero-in">
     <h1>Find What&rsquo;s in <span class="gold">Columbia County</span></h1>
-    <div class="goldbar"></div>
+    <svg class="swoosh" viewBox="0 0 300 14" preserveAspectRatio="none" aria-hidden="true"><path d="M4,10 C80,3 210,2 296,7" stroke="#ffb400" stroke-width="5.5" fill="none" stroke-linecap="round"/></svg>
     <p class="hero-sub">Welcome to Columbia County&rsquo;s most robust directory of local businesses, nonprofits, and organizations! Find what you need all in one place here.</p>
   </div>
-  <div class="hero-wave" aria-hidden="true"><svg viewBox="0 0 1440 100" preserveAspectRatio="none"><path d="M0,58 C240,96 480,22 760,36 C1040,50 1240,86 1440,44 L1440,100 L0,100 Z" fill="#faf6ef"/><path d="M0,58 C240,96 480,22 760,36 C1040,50 1240,86 1440,44" fill="none" stroke="#f5a623" stroke-width="5"/><path d="M0,70 C240,104 460,36 700,46" fill="none" stroke="#1e6b4f" stroke-width="9" opacity="0.85"/></svg></div>
+<div class="herobar-wrap">
+  <div class="herobar" role="search">
+    <label class="hb-field"><span class="hb-ic">&#128269;</span><input type="search" id="q" placeholder="Search by keyword or location..." aria-label="Search by keyword or location"></label>
+    <label class="hb-field seg"><span class="hb-ic">&#9638;</span><select id="cat" aria-label="Filter by category"><option value="">All Categories</option></select></label>
+    <label class="hb-field seg"><span class="hb-ic">&#128205;</span><select id="town" aria-label="Filter by town"><option value="">All Towns</option></select></label>
+    <button type="button" class="hb-go" id="dirGo">&#128269; Search</button>
+  </div>
+</div>
+  <div class="hero-wave" aria-hidden="true"><svg viewBox="0 0 1440 120" preserveAspectRatio="none"><path d="M0,72 C260,114 520,30 820,44 C1100,57 1280,94 1440,52 L1440,120 L0,120 Z" fill="#faf6ef"/><path d="M0,64 C260,106 520,22 820,36 C1100,49 1280,86 1440,44 L1440,56 C1280,98 1100,61 820,48 C520,34 260,118 0,76 Z" fill="#f5a623"/><path d="M0,76 C260,118 520,34 820,48 C1100,61 1280,98 1440,56 L1440,72 C1280,112 1100,76 820,63 C520,49 260,130 0,90 Z" fill="#14503a"/></svg></div>
 </section>
 </div>
 <div class="scrim" id="scrim"></div>
@@ -29,7 +37,6 @@
   <a href="directory.html">Directory</a>
   <a href="events.html">Events</a>
   <a href="bundles.html">Explore the Bundles</a>
-  <a href="index.html#about">About Us</a>
   <div class="drawer-cat">Browse by Category</div>
   <a href="directory.html?cat=Shop">Shop</a>
   <a href="directory.html?cat=Taste">Taste</a>
@@ -37,15 +44,8 @@
   <a href="directory.html?cat=Services">Services</a>
   <a href="directory.html?cat=Community">Community</a>
   <a href="events.html">Events</a>
+  <a href="index.html#about">About Us</a>
 </nav>
-<div class="herobar-wrap">
-  <div class="herobar" role="search">
-    <label class="hb-field"><span class="hb-ic">&#128269;</span><input type="search" id="q" placeholder="Search by keyword or location..." aria-label="Search by keyword or location"></label>
-    <label class="hb-field"><span class="hb-ic">&#9638;</span><select id="cat" aria-label="Filter by category"><option value="">All Categories</option></select></label>
-    <label class="hb-field"><span class="hb-ic">&#128205;</span><select id="town" aria-label="Filter by town"><option value="">All Towns</option></select></label>
-    <button type="button" class="hb-go" id="dirGo">&#128269; Search</button>
-  </div>
-</div>
 <div class="wrap">
   <p class="count" id="count"></p>
   <div class="grid" id="results"></div>
@@ -79,6 +79,7 @@ function apply(){
 }
 [qIn,catSel,townSel].forEach(el=>el.addEventListener('input',apply));
 document.getElementById('dirGo').addEventListener('click',function(){apply();document.getElementById('results').scrollIntoView({behavior:'smooth',block:'start'});});
+document.querySelectorAll('.drawer a[href^="directory.html?cat="]').forEach(function(a){a.addEventListener('click',function(e){e.preventDefault();catSel.value=new URLSearchParams(a.getAttribute('href').split('?')[1]).get('cat');apply();history.replaceState(null,'','directory.html?cat='+encodeURIComponent(catSel.value));});});
 apply();
 </script>
 <script src="nav.js"></script>

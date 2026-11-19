@@ -1117,3 +1117,39 @@ footer.site .s-strip img{height:68px;max-width:320px;border-radius:8px;padding:8
    Featured + What's New grids and the directory results grid,
    which share this rule. ---- */
 .grid{position:relative;z-index:1}
+
+/* ---- Pass 34 (Travis, Nov 19, ~1:00 AM — two sponsor logos still
+   unreadable at the Pass 32 sizes). Clatskanie PUD (400x347) and
+   Crooked Creek Brewery (400x335) are dense, squarish marks whose
+   words sit in the lower half of the file, so the shared fixed
+   height starves them: at the footer's 68px the PUD rendered
+   ~78px wide and its "PEOPLE'S UTILITY DISTRICT" line stood ~5px
+   tall; Crooked Creek's script was the same story at ~81px wide.
+   Travis's call: wider, not much taller, no distortion. Per-logo
+   treatment, aspect strictly preserved: both marks scale x1.5 in
+   the footer strip (68 -> 102px tall, ~118px / ~122px wide) and
+   x1.5 in the home woven chips (64 -> 96px tall, ~111px / ~115px
+   wide) for consistency. The other five logos are untouched, the
+   strip still wraps (phones included — the Pass 32 76vw width cap
+   stays well above these widths). Strip items are targeted by
+   both their shapes: data-panel-open on the panel pages (home,
+   directory) and the listing.html?id= href on the other three.
+   SOURCES CHECKED for bigger originals before scaling:
+   clatskaniepud.com's homepage exposes no larger logo asset, and
+   crookedcreekbrewery.com offers a horizontal lockup rather than
+   a bigger stacked file; the in-hand 400px files are >3x the new
+   display size, so nothing is upscaled — the marks simply render
+   closer to the size their detail needs. ---- */
+footer.site .s-strip[data-panel-open="clatskanie-pud"] img,
+footer.site .s-strip[href="listing.html?id=clatskanie-pud"] img,
+footer.site .s-strip[data-panel-open="crooked-creek-brewery"] img,
+footer.site .s-strip[href="listing.html?id=crooked-creek-brewery"] img{height:102px}
+.s-chip[data-panel-open="clatskanie-pud"] .s-chip-logo,
+.s-chip[data-panel-open="crooked-creek-brewery"] .s-chip-logo{height:96px}
+/* the two enlarged chip plates nearly fill the 999px pill at the
+   shared 10px/16px padding, so their rectangular corners breach
+   the pill's rounded shoulders — those two chips get deeper
+   padding so the pill wraps the plate with clear margin, like
+   the other five. (Caught in this pass's own pre-flight crops.) */
+.s-chip[data-panel-open="clatskanie-pud"],
+.s-chip[data-panel-open="crooked-creek-brewery"]{padding:16px 22px}

@@ -1040,3 +1040,12 @@ footer.site .s-strip:focus-visible{outline-color:#71bfa0}
  .ev-season{grid-column:auto;grid-row:auto;order:3;min-height:0;aspect-ratio:16/10}
  .ev-pills{order:1}
 }
+
+/* ---- Pass 31 (Fix D, Travis, Nov 19, ~12:29 AM): the Holidays
+   stat numbers center over their labels — each stat cell is
+   text-align:center, so "106 / participating businesses",
+   "Nov 13 - Jan 8 / campaign dates", "70+ / Bigfoot Trail stops"
+   and "$5,000 / Wonderland Card prize" all sit centered, on every
+   width and in both themes. The numbers keep their seasonal gold
+   (Pass 18), which lives only inside the Holidays feature. ---- */
+.holiday .nums div{text-align:center}

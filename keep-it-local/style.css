@@ -1216,3 +1216,84 @@ footer.site .s-strip[href="listing.html?id=crooked-creek-brewery"] img{height:10
    link line), and those are functional lines, not section intros;
    on the home page this is the only section-intro on the class. */
 p.sub.sec-intro{font-size:clamp(19px,1.55vw,22px);line-height:1.45}
+
+/* ---- Pass 36: News section (Travis, Nov 19, ~1:38 AM — "copy over
+   her news section but make it better. Obviously."). Her News page
+   (keepitlocalcc.com/news/) is a plain blog index of 12 posts,
+   April 2024 back to December 2021; the demo carries ALL 12 with
+   their real titles, real dates, real featured images and FULL
+   body text (news-data.js — WordPress/Elementor markup debris
+   stripped, wording untouched, verified word-for-word). The
+   better presentation: clean cards in the home feed's own system —
+   the event cards' picture-panel shape (photo panel left on
+   desktop, top banner on phone), Fraunces titles, a teal date
+   line, her excerpt up front, and the whole post one tap away via
+   an in-place expander, so nothing dead-ends. The photo panel is
+   capped at a 4/3 panel at the card's top, so an expanded post's
+   photo never stretches into a giant crop down the tall card.
+   Every card also
+   links the original post on her live site. HOME: the latest 3
+   posts ride as mini cards directly under the "Meet Our
+   Incredible Sponsors" block (placement set by Travis, Nov 19,
+   ~1:47 AM), each linking to its post on the News page, which
+   opens it expanded. Footer "News" links on all six pages now
+   land here (they pointed at the home page before). */
+.news-card{display:flex;background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-bottom:22px;scroll-margin-top:18px;box-shadow:0 0 16px 2px rgba(17,150,171,.30),0 8px 18px -10px rgba(0,53,78,.28)}
+.news-img{flex:0 0 31%;position:relative;align-self:flex-start;aspect-ratio:4/3}
+.news-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.news-in{flex:1;padding:20px 22px;min-width:0}
+.news-title{font-family:'Fraunces',Georgia,'Times New Roman',serif;font-weight:880;font-variation-settings:'opsz' 60,'wght' 880,'WONK' 1;font-size:24px;line-height:1.15;color:var(--green-d);margin-bottom:4px}
+.news-date{font-family:Arial,sans-serif;font-size:12.5px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:var(--green);margin-bottom:10px}
+.news-excerpt{font-size:15.5px;line-height:1.55}
+.news-body{margin-top:14px;font-size:15.5px;line-height:1.6}
+.news-body p{margin-bottom:12px}
+.news-body h2,.news-body h3{font-family:'Fraunces',Georgia,'Times New Roman',serif;font-weight:880;font-variation-settings:'opsz' 60,'wght' 880,'WONK' 1;color:var(--green-d);line-height:1.2;margin:18px 0 8px}
+.news-body h2{font-size:20px}
+.news-body h3{font-size:18px}
+.news-body ul,.news-body ol{margin:0 0 12px 22px}
+.news-body li{margin-bottom:4px}
+.news-body a{color:var(--green);text-decoration:underline}
+.news-body img{display:block;max-width:100%;height:auto;border-radius:10px;margin:12px 0}
+.news-body hr{border:0;border-top:1px solid var(--line);margin:16px 0}
+.news-foot{display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin-top:14px}
+.news-more{background:var(--green);color:#fff;border:0;border-radius:999px;padding:9px 18px;font-family:Arial,sans-serif;font-size:13.5px;font-weight:700;cursor:pointer;transition:background .2s ease}
+.news-more:hover{background:var(--green-d)}
+.news-more:focus-visible{outline:2px solid var(--green-d);outline-offset:2px}
+.news-src{font-family:Arial,sans-serif;font-size:13px;color:var(--muted)}
+.news-src:hover{color:var(--green)}
+.news-mini{display:flex;flex-direction:column;background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;text-decoration:none;box-shadow:0 0 16px 2px rgba(17,150,171,.30),0 8px 18px -10px rgba(0,53,78,.28);transition:transform .28s cubic-bezier(.22,.61,.36,1),box-shadow .28s ease}
+.news-mini-img{display:block;aspect-ratio:16/10;overflow:hidden}
+.news-mini-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .35s ease}
+.news-mini-in{display:flex;flex-direction:column;gap:3px;padding:14px 16px 16px}
+.news-mini-title{font-family:'Fraunces',Georgia,'Times New Roman',serif;font-weight:880;font-variation-settings:'opsz' 60,'wght' 880,'WONK' 1;font-size:19px;line-height:1.22;color:var(--green-d)}
+.news-mini .news-date{margin-bottom:0}
+.news-mini:focus-visible{outline:2px solid #1196ab;outline-offset:3px}
+@media (hover:hover) and (pointer:fine){
+  .news-mini:hover{transform:translateY(-6px) scale(1.025);box-shadow:0 0 28px 8px rgba(113,191,160,.55),0 0 54px 16px rgba(17,150,171,.26),0 16px 28px -12px rgba(0,53,78,.32)}
+  .news-mini:hover .news-mini-img img{transform:scale(1.045)}
+}
+[data-theme="dark"] .news-card,[data-theme="dark"] .news-mini{box-shadow:0 0 14px 2px rgba(17,150,171,.20),0 10px 22px -12px rgba(0,0,0,.55)}
+[data-theme="dark"] .news-title,[data-theme="dark"] .news-mini-title{color:#e8f1f2}
+[data-theme="dark"] .news-body h2,[data-theme="dark"] .news-body h3{color:#71bfa0}
+[data-theme="dark"] .news-more:focus-visible{outline-color:#4db8c7}
+@media (hover:hover) and (pointer:fine){
+  [data-theme="dark"] .news-mini:hover{box-shadow:0 0 26px 7px rgba(113,191,160,.38),0 0 50px 14px rgba(17,150,171,.18),0 16px 28px -12px rgba(0,0,0,.6)}
+}
+@media(max-width:900px){
+  .news-card{flex-direction:column}
+  .news-img{flex:none;aspect-ratio:16/10;align-self:auto}
+  .news-img img{position:absolute}
+  .news-in{padding:16px 18px 18px}
+  .news-title{font-size:21px}
+}
+
+/* ---- Pass 36 (addendum): the bundles steps now describe the
+   demo's real flow (no account, no login: fill out the free form,
+   we review it, it goes live within a few hours), and the way to
+   the form is one big teal pill inside the steps that cannot be
+   missed. The home and directory add-a-listing strips gained the
+   same review-and-live promise line. ---- */
+.cta-row{margin:14px 0 6px}
+.big-cta{display:inline-block;background:var(--green);color:#fff;font-weight:800;font-size:20px;padding:16px 34px;border-radius:999px;box-shadow:0 10px 24px -10px rgba(0,53,78,.45)}
+.big-cta:hover{background:var(--green-d);color:#fff}
+@media(max-width:900px){.big-cta{display:block;text-align:center;font-size:19px;padding:16px 20px}}

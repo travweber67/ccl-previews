@@ -3,6 +3,7 @@
 // Listings with no logo here simply show no logo in the panel. Nothing invented.
 const LOGOS = {
  "wauna-credit-union": "img/logos/wauna-credit-union.png",
+ "inroads-credit-union": "img/logos/inroads-credit-union.png",
  "columbia-river-pud": "img/logos/columbia-river-pud.jpg",
  "sass-at-home": "img/logos/sass-at-home.png",
  "richardsons-furniture": "img/logos/richardsons-furniture.jpg",

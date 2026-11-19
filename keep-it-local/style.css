@@ -1548,3 +1548,50 @@ table.loc.loc-open tbody tr.loc-x{display:table-row}
   .hero{background:linear-gradient(180deg,rgba(0,38,56,.70) 0%,rgba(0,38,56,.47) 36%,rgba(0,38,56,.20) 64%,rgba(0,38,56,.06) 100%),url('img/hero.jpg') center/cover no-repeat}
 }
 .drawer-install svg{order:2;margin-left:auto;width:15px;height:15px;color:var(--muted)}
+
+/* ---- Pass 46: Champion Sponsors A LOT BIGGER (Travis, Nov 19, 2026,
+   ~2:37 PM — on Sierra's live site the sponsors are pretty big and
+   readable at first glance; ours were still too small). Both sponsor
+   placements grow from chips/strips into large TILES:
+   (1) HOME "Meet Our Incredible Sponsors": the pill chips become a
+   grid of large frosted tiles (3 across on desktop, 2 on tablet,
+   stacked on phones). Each tile carries the sponsor's real logo at
+   128px tall on its white plate (the dense Clatskanie PUD mark at
+   150px, the Pass 34 lesson) AND the sponsor's full name in visible
+   20px Montserrat 800 type under the logo — the name is no longer
+   screen-reader-only. Tiles keep real gaps, the palette, and the
+   Pass 43 panel-open behavior (the whole tile is still the button).
+   (2) FOOTER strip on ALL SEVEN pages: logos grow 68px -> 104px
+   tall (Clatskanie PUD 128px), the buttons become tiles with the
+   sponsor's full name visible in 15.5px white type under the logo,
+   and the "Thank You Local Champion Sponsors:" line itself grows
+   13px -> 16.5px. Sponsor set, order, logos, and listing content
+   are unchanged; dark mode keeps the white logo plates (brand
+   colors stay true) and the tile names go ice-white. ---- */
+.sponsor-chips{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin:22px 0 10px}
+.s-chip{flex-direction:column;justify-content:center;gap:16px;padding:28px 22px 24px;border-radius:20px}
+.s-chip-logo{height:128px;max-width:100%;border-radius:12px;padding:10px 16px}
+.s-chip[data-panel-open="clatskanie-pud"] .s-chip-logo{height:150px}
+.s-name{display:block;text-align:center;font-family:Montserrat,Arial,sans-serif;font-weight:800;font-size:20px;line-height:1.3;letter-spacing:.2px;color:#00354e}
+[data-theme="dark"] .s-name{color:#e8f1f2}
+footer.site .sponsor-line{font-size:16.5px;line-height:1.6}
+footer.site .sponsor-strip{gap:16px;max-width:1280px;justify-content:center}
+footer.site .s-strip{flex-direction:column;justify-content:center;gap:12px;padding:18px 20px;border-radius:16px;max-width:340px}
+footer.site .s-strip img{height:104px;max-width:300px;border-radius:10px;padding:10px 16px}
+footer.site .s-strip[data-panel-open="clatskanie-pud"] img{height:128px}
+.s-strip-name{display:block;text-align:center;font-family:Montserrat,Arial,sans-serif;font-weight:700;font-size:15.5px;line-height:1.35;color:#fff;max-width:280px}
+@media(max-width:900px){
+  .sponsor-chips{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:560px){
+  .sponsor-chips{grid-template-columns:1fr;gap:16px}
+  .s-chip{padding:24px 18px 20px}
+  .s-chip-logo{height:120px}
+  .s-chip[data-panel-open="clatskanie-pud"] .s-chip-logo{height:140px}
+  .s-name{font-size:19px}
+}
+@media(max-width:480px){
+  footer.site .s-strip{max-width:100%}
+  footer.site .s-strip img{height:92px;max-width:76vw}
+  footer.site .s-strip[data-panel-open="clatskanie-pud"] img{height:112px}
+}

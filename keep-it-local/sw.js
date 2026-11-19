@@ -8,7 +8,7 @@
    we refuse. The cache is an offline fallback only. Images and icons are
    cache-first. The cache name carries the pass number; old caches are
    deleted on activate. */
-var CACHE = 'kil-cache-v45';
+var CACHE = 'kil-cache-v46';
 var CORE = [
   './index.html',
   './directory.html',

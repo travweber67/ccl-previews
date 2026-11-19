@@ -383,3 +383,19 @@ body.drawer-open{overflow:hidden}
    the falls crop). Treated Beaver Falls files stay banked in work/.
    Logo, welcome size, pill, wave, dropdowns all untouched. ---- */
 .hero{min-height:552px;background:linear-gradient(98deg,rgba(11,48,33,.92) 0%,rgba(11,48,33,.68) 44%,rgba(11,48,33,.16) 78%,rgba(11,48,33,.06) 100%),url('img/hero.jpg') center/cover no-repeat}
+
+/* ---- Pass 13: hero brightness close-out (Travis, Nov 18, 2026,
+   ~8:59 PM): the approved river hero "looks a little bit dim, like
+   that green effect is stretching all the way across... like someone
+   turned the brightness way down." The Pass 12 gradient still washed
+   green over the whole frame (.68 at 44%, .16 at 78%, .06 at 100%).
+   Pull the shade back so it works ONLY where the text lives: full
+   shade holds through the headline/welcome zone (stops through 52%
+   are within a few points of Pass 12, so white + gold readability is
+   unchanged), then it lets go — .22 at 68% and fully clear from 84%
+   out, so the bridge, docks and sky on the right show at the photo's
+   natural brightness. Photo side: the band itself is lifted x1.06
+   (work/hero_cc1_bright.py, from the treated native master) — natural,
+   no HDR. Photo, crop, 552px height and everything else untouched.
+   This closes the hero. ---- */
+.hero{background:linear-gradient(98deg,rgba(11,48,33,.93) 0%,rgba(11,48,33,.84) 34%,rgba(11,48,33,.58) 52%,rgba(11,48,33,.22) 68%,rgba(11,48,33,0) 84%,rgba(11,48,33,0) 100%),url('img/hero.jpg') center/cover no-repeat}

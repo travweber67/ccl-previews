@@ -318,6 +318,8 @@ body.drawer-open{overflow:hidden}
 /* card grids: .wrap 1330px -> 1380px (~95.8% at 1440w, clear margins) */
 .wrap{max-width:1380px}
 @media(max-width:760px){
-  .hero{padding:84px 18px 76px}
+  /* top padding clears the taller logo button (87px) so the headline
+     never slides under it; bottom trims a little more to compensate */
+  .hero{padding:108px 18px 64px}
   .logo-word{font-size:24px}
 }

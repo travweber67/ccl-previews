@@ -2,6 +2,7 @@
 // business's own website or its own listing assets (see work/panel-logos.md).
 // Listings with no logo here simply show no logo in the panel. Nothing invented.
 const LOGOS = {
+ "dahlgrens-do-it-best": "img/logos/dahlgrens-do-it-best.png",
  "wauna-credit-union": "img/logos/wauna-credit-union.png",
  "inroads-credit-union": "img/logos/inroads-credit-union.png",
  "purrz-and-paws-pet-supply": "img/logos/purrz-and-paws-pet-supply.jpg",

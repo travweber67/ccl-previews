@@ -1625,3 +1625,14 @@ footer.site .s-strip[data-panel-open="clatskanie-pud"] img{height:128px}
   .logo-btn{gap:0}
   .menu-cap{font-size:10.5px}
 }
+
+/* Pass 47: footer contact block, social icons, agency credit (matches her live footer) */
+footer.site .foot-contact{max-width:1100px;margin:0 auto 20px;padding-bottom:16px;border-bottom:1px solid rgba(255,255,255,.14)}
+footer.site .foot-contact p{margin:0;color:#d8d2c4}
+footer.site .foot-contact b{color:#fff}
+footer.site .foot-contact a{display:inline;padding:0;color:#fff;text-decoration:underline}
+footer.site .foot-social{display:flex;gap:10px;margin-top:12px}
+footer.site .foot-social a{display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);color:#fff;padding:0;transition:background .15s ease,border-color .15s ease,transform .15s ease}
+footer.site .foot-social a:hover{background:rgba(255,255,255,.16);border-color:rgba(255,255,255,.35);transform:translateY(-2px)}
+footer.site .foot-social svg{width:19px;height:19px}
+footer.site .foot-credit a{display:inline;padding:0;color:#cfd6cc;text-decoration:underline}

@@ -4,6 +4,7 @@
 const LOGOS = {
  "wauna-credit-union": "img/logos/wauna-credit-union.png",
  "inroads-credit-union": "img/logos/inroads-credit-union.png",
+ "purrz-and-paws-pet-supply": "img/logos/purrz-and-paws-pet-supply.jpg",
  "columbia-river-pud": "img/logos/columbia-river-pud.jpg",
  "sass-at-home": "img/logos/sass-at-home.png",
  "richardsons-furniture": "img/logos/richardsons-furniture.jpg",

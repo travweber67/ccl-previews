@@ -20,7 +20,8 @@
 </head>
 <body>
 <div class="demo-bar">Demo rebuild preview by <b>Nomad Development Group</b> &middot; Not the live site</div>
-<header class="site">
+<div class="hero-wrap">
+<header class="site over">
   <button class="logo-btn" id="menuBtn" aria-label="Open the menu" aria-haspopup="true" aria-expanded="false"><span class="logo-ring"><img src="img/logo.webp" alt="Coos Bay Downtown Association"></span><small class="menu-cap">Menu</small></button><span class="logo-word">Coos Bay<small>Downtown Association</small></span>
   <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch to dark mode" aria-pressed="false"><svg class="ic-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><svg class="ic-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button>
 </header>
@@ -46,16 +47,43 @@
 <section class="page-hero ph-holidays">
   <div class="page-hero-in">
     <h1>Shop Local for the Holidays</h1>
-    <svg class="ph-swoosh" viewBox="0 0 300 20" preserveAspectRatio="none" aria-hidden="true"><path d="M2,13 C70,4 190,1 298,6 C200,9 90,18 2,13 Z" fill="#e0c184"/></svg>
+  <div class="tree-count mini" id="treeCount" role="timer" aria-label="Countdown to the Annual Christmas Tree Lighting">
+    <svg class="tc-tree" viewBox="0 0 64 84" aria-hidden="true">
+      <defs><radialGradient id="tcGlow" cx="50%" cy="44%" r="55%"><stop offset="0%" stop-color="#ffca3a" stop-opacity=".85"/><stop offset="100%" stop-color="#ffca3a" stop-opacity="0"/></radialGradient></defs>
+      <circle class="tc-halo" cx="32" cy="36" r="30" fill="url(#tcGlow)" opacity=".5"/>
+      <path class="tc-star" d="M32 1.5l2.5 5.3 5.8.7-4.3 4 1.2 5.8L32 14.4l-5.2 2.9 1.2-5.8-4.3-4 5.8-.7z" fill="#ffca3a" opacity=".7"/>
+      <path d="M32 11 L44 27 H37 L49 41 H41 L53 57 H11 L23 41 H15 L27 27 H20 Z" fill="#2e7d46"/>
+      <rect x="29" y="57" width="6" height="8" rx="1" fill="#7a4a21"/>
+      <circle class="tc-light" cx="32" cy="21" r="2.5" fill="#ff5a5a"/>
+      <circle class="tc-light" cx="26" cy="26" r="2.5" fill="#ffd23e"/>
+      <circle class="tc-light" cx="38" cy="27" r="2.5" fill="#4fc3ff"/>
+      <circle class="tc-light" cx="22" cy="34" r="2.5" fill="#7dff8a"/>
+      <circle class="tc-light" cx="32" cy="33" r="2.5" fill="#ff9ff3"/>
+      <circle class="tc-light" cx="42" cy="35" r="2.5" fill="#ffa53e"/>
+      <circle class="tc-light" cx="18" cy="44" r="2.5" fill="#4fc3ff"/>
+      <circle class="tc-light" cx="27" cy="43" r="2.5" fill="#ff5a5a"/>
+      <circle class="tc-light" cx="37" cy="44" r="2.5" fill="#ffd23e"/>
+      <circle class="tc-light" cx="46" cy="46" r="2.5" fill="#7dff8a"/>
+      <circle class="tc-light" cx="24" cy="52" r="2.5" fill="#ffa53e"/>
+      <circle class="tc-light" cx="40" cy="53" r="2.5" fill="#ff9ff3"/>
+    </svg>
+    <div class="tc-main">
+      <p class="tc-label" id="tcLabel">The big tree lights up in…</p>
+      <p class="tc-nums" id="tcNums"><span><b id="tcD">–</b><small>days</small></span><span><b id="tcH">–</b><small>hours</small></span><span><b id="tcM">–</b><small>minutes</small></span></p>
+      <div class="tc-bar"><span class="tc-fill" id="tcFill"></span><svg class="tc-endtree" viewBox="0 0 64 84" aria-hidden="true"><path d="M32 6 L46 24 H38 L51 40 H42 L55 58 H9 L22 40 H13 L26 24 H18 Z" fill="#2e7d46"/><rect x="29" y="58" width="6" height="9" rx="1" fill="#7a4a21"/><path d="M32 0l1.8 3.8 4.1.5-3 2.9.8 4.1L32 9.4l-3.7 1.9.8-4.1-3-2.9 4.1-.5z" fill="#ffca3a"/></svg></div>
+      <p class="tc-pct" id="tcPct">Counting down to the Annual Christmas Tree Lighting.</p>
+      <p class="tc-sub">Annual Christmas Tree Lighting &middot; Saturday, November 28 &middot; about 5:45 PM &middot; Coos Bay Visitor Center</p>
+    </div>
   </div>
-  <div class="page-hero-wave" aria-hidden="true"><svg viewBox="0 0 1440 160" preserveAspectRatio="none"><path class="wave-accent" d="M0,88 C240,58 460,40 740,56 C1020,72 1200,108 1440,80 L1440,160 L0,160 Z" fill="#e0c184" opacity=".8"/><path class="wave-main" d="M0,114 C260,88 500,80 780,98 C1060,116 1240,140 1440,116 L1440,160 L0,160 Z" fill="#f7f0e1"/></svg></div>
+  </div>
 </section>
+</div>
 <div class="wrap hol">
   <section class="hol2">
     <div class="hol2-bandbar"><b>Saturday, November 28</b><span>Shop Small Saturday &amp; Santa Comes to Town</span></div>
     <h2>Holidays in Downtown Coos Bay</h2>
     <p class="hol-dates">November 2026</p>
-    <p>The holiday magic continues in Downtown Coos Bay on Saturday, November 28th, as the Coos Bay Downtown Association invites the community to celebrate Shop Small Saturday and Santa Comes to Town! Bring the whole family downtown for a festive day filled with holiday shopping, warm cider, visits with Santa, a lighted walking parade, and the annual Christmas Tree Lighting.</p>
+    <p>The holiday magic is in full swing in Downtown Coos Bay! On Saturday, November 28th, the Coos Bay Downtown Association invites the whole community to celebrate Shop Small Saturday and Santa Comes to Town. Bring the family downtown for a festive day of holiday shopping, warm cider, visits with Santa, a lighted walking parade, and the annual Christmas Tree Lighting.</p>
     <p>The season kicked off with the Holiday Open House on November 13 and 14, when 23 participating downtown businesses opened their doors for early holiday shopping.</p>
     <h3 class="hol2-tl-title">How Saturday the 28th Runs</h3>
     <ol class="hol2-timeline">
@@ -91,7 +119,7 @@
   </div>
 
   <h2 class="sec" id="santa">Santa, the Parade, and the Tree Lighting</h2>
-  <p>Santa Claus is coming to town! Here is how the day runs:</p>
+  <p>Santa Claus is coming to town — and he&rsquo;s got a busy beach day planned. Here is how it runs:</p>
   <ul class="hol-list">
     <li><b>1:30 PM to 3:00 PM:</b> Santa makes his way through downtown, visiting local businesses and spreading Christmas cheer. Keep an eye out for him while you shop.</li>
     <li><b>3:00 PM to 5:00 PM:</b> Visit Santa at the Coos Bay Downtown Association office for photos and a chance for children to share their Christmas wish lists. Bring your cameras.</li>
@@ -128,6 +156,7 @@
 
 </footer>
 <script src="data.js"></script>
+<script src="countdown.js"></script>
 <script src="logos.js"></script>
 <script src="panel.js"></script>
 <script src="theme.js"></script>

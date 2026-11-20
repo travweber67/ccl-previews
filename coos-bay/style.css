@@ -1964,3 +1964,168 @@ table.loc th{background:#2b1a20}
 .scrim,.panel-scrim,.bf-scrim{background:rgba(24,14,18,.5)}
 .panel-x{background:rgba(24,14,18,.55)}
 .panel-x:hover{background:rgba(24,14,18,.82)}
+
+/* ---- Pass 59: START WITH THE PICTURE + TREE COUNTDOWN + BUBBLY
+   BEACH COPY + NEW SEARCH CARD (Travis, Nov 20, 2026, ~11:53 AM;
+   demo-strip correction 11:56 AM). Four moves:
+   (1) The solid header bar is GONE on every page. A single slim
+   one-line demo strip stays at the very top (small text, charcoal-
+   brown, minimal height), and directly under it every page starts
+   with its picture: the header is back to a transparent overlay
+   ON the hero/banner photo, and the logo/menu is BIG again
+   (104px desktop, 78px mobile — the Pass 53 approved sizing the
+   de-red pass shrank to 60px). Theme toggle stays overlaid
+   top-left as a frosted glass disc; the logo rides its frosted
+   glass ring; the wordmark is white with its photo shadow. NO
+   solid bar, NO red haze. Slim-band pages (bundles / holidays /
+   news) wrap header + band in .hero-wrap so the same overlay
+   applies; listing gains a slim harbor band of its own.
+   (2) TREE COUNTDOWN in the home hero: a frosted chip with a live
+   days/hours/minutes countdown to the Annual Christmas Tree
+   Lighting (Sat Nov 28, 2026, ~5:45 PM, Visitor Center), a
+   progress bar running from the season kickoff (Nov 13 Holiday
+   Open House) to the lighting, and an SVG tree whose lights pop
+   on one by one and whose halo/star brighten as the bar fills.
+   After the moment, it flips to a fully lit "The tree is lit!"
+   state. A .mini version rides the holidays page band.
+   (3) SEARCH CARD: the one-row dark pill (a Keep It Local twin)
+   is replaced on the home page by a light frosted CARD — a big
+   friendly search field with a chunky brass "Let's Go!" button,
+   category CHIPS underneath, and a small town picker row. Same
+   GET wiring (q / cat / town -> directory.html), same kilDropdown
+   for the town. The directory page keeps its in-place filter bar.
+   (4) COPY: site-authored text re-voiced sunny/beach-bubbly
+   site-wide; facts, prices, and business/event content untouched.
+   Palette stays the Pass 57-58 family: burgundy accent only. ---- */
+/* (1) slim demo strip + transparent overlaid header, big logo */
+.demo-bar{padding:4px 10px;font-size:12px;line-height:1.35}
+header.site,header.site.over{position:absolute;top:0;left:0;right:0;background:transparent;border-bottom:0;box-shadow:none;padding:12px 20px;z-index:30;color:#fff}
+[data-theme="dark"] header.site,[data-theme="dark"] header.site.over{background:transparent;border-bottom:0;box-shadow:none}
+.logo-btn img{height:104px;width:104px}
+.logo-ring{padding:8px;background:rgba(255,255,255,.16);border:1.5px solid rgba(255,255,255,.65);box-shadow:0 4px 16px rgba(30,5,13,.35),inset 0 1px 0 rgba(255,255,255,.4);backdrop-filter:blur(10px) saturate(1.3);-webkit-backdrop-filter:blur(10px) saturate(1.3)}
+.logo-btn:hover .logo-ring{background:rgba(255,255,255,.30);box-shadow:0 6px 20px rgba(30,5,13,.42),inset 0 1px 0 rgba(255,255,255,.5)}
+[data-theme="dark"] .logo-ring{background:rgba(255,255,255,.16);border-color:rgba(255,255,255,.65)}
+.logo-word{color:#fff;text-shadow:0 1px 5px rgba(0,0,0,.55);font-size:36px}
+.logo-word small{color:#f6dcae}
+[data-theme="dark"] .logo-word{color:#fff}
+[data-theme="dark"] .logo-word small{color:#f6dcae}
+.menu-cap{color:#fff;text-shadow:0 1px 4px rgba(0,0,0,.65);font-size:13px}
+[data-theme="dark"] .menu-cap{color:#fff}
+.theme-toggle{background:rgba(24,14,18,.45);border:1px solid rgba(255,255,255,.45);color:#f8e2ac;box-shadow:0 2px 10px rgba(5,15,10,.35);backdrop-filter:blur(8px) saturate(1.3);-webkit-backdrop-filter:blur(8px) saturate(1.3)}
+.theme-toggle:hover{background:rgba(24,14,18,.68)}
+[data-theme="dark"] .theme-toggle{background:rgba(24,14,18,.45);border-color:rgba(255,255,255,.45);color:#f8e2ac}
+[data-theme="dark"] .theme-toggle:hover{background:rgba(24,14,18,.68)}
+@media(max-width:640px){
+  .logo-btn img{height:78px;width:78px}
+  .logo-ring{padding:6px}
+  .logo-word{font-size:24px;white-space:nowrap}
+  .logo-word small{font-size:11.5px;letter-spacing:1.2px}
+  .menu-cap{font-size:11px}
+  .hero{padding-top:168px}
+}
+/* listing page gains a slim photo band so its header overlays a picture too */
+.ph-listing{background-image:url('img/hero.jpg');background-position:center 30%;min-height:216px}
+@media(max-width:760px){.ph-listing{min-height:196px}}
+/* (2) tree countdown chip */
+.tree-count{display:flex;gap:16px;align-items:center;max-width:660px;margin:26px 0 0;background:rgba(24,14,18,.48);backdrop-filter:blur(10px) saturate(1.25);-webkit-backdrop-filter:blur(10px) saturate(1.25);border:1px solid rgba(255,255,255,.4);border-radius:20px;padding:14px 20px 14px 14px;color:#fff;font-family:Arial,sans-serif;position:relative;z-index:5;box-shadow:0 10px 26px rgba(30,5,13,.3);text-align:left}
+.tc-tree{width:64px;height:84px;flex:none}
+.tc-main{flex:1;min-width:0}
+.tc-label{font-family:'Fraunces',Georgia,'Times New Roman',serif;font-size:19px;font-weight:800;margin:0;line-height:1.15}
+.tc-nums{display:flex;gap:16px;margin:5px 0 2px}
+.tc-nums span{display:flex;flex-direction:column}
+.tc-nums b{font-size:25px;line-height:1;font-weight:800}
+.tc-nums small{font-size:10.5px;letter-spacing:1.4px;text-transform:uppercase;color:#f2e2bc;margin-top:2px}
+.tc-lit-msg{font-size:16.5px;font-weight:700;line-height:1.35}
+.tc-bar{position:relative;height:10px;background:rgba(255,255,255,.25);border-radius:99px;margin:9px 16px 7px 0}
+.tc-fill{position:absolute;top:0;bottom:0;left:0;width:0;border-radius:99px;background:linear-gradient(90deg,#9c6d10,#eda200,#ffca3a);transition:width .8s ease}
+.tc-endtree{position:absolute;right:-9px;top:50%;transform:translateY(-54%);width:21px;height:27px;filter:drop-shadow(0 1px 3px rgba(0,0,0,.45))}
+.tc-pct{margin:0;font-size:12.5px;color:#ffeec2}
+.tc-sub{margin:2px 0 0;font-size:12.5px;color:rgba(255,255,255,.82)}
+.tc-light{transition:opacity .6s ease}
+.tree-count.mini{margin:14px 0 0;padding:10px 16px 10px 10px;max-width:540px;border-radius:16px}
+.tree-count.mini .tc-tree{width:44px;height:58px}
+.tree-count.mini .tc-label{font-size:16px}
+.tree-count.mini .tc-nums{gap:12px;margin:3px 0 1px}
+.tree-count.mini .tc-nums b{font-size:19px}
+.tree-count.mini .tc-sub{display:none}
+@media(max-width:640px){
+  .tree-count{gap:12px;padding:12px 14px 12px 10px;margin-top:20px}
+  .tc-tree{width:52px;height:68px}
+  .tc-label{font-size:16.5px}
+  .tc-nums{gap:12px}
+  .tc-nums b{font-size:21px}
+}
+/* (3) search card (home hero) */
+.searchcard-wrap{max-width:1060px;margin:32px auto 0;position:relative;z-index:6}
+.searchcard{background:rgba(255,253,248,.94);backdrop-filter:blur(14px) saturate(1.2);-webkit-backdrop-filter:blur(14px) saturate(1.2);border:1px solid rgba(255,255,255,.7);border-radius:26px;box-shadow:0 16px 40px rgba(30,5,13,.30);padding:20px 22px 16px;font-family:Arial,sans-serif;color:var(--ink);text-align:left}
+[data-theme="dark"] .searchcard{background:rgba(36,20,25,.94);color:#f3ecdc;border-color:rgba(255,255,255,.25)}
+.sc-title{font-family:'Fraunces',Georgia,'Times New Roman',serif;font-weight:800;font-size:21px;color:#5c1126;margin:0 0 12px}
+[data-theme="dark"] .sc-title{color:#f0d9a8}
+.sc-field{display:flex;align-items:center;gap:10px;background:#fff;border:2px solid #e0c184;border-radius:999px;padding:6px 6px 6px 18px}
+[data-theme="dark"] .sc-field{background:#20060f;border-color:#9c6d10}
+.sc-ic{font-size:17px;flex:none}
+.sc-field input{flex:1;border:0;background:transparent;font-size:16.5px;font-family:Arial,sans-serif;color:var(--ink);outline:none;min-width:0;padding:10px 0}
+.sc-field input::placeholder{color:#9b8a90}
+[data-theme="dark"] .sc-field input{color:#f3ecdc}
+.sc-go{flex:none;background:linear-gradient(180deg,#c08c1d,#9c6d10);color:#fff;border:0;border-radius:999px;padding:13px 26px;font-size:16.5px;font-weight:800;font-family:Arial,sans-serif;cursor:pointer;box-shadow:0 4px 12px rgba(156,109,16,.4);transition:transform .1s ease,filter .15s ease}
+.sc-go:hover{filter:brightness(1.07)}
+.sc-go:active{transform:translateY(1px)}
+.sc-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.sc-chip{border:1.5px solid #d8c49a;background:#fff;color:#5c1126;border-radius:999px;padding:8px 16px;font-size:14.5px;font-weight:700;font-family:Arial,sans-serif;cursor:pointer;transition:background .15s,border-color .15s}
+.sc-chip:hover{border-color:#9c6d10}
+.sc-chip.is-on{background:#5c1126;color:#ffe9b0;border-color:#5c1126}
+[data-theme="dark"] .sc-chip{background:#330a18;color:#e0c184;border-color:#5c2438}
+[data-theme="dark"] .sc-chip.is-on{background:#eda200;color:#33240a;border-color:#eda200}
+.sc-townrow{display:flex;align-items:center;gap:10px;margin-top:13px;flex-wrap:wrap}
+.sc-townlab{font-size:14px;font-weight:700;color:#5c1126}
+[data-theme="dark"] .sc-townlab{color:#e0c184}
+.searchcard .sc-town{position:relative;flex:0 1 264px;background:#fff;border:1.5px solid #d8c49a;border-radius:999px;padding:0 14px;height:42px;display:flex;align-items:center;margin:0;box-shadow:none}
+[data-theme="dark"] .searchcard .sc-town{background:#20060f;border-color:#5c2438}
+.searchcard .sc-town .dd-btn{color:var(--ink)}
+[data-theme="dark"] .searchcard .sc-town .dd-btn{color:#f3ecdc}
+.searchcard .sc-town .dd-chev{color:#9c6d10}
+.searchcard .sc-town .dd-menu{background:#fffdf8;border:1px solid var(--line);box-shadow:0 14px 30px rgba(61,9,23,.18);backdrop-filter:none;-webkit-backdrop-filter:none}
+.searchcard .sc-town .dd-opt{color:var(--ink)}
+.searchcard .sc-town .dd-opt:hover,.searchcard .sc-town .dd-opt.act{background:#f6ecd4}
+.searchcard .sc-town .dd-opt.sel{color:#5c1126;background:#f2e2bc}
+@media(max-width:640px){
+  .searchcard{padding:16px 14px 12px;border-radius:22px}
+  .sc-title{font-size:19px}
+  .sc-go{padding:12px 18px;font-size:15.5px}
+  .searchcard .sc-town{flex:1 1 200px}
+}
+/* (5) NO-WAVE TRANSITION (Travis, Nov 20, 12:00 PM): the wave divider
+   and the straight swoosh line above the cards are GONE — he asked
+   for a genuinely different picture-to-cards transition, not another
+   wave. New pattern: the first card row OVERLAPS the hero photo's
+   bottom edge (negative margin, cards straddle photo and ground),
+   no divider graphic at all, and the dead gap is cut. Slim
+   page-hero bands end in a clean photo edge (their wave SVGs and
+   the extra bottom padding that made room for them are removed).
+   The dark-mode photo credit on home/directory moves back inside
+   the hero, above the overlapping cards. */
+.hero-home,.hero-dir{padding-bottom:88px}
+#featured{margin-top:-48px;position:relative;z-index:8}
+#results{margin-top:-48px;position:relative;z-index:8}
+.page-hero-in{padding-bottom:30px}
+[data-theme="dark"] .hero-home .hero-photo-credit,[data-theme="dark"] .hero-dir .hero-photo-credit{top:auto;bottom:58px;margin-top:0}
+@media(max-width:760px){
+  .hero-home,.hero-dir{padding-bottom:74px}
+  #featured,#results{margin-top:-38px}
+  .page-hero-in{padding-bottom:22px}
+  [data-theme="dark"] .hero-home .hero-photo-credit,[data-theme="dark"] .hero-dir .hero-photo-credit{bottom:48px}
+}
+/* (5b) directory: the count line rides the transition as a frosted
+   pill straddling the hero's bottom edge, so the cards sit tight
+   under it (the grid's own negative margin moves to the pill). */
+#count{display:inline-block;background:rgba(255,253,248,.94);border:1px solid var(--line);border-radius:999px;padding:7px 16px;box-shadow:0 6px 16px rgba(61,9,23,.16);margin-top:-56px;position:relative;z-index:8;font-weight:600}
+[data-theme="dark"] #count{background:rgba(36,20,25,.94);border-color:#5c2438}
+#results{margin-top:10px}
+@media(max-width:760px){#count{margin-top:-46px}}
+/* (5c) count pill: pull fully onto the hero's bottom edge */
+#count{margin-top:-108px}
+@media(max-width:760px){#count{margin-top:-92px}}
+/* (5d) count pill: absolutely straddles the directory hero edge */
+.hero-dir #count{position:absolute;left:20px;bottom:-20px;margin:0;z-index:9}
+#results{margin-top:26px}
+@media(max-width:760px){.hero-dir #count{left:16px;bottom:-18px}}

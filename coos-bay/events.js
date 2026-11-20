@@ -151,9 +151,9 @@ function kilRenderHomeList(){
     const evs=kilUpcoming().filter(function(ev){return ev.d===kilHomeDay;});
     if(head)head.textContent=kilDateLong(kilHomeDay);
     if(reset)reset.hidden=false;
-    next.innerHTML=evs.length?evs.map(kilCard).join(""):'<p class="sub">No events listed for that day yet.</p>';
+    next.innerHTML=evs.length?evs.map(kilCard).join(""):'<p class="sub">Nothing planned that day yet — perfect excuse for a beach day.</p>';
   }else{
-    if(head)head.textContent="What\u2019s coming up";
+    if(head)head.textContent="Coming up next";
     if(reset)reset.hidden=true;
     next.innerHTML=kilUpcoming().slice(0,5).map(kilCard).join("");
   }
@@ -240,10 +240,10 @@ function kilRenderList(){
   let evs=kilUpcoming();
   if(kilFilterDay){
     evs=evs.filter(function(ev){return ev.d===kilFilterDay;});
-    if(note){note.hidden=false;note.querySelector("span").textContent="Showing events for "+kilDateLong(kilFilterDay)+".";}
+    if(note){note.hidden=false;note.querySelector("span").textContent="Showing what\u2019s on for "+kilDateLong(kilFilterDay)+".";}
   }else if(note){note.hidden=true;}
   if(!evs.length){
-    list.innerHTML='<p class="sub">No events listed for that day. <button type="button" class="ev-linkbtn" id="evReset2">Show all upcoming events</button></p>';
+    list.innerHTML='<p class="sub">Nothing on the calendar that day — beach day, maybe? <button type="button" class="ev-linkbtn" id="evReset2">Show all upcoming events</button></p>';
     const r0=document.getElementById("evReset2");if(r0)r0.addEventListener("click",kilResetFilter);
     return;
   }

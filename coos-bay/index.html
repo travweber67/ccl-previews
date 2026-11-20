@@ -19,7 +19,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,wonk@0,9..144,800..900,1;1,9..144,500..600,0&family=Montserrat:wght@600;800&display=swap" rel="stylesheet">
 </head>
 <body>
-<div class="demo-bar">Demo rebuild preview by <b>Nomad Development Group</b> &middot; Same content, refreshed build &middot; Not the live site</div>
+<div class="demo-bar">Demo rebuild preview by <b>Nomad Development Group</b> &middot; Not the live site</div>
 <div class="hero-wrap">
 <header class="site over">
   <button class="logo-btn" id="menuBtn" aria-label="Open the menu" aria-haspopup="true" aria-expanded="false"><span class="logo-ring"><img src="img/logo.webp" alt="Coos Bay Downtown Association"></span><small class="menu-cap">Menu</small></button><span class="logo-word">Coos Bay<small>Downtown Association</small></span>
@@ -27,19 +27,56 @@
 </header>
 <section class="hero hero-home">
   <div class="hero-in">
-    <h1>Find What&rsquo;s in <span class="gold">Downtown Coos Bay</span></h1>
-    <svg class="swoosh" viewBox="0 0 300 20" preserveAspectRatio="none" aria-hidden="true"><path d="M2,13 C70,4 190,1 298,6 C200,9 90,18 2,13 Z" fill="#e0c184"/></svg>
-    <p class="hero-sub">Find great places to stay, eat, shop, or visit from CBDA Members.</p>
+    <h1>Sunshine, Salt Air &amp; <span class="gold">Downtown Coos Bay</span></h1>
+    <p class="hero-sub">Your sunny little guide to the best of the bay — great eats, funky shops, sandy-day adventures, and the friendliest faces on the Oregon coast.</p>
+  <div class="tree-count" id="treeCount" role="timer" aria-label="Countdown to the Annual Christmas Tree Lighting">
+    <svg class="tc-tree" viewBox="0 0 64 84" aria-hidden="true">
+      <defs><radialGradient id="tcGlow" cx="50%" cy="44%" r="55%"><stop offset="0%" stop-color="#ffca3a" stop-opacity=".85"/><stop offset="100%" stop-color="#ffca3a" stop-opacity="0"/></radialGradient></defs>
+      <circle class="tc-halo" cx="32" cy="36" r="30" fill="url(#tcGlow)" opacity=".5"/>
+      <path class="tc-star" d="M32 1.5l2.5 5.3 5.8.7-4.3 4 1.2 5.8L32 14.4l-5.2 2.9 1.2-5.8-4.3-4 5.8-.7z" fill="#ffca3a" opacity=".7"/>
+      <path d="M32 11 L44 27 H37 L49 41 H41 L53 57 H11 L23 41 H15 L27 27 H20 Z" fill="#2e7d46"/>
+      <rect x="29" y="57" width="6" height="8" rx="1" fill="#7a4a21"/>
+      <circle class="tc-light" cx="32" cy="21" r="2.5" fill="#ff5a5a"/>
+      <circle class="tc-light" cx="26" cy="26" r="2.5" fill="#ffd23e"/>
+      <circle class="tc-light" cx="38" cy="27" r="2.5" fill="#4fc3ff"/>
+      <circle class="tc-light" cx="22" cy="34" r="2.5" fill="#7dff8a"/>
+      <circle class="tc-light" cx="32" cy="33" r="2.5" fill="#ff9ff3"/>
+      <circle class="tc-light" cx="42" cy="35" r="2.5" fill="#ffa53e"/>
+      <circle class="tc-light" cx="18" cy="44" r="2.5" fill="#4fc3ff"/>
+      <circle class="tc-light" cx="27" cy="43" r="2.5" fill="#ff5a5a"/>
+      <circle class="tc-light" cx="37" cy="44" r="2.5" fill="#ffd23e"/>
+      <circle class="tc-light" cx="46" cy="46" r="2.5" fill="#7dff8a"/>
+      <circle class="tc-light" cx="24" cy="52" r="2.5" fill="#ffa53e"/>
+      <circle class="tc-light" cx="40" cy="53" r="2.5" fill="#ff9ff3"/>
+    </svg>
+    <div class="tc-main">
+      <p class="tc-label" id="tcLabel">The big tree lights up in…</p>
+      <p class="tc-nums" id="tcNums"><span><b id="tcD">–</b><small>days</small></span><span><b id="tcH">–</b><small>hours</small></span><span><b id="tcM">–</b><small>minutes</small></span></p>
+      <div class="tc-bar"><span class="tc-fill" id="tcFill"></span><svg class="tc-endtree" viewBox="0 0 64 84" aria-hidden="true"><path d="M32 6 L46 24 H38 L51 40 H42 L55 58 H9 L22 40 H13 L26 24 H18 Z" fill="#2e7d46"/><rect x="29" y="58" width="6" height="9" rx="1" fill="#7a4a21"/><path d="M32 0l1.8 3.8 4.1.5-3 2.9.8 4.1L32 9.4l-3.7 1.9.8-4.1-3-2.9 4.1-.5z" fill="#ffca3a"/></svg></div>
+      <p class="tc-pct" id="tcPct">Counting down to the Annual Christmas Tree Lighting.</p>
+      <p class="tc-sub">Annual Christmas Tree Lighting &middot; Saturday, November 28 &middot; about 5:45 PM &middot; Coos Bay Visitor Center</p>
+    </div>
   </div>
-<div class="herobar-wrap">
-  <form class="herobar" action="directory.html" method="get" role="search">
-    <label class="hb-field"><span class="hb-ic">&#128269;</span><input type="search" name="q" placeholder="Search by keyword or location..." aria-label="Search by keyword or location"></label>
-    <div class="hb-field seg" id="hbCatField"><span class="hb-ic">&#9638;</span></div>
-    <div class="hb-field seg" id="hbTownField"><span class="hb-ic">&#128205;</span></div>
-    <button type="submit" class="hb-go">&#128269; Search</button>
+  </div>
+<div class="searchcard-wrap">
+  <form class="searchcard" action="directory.html" method="get" role="search" aria-label="Find a local business">
+    <p class="sc-title">What are you in the mood for?</p>
+    <label class="sc-field"><span class="sc-ic">&#128269;</span><input type="search" name="q" placeholder="Try &lsquo;coffee&rsquo;, &lsquo;shoes&rsquo;, or &lsquo;treasure hunt&rsquo;&hellip;" aria-label="Search by keyword or location"><button type="submit" class="sc-go">Let&rsquo;s Go!</button></label>
+    <div class="sc-chips" role="group" aria-label="Pick a category">
+      <button type="button" class="sc-chip is-on" data-cat="">&#127754; Everything</button>
+      <button type="button" class="sc-chip" data-cat="Shop">Shop</button>
+      <button type="button" class="sc-chip" data-cat="Food">Food</button>
+      <button type="button" class="sc-chip" data-cat="Entertainment">Entertainment</button>
+      <button type="button" class="sc-chip" data-cat="Services">Services</button>
+      <button type="button" class="sc-chip" data-cat="Community">Community</button>
+    </div>
+    <input type="hidden" name="cat" id="scCat" value="">
+    <div class="sc-townrow">
+      <span class="sc-townlab">&#128205; Show me spots in</span>
+      <div class="hb-field seg sc-town" id="hbTownField"></div>
+    </div>
   </form>
 </div>
-  <div class="hero-wave" aria-hidden="true"><svg viewBox="0 0 1440 160" preserveAspectRatio="none"><path class="wave-accent" d="M0,88 C240,58 460,40 740,56 C1020,72 1200,108 1440,80 L1440,160 L0,160 Z" fill="#e0c184" opacity=".8"/><path class="wave-main" d="M0,114 C260,88 500,80 780,98 C1060,116 1240,140 1440,116 L1440,160 L0,160 Z" fill="#f7f0e1"/></svg></div>
   <p class="hero-photo-credit">Photo Credit: Coos Bay Harbor, Oregon / via Wikimedia Commons</p>
 </section>
 </div>
@@ -66,7 +103,7 @@
 <div class="wrap">
   <div class="grid" id="featured"></div>
 
-  <h2 class="sec">Upcoming Events</h2>
+  <h2 class="sec">What&rsquo;s Happening Around the Bay</h2>
   <div class="ev-home">
     <div class="ev-mini" id="evMini"></div>
     <figure class="ev-season">
@@ -74,17 +111,17 @@
     </figure>
     <div class="ev-pills" id="evPills" aria-label="Pick a day"></div>
     <div class="ev-next">
-      <div class="ev-next-top"><h3 class="ev-next-h" id="evNextH">What&rsquo;s coming up</h3><button type="button" class="ev-home-reset" id="evHomeReset" hidden>&lsaquo; Coming up</button></div>
+      <div class="ev-next-top"><h3 class="ev-next-h" id="evNextH">Coming up next</h3><button type="button" class="ev-home-reset" id="evHomeReset" hidden>&lsaquo; Coming up</button></div>
       <div id="evNext" class="ev-next-list"></div>
-      <p class="sub"><a href="events.html">See all events &rarr;</a></p>
+      <p class="sub"><a href="events.html">See everything that&rsquo;s on &rarr;</a></p>
     </div>
   </div>
 
   <section class="holiday" id="holidays">
     <canvas class="snow" id="snowCanvas" aria-hidden="true"></canvas>
     <div class="holiday-panel">
-    <h2>Shop Local for the Holidays</h2>
-    <p>Downtown Coos Bay&rsquo;s holiday season is on. Shop Small Saturday and Santa Comes to Town lands Saturday, November 28, with the Downtown Cider Walk, visits from Santa, the Lighted Walking Parade, and the annual Christmas Tree Lighting.</p>
+    <h2>Holiday Cheer, Downtown Style</h2>
+    <p>The holiday season is in full swing downtown! Shop Small Saturday and Santa Comes to Town lands Saturday, November 28, with the Downtown Cider Walk, visits from Santa, the Lighted Walking Parade, and the annual Christmas Tree Lighting. Grab the family and come make a day of it.</p>
     <div class="nums">
       <div><b>Nov 28</b>Shop Small Saturday</div>
       <div><b>11 AM - 3 PM</b>Downtown Cider Walk</div>
@@ -101,42 +138,42 @@
     <div class="bf-body">
       <div class="bf-in">
         <h2>How Shop Small Saturday Works</h2>
-        <p class="bf-lede">Saturday, November 28 is the big day downtown. Shop local, save your receipts, and stay for Santa, the parade, and the tree lighting.</p>
+        <p class="bf-lede">Saturday, November 28 is the biggest day of the season downtown. Shop local, save those receipts, and stick around for Santa, the parade, and the tree lighting.</p>
         <ol class="bf-steps">
           <li><b>Shop downtown.</b> Spend at participating downtown businesses and restaurants between November 13 and 28, and save your receipts.</li>
           <li><b>Redeem your stein.</b> Receipts totaling $100 or more earn a commemorative stein at Jennie&rsquo;s Shoes on November 28, 11 AM to 3 PM, during the Downtown Cider Walk.</li>
           <li><b>See Santa.</b> Santa visits downtown businesses 1:30 to 3 PM, then takes photos at the Coos Bay Downtown Association office from 3 to 5 PM.</li>
           <li><b>Stay for the lights.</b> The Lighted Walking Parade gathers at 5:15 PM, and Santa and Mayor Joe Benetti light the downtown Christmas tree at about 5:45 PM.</li>
         </ol>
-        <p class="bf-bonus"><b>All day:</b> warm cider, holiday shopping, and one-of-a-kind finds at downtown businesses.</p>
+        <p class="bf-bonus"><b>All day:</b> warm cider, holiday shopping, and one-of-a-kind finds at downtown businesses. Sunshine optional, good cheer guaranteed.</p>
         <p class="bf-note">Full details are on the Holidays page and in the News post from the Coos Bay Downtown Association.</p>
         <a class="bf-cta" href="holidays.html" target="_blank" rel="noopener">See the full Holidays page &rarr;</a>
       </div>
     </div>
   </aside>
 
-  <h2 class="sec">What's New?</h2>
-  <p class="sub sec-intro">Let's give a warm welcome to the new listings on the site!</p>
+  <h2 class="sec">Fresh Off the Boat!</h2>
+  <p class="sub sec-intro">Say hello to the newest neighbors on the block — give them a warm Coos Bay welcome!</p>
   <div class="grid" id="whatsnew"></div>
 
-  <div class="addstrip"><span class="addstrip-ribbon">Adding a listing is free</span><p><b>Run a local business or nonprofit?</b> Adding a basic listing is easy, quick, and free. Every submission is reviewed, and new listings go live within a few hours.</p><a class="addstrip-btn" href="https://docs.google.com/forms/d/e/1FAIpQLSfU93t_QGHyFiDihI21XO8fY7tObjT_ytt5qG82A3WyPfxDtg/viewform" target="_blank" rel="noopener">Add Your Listing</a></div>
+  <div class="addstrip"><span class="addstrip-ribbon">Psst — listing is free!</span><p><b>Got a local business or nonprofit?</b> Hop aboard — a basic listing is easy, quick, and totally free. We take a friendly peek at every submission, and new listings pop up within a few hours.</p><a class="addstrip-btn" href="https://docs.google.com/forms/d/e/1FAIpQLSfU93t_QGHyFiDihI21XO8fY7tObjT_ytt5qG82A3WyPfxDtg/viewform" target="_blank" rel="noopener">Add Your Listing — Free</a></div>
 
-  <h2 class="sec">Thank You to Our Website Sponsor</h2>
-  <p>Our program is made possible in part by the local organizations that invest in downtown Coos Bay. A huge thanks to our website sponsor, Banner Bank, and to every member business that keeps downtown thriving.</p>
+  <h2 class="sec">A Big Sunny Thank-You to Our Website Sponsor</h2>
+  <p>None of this floats without the local organizations that invest in downtown Coos Bay. A huge thanks to our website sponsor, Banner Bank, and to every member business that keeps downtown humming.</p>
   <div class="sponsor-chips">
     <button type="button" class="s-chip" data-panel-open="banner-bank" aria-label="Banner Bank"><img class="s-chip-logo logo-wide" src="img/logos/banner-bank.svg" alt="Banner Bank logo"><span class="s-name">Banner Bank</span></button>
   </div>
 
-  <h2 class="sec">News</h2>
+  <h2 class="sec">The Latest Buzz Around the Bay</h2>
   <div class="news-scrollwrap">
     <div class="news-row" id="newsHome" tabindex="0" role="region" aria-label="Latest news stories"></div>
     <button type="button" class="news-arrow news-arrow-prev" id="newsPrev" aria-label="Previous news" hidden><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M15 5l-7 7 7 7" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
     <button type="button" class="news-arrow news-arrow-next" id="newsNext" aria-label="More news"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
   </div>
-  <p class="sub"><a href="news.html">See all news &rarr;</a></p>
+  <p class="sub"><a href="news.html">Catch all the buzz &rarr;</a></p>
 
-  <h2 class="sec">Shop. Food. Entertainment. Choose Local First</h2>
-  <p>Along the bay and up the historic downtown streets, Coos Bay is full of places to eat, shop, and explore. Come see all our community has to offer.</p>
+  <h2 class="sec">Eat, Shop, Play — the Coos Bay Way</h2>
+  <p>Along the bay and up the historic downtown streets, Coos Bay is stuffed with places to eat, shop, and explore. Come splash around and see what our community has to offer.</p>
   <div class="showcase">
     <a class="sc-panel" href="directory.html?cat=Shop">
       <img src="img/listings-cb/leafs-treehouse.jpg" alt="Leaf&rsquo;s Treehouse Mini-Mall on South Broadway in Coos Bay, Oregon" loading="lazy">
@@ -152,8 +189,8 @@
     </a>
   </div>
 
-  <h2 class="sec" id="about">About Us</h2>
-  <p>The Coos Bay Downtown Association is part of the national Main Street Program. We work to foster the development of downtown Coos Bay by strengthening local business, encouraging new business, and connecting the community through partnerships. We show off local businesses here on our online directory, on social media, and through our seasonal programs, and we help visitors find great places to stay, eat, shop, or visit from our members.</p>
+  <h2 class="sec" id="about">About Your Downtown Crew</h2>
+  <p>The Coos Bay Downtown Association is part of the national Main Street Program, and we&rsquo;re on a cheerful mission: help downtown Coos Bay shine. We strengthen local business, encourage new business, and connect the community through partnerships. We show off local businesses here on our online directory, on social media, and through our seasonal programs, and we help visitors find great places to stay, eat, shop, or visit from our members.</p>
 </div>
 
 <footer class="site">
@@ -220,8 +257,22 @@
 })();
 </script>
 <script src="herobar.js"></script>
+<script src="countdown.js"></script>
 <script>
-kilDropdown(document.getElementById('hbCatField'),{id:'hbCat',name:'cat',allLabel:'All Categories',ariaLabel:'Filter by category',options:CATEGORIES.filter(c=>c!=='Events')});
+// Pass 59: the home search is a frosted CARD now, not the old pill bar.
+// Category is a row of chips writing the hidden cat field; town keeps
+// the kilDropdown (its hidden input carries name="town"). Submitting
+// GETs directory.html?q=&cat=&town= exactly as the old bar did.
+(function(){
+  var catInput=document.getElementById('scCat');
+  document.querySelectorAll('.sc-chip').forEach(function(chip){
+    chip.addEventListener('click',function(){
+      document.querySelectorAll('.sc-chip').forEach(function(c){c.classList.remove('is-on');});
+      chip.classList.add('is-on');
+      catInput.value=chip.getAttribute('data-cat')||'';
+    });
+  });
+})();
 kilDropdown(document.getElementById('hbTownField'),{id:'hbTown',name:'town',allLabel:'All Towns',ariaLabel:'Filter by town',options:TOWNS});
 renderInto('featured', LISTINGS.filter(l=>l.featured).sort(function(a,b){return (a.fo||99)-(b.fo||99)}));
 renderInto('whatsnew', LISTINGS.filter(l=>l.isnew).slice(0,6));

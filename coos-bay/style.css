@@ -2142,14 +2142,17 @@ header.site,header.site.over{position:absolute;top:0;left:0;right:0;background:t
 .holiday-panel .tree-count{max-width:none;margin:22px 0 4px;background:rgba(24,14,18,.40);box-shadow:0 8px 22px rgba(4,18,11,.28)}
 @media(max-width:640px){.holiday-panel .tree-count{margin-top:18px}}
 /* PASS 60 SEARCH (Travis specced it himself, Nov 20, 12:27 PM):
+   (Classes are .sbform/.sbwrap, NOT .searchbar — the base sheet
+   has legacy .searchbar rules from the original site that hijack
+   any form wearing that class: 560px cap, orange buttons.)
    the Pass 59 frosted card + visible chips are replaced by ONE
    clean search bar — generous height, fully rounded, soft shadow,
    directions in the placeholder — with a Filter button beside it.
    Category + town live in the panel that drops from the button;
    the button shows the active filter. Nothing cheap, nothing
    cluttered. Same GET wiring (q/cat/town) as every pass before. */
-.searchbar-wrap{max-width:1060px;margin:30px auto 0;position:relative;z-index:6}
-.searchbar{display:flex;gap:12px;align-items:center;position:relative}
+.sbwrap{max-width:1060px;margin:30px auto 0;position:relative;z-index:6}
+.sbform{display:flex;gap:12px;align-items:center;position:relative}
 .sb-bar{flex:1;min-width:0;display:flex;align-items:center;gap:4px;height:64px;background:rgba(255,253,248,.97);border:1px solid rgba(255,255,255,.7);border-radius:999px;box-shadow:0 14px 34px rgba(30,5,13,.28);padding:7px 7px 7px 22px}
 .sb-ic{display:flex;flex:none;color:#9c6d10}
 .sb-ic svg{width:21px;height:21px}
@@ -2194,8 +2197,8 @@ header.site,header.site.over{position:absolute;top:0;left:0;right:0;background:t
 [data-theme="dark"] .sb-town{background:#20060f;border-color:#5c2438}
 [data-theme="dark"] .sb-town .dd-btn{color:#f3ecdc}
 @media(max-width:640px){
-  .searchbar-wrap{margin-top:24px}
-  .searchbar{gap:9px}
+  .sbwrap{margin-top:24px}
+  .sbform{gap:9px}
   .sb-bar{height:56px;padding:6px 6px 6px 17px}
   .sb-bar input{font-size:15.5px}
   .sb-go{width:44px;height:44px}

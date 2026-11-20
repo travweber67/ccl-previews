@@ -30,8 +30,8 @@
     <h1>Sunshine, Salt Air &amp; <span class="gold">Downtown Coos Bay</span></h1>
     <p class="hero-sub">Your sunny little guide to the best of the bay — great eats, funky shops, sandy-day adventures, and the friendliest faces on the Oregon coast.</p>
   </div>
-<div class="searchbar-wrap">
-  <form class="searchbar" action="directory.html" method="get" role="search" aria-label="Find a local business">
+<div class="sbwrap">
+  <form class="sbform" action="directory.html" method="get" role="search" aria-label="Find a local business">
     <div class="sb-bar">
       <span class="sb-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21"/></svg></span>
       <input type="search" name="q" placeholder="Search the directory — business name, food, fun&hellip;" aria-label="Search the directory">
@@ -295,7 +295,7 @@
   function openPanel(){panel.hidden=false;btn.setAttribute('aria-expanded','true');}
   function closePanel(){panel.hidden=true;btn.setAttribute('aria-expanded','false');}
   btn.addEventListener('click',function(){if(panel.hidden)openPanel();else closePanel();});
-  document.addEventListener('click',function(e){if(!panel.hidden&&!e.target.closest('.searchbar'))closePanel();});
+  document.addEventListener('click',function(e){if(!panel.hidden&&!e.target.closest('.sbform'))closePanel();});
   document.addEventListener('keydown',function(e){if(e.key==='Escape'&&!panel.hidden){closePanel();btn.focus();}});
   cats.forEach(function(chip){
     chip.addEventListener('click',function(){

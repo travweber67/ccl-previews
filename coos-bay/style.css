@@ -2131,3 +2131,13 @@ header.site,header.site.over{position:absolute;top:0;left:0;right:0;background:t
 @media(max-width:760px){.hero-dir #count{left:16px;bottom:-18px}}
 /* (5e) mobile: slim-band headlines clear the overlaid logo block */
 @media(max-width:760px){.page-hero{padding-top:164px}}
+/* PASS 60 (Travis, Nov 20, 12:24 PM): the tree-lighting countdown
+   moves OUT of the home hero — he never asked for a card floating
+   over the hero — and INTO the home holiday panel, as a section of
+   the "Holiday Cheer, Downtown Style" card under its stat tiles,
+   over the falling snow where it belongs. Hero is headline + sub +
+   search card only again. In-panel treatment: full panel width and
+   a slightly softer fill than its old hero-overlay self, so it
+   reads as an inset of the card, not a foreign card pasted on. */
+.holiday-panel .tree-count{max-width:none;margin:22px 0 4px;background:rgba(24,14,18,.40);box-shadow:0 8px 22px rgba(4,18,11,.28)}
+@media(max-width:640px){.holiday-panel .tree-count{margin-top:18px}}

@@ -6,8 +6,9 @@
 // lights pop on one by one as the bar fills, and its halo and star
 // brighten with the same fraction, so the closer the day gets, the
 // more lit the tree looks. After the moment passes, the widget flips
-// to a fully lit "The tree is lit!" state. Used on the home hero
-// (full size) and the holidays page band (.mini).
+// to a fully lit "The tree is lit!" state. Used inside the home
+// page's holiday panel (full size, Pass 60 — moved out of the hero
+// at Travis's direction) and the holidays page band (.mini).
 (function () {
   var el = document.getElementById('treeCount');
   if (!el) return;

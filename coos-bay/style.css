@@ -2273,3 +2273,13 @@ header.site,header.site.over{position:absolute;top:0;left:0;right:0;background:t
   .hero::after{height:84px}
   .page-hero::after{height:64px}
 }
+
+/* PASS 60 FIX (QC round 1, Nov 20): slim-band content must clear
+   the taller LEFT header cluster (toggle + wordmark) — on the
+   holidays band the tall content block (headline + mini countdown)
+   rose into the wordmark once the name moved left. Extra top
+   padding inside the band only grows bands whose content is tall;
+   short bottom-aligned bands (news / bundles / listing) render
+   exactly as before. Mobile keeps its existing section clearance. */
+.page-hero-in{padding-top:150px}
+@media(max-width:760px){.page-hero-in{padding-top:26px}}

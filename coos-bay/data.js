@@ -43,4 +43,4 @@ const EVENTS = [
  {title:"Bay Area Farmers and Artisan Market",date:"Wednesdays, 10:00 am - 2:00 pm",price:"Free entry",place:"Black Market Gourmet, 495 Central Ave, Coos Bay",phone:"541-269-0194",desc:"The farmers and artisan market moves indoors for the winter at Black Market Gourmet on Central Avenue, Wednesdays November through April, 10 AM to 2 PM."}
 ];
 const CATEGORIES = ["Shop","Food","Entertainment","Services","Community","Events"];
-const TOWNS = ["Downtown","Bayshore","Front Street"];
+const AREAS = ["Downtown","Bayshore","Front Street"];

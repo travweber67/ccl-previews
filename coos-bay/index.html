@@ -13,7 +13,7 @@
 <meta name="apple-mobile-web-app-title" content="Coos Bay Downtown Association">
 <title>Coos Bay Downtown Association | Local Businesses & Events</title>
 <script>(function(){var t='light';try{var s=window.localStorage.getItem('kil-theme');if(s==='dark'||s==='light'){t=s;}else if(window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches){t='dark';}}catch(e){}document.documentElement.setAttribute('data-theme',t);})();</script>
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style.css?v=62">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,wonk@0,9..144,800..900,1;1,9..144,500..600,0&family=Montserrat:wght@600;800&display=swap" rel="stylesheet">
@@ -213,10 +213,10 @@
 
 </footer>
 
-<script src="data.js"></script>
-<script src="app.js"></script>
-<script src="logos.js"></script>
-<script src="panel.js"></script>
+<script src="data.js?v=62"></script>
+<script src="app.js?v=62"></script>
+<script src="logos.js?v=62"></script>
+<script src="panel.js?v=62"></script>
 <script>
 // Shop Small Saturday explainer: the Holidays panel button opens
 // a slide-out explainer in the same pattern as the listing panel (scrim,
@@ -250,17 +250,18 @@
   });
 })();
 </script>
-<script src="herobar.js"></script>
-<script src="countdown.js"></script>
+<script src="herobar.js?v=62"></script>
+<script src="countdown.js?v=62"></script>
 <script>
 // Pass 60: the home search is ONE clean bar + a Filter button
 // (Travis specced it himself, Nov 20, 12:27 PM, replacing the
-// Pass 59 card + visible chips). Category + town live inside the
+// Pass 59 card + visible chips). Category + area live inside the
 // filter panel; the button shows the active filter state.
 // Submitting GETs directory.html?q=&cat=&town= exactly as before
-// (hidden cat field + the kilDropdown's hidden town input).
+// (hidden cat field + the kilDropdown's hidden area input; the
+// GET param stays 'town', the picker itself is areas of Coos Bay).
 (function(){
-  var townDD=kilDropdown(document.getElementById('hbTownField'),{id:'hbTown',name:'town',allLabel:'All Towns',ariaLabel:'Filter by town',options:TOWNS});
+  var townDD=kilDropdown(document.getElementById('hbTownField'),{id:'hbTown',name:'town',allLabel:'All Areas',ariaLabel:'Filter by area',options:AREAS});
   var catInput=document.getElementById('scCat');
   var btn=document.getElementById('sbFilterBtn');
   var panel=document.getElementById('sbPanel');
@@ -294,13 +295,13 @@
 renderInto('featured', LISTINGS.filter(l=>l.featured).sort(function(a,b){return (a.fo||99)-(b.fo||99)}));
 renderInto('whatsnew', LISTINGS.filter(l=>l.isnew).slice(0,6));
 </script>
-<script src="events-data.js"></script>
-<script src="events.js"></script>
-<script src="news-data.js"></script>
-<script src="news.js"></script>
-<script src="theme.js"></script>
-<script src="nav.js"></script>
-<script src="install.js"></script>
+<script src="events-data.js?v=62"></script>
+<script src="events.js?v=62"></script>
+<script src="news-data.js?v=62"></script>
+<script src="news.js?v=62"></script>
+<script src="theme.js?v=62"></script>
+<script src="nav.js?v=62"></script>
+<script src="install.js?v=62"></script>
 <script>
 // Item 7 falling snow: a light canvas layer over the Holidays photo,
 // under the frosted content panel. Slow top-to-bottom fall, low flake

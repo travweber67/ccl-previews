@@ -13,7 +13,7 @@
 <meta name="apple-mobile-web-app-title" content="Coos Bay Downtown Association">
 <title>Listing - Coos Bay Downtown Association</title>
 <script>(function(){var t='light';try{var s=window.localStorage.getItem('kil-theme');if(s==='dark'||s==='light'){t=s;}else if(window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches){t='dark';}}catch(e){}document.documentElement.setAttribute('data-theme',t);})();</script>
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style.css?v=62">
 </head>
 <body>
 <div class="demo-bar">Demo rebuild preview by <b>Nomad Development Group</b> &middot; Not the live site</div>
@@ -71,7 +71,7 @@
   <p class="fine hero-credit">Dark-mode hero photo: Low tide at Sunset Bay, Oregon &middot; Sheila Sund &middot; CC BY &middot; via Wikimedia Commons</p>
 
 </footer>
-<script src="data.js"></script>
+<script src="data.js?v=62"></script>
 <script>
 const id=new URLSearchParams(location.search).get('id')||'real-deals';
 const l=LISTINGS.find(x=>x.id===id)||LISTINGS[0];
@@ -87,10 +87,10 @@ if(l.email)h+='<p><b>Email:</b> '+l.email+'</p>';
 if(!l.phone&&!l.web&&!l.email)h+='<p>Contact details as published on the live listing.</p>';
 document.getElementById('detail').innerHTML=h;
 </script>
-<script src="logos.js"></script>
-<script src="panel.js"></script>
-<script src="theme.js"></script>
-<script src="nav.js"></script>
-<script src="install.js"></script>
+<script src="logos.js?v=62"></script>
+<script src="panel.js?v=62"></script>
+<script src="theme.js?v=62"></script>
+<script src="nav.js?v=62"></script>
+<script src="install.js?v=62"></script>
 </body>
 </html>

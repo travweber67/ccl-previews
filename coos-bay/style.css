@@ -2357,3 +2357,14 @@ header.site,header.site.over{position:absolute;top:0;left:0;right:0;background:t
 .tree-count.mini .tc-dot::after{inset:-6px}
 .tree-count.mini .tc-star{width:15px;height:15px;margin:-8px 0 0 -8px}
 @media(max-width:640px){.tc-star{width:20px;height:20px;margin:-10px 0 0 -10px}}
+
+/* PASS 61 FIX (QC round 1, Nov 20): at <=640px the taller logo
+   cluster (118px logo + ring + MENU cap, bottom ~268px incl. the
+   two-line demo strip) overlapped the home headline's first line
+   by ~25px — the 198px hero top padding underestimated the
+   cluster. Mobile hero top padding 198 -> 244px; slim-band
+   section top padding 190 -> 216px at <=760px for the same
+   clearance on band headlines. Desktop verified clear (headline
+   ends left of the logo's left edge). */
+@media(max-width:640px){.hero{padding-top:244px}}
+@media(max-width:760px){.page-hero{padding-top:216px}}

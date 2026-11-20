@@ -1,0 +1,30 @@
+{
+ "background_color": "#16283d",
+ "description": "Downtown Walla Walla's directory of local businesses, nonprofits, events and organizations.",
+ "display": "standalone",
+ "icons": [
+  {
+   "purpose": "any",
+   "sizes": "192x192",
+   "src": "img/icons/icon-192.png",
+   "type": "image/png"
+  },
+  {
+   "purpose": "any",
+   "sizes": "512x512",
+   "src": "img/icons/icon-512.png",
+   "type": "image/png"
+  },
+  {
+   "purpose": "maskable",
+   "sizes": "512x512",
+   "src": "img/icons/icon-maskable-512.png",
+   "type": "image/png"
+  }
+ ],
+ "name": "Downtown Walla Walla Foundation",
+ "scope": "./",
+ "short_name": "Walla Walla",
+ "start_url": "./index.html",
+ "theme_color": "#16283d"
+}

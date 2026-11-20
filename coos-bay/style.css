@@ -2141,3 +2141,66 @@ header.site,header.site.over{position:absolute;top:0;left:0;right:0;background:t
    reads as an inset of the card, not a foreign card pasted on. */
 .holiday-panel .tree-count{max-width:none;margin:22px 0 4px;background:rgba(24,14,18,.40);box-shadow:0 8px 22px rgba(4,18,11,.28)}
 @media(max-width:640px){.holiday-panel .tree-count{margin-top:18px}}
+/* PASS 60 SEARCH (Travis specced it himself, Nov 20, 12:27 PM):
+   the Pass 59 frosted card + visible chips are replaced by ONE
+   clean search bar — generous height, fully rounded, soft shadow,
+   directions in the placeholder — with a Filter button beside it.
+   Category + town live in the panel that drops from the button;
+   the button shows the active filter. Nothing cheap, nothing
+   cluttered. Same GET wiring (q/cat/town) as every pass before. */
+.searchbar-wrap{max-width:1060px;margin:30px auto 0;position:relative;z-index:6}
+.searchbar{display:flex;gap:12px;align-items:center;position:relative}
+.sb-bar{flex:1;min-width:0;display:flex;align-items:center;gap:4px;height:64px;background:rgba(255,253,248,.97);border:1px solid rgba(255,255,255,.7);border-radius:999px;box-shadow:0 14px 34px rgba(30,5,13,.28);padding:7px 7px 7px 22px}
+.sb-ic{display:flex;flex:none;color:#9c6d10}
+.sb-ic svg{width:21px;height:21px}
+.sb-bar input{flex:1;min-width:0;border:0;background:transparent;outline:none;font-family:Arial,sans-serif;font-size:17px;color:var(--ink);padding:10px 6px}
+.sb-bar input::placeholder{color:#9b8a90}
+.sb-go{flex:none;width:50px;height:50px;border:0;border-radius:50%;background:linear-gradient(180deg,#c08c1d,#9c6d10);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 12px rgba(156,109,16,.4);transition:transform .1s ease,filter .15s ease}
+.sb-go svg{width:22px;height:22px}
+.sb-go:hover{filter:brightness(1.07)}
+.sb-go:active{transform:translateY(1px)}
+.sb-filter-btn{flex:none;height:64px;display:flex;align-items:center;gap:9px;background:#5c1126;color:#ffe9b0;border:1px solid rgba(255,255,255,.35);border-radius:999px;padding:0 24px;font-family:Arial,sans-serif;font-size:16px;font-weight:700;cursor:pointer;box-shadow:0 14px 34px rgba(30,5,13,.28);transition:filter .15s ease}
+.sb-filter-btn svg{width:19px;height:19px;flex:none}
+.sb-filter-btn:hover{filter:brightness(1.12)}
+.sb-filter-state{max-width:210px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;background:rgba(255,255,255,.16);border-radius:999px;padding:4px 11px;font-size:13.5px}
+.sb-filter-btn.has-filter::after{content:"";flex:none;width:8px;height:8px;border-radius:50%;background:#eda200}
+[data-theme="dark"] .sb-filter-btn.has-filter::after{background:#5c1126}
+.sb-panel{position:absolute;top:calc(100% + 12px);right:0;width:min(430px,100%);background:rgba(255,253,248,.98);border:1px solid var(--line);border-radius:22px;box-shadow:0 22px 48px rgba(30,5,13,.32);padding:18px 20px 16px;text-align:left;color:var(--ink);font-family:Arial,sans-serif;z-index:40}
+.sb-panel-h{font-family:'Fraunces',Georgia,'Times New Roman',serif;font-weight:800;font-size:17.5px;color:#5c1126;margin:0 0 11px}
+.sb-cats{display:flex;flex-wrap:wrap;gap:8px}
+.sb-cat{border:1.5px solid #d8c49a;background:#fff;color:#5c1126;border-radius:999px;padding:8px 15px;font-size:14.5px;font-weight:700;font-family:Arial,sans-serif;cursor:pointer;transition:background .15s,border-color .15s}
+.sb-cat:hover{border-color:#9c6d10}
+.sb-cat.is-on{background:#5c1126;color:#ffe9b0;border-color:#5c1126}
+.sb-townrow{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:15px}
+.sb-townlab{font-size:14px;font-weight:700;color:#5c1126}
+.sb-town{position:relative;flex:0 1 250px;background:#fff;border:1.5px solid #d8c49a;border-radius:999px;height:42px;padding:0 14px;display:flex;align-items:center;margin:0;box-shadow:none}
+.sb-town .dd-btn{color:var(--ink)}
+.sb-town .dd-chev{color:#9c6d10}
+.sb-town .dd-menu{background:#fffdf8;border:1px solid var(--line);box-shadow:0 14px 30px rgba(61,9,23,.18);backdrop-filter:none;-webkit-backdrop-filter:none}
+.sb-town .dd-opt{color:var(--ink)}
+.sb-town .dd-opt:hover,.sb-town .dd-opt.act{background:#f6ecd4}
+.sb-town .dd-opt.sel{color:#5c1126;background:#f2e2bc}
+.sb-done{margin-top:16px;width:100%;border:0;border-radius:999px;background:linear-gradient(180deg,#c08c1d,#9c6d10);color:#fff;padding:12px;font-family:Arial,sans-serif;font-size:15.5px;font-weight:800;cursor:pointer;box-shadow:0 4px 12px rgba(156,109,16,.35)}
+.sb-done:hover{filter:brightness(1.07)}
+[data-theme="dark"] .sb-bar{background:rgba(36,20,25,.96);border-color:rgba(255,255,255,.25)}
+[data-theme="dark"] .sb-bar input{color:#f3ecdc}
+[data-theme="dark"] .sb-filter-btn{background:#eda200;color:#33240a;border-color:rgba(255,255,255,.25)}
+[data-theme="dark"] .sb-filter-state{background:rgba(51,36,10,.16)}
+[data-theme="dark"] .sb-panel{background:rgba(36,20,25,.98);border-color:#5c2438;color:#f3ecdc}
+[data-theme="dark"] .sb-panel-h{color:#f0d9a8}
+[data-theme="dark"] .sb-cat{background:#330a18;color:#e0c184;border-color:#5c2438}
+[data-theme="dark"] .sb-cat.is-on{background:#eda200;color:#33240a;border-color:#eda200}
+[data-theme="dark"] .sb-townlab{color:#e0c184}
+[data-theme="dark"] .sb-town{background:#20060f;border-color:#5c2438}
+[data-theme="dark"] .sb-town .dd-btn{color:#f3ecdc}
+@media(max-width:640px){
+  .searchbar-wrap{margin-top:24px}
+  .searchbar{gap:9px}
+  .sb-bar{height:56px;padding:6px 6px 6px 17px}
+  .sb-bar input{font-size:15.5px}
+  .sb-go{width:44px;height:44px}
+  .sb-filter-btn{height:56px;padding:0 17px;font-size:15px}
+  .sb-filter-state{display:none}
+  .sb-panel{left:0;right:0;width:auto}
+  .sb-town{flex:1 1 190px}
+}

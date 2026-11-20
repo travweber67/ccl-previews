@@ -2151,7 +2151,7 @@ header.site,header.site.over{position:absolute;top:0;left:0;right:0;background:t
    Category + town live in the panel that drops from the button;
    the button shows the active filter. Nothing cheap, nothing
    cluttered. Same GET wiring (q/cat/town) as every pass before. */
-.sbwrap{max-width:1060px;margin:30px auto 0;position:relative;z-index:6}
+.sbwrap{max-width:1060px;margin:30px auto 0;position:relative;z-index:12}
 .sbform{display:flex;gap:12px;align-items:center;position:relative}
 .sb-bar{flex:1;min-width:0;display:flex;align-items:center;gap:4px;height:64px;background:rgba(255,253,248,.97);border:1px solid rgba(255,255,255,.7);border-radius:999px;box-shadow:0 14px 34px rgba(30,5,13,.28);padding:7px 7px 7px 22px}
 .sb-ic{display:flex;flex:none;color:#9c6d10}

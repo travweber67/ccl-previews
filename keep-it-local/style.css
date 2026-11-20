@@ -1636,3 +1636,22 @@ footer.site .foot-social a{display:inline-flex;align-items:center;justify-conten
 footer.site .foot-social a:hover{background:rgba(255,255,255,.16);border-color:rgba(255,255,255,.35);transform:translateY(-2px)}
 footer.site .foot-social svg{width:19px;height:19px}
 footer.site .foot-credit a{display:inline;padding:0;color:#cfd6cc;text-decoration:underline}
+
+/* ---- Pass 48: inner-page hero banners, each page with her own banner photo
+   from her live site. Directory + Events keep the shared hero frame; only the
+   light-mode photo changes (dark mode keeps the night aerial, same as Home).
+   Bundles + Holidays gain a slim page-hero band under the header. News has no
+   banner photo on her site, so it gains none. ---- */
+.hero-dir{background:linear-gradient(98deg,rgba(0,38,56,.93) 0%,rgba(0,38,56,.84) 34%,rgba(0,38,56,.58) 52%,rgba(0,38,56,.22) 68%,rgba(0,38,56,0) 84%,rgba(0,38,56,0) 100%),url('img/banners/directory-rooster.jpg') 74% center/cover no-repeat}
+.hero-ev{background:linear-gradient(98deg,rgba(0,38,56,.93) 0%,rgba(0,38,56,.84) 34%,rgba(0,38,56,.58) 52%,rgba(0,38,56,.22) 68%,rgba(0,38,56,0) 84%,rgba(0,38,56,0) 100%),url('img/banners/events-market.jpg') center/cover no-repeat}
+.page-hero{position:relative;color:#fff;min-height:300px;display:flex;align-items:flex-end;background-size:cover;background-position:center;background-repeat:no-repeat;overflow:hidden}
+.page-hero::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,53,78,.16) 0%,rgba(0,53,78,.30) 52%,rgba(0,53,78,.84) 100%)}
+.page-hero-in{position:relative;z-index:1;width:100%;max-width:1380px;margin:0 auto;padding:36px 40px 28px}
+.page-hero h1{font-family:'Fraunces',Georgia,'Times New Roman',serif;font-weight:880;font-variation-settings:'opsz' 144,'wght' 880,'WONK' 1;font-size:clamp(30px,4vw,46px);line-height:1.05;letter-spacing:-.2px;margin:0;text-shadow:0 2px 14px rgba(0,0,0,.5)}
+.page-hero .ph-swoosh{display:block;width:min(300px,60%);height:12px;margin-top:8px}
+.ph-bundles{background-image:url('img/banners/bundles-mainstreet.jpg')}
+.ph-holidays{background-image:url('img/banners/holidays-snow.jpg');background-position:center 36%}
+@media(max-width:760px){
+  .page-hero{min-height:208px}
+  .page-hero-in{padding:24px 18px 18px}
+}

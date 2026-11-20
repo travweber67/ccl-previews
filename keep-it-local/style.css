@@ -1655,3 +1655,15 @@ footer.site .foot-credit a{display:inline;padding:0;color:#cfd6cc;text-decoratio
   .page-hero{min-height:208px}
   .page-hero-in{padding:24px 18px 18px}
 }
+
+/* ---- Pass 49: News gains a page-hero band (her news template has no banner
+   of its own, so the photo is her CCTOURISM-170 aerial of Rainier on the
+   Columbia, used as a background photo on her own site — same Lost Locals
+   Media tourism series as the other banners). On phones the slim bands grow
+   from a 208px strip to a real picture height so the photo reads as a photo
+   and the title sits cleanly in the fade. Desktop rendering unchanged. ---- */
+.ph-news{background-image:url('img/banners/news-river.jpg');background-position:center 42%}
+@media(max-width:760px){
+  .page-hero{min-height:302px}
+  .page-hero-in{padding:26px 18px 22px}
+}

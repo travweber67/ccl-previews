@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#00354e">
+<link rel="apple-touch-icon" href="img/icons/apple-touch-icon.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Coos Bay Downtown Association">
+<title>Shop Local for the Holidays - Coos Bay Downtown Association</title>
+<script>(function(){var t='light';try{var s=window.localStorage.getItem('kil-theme');if(s==='dark'||s==='light'){t=s;}else if(window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches){t='dark';}}catch(e){}document.documentElement.setAttribute('data-theme',t);})();</script>
+<link rel="stylesheet" href="style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,wonk@0,9..144,800..900,1;1,9..144,500..600,0&family=Montserrat:wght@600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="demo-bar">Demo rebuild preview by <b>Nomad Development Group</b> &middot; Not the live site</div>
+<header class="site">
+  <button class="logo-btn" id="menuBtn" aria-label="Open the menu" aria-haspopup="true" aria-expanded="false"><span class="logo-ring"><img src="img/logo.webp" alt="Coos Bay Downtown Association"></span><small class="menu-cap">Menu</small></button><span class="logo-word">Coos Bay<small>Downtown Association</small></span>
+  <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch to dark mode" aria-pressed="false"><svg class="ic-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><svg class="ic-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button>
+</header>
+<div class="scrim" id="scrim"></div>
+<nav class="drawer" id="drawer" aria-hidden="true" aria-label="Site menu">
+  <div class="drawer-head"><img src="img/logo.webp" alt=""><span class="dt">Coos Bay<small>Downtown Association</small></span><button class="drawer-x" id="drawerClose" aria-label="Close the menu">&times;</button></div>
+  <a href="index.html">Home</a>
+  <a href="directory.html">Directory</a>
+  <a href="events.html">Events</a>
+  <a href="bundles.html">Explore the Bundles</a>
+  <div class="drawer-cat">Browse by Category</div>
+  <a href="directory.html?cat=Shop">Shop</a>
+  <a href="directory.html?cat=Taste">Taste</a>
+  <a href="directory.html?cat=Play">Play</a>
+  <a href="directory.html?cat=Services">Services</a>
+  <a href="directory.html?cat=Community">Community</a>
+  <a href="events.html">Events</a>
+  <a href="https://docs.google.com/forms/d/e/1FAIpQLSfU93t_QGHyFiDihI21XO8fY7tObjT_ytt5qG82A3WyPfxDtg/viewform" target="_blank" rel="noopener">Add a Listing</a>
+  <a href="index.html#about">About Us</a>
+  <button class="drawer-install" id="installBtn" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M4 21h16"/></svg>Install the App</button>
+  <p class="drawer-install-hint" id="installHint" hidden></p>
+</nav>
+<section class="page-hero ph-holidays">
+  <div class="page-hero-in">
+    <h1>Shop Local for the Holidays</h1>
+    <svg class="ph-swoosh" viewBox="0 0 300 14" preserveAspectRatio="none" aria-hidden="true"><path d="M4,10 C80,3 210,2 296,7" stroke="#71bfa0" stroke-width="5.5" fill="none" stroke-linecap="round"/></svg>
+  </div>
+</section>
+<div class="wrap hol">
+  <section class="holiday hol-hero">
+    <canvas class="snow" id="snowCanvas" aria-hidden="true"></canvas>
+    <div class="holiday-panel wide">
+    <img class="hol-hero-img" src="img/news-cb/shop-small-saturday.jpg" alt="Shop Small Saturday and Santa Comes to Town poster from the Coos Bay Downtown Association">
+    <h2>Holidays in Downtown Coos Bay</h2>
+    <p class="hol-dates">November 2026</p>
+    <p>The holiday magic continues in Downtown Coos Bay on Saturday, November 28th, as the Coos Bay Downtown Association invites the community to celebrate Shop Small Saturday and Santa Comes to Town! Bring the whole family downtown for a festive day filled with holiday shopping, warm cider, visits with Santa, a lighted walking parade, and the annual Christmas Tree Lighting.</p>
+    <p>The season kicked off with the Holiday Open House on November 13 and 14, when 23 participating downtown businesses opened their doors for early holiday shopping.</p>
+    <div class="nums">
+      <div><b>Nov 28</b>Shop Small Saturday</div>
+      <div><b>11 AM - 3 PM</b>Downtown Cider Walk</div>
+      <div><b>$100</b>in receipts earns a stein</div>
+      <div><b>5:45 PM</b>Christmas Tree Lighting</div>
+    </div>
+    <nav class="hol-toc" aria-label="On this page">
+      <a href="#shop-small">Shop Small Saturday</a>
+      <a href="#cider-walk">The Cider Walk &amp; the Stein</a>
+      <a href="#santa">Santa &amp; the Tree Lighting</a>
+      <a href="#open-house">Holiday Open House</a>
+    </nav>
+    </div>
+  </section>
+
+  <h2 class="sec" id="shop-small">Shop Small Saturday &amp; Santa Comes to Town</h2>
+  <p>Shop Small Saturday is a wonderful opportunity to support the locally owned businesses that make Downtown Coos Bay special. From unique gifts and holiday decor to delicious food and one-of-a-kind treasures, downtown has something for everyone on your Christmas list. Every purchase helps support our local businesses and keeps our downtown community thriving.</p>
+  <div class="hol-chips">
+    <span class="hol-chip">Saturday, November 28</span>
+    <span class="hol-chip">Downtown Coos Bay</span>
+    <span class="hol-chip">Free, family friendly</span>
+  </div>
+
+  <h2 class="sec" id="cider-walk">The Downtown Cider Walk &amp; the Commemorative Stein</h2>
+  <p>The Downtown Cider Walk takes place from 11:00 AM to 3:00 PM. Stroll through participating downtown businesses, enjoy delicious cider, and soak up the holiday spirit. Cider Walk maps and commemorative steins will be available at Jennie&rsquo;s Shoes on Central Avenue.</p>
+  <h3>How the Stein Works</h3>
+  <div class="wsteps">
+    <div class="wstep"><span class="wstep-n" aria-hidden="true">1</span><p>Shop at participating downtown businesses and restaurants between November 13th and November 28th, and save your receipts.</p></div>
+    <div class="wstep"><span class="wstep-n" aria-hidden="true">2</span><p>Add them up. Receipts totaling a combined $100 or more earn a commemorative stein.</p></div>
+    <div class="wstep"><span class="wstep-n" aria-hidden="true">3</span><p>Redeem your receipts at Jennie&rsquo;s Shoes on November 28th, from 11:00 AM to 3:00 PM.</p></div>
+  </div>
+
+  <h2 class="sec" id="santa">Santa, the Parade, and the Tree Lighting</h2>
+  <p>Santa Claus is coming to town! Here is how the day runs:</p>
+  <ul class="hol-list">
+    <li><b>1:30 PM to 3:00 PM:</b> Santa makes his way through downtown, visiting local businesses and spreading Christmas cheer. Keep an eye out for him while you shop.</li>
+    <li><b>3:00 PM to 5:00 PM:</b> Visit Santa at the Coos Bay Downtown Association office for photos and a chance for children to share their Christmas wish lists. Bring your cameras.</li>
+    <li><b>5:15 PM:</b> The Lighted Walking Parade gathers. Participants receive glow-in-the-dark necklaces before following Santa down Central Avenue to the Coos Bay Visitor Center.</li>
+    <li><b>About 5:45 PM:</b> The Annual Christmas Tree Lighting, where Santa and Mayor Joe Benetti light the downtown Christmas tree and officially welcome the Christmas season to Coos Bay.</li>
+  </ul>
+
+  <h2 class="sec" id="open-house">Holiday Open House</h2>
+  <figure class="hol-fig"><img src="img/news-cb/holiday-open-house.jpg" alt="Holiday Open House poster from the Coos Bay Downtown Association"></figure>
+  <p>Downtown Coos Bay kicked off the holiday season with the Holiday Open House on November 13 and 14, 2026. Twenty-three participating businesses took part, open 10 AM to 4 PM.</p>
+
+</div>
+<footer class="site">
+  <div class="foot-contact">
+    <p><b>Coos Bay Downtown Association</b> &middot; 320 Central Ave, Suite 410, Coos Bay, OR 97420 &middot; <a href="mailto:mainstreetmanager@coosbaydowntown.com">mainstreetmanager@coosbaydowntown.com</a></p>
+    <div class="foot-social">
+      <a href="https://www.facebook.com/114832511874467" target="_blank" rel="noopener" aria-label="Coos Bay Downtown Association on Facebook"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13.5 21.9v-7.2h2.42l.36-2.8H13.5V10.1c0-.81.23-1.36 1.4-1.36h1.5V6.24c-.26-.03-1.15-.11-2.18-.11-2.16 0-3.64 1.32-3.64 3.74v2.03H8.14v2.8h2.44v7.2a10 10 0 0 0 2.92 0z"/></svg></a>
+      <a href="https://www.instagram.com/downtowncoosbay" target="_blank" rel="noopener" aria-label="Coos Bay Downtown Association on Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><rect x="3.2" y="3.2" width="17.6" height="17.6" rx="4.8"/><circle cx="12" cy="12" r="4.1"/><circle cx="17.3" cy="6.7" r="1.15" fill="currentColor" stroke="none"/></svg></a>
+    </div>
+  </div>
+  <div class="cols">
+    <div><h4>Find Local</h4><a href="directory.html">Directory Page</a><a href="events.html">Find Local Events</a></div>
+    <div><h4>Get Started</h4><a href="bundles.html">How to Make a Listing</a><a href="bundles.html">Register</a><a href="bundles.html">Featured Bundle</a><a href="bundles.html">Business Bundle</a><a href="bundles.html">Sponsor Bundle</a></div>
+    <div><h4>Manage</h4><a href="bundles.html">Add Place</a><a href="events.html">Add Event</a><a href="bundles.html">Login</a></div>
+    <div><h4>About Us</h4><a href="index.html#about">About Coos Bay Downtown Association</a><a href="holidays.html">Shop Local for the Holidays</a><a href="bundles.html">FAQs</a><a href="news.html">News</a><a href="index.html">Contact Us</a><a href="#" target="_blank" rel="noopener">Terms and Conditions</a></div>
+  </div>
+  <p class="sponsor-line"><b>Thank You to Our Website Sponsor:</b> Banner Bank</p>
+  <div class="sponsor-strip">
+    <button type="button" class="s-strip" data-panel-open="banner-bank" aria-label="Banner Bank"><span class="s-strip-name">Banner Bank</span></button>
+  </div>
+  <p class="fine">Demo rebuild preview prepared by Nomad Development Group, November 2026.</p>
+  <p class="fine hero-credit">Hero photo: Coos Bay Harbor, Oregon &middot; via Wikimedia Commons</p>
+  <p class="fine hero-credit">Dark-mode hero photo: Coos Bay Harbor, Oregon &middot; via Wikimedia Commons</p>
+
+</footer>
+<script src="data.js"></script>
+<script src="logos.js"></script>
+<script src="panel.js"></script>
+<script src="theme.js"></script>
+<script src="nav.js"></script>
+<script src="install.js"></script>
+<script>
+// Holidays page falling snow: same light canvas treatment as the home
+// Holidays panel — over the snowy hero photo, under the frosted panel.
+(function(){
+  var canvas=document.getElementById('snowCanvas');
+  if(!canvas)return;
+  if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  var ctx=canvas.getContext('2d');
+  var flakes=[],W=0,H=0,running=false,raf=0,last=0;
+  function size(){
+    var r=canvas.parentElement.getBoundingClientRect();
+    W=Math.max(1,Math.round(r.width)); H=Math.max(1,Math.round(r.height));
+    canvas.width=W; canvas.height=H;
+    var target=W<600?30:Math.min(80,Math.round(W/16));
+    flakes=[];
+    for(var i=0;i<target;i++)flakes.push({
+      x:Math.random()*W, y:Math.random()*H,
+      r:.8+Math.random()*1.9, s:20+Math.random()*32,
+      o:.3+Math.random()*.55, ph:Math.random()*6.283, sw:8+Math.random()*16
+    });
+  }
+  function frame(t){
+    if(!running)return;
+    var dt=Math.min(.05,(t-last)/1000||0); last=t;
+    ctx.clearRect(0,0,W,H);
+    ctx.fillStyle='#fff';
+    for(var i=0;i<flakes.length;i++){
+      var f=flakes[i];
+      f.y+=f.s*dt; f.ph+=dt*.7;
+      if(f.y>H+4){f.y=-4;f.x=Math.random()*W;}
+      ctx.globalAlpha=f.o;
+      ctx.beginPath();
+      ctx.arc(f.x+Math.sin(f.ph)*f.sw*.3,f.y,f.r,0,6.283);
+      ctx.fill();
+    }
+    ctx.globalAlpha=1;
+    raf=requestAnimationFrame(frame);
+  }
+  function start(){if(running)return;running=true;last=performance.now();raf=requestAnimationFrame(frame);}
+  function stop(){running=false;if(raf)cancelAnimationFrame(raf);}
+  size();
+  window.addEventListener('resize',size);
+  if('IntersectionObserver' in window){
+    new IntersectionObserver(function(en){en[0].isIntersecting?start():stop();},{threshold:.02}).observe(canvas.parentElement);
+  } else start();
+  document.addEventListener('visibilitychange',function(){document.hidden?stop():start();});
+})();
+</script>
+
+<script>
+/* Pass 40: Participating Locations expanders — each town table opens
+   with its first 4 rows; the rest unfold in place. */
+document.querySelectorAll('[data-loc-toggle]').forEach(function(btn){
+  btn.addEventListener('click',function(){
+    var table=document.getElementById(btn.getAttribute('data-loc-toggle'));
+    var open=table.classList.toggle('loc-open');
+    btn.setAttribute('aria-expanded',open?'true':'false');
+    btn.querySelector('.loc-label').textContent=open?btn.getAttribute('data-less'):btn.getAttribute('data-more');
+    btn.querySelector('.loc-chev').innerHTML=open?'&#9650;':'&#9660;';
+  });
+});
+</script>
+</body>
+</html>

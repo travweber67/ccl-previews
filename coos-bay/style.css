@@ -2129,3 +2129,5 @@ header.site,header.site.over{position:absolute;top:0;left:0;right:0;background:t
 .hero-dir #count{position:absolute;left:20px;bottom:-20px;margin:0;z-index:9}
 #results{margin-top:26px}
 @media(max-width:760px){.hero-dir #count{left:16px;bottom:-18px}}
+/* (5e) mobile: slim-band headlines clear the overlaid logo block */
+@media(max-width:760px){.page-hero{padding-top:164px}}

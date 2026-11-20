@@ -2371,17 +2371,21 @@ header.site,header.site.over{position:absolute;top:0;left:0;right:0;background:t
 
 /* ---- PASS 62 (Travis, Nov 20, 13:39 PM): two final fixes.
    (1) NO SQUARE AROUND THE LOGO. Travis's screenshot showed a
-   visible square color step around the round CBDA seal button:
-   the .logo-ring carried a translucent backdrop-filter blur +
-   box-shadow on its square layout box, and the img carried its
-   own white background, 2px padding and drop shadow — the blur /
-   shadow box read as a square patch behind the circle. Now the
-   seal is a PURE CIRCLE: the ring wrapper clips its contents to
-   the circle (border-radius:50% + overflow:hidden), wears NO
-   background of its own, NO backdrop blur and NO shadow box —
-   only a thin circular outline — and the img is a clean white
-   disc (its background lives INSIDE the circle only), no padding,
-   no shadow. Whatever sits behind the header (hero photo or band)
+   visible square color step around the round CBDA seal button.
+   Root cause (found by computed-style dump, Pass 62 QC): the
+   .logo-btn itself still carried `backdrop-filter: blur(10px)
+   saturate(1.3)` from the Pass 3 pill-button rule — the later
+   column-layout override nulled the button's background, border
+   and shadow but never its backdrop-filter, and with the
+   button's border-radius at 0 the blur painted its whole square
+   border box (seal + MENU caption) as a frosted square patch.
+   The button's backdrop-filter is now NONE. The seal is also a
+   PURE CIRCLE: the ring wrapper clips its contents to the circle
+   (border-radius:50% + overflow:hidden), wears NO background of
+   its own, NO backdrop blur and NO shadow box — only a thin
+   circular outline — and the img is a clean white disc (its
+   background lives INSIDE the circle only), no padding, no
+   shadow. Whatever sits behind the header (hero photo or band)
    shows right up to the circle's edge with no color step.
    The img keeps object-fit:fill (the seal artwork is a wide
    1891x1009 banner; cover would crop "COOS BAY DOWNTOWN
@@ -2396,6 +2400,7 @@ header.site,header.site.over{position:absolute;top:0;left:0;right:0;background:t
    the listings actually carry) labeled "All Areas / Filter by
    area". The GET param stays 'town' so directory wiring is
    untouched. ---- */
+.logo-btn,.logo-btn:hover{backdrop-filter:none;-webkit-backdrop-filter:none}
 .logo-ring{border-radius:50%;overflow:hidden;background:transparent;backdrop-filter:none;-webkit-backdrop-filter:none;box-shadow:none;border:2px solid rgba(255,255,255,.85);padding:0}
 .logo-btn:hover .logo-ring{background:transparent;box-shadow:none}
 .logo-btn:active .logo-ring{box-shadow:none;transform:none}

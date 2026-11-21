@@ -5101,3 +5101,121 @@ body.view-anim .card,body.view-anim .featured-local,body.view-anim .finder-box,b
    paint (4f), the founding panel cells, photo bands. ---- */
 body.rd-home .card,html[data-theme="dark"] body.rd-home .card{
   background:linear-gradient(rgba(255,255,255,.84),rgba(255,255,255,.84)),url('img/founding-paint.jpg') center/cover,#fff8f0}
+/* ---- 4s. TAN → FROSTED GLASS, APP-WIDE (Travis, 2026-11-20 23:36
+   + 23:37): every off-white TAN surface — the unselected selector
+   chips (commute towns, ferry towns, directory filters, home town,
+   plan/signpost/saver chips, filter buttons, Pin buttons, share
+   buttons) and EVERY tan inner panel (ferry timetable + at-a-glance
+   boxes, the bridge status box, alert items, verdict boxes, route
+   badges, camera frames, help rows, finder box/results, news rows)
+   — becomes frosted glass: translucent white + blur, over whatever
+   treatment sits beneath. Selected/active states keep their solid
+   orange (the :not guards below); form inputs/selects, map chrome,
+   the sponsor page and already-treated surfaces (schools list,
+   scroller bodies, founding cells) are out of scope. ---- */
+body.rd-home .drive-chip:not(.active):not([aria-pressed="true"]),
+body.rd-home .fp-town-chip:not(.active):not([aria-pressed="true"]),
+body.rd-home .dir-chip:not(.active):not([aria-pressed="true"]),
+body.rd-home .home-chip:not(.active):not([aria-pressed="true"]),
+body.rd-home .saver-chip:not(.active):not([aria-pressed="true"]),
+body.rd-home .plan-chip:not(.active):not([aria-pressed="true"]),
+body.rd-home .signpost-chip:not(.active):not([aria-pressed="true"]),
+body.rd-home .sky-filter-btn:not(.active):not([aria-pressed="true"]),
+body.rd-home .event-filter-btn:not(.active):not([aria-pressed="true"]),
+body.rd-home .town-btn:not(.active):not([aria-pressed="true"]),
+body.rd-home .fp-dir-btn:not(.active):not([aria-pressed="true"]),
+body.rd-home .go-trip-btn:not(.active):not([aria-pressed="true"]),
+body.rd-home .pin-btn:not(.active),
+body.rd-home .pin-clear,
+body.rd-home .share-btn:not(.primary),
+body.rd-home .map-town-chip,
+body.rd-home .ferry-box,body.rd-home .ferry-next-box,body.rd-home .bridge-box,
+body.rd-home .alert-item,body.rd-home .period,body.rd-home .quake-mag,
+body.rd-home .install-help,body.rd-home .lang-note,body.rd-home .camera-fig,
+body.rd-home .ra-chip,body.rd-home .briefing-row-alert,body.rd-home .iss-pass-hero,
+body.rd-home .fp-verdict,body.rd-home .sh-detail,body.rd-home .alm-verdict,
+body.rd-home .alm-fact,body.rd-home .air-verdict,body.rd-home .dark-verdict,
+body.rd-home .fish-sp,body.rd-home .go-verdict,body.rd-home .go-row,
+body.rd-home .print-note,body.rd-home .schools-report,body.rd-home .school-none,
+body.rd-home .otl-card,body.rd-home .featured-card,body.rd-home .route-pill,
+body.rd-home .link-tile,body.rd-home .share-bar,body.rd-home .finder-box,
+body.rd-home .finder-results,body.rd-home .dir-empty,body.rd-home .news-row,
+body.rd-home .getapp-step0,body.rd-home .getapp-nosee,
+body.rd-home #view-help .dir-item,
+body.rd-home .why-box summary,body.rd-home .wave-details summary,
+html[data-theme="dark"] body.rd-home .finder-box,
+html[data-theme="dark"] body.rd-home .finder-results,
+html[data-theme="dark"] body.rd-home .dir-empty{
+  background:rgba(255,255,255,.52);
+  -webkit-backdrop-filter:blur(12px) saturate(1.15);
+  backdrop-filter:blur(12px) saturate(1.15)}
+/* ---- 4t. TRAFFIC INCIDENT CARDS → MARBLED ORANGE (Travis,
+   2026-11-20 23:37): the Travel incident cards (.alert-card —
+   US30BY / OR127 / OR202 "Traffic Impacts…") were plain cream; the
+   card body now carries the orange marbling like the other treated
+   cards. ---- */
+body.rd-home .alert-card,html[data-theme="dark"] body.rd-home .alert-card{
+  background:linear-gradient(rgba(255,255,255,.78),rgba(255,255,255,.78)),url('img/founding-paint.jpg') center/cover,#fff8f0}
+/* ---- 4u. TAB BAR — FINAL STRIP-DOWN + SHADOW-LINE SWEEP (Travis,
+   2026-11-20 23:34, PRIORITY). Tab bar: the 4m visual-viewport
+   anchor is REMOVED (see app.js) — on the real phone its
+   translateY compensation fought Chrome's own toolbar
+   compensation, double-translating the bar (disappear / pop /
+   ride-high). The bar also loses will-change. What remains is the
+   plainest possible mechanism: a direct body child,
+   position:fixed, bottom:0, safe-area padding, no transform, no
+   transition, no JS. This guard makes that state explicit and
+   !important at phone widths. ---- */
+@media (max-width:899px){
+  .tabbar{transform:none!important;transition:none!important;will-change:auto!important}
+}
+/* Shadow lines, sweep round 2: the remaining terminators were
+   shadow REACH vs room — the scroller cards' deepened stack reaches
+   ~58px below the card; 4q's 22px bottom padding still clipped it.
+   Room is now sized to the reach (top 30 / bottom 56), the ticker
+   viewport goes to 16/26 (pill reach 21), the forecast strip to
+   16/26 (pill reach 18), and the in-card day-pill strip to 10/44.
+   Shadows now complete their fade inside every clipped row in the
+   app (audit: ticker 4n, scrollers 4q, day pills 4p, forecast —
+   vertical stacks never clip). */
+.ev-scroll-viewport,.news-scroll-viewport{padding-top:30px;padding-bottom:56px}
+.strip-viewport{padding-top:16px;padding-bottom:26px}
+.forecast-week{padding-top:16px;padding-bottom:26px}
+.forecast-top .forecast-week,.pin-forecast-top .forecast-week{padding-bottom:26px}
+.cev-pills{padding-top:10px;padding-bottom:44px}
+/* ---- 4v. TAB-SWITCH LAG (Travis, 2026-11-20 23:39): switching —
+   especially TO Today, the heaviest view — was laggy. Costs found:
+   (1) every .reveal element in the incoming view animating at once
+   when it becomes visible, on top of the slide; (2) backdrop-filter
+   on the frosted surfaces inside the moving views (4i suspended it
+   on .card only — the frost family from 4s is wider); (3) per-view
+   refresh hooks (map invalidateSize, heat-label fit) firing 60ms
+   into the slide and forcing layout mid-animation; (4) the
+   incoming view rasterizing its full 7000px height for the slide.
+   Fixes: during a swap, reveal animations are suspended (elements
+   snap to rest state — the slide is the motion) and backdrop-filter
+   is suspended on EVERYTHING inside the moving views (over the
+   flat grey ground the blur is invisible anyway); the refresh
+   hooks wait until the animation lands (app.js); and the entering
+   view carries content-visibility:auto for the duration of the
+   slide so the browser only rasters what the slide can show. ---- */
+body.view-anim .view-entering *,body.view-anim .view-leaving *{
+  -webkit-backdrop-filter:none!important;backdrop-filter:none!important}
+body.view-anim .reveal{transition:none!important;animation:none!important}
+.view-entering.cv-skip{content-visibility:auto;contain-intrinsic-size:auto 1200px}
+/* ---- 4w. FOUNDING CARD TEXT — FULL CONTRAST PASS (Travis,
+   2026-11-20 23:41, broadening 4h): ALL text on the three founding
+   cards was blending into the paint. Cause: the cell text colors
+   are legacy from the OLD dark panel — .founding-cell p is pale
+   cream #e6e0c8, .cell-eyebrow pale gold #f2c078, the invite cell's
+   ghost logo pale #e8dfc8 — invisible on the light paint surface.
+   Every text element on the cells now sits in the dark warm-ink
+   family at full contrast, details/taglines semibold; the CTA
+   links go deep orange-brown (the strip's dark pill button keeps
+   its own light text). ---- */
+body.rd-home .founding-cell{color:#2b211b}
+body.rd-home .founding-cell h3{color:#241a12}
+body.rd-home .founding-cell p{color:#453823;font-weight:600}
+body.rd-home .cell-eyebrow{color:#7a3c00}
+body.rd-home .ghost-logo{color:#5d4326;border-color:rgba(93,67,38,.55);background:rgba(255,255,255,.35)}
+body.rd-home .founding-cell .founding-cta:not(.ss-btn){color:#8a3c00;font-weight:800}

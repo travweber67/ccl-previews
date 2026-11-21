@@ -8147,12 +8147,14 @@ function animateViewSwap(prev, name, token, dir) {
     out.hidden = true;
     out.classList.remove('view-active');
     inn.hidden = false;
-    inn.classList.add('view-active', 'view-entering');
+    /* Item 4v: content-visibility skip while the view slides — the
+       browser rasters only what the slide can show, not 7000px. */
+    inn.classList.add('view-active', 'view-entering', 'cv-skip');
     if (rev) inn.classList.add('rev');
     void inn.offsetWidth;
     inn.classList.add('view-enter-go');
     setTimeout(() => {
-      inn.classList.remove('view-entering', 'view-enter-go', 'rev');
+      inn.classList.remove('view-entering', 'view-enter-go', 'rev', 'cv-skip');
       document.body.classList.remove('view-anim');
       if (token === viewAnimToken) viewAnimBusy = false;
     }, 520);
@@ -8186,58 +8188,34 @@ function cclShowView(name) {
     b.classList.toggle('active', on);
     if (b.setAttribute) b.setAttribute('aria-pressed', on ? 'true' : 'false');
   });
+  /* Item 4v: when a switch animates, the per-view refresh hooks wait
+     until it lands — running them at 60ms forced layout (Leaflet
+     invalidateSize, label fitting) in the middle of the slide. */
+  const hookDelay = wantAnim ? 880 : 60;
   if (name === 'travel' && typeof map !== 'undefined' && map && map.invalidateSize) {
-    setTimeout(() => { try { map.invalidateSize(); } catch (e) { /* map still booting */ } }, 60);
+    setTimeout(() => { try { map.invalidateSize(); } catch (e) { /* map still booting */ } }, hookDelay);
   }
   if (name === 'emergency') {
-    setTimeout(() => { try { initEmergency(); } catch (e) { /* emergency module still booting */ } }, 60);
+    setTimeout(() => { try { initEmergency(); } catch (e) { /* emergency module still booting */ } }, hookDelay);
   }
   if (name === 'outdoors') {
     /* The heat strip renders inside this (usually hidden) view, where
        its labels can't be measured — re-run the fit check now that
        the view has layout. */
-    setTimeout(() => { try { fitHeatLabels(); } catch (e) { /* strip not rendered yet */ } }, 60);
+    setTimeout(() => { try { fitHeatLabels(); } catch (e) { /* strip not rendered yet */ } }, hookDelay);
   }
 }
-/* REDESIGN ITEM 4m — TAB BAR VISUAL-VIEWPORT ANCHOR (Travis,
-   2026-11-20 23:08: on his real phone the bottom pills intermittently
-   float UP over the content instead of sitting at the bottom; the
-   headless probe never reproduced it). Root cause: the bar is
-   position:fixed;bottom:0, which anchors to the LAYOUT viewport —
-   but a phone browser's VISUAL viewport is a different size whenever
-   its dynamic toolbar is shown vs hidden (and in in-app WebViews),
-   so the bar paints offset from the bottom the user actually sees,
-   by about a toolbar's height, until a repaint snaps it back.
-   Headless Chromium has no dynamic toolbar, so its layout and visual
-   viewports always agree and the probe sees nothing. (Ruled out on
-   the way: the bar is a direct child of <body> — no transformed,
-   filtered or will-change ancestor exists to re-anchor it; the body
-   state classes only set overflow:hidden.) Fix: continuously anchor
-   the bar to the VISUAL viewport — whenever the visual viewport's
-   bottom sits above/below the layout viewport's bottom, translate
-   the bar by exactly that delta. translateZ(0) keeps the bar on its
-   own composited layer so it never lags a repaint. Desktop (≥900px)
-   keeps the plain sticky top bar, untouched. */
-(function anchorTabBar() {
-  const bar = document.getElementById('tabbar');
-  if (!bar || !window.visualViewport) return;
-  let queued = false;
-  function anchor() {
-    queued = false;
-    if (window.innerWidth >= 900) { bar.style.transform = ''; return; }
-    const vv = window.visualViewport;
-    const off = window.innerHeight - vv.height - vv.offsetTop;
-    bar.style.transform = Math.abs(off) > 0.5
-      ? 'translateY(' + (-off).toFixed(1) + 'px) translateZ(0)'
-      : 'translateZ(0)';
-  }
-  function queue() { if (!queued) { queued = true; requestAnimationFrame(anchor); } }
-  window.visualViewport.addEventListener('resize', queue);
-  window.visualViewport.addEventListener('scroll', queue);
-  window.addEventListener('resize', queue);
-  window.addEventListener('orientationchange', queue);
-  anchor();
-})();
+/* REDESIGN ITEM 4m/4u — TAB BAR (Travis, 2026-11-20 23:08 + 23:34).
+   The 4m visual-viewport anchor that lived here is REMOVED (23:34):
+   on Travis's real phone its translateY compensation fought Chrome's
+   own dynamic-toolbar compensation — the bar got double-translated
+   (sinking below the screen, popping back, riding high at the top).
+   The bar is now the plainest mechanism possible and NOTHING in JS
+   touches it: a direct child of <body>, position:fixed, bottom:0,
+   safe-area padding, no transform, no transition, no will-change
+   (guarded in style.css 4u). The headless probe could never see the
+   bug because headless has no dynamic toolbar; the fix is structural
+   — every mechanism that can move the bar is gone. */
 function cclReveal(el) {
   if (!el) return;
   const v = cclViewOf(el);

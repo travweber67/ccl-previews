@@ -4486,3 +4486,27 @@ body.rd-home .go-row-warn{border-left:4px solid var(--warn)}
 @media (prefers-reduced-motion:reduce){
   .card:hover,.evs-card:hover,.nws-card:hover,.founding-cell:hover,.brief-ev-card:hover,.news-row:hover,.add-event-card:hover{transform:none}
 }
+
+/* ---- 3o. TOWN CARD BACKGROUND SLIDE (Travis, 2026-11-20 22:20):
+   only the photo layer moves; the card's text/content never does.
+   Old photo exits left, the picked town's photo enters from the
+   right, both under the card's static scrim + text. ---- */
+#home-card .card-bgphoto{overflow:hidden}
+#home-card .card-bgphoto img.town-slide-out{position:relative;z-index:0}
+#home-card .card-bgphoto img.town-slide-in{
+  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  transform:translateX(102%);
+}
+#home-card .card-bgphoto img.town-slide-out.town-slide-go{
+  transform:translateX(-102%);transition:transform .4s ease;
+}
+#home-card .card-bgphoto img.town-slide-in.town-slide-go{
+  transform:translateX(0);transition:transform .4s ease;
+}
+/* Contrast fixes spotted in this batch's QC (headings that sat white
+   on the new light ground): the bare Today forecast's place line and
+   the Events card's head (its photo is a block above the head, not
+   behind it). */
+.wx-today-bare .wx-place{color:var(--muted);text-shadow:none}
+#events-card .card-head h2{color:var(--text);text-shadow:none}
+#events-card .card-head .updated{color:var(--muted);text-shadow:none}

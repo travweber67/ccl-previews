@@ -4101,13 +4101,49 @@ var TOWN_PHOTOS = {
   'Warren': { src: 'img/town-warren.jpg', credit: 'The Warren Elementary School sign, Warren — photo by Tedder, CC BY 3.0, Wikimedia Commons' }
 };
 var TOWN_PHOTO_DEFAULT = { src: 'img/town-default.jpg', credit: 'Beaver Falls, Columbia County — photo by DJ Cane, CC BY-SA 4.0, Wikimedia Commons' };
+/* REDESIGN FIX BATCH item 3o (Travis, 2026-11-20 22:20): on a town
+   pick the card's TEXT never moves — only the background picture
+   changes, with motion: the old photo slides off to the LEFT and the
+   new town's photo slides in from the RIGHT underneath the unmoving
+   text (same slide language as the view transitions). Applies to
+   every pick change, including default scenic → first pick.
+   Reduced motion (or a photo that fails to load) = instant swap. */
+var homeSlideToken = 0;
 function homePhotoApply() {
   var img = document.getElementById('home-bg-img');
   if (!img) return;
   var p = (homeTown && TOWN_PHOTOS[homeTown.name]) || TOWN_PHOTO_DEFAULT;
-  if (img.getAttribute('src') !== p.src) img.setAttribute('src', p.src);
   var c = document.getElementById('home-photo-credit');
   if (c) c.textContent = p.credit;
+  if (img.getAttribute('src') === p.src) return;
+  var layer = img.parentNode;
+  var reduced = false;
+  try { reduced = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches); } catch (e) { /* keep false */ }
+  if (reduced || !layer) { img.setAttribute('src', p.src); return; }
+  var token = ++homeSlideToken;
+  var pre = new Image();
+  pre.onload = function () {
+    if (token !== homeSlideToken) return;
+    var fresh = document.createElement('img');
+    fresh.src = p.src; fresh.alt = '';
+    fresh.className = 'town-slide-in';
+    layer.appendChild(fresh);
+    img.classList.add('town-slide-out');
+    requestAnimationFrame(function () {
+      requestAnimationFrame(function () {
+        fresh.classList.add('town-slide-go');
+        img.classList.add('town-slide-go');
+      });
+    });
+    setTimeout(function () {
+      if (token !== homeSlideToken) { fresh.remove(); return; }
+      img.classList.remove('town-slide-out', 'town-slide-go');
+      img.setAttribute('src', p.src);
+      fresh.remove();
+    }, 460);
+  };
+  pre.onerror = function () { if (token === homeSlideToken) img.setAttribute('src', p.src); };
+  pre.src = p.src;
 }
 
 /* v75: the Your town card's own composed strings (status label, See

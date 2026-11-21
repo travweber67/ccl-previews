@@ -3730,3 +3730,141 @@ body.rd-home .hero .sticky-bar{
   padding:8px 12px;
   -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
 }
+
+/* =====================================================================
+   REDESIGN ITEM 2 (Travis, 2026-11-20) — homepage layer (body.rd-home).
+   Mobile first. Contents: hero finder + status spots, ticker pills,
+   modern selects, icon image helpers, Heading out? photo card, Your
+   town photo card, merged weather card sections, event-cards scroller.
+   ===================================================================== */
+
+/* --- hero: finder on the photo, status spots under it --- */
+body.rd-home .hero-finder{margin-top:16px;position:relative;z-index:3}
+body.rd-home .hero-finder .finder-box{
+  background:rgba(255,255,255,.95);
+  border:1px solid rgba(255,255,255,.7);
+  box-shadow:0 8px 22px rgba(10,20,14,.30);
+}
+html[data-theme="dark"] body.rd-home .hero-finder .finder-box{background:rgba(24,28,26,.92)}
+body.rd-home .hero-finder .finder-icon{display:inline-flex}
+body.rd-home .hero-finder .finder-icon img{width:23px;height:23px;border-radius:50%;display:block}
+body.rd-home .hero-finder .finder-results{box-shadow:0 16px 34px rgba(10,20,14,.38)}
+body.rd-home .hero-status{display:flex;flex-wrap:wrap;gap:6px 22px;margin-top:13px}
+body.rd-home .hero-spot{
+  color:#fff;font-weight:650;font-size:.99rem;text-decoration:none;
+  text-shadow:0 1px 7px rgba(0,0,0,.6);letter-spacing:.01em;
+}
+body.rd-home .hero-spot.bad{color:#ff7a6b;font-weight:750}
+body.rd-home .hero-spot:hover{text-decoration:underline}
+@media (min-width:900px){
+  body.rd-home .hero-status{gap:6px 30px}
+  body.rd-home .hero-spot{font-size:1.05rem}
+}
+
+/* --- ticker: separate ombre pills, a little bigger and taller --- */
+body.rd-home .strip-item.glance-tile{
+  margin:9px 10px 9px 0;padding:10px 20px 10px 13px;
+  border-right:none;border-radius:999px;
+  background:linear-gradient(135deg,#ffb347 0%,#ff7a1a 55%,#e85d04 100%);
+  box-shadow:0 5px 16px rgba(232,93,4,.35);
+}
+body.rd-home .glance-strip .glance-label{color:rgba(255,255,255,.88)}
+body.rd-home .glance-strip .strip-sep{color:rgba(255,255,255,.65)}
+body.rd-home .glance-strip .glance-sub{color:rgba(255,255,255,.78)}
+body.rd-home .glance-strip .glance-val{color:#fff;font-size:1.14rem}
+body.rd-home .glance-strip .glance-val.ok{color:#fff}
+body.rd-home .glance-strip .glance-val.warn{color:#fff3d6}
+body.rd-home .glance-strip .glance-val.bad{color:#ffe3de}
+@media (min-width:900px){
+  body.rd-home .strip-item.glance-tile{padding:12px 24px 12px 15px;margin:11px 12px 11px 0}
+  body.rd-home .glance-strip .glance-val{font-size:1.3rem}
+}
+
+/* --- modern dropdowns --- */
+body.rd-home select{
+  appearance:none;-webkit-appearance:none;
+  border:1px solid var(--border);border-radius:12px;
+  background-color:var(--panel-2);color:var(--text);
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5 6 6.5 11 1.5' fill='none' stroke='%235a665e' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 12px center;background-size:12px 8px;
+  padding:10px 36px 10px 14px;font:inherit;cursor:pointer;
+}
+html[data-theme="dark"] body.rd-home select{
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5 6 6.5 11 1.5' fill='none' stroke='%23c8d2ca' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
+}
+body.rd-home select:focus-visible{outline:2px solid var(--accent-dark);outline-offset:1px}
+
+/* --- icon image helpers (real icons in place of emoji) --- */
+.btn-ico{width:22px;height:22px;border-radius:50%;vertical-align:-6px;margin-right:7px}
+.inline-ico{width:19px;height:19px;border-radius:50%;vertical-align:-4px}
+.inc-ico{width:21px;height:21px;border-radius:50%;vertical-align:-5px;margin-right:2px}
+.verdict-ico{width:30px;height:30px;border-radius:50%;vertical-align:-8px;margin-right:9px}
+.go-ico{width:24px;height:24px;border-radius:50%;display:block}
+.drawer-action-ico .btn-ico,.getapp-ico .btn-ico{margin-right:0}
+
+/* --- Heading out? photo card --- */
+body.rd-home .go-card{padding-bottom:32px}
+body.rd-home .go-card .card-bgphoto::after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(8,18,12,.36),rgba(8,18,12,.55));
+}
+body.rd-home .go-card .card-head h2{color:#fff;text-shadow:0 1px 9px rgba(0,0,0,.55)}
+body.rd-home .go-card .updated{color:rgba(255,255,255,.88);text-shadow:0 1px 6px rgba(0,0,0,.5)}
+body.rd-home .go-card .go-field{color:#fff;text-shadow:0 1px 6px rgba(0,0,0,.55)}
+body.rd-home .go-card .loading{color:#fff;text-shadow:0 1px 6px rgba(0,0,0,.5)}
+body.rd-home .go-card .install-help{color:#fff;text-shadow:0 1px 6px rgba(0,0,0,.5)}
+body.rd-home .go-card .go-trip-btn{background:rgba(255,255,255,.92)}
+body.rd-home .go-card .go-trip-btn.active{background:var(--accent);color:#fff}
+
+/* --- Your town photo card --- */
+body.rd-home #home-card{padding-bottom:32px}
+body.rd-home #home-card .card-bgphoto::after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(8,18,12,.32),rgba(8,18,12,.52));
+}
+body.rd-home #home-card .card-head h2{color:#fff;text-shadow:0 1px 9px rgba(0,0,0,.55)}
+body.rd-home #home-card .home-status,
+body.rd-home #home-card .town-line,
+body.rd-home #home-card .card-note{color:#fff;text-shadow:0 1px 8px rgba(0,0,0,.55)}
+body.rd-home #home-card .home-linkbtn{color:#ffd9a8}
+.photo-credit{
+  position:absolute;right:12px;bottom:9px;z-index:2;margin:0;
+  font-size:.62rem;line-height:1.3;text-align:right;max-width:82%;
+  color:rgba(255,255,255,.88);text-shadow:0 1px 4px rgba(0,0,0,.65);
+}
+
+/* --- merged weather card (Outdoors): forecast sections inside --- */
+#alerts-card #forecast-week-card{margin-top:16px;border-top:1px solid var(--border);padding-top:14px}
+#alerts-card #forecast-card{margin-top:14px;border-top:1px solid var(--border);padding-top:12px}
+.wx-subhead{font-size:1.08rem;font-weight:700;margin:0}
+
+/* --- event-cards scroller (second scroller, under the founding panel) --- */
+.ev-scroll{margin:18px 0 4px}
+.ev-scroll-head{display:flex;align-items:center;gap:9px;margin:0 2px 10px}
+.ev-scroll-head h2{font-size:1.15rem;margin:0}
+.ev-scroll-viewport{overflow:hidden}
+.ev-scroll-track{display:flex;width:max-content;animation:evsScroll 55s linear infinite;will-change:transform}
+@keyframes evsScroll{to{transform:translateX(-50%)}}
+.ev-scroll:hover .ev-scroll-track,.ev-scroll:focus-within .ev-scroll-track{animation-play-state:paused}
+.evs-card{
+  flex:none;width:198px;margin-right:12px;
+  background:var(--panel);border:1px solid var(--border);border-radius:16px;
+  overflow:hidden;text-decoration:none;color:var(--text);
+  box-shadow:0 6px 16px rgba(23,32,27,.10);
+  display:flex;flex-direction:column;
+}
+.evs-img{width:100%;height:88px;object-fit:cover;display:block}
+.evs-body{padding:9px 12px 11px;display:flex;flex-direction:column;gap:2px}
+.evs-when{font-size:.68rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--accent-dark)}
+.evs-tag{background:linear-gradient(135deg,#ffb347,#e85d04);color:#fff;border-radius:999px;padding:1px 7px;font-size:.6rem;margin-left:5px;vertical-align:1px;white-space:nowrap}
+.evs-title{font-weight:700;font-size:.93rem;line-height:1.25}
+.evs-loc{font-size:.76rem;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+@media (min-width:900px){
+  .evs-card{width:234px}
+  .evs-img{height:106px}
+  .evs-title{font-size:.97rem}
+}
+@media (prefers-reduced-motion:reduce){
+  .ev-scroll-track{animation:none}
+  .ev-scroll-viewport{overflow-x:auto}
+}

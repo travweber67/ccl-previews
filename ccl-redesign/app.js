@@ -497,12 +497,15 @@ function initMapTools() {
   });
 }
 
-/* ---------- sticky bar status pills ---------- */
-function setPill(id, text, cls) {
+/* ---------- REDESIGN ITEM 2: hero status spots ----------
+   Plain text links on the header photo (Bridge / Weather / Highway).
+   Normal text color when clear; the .bad class turns the word red
+   when it is not. Same live data that fed the old sticky pills. */
+function setSpot(id, text, bad) {
   const el = $(id);
   if (!el) return;
   el.textContent = text;
-  el.className = 'sticky-pill' + (cls ? ' ' + cls : '');
+  el.classList.toggle('bad', !!bad);
 }
 
 /* ---------- weather alerts (NWS) ---------- */
@@ -513,12 +516,12 @@ async function loadAlerts() {
     const feats = d.features || [];
     const banner = $('alert-banner');
     if (!feats.length) {
-      body.innerHTML = '<p class="no-alerts">✅ No active watches, warnings, or advisories for Columbia County right now.</p>';
+      body.innerHTML = '<p class="no-alerts">No active watches, warnings, or advisories for Columbia County right now.</p>';
       banner.hidden = true;
-      setPill('sticky-weather', '✅ Weather clear', 'ok');
+      setSpot('spot-weather', 'Weather clear', false);
     } else {
       const anyWarning = feats.some(f => /warning/i.test((f.properties || {}).event || ''));
-      setPill('sticky-weather', '⚠️ ' + feats.length + (feats.length === 1 ? ' alert' : ' alerts'), anyWarning ? 'bad' : 'warn');
+      setSpot('spot-weather', anyWarning ? 'Weather warning' : 'Weather bad', true);
       body.innerHTML = feats.map(f => {
         const p = f.properties || {};
         const sev = /warning/i.test(p.event || '') ? ' severe' : '';
@@ -534,7 +537,7 @@ async function loadAlerts() {
   } catch (e) {
     body.innerHTML = '<p class="fallback">⚠️ Couldn\'t load alerts just now. Check the '
       + '<a href="https://www.weather.gov/pqr/" target="_blank" rel="noopener">National Weather Service</a> directly — and treat any severe weather as in effect until you confirm otherwise.</p>';
-    setPill('sticky-weather', '⚠️ Weather — check NWS', 'warn');
+    setSpot('spot-weather', 'Weather bad', true);
   }
 }
 
@@ -1131,9 +1134,9 @@ function renderRoads(roads, camerasSnap) {
   // Bridge block
   const b = roads.bridge || {};
   const bEl = $('bridge-body');
-  const icon = { clear: '✅', work: '🚧', alert: '⛔', unknown: '❔' }[b.status] || '❔';
+  const icon = { clear: 'icon-check', work: 'icon-alert', alert: 'icon-block', unknown: 'icon-unknown' }[b.status] || 'icon-unknown';
   let bh = '<div class="bridge-box bridge-' + esc(b.status || 'unknown') + '">'
-    + '<div class="bridge-title">' + icon + ' Lewis &amp; Clark Bridge — '
+    + '<div class="bridge-title"><img class="inc-ico" src="img/icons/' + icon + '.png" alt="" aria-hidden="true"> Lewis &amp; Clark Bridge — '
     + ({ clear: 'no alerts', work: 'work scheduled', alert: 'ALERT posted', unknown: 'status unknown' }[b.status] || 'status unknown')
     + '</div>';
   /* v100: one glanceable why-line at the top of the card — the first
@@ -1147,7 +1150,7 @@ function renderRoads(roads, camerasSnap) {
   const whyN = bAlerts.length ? bAlerts.length + bZones.length : bZones.length;
   const why = bridgeWhy(whySrc);
   if (why) {
-    bh += '<p class="bridge-why">' + (bZones.length && !bAlerts.length ? '🚧 ' : '')
+    bh += '<p class="bridge-why">' + ''
       + esc(why) + (whyN > 1 ? ' · +' + (whyN - 1) + ' more' : '') + '</p>';
   } else {
     bh += '<p>' + esc(b.note || '') + '</p>';
@@ -1160,15 +1163,19 @@ function renderRoads(roads, camerasSnap) {
       + (aD && aD !== aT ? '<p>' + esc(aD) + '</p>' : '') + '</div>';
   });
   (b.work_zones || []).forEach(z => {
-    bh += '<div class="incident-row"><strong>🚧 Work zone</strong> — ' + esc(z.description || (z.roads || []).join(', '))
+    bh += '<div class="incident-row"><strong><img class="inc-ico" src="img/icons/icon-alert.png" alt="" aria-hidden="true"> Work zone</strong> — ' + esc(z.description || (z.roads || []).join(', '))
       + (z.start ? '<p>' + esc(z.start) + (z.end ? ' → ' + esc(z.end) : '') + '</p>' : '')
       + '<div class="incident-meta">Source: WSDOT</div></div>';
   });
   bh += '</div>';
   bEl.innerHTML = bh;
-  setPill('sticky-bridge',
-    '🌉 Bridge ' + ({ clear: 'clear', work: 'work posted', alert: 'ALERT', unknown: 'unknown' }[b.status] || 'unknown'),
-    b.status === 'clear' ? 'ok' : b.status === 'alert' ? 'bad' : 'warn');
+  setSpot('spot-bridge', b.status === 'clear' ? 'Bridge clear' : 'Bridge not clear', b.status !== 'clear');
+  /* Highway spot: any live ODOT incident on the US-30 corridor whose
+     own title reports real impacts (the feed also carries "No traffic
+     impacts" notices — those are not incidents) = not clear. */
+  const hwBad = (roads.incidents || []).some(i => /^US30/.test(i.route || '')
+    && !/no traffic impacts/i.test(i.title || ''));
+  setSpot('spot-highway', hwBad ? 'Highway not clear' : 'Highway clear', hwBad);
   // ODOT incidents — scoped by the fetcher to the ones ODOT locates in
   // the county area (build batch 2026-11-04, research ADD 2 / R1: the
   // verdict and this list used to carry the whole statewide feed count).
@@ -3283,6 +3290,7 @@ function renderEvents() {
     const sel = body.querySelector('.cev-pill.sel');
     if (sel && sel.scrollIntoView) { try { sel.scrollIntoView({ block: 'nearest', inline: 'center' }); } catch (e) { /* older browser */ } }
   }
+  buildEventScroller();
 }
 function cevResetView() { cevDay = null; cevOpen = true; renderEvents(); }
 function initCevNav() {
@@ -3431,6 +3439,7 @@ async function loadGlance() {
     const el = $('glance-events-val');
     if (evs.length) {
       const ev = evs[0];
+      glanceNextEvKey = evcalKeyOf(ev);
       const when = ev.date === today ? 'Today ' + (ev.time || '')
         : fmtDay(new Date(ev.date + 'T12:00:00')) + ' ' + (ev.time || '');
       el.textContent = ev.title;
@@ -4068,7 +4077,7 @@ function homeSavePref() {
    hit the temporal dead zone and throw. */
 function homeLang() { try { return langCur; } catch (e) { return 'en'; } }
 function homeTownLabelHTML() {
-  return (homeLang() === 'es' ? '🏠 Tu pueblo: ' : '🏠 Your town: ')
+  return (homeLang() === 'es' ? 'Tu pueblo: ' : 'Your town: ')
     + '<strong>' + esc(homeTown.name) + '</strong>';
 }
 function homeEventsLabel() {
@@ -4090,11 +4099,12 @@ function homeLangRefresh() {
 function renderHome() {
   const body = $('home-body');
   if (!body) return;
+  homePhotoApply();
   if (homeTown) {
     body.innerHTML = '<p class="home-status"><span id="home-status-label">' + homeTownLabelHTML() + '</span> '
       + '<span id="home-cal-note"></span></p>'
-      + '<p class="town-line" id="town-forecast">🌤️ Reading today\'s forecast for ' + esc(homeTown.name) + '…</p>'
-      + '<p class="town-line" id="town-river">🌊 Reading the river gauges…</p>'
+      + '<p class="town-line" id="town-forecast">Reading today\'s forecast for ' + esc(homeTown.name) + '…</p>'
+      + '<p class="town-line" id="town-river">Reading the river gauges…</p>'
       + '<div class="home-actions">'
       + '<button class="share-btn primary" id="home-events-btn" type="button">' + homeEventsLabel() + '</button>'
       + '<button class="share-btn" id="home-change-btn" type="button">Change town</button>'
@@ -4124,6 +4134,7 @@ function renderHome() {
 function renderHomePicker() {
   const body = $('home-body');
   if (!body) return;
+  homePhotoApply();
   body.innerHTML = '<p class="card-note">Where\'s home? Pick your town once and this page remembers, and tunes itself around you: your forecast first, your town on the map, your town\'s events badged, its next event preferred up top.</p>'
     + '<div class="home-chips">' + TOWNS.map(t =>
         '<button class="home-chip' + (homeTown && homeTown.name === t.name ? ' active' : '')
@@ -5932,8 +5943,8 @@ const FINDER_SECTIONS = [
   { id: 'fires-card',    title: 'Wildfires',                 sub: 'Interagency wildfire incidents', keys: 'fire fires wildfire wildfires smoke burn burning' },
   { id: 'air-card',      title: 'Air & Smoke',               sub: 'Air Quality Index, fine particles, and the day\u2019s smoke outlook', keys: 'air quality aqi smoke breathe breathing pm25 lungs asthma dust wood stove' },
   { id: 'almanac-card',  title: 'The County Almanac',        sub: 'Sunrise, sunset, daylight left, and the moon', keys: 'sunset sunrise dark daylight day length moon golden hour light' },
-  { id: 'plan-card',     title: 'Tonight & tomorrow',        sub: 'The evening planning brief', keys: 'tonight tomorrow plan morning evening ahead first boat' },
-  { id: 'go-card',       title: 'Before You Go — Trip Check', sub: 'A go / no-go verdict for the drive, the ferry, or the river', keys: 'trip check before you go leave leaving go no-go ready set out outing commute drive ferry boat ramp fishing launch departure verdict should i go' },
+  { id: 'today-wx-card', title: 'Forecast — the week',       sub: 'The seven-day forecast pills, on Today', keys: 'forecast week seven day pills outlook weather tonight tomorrow plan morning evening ahead' },
+  { id: 'go-card',       title: 'Heading out? — Trip Check', sub: 'A go / no-go verdict for the drive or the ferry', keys: 'trip check before you go leave leaving go no-go ready set out outing commute drive ferry boat ramp fishing launch departure verdict should i go' },
   { id: 'briefing-card', title: 'The County Briefing',       sub: 'Today in one copyable note — or hear it read aloud', keys: 'briefing summary copy share text listen hear read aloud voice' },
   { id: 'watch-card',    title: 'The County Watch',          sub: 'Get told when a warning posts or the bridge closes', keys: 'notify notification notifications alarm alert me tell me watch monitor' },
   { id: 'since-card',    title: 'Since you were away',       sub: 'What changed since your last visit', keys: 'changed new since missed away difference' },
@@ -6273,22 +6284,22 @@ const LANG_ES = {
   __title: 'Columbia County Live — Carreteras, ríos, clima y ferry para el condado de Columbia, Oregón',
   tabtoday: 'Hoy',
   helpview: 'Ayuda comunitaria',
-  helph2: '🤝 Ayuda comunitaria',
+  helph2: 'Ayuda comunitaria',
   helpintro: 'Comida gratuita, líneas de crisis, ayuda con el alquiler, las facturas de servicios y los pañales, apoyo para familias, veteranos y recuperación — la ayuda que este condado ya ofrece, reunida en un solo lugar. Todo aquí es gratuito, con una excepción honesta: el centro de salud cobra según los ingresos, y su anuncio lo dice. Toca cualquier número de teléfono para llamar. Cada anuncio se verificó contra el sitio web propio del servicio.',
   help911: 'En una emergencia, llama al 911.',
-  helpsafe: '📞 Línea de crisis de SAFE — (503) 397-6161 · 24/7',
+  helpsafe: 'Línea de crisis de SAFE — (503) 397-6161 · 24/7',
   ebth3: 'Tarjeta EBT de Oregon — la app ebtEDGE',
   ebtdesc: 'La app oficial para las tarjetas EBT Oregon Trail: revisa tus saldos de comida y efectivo, mira tus depósitos y cambia tu PIN. El DHS de Oregon señala solo a ebtEDGE — las demás apps de EBT no son oficiales, no les confíes tu tarjeta.',
   ebtplay: 'Descargarla en Google Play',
   ebtapple: 'Descargarla en el App Store',
   ebtweb: 'Sitio web de ebtEDGE',
   ebtphone: 'Saldo por teléfono, sin necesidad de smartphone',
-  helpmh: '📞 Crisis de salud mental — (503) 782-4499 · 24/7',
-  helpfoodh: '🍞 Comida — despensas y comidas gratuitas',
-  helpcrisish: '🛟 Crisis y seguridad',
-  helpmoneyh: '🏠 Ayuda con dinero y vivienda',
-  helpfamilyh: '👶 Familia y salud',
-  helpvetsh: '🎖️ Veteranos, ayuda legal y recuperación',
+  helpmh: 'Crisis de salud mental — (503) 782-4499 · 24/7',
+  helpfoodh: 'Comida — despensas y comidas gratuitas',
+  helpcrisish: 'Crisis y seguridad',
+  helpmoneyh: 'Ayuda con dinero y vivienda',
+  helpfamilyh: 'Familia y salud',
+  helpvetsh: 'Veteranos, ayuda legal y recuperación',
   dwhelpfood: 'Comida gratuita',
   dwhelpcrisis: 'Crisis y seguridad',
   dwhelpmoney: 'Ayuda con dinero y vivienda',
@@ -6323,11 +6334,11 @@ const LANG_ES = {
   sstb: 'Uno de solo cuatro lugares de Patrocinador de Sección en Viajes — tu nombre y logo entre el mapa, el puente y el ferri que todos revisan antes de manejar. $29/mes, mes a mes, cancela cuando quieras.',
   ssob: 'Uno de solo cuatro lugares de Patrocinador de Sección en Aire Libre — tu nombre y logo entre el clima, los ríos y la pesca que todos revisan antes de salir. $29/mes, mes a mes, cancela cuando quieras.',
   ssmb: 'Uno de solo cuatro lugares de Patrocinador de Sección en Eventos y Más — tu nombre y logo entre los eventos, el directorio y el fin de semana que todos revisan antes de hacer planes. $29/mes, mes a mes, cancela cuando quieras.',
-  driveh2: '🧭 Tu viaje — ¿cuánto dura el manejo?',
+  driveh2: 'Tu viaje — ¿cuánto dura el manejo?',
   drivefrom: 'Desde',
   driveto: 'Hasta',
   drivenote: 'Tiempo típico — sin tráfico en vivo. El tiempo viene del servicio gratuito de rutas OSRM, recorriendo la ruta a las velocidades señaladas en condiciones normales — un cierre, una apertura del puente o un choque en la US-30 cambiarán el viaje real.',
-  aircrafth2: '✈️ Aviones sobre el condado',
+  aircrafth2: 'Aviones sobre el condado',
   aircraftnote: 'Aviones: receptores ADS-B de la comunidad vía adsb.fi. Se actualiza automáticamente.',
   __finderPh: 'Busca lo que sea — prueba «ferry», «marea alta», «hora de cuentos», un pueblo…',
   tagline: 'Carreteras · Ríos · El clima · El ferry — Condado de Columbia, Oregón',
@@ -6335,11 +6346,11 @@ const LANG_ES = {
   herotitle: 'Todo lo que pasa en el condado, <em>en una sola mirada en vivo.</em>',
   heropromise: 'La US-30 y el puente Lewis &amp; Clark, los niveles del río Columbia, las alertas del clima, el ferry Oscar B y los eventos de esta semana — reunidos de fuentes públicas oficiales y actualizados todo el día.',
   striproads: '<span class="pulse-dot" aria-hidden="true"></span>Carreteras y puente',
-  striprivers: '🌊 Niveles del río',
-  stripalerts: '⚠️ Alertas del clima',
-  stripsky: '✈️ El cielo y la estación espacial',
-  stripferry: '⛴️ El ferry Oscar B',
-  stripevents: '📅 Eventos',
+  striprivers: 'Niveles del río',
+  stripalerts: 'Alertas del clima',
+  stripsky: 'El cielo y la estación espacial',
+  stripferry: 'El ferry Oscar B',
+  stripevents: 'Eventos',
   stickyriver: 'Río',
   stickyferry: 'Ferry',
   stickyevents: 'Eventos',
@@ -6354,23 +6365,23 @@ const LANG_ES = {
   glriversub: 'Medidor de Port Westward · USGS',
   glevents: 'Próximo evento',
   finderhint: 'Una sola búsqueda en todas las tarjetas de esta página, los siete pueblos y los calendarios de eventos — toca un resultado y la página te lleva directo.',
-  homeh2: '📍 Tu pueblo',
-  sinceh2: '🧭 Mientras no estabas',
-  watchh2: '🔔 La Vigilancia del Condado',
+  homeh2: 'Tu pueblo',
+  sinceh2: 'Mientras no estabas',
+  watchh2: 'La Vigilancia del Condado',
   watchnote: 'Todo lo demás en esta página espera a que vengas a mirar. La vigilancia no. Deja esta página abierta — en una pestaña, instalada en tu pantalla de inicio o en la pared — y revisa el Servicio Meteorológico Nacional, el puente y el ferry cada dos minutos. Si se publica una alerta nueva, el puente cierra o el ferry anuncia algo mientras no estás mirando, te avisa: una notificación en este dispositivo donde el navegador las ofrece, una línea en el registro de abajo y — si marcas la casilla — dice las alertas nuevas en voz alta.',
-  watchbtn: '🔔 Empezar a vigilar',
+  watchbtn: 'Empezar a vigilar',
   watchlimits: 'Límites honestos: la vigilancia solo funciona mientras esta página está abierta en este dispositivo — cerrar la pestaña la detiene, y un teléfono puede pausar una pestaña en segundo plano. Es una ayuda, nunca un reemplazo del Servicio Meteorológico Nacional, la Radio Meteorológica de NOAA ni las alertas de emergencia del condado de Columbia.',
-  briefh2: '📋 El Resumen del Condado',
+  briefh2: 'El Resumen del Condado',
   briefnote: 'Las respuestas de hoy en un solo lugar — armadas desde los paneles en vivo de esta página y marcadas con la hora en que se preparó. Cópialas como una nota para un mensaje familiar, el grupo del vecindario, donde se reúna el condado. ¿Vas a manejar? Toca <strong>🔊 Escuchar el resumen</strong> y tu teléfono te lo lee en voz alta — primero las alertas del clima.',
-  briefcopy: '📋 Copiar el resumen',
-  briefshare: '📤 Compartir como texto',
-  brieflisten: '🔊 Escuchar el resumen',
-  planh2: '🌙 Esta noche y mañana',
+  briefcopy: 'Copiar el resumen',
+  briefshare: 'Compartir como texto',
+  brieflisten: 'Escuchar el resumen',
+  planh2: 'Esta noche y mañana',
   plannote: 'La revisión de la noche — lo que hay que dejar listo antes de dormir: el clima de esta noche, el manejo de mañana por la mañana, las primeras salidas del Oscar B y lo que hay mañana. Armado de las mismas fuentes oficiales que el resto de esta página.',
-  almanach2: '🌅 El Almanaque del Condado',
+  almanach2: 'El Almanaque del Condado',
   almanacnote: 'La salida y la puesta del sol, el crepúsculo y la luna se calculan en esta página desde las posiciones del sol y la luna — no hay ninguna fuente detrás que pueda quedarse vieja, y como todo almanaque impreso son buenos con unos minutos de margen. Las horas son para el pueblo nombrado en el panel; elige un pueblo de residencia arriba y el almanaque lo sigue.',
-  mapnear: '📍 Cerca de mí',
-  mapfull: '⛶ Pantalla completa',
+  mapnear: 'Cerca de mí',
+  mapfull: 'Pantalla completa',
   legtown: '<i class="dot dot-town"></i> Pueblo',
   leggauge: '<i class="dot dot-gauge"></i> Medidor del río',
   legquake: '<i class="dot dot-quake"></i> Terremoto (30 días)',
@@ -6380,26 +6391,26 @@ const LANG_ES = {
   legfire: '<i class="dot dot-fire"></i> Incendio forestal',
   legnote: 'Usa el botón de capas (arriba a la derecha del mapa) para activar el radar, los aviones, los barcos, los incendios y la estación espacial.',
   legpublic: 'Una línea en el mapa significa que el elemento existe y fue mapeado. No significa que el camino sea público.',
-  mapreporth2: '🗺️ Reporta un problema del mapa',
+  mapreporth2: 'Reporta un problema del mapa',
   mapreportp: 'Los caminos y las líneas de este mapa vienen de OpenStreetMap y de los registros del condado, y parte de eso está mal. Si un camino aparece en tu terreno y no debería estar ahí, un nombre está mal escrito, o un camino falta o no existe, dinos dónde y qué está mal. Lo revisaremos contra los registros del condado y lo corregiremos en la fuente.',
   mapreportfields: 'Di dónde está (el camino o el pueblo más cercano), qué está mal y qué debería ser. Tu nombre y una forma de contactarte son opcionales, solo ayudan a dar seguimiento.',
   mapreportguard: 'Cada reporte se revisa contra los registros del condado antes de que cambie algo. Un reporte no garantiza que un camino se elimine o se le cambie el nombre.',
   mapreportbtn: 'Enviar un reporte →',
-  roadsh2: '🚗 La US-30, el puente y las carreteras',
+  roadsh2: 'La US-30, el puente y las carreteras',
   incidentsh3: 'Incidentes en la carretera — ODOT TripCheck',
-  myrouteh3: '📷 Mi ruta — las cámaras de tu viaje, en orden de manejo',
-  routeaheadh2: '🧭 Ruta por delante — el pronóstico del corredor',
+  myrouteh3: 'Mi ruta — las cámaras de tu viaje, en orden de manejo',
+  routeaheadh2: 'Ruta por delante — el pronóstico del corredor',
   routeaheadnote: 'Las próximas horas en el corredor de la US-30, pueblo por pueblo — para que el hielo, la niebla o la nieve del camino aparezcan aquí antes que en el parabrisas. Pronóstico por hora del Servicio Meteorológico Nacional.',
-  mthoodh2: '🏔️ Monte Hood — cámaras de la US-26',
+  mthoodh2: 'Monte Hood — cámaras de la US-26',
   mthoodnote: 'Fuera del condado, se mantiene porque el viaje empieza aquí: las dos cámaras de la US-26 que muestran cómo está la montaña — Government Camp (MP 54) y Blue Box Pass (MP 64), el tramo alto camino a Bend. Imágenes en vivo de ODOT TripCheck, actualizadas cada 10 minutos.',
   camerash3: 'Cámaras de carretera',
   roadsnote: "Los datos de carreteras los recoge nuestro recolector de ODOT TripCheck y WSDOT cada pocos minutos y se muestran con su hora de captura — nunca fingen ser más frescos de lo que son. Detalle oficial completo: <a href=\"https://www.tripcheck.com/\" target=\"_blank\" rel=\"noopener\">TripCheck</a> · <a href=\"https://wsdot.com/traffic/\" target=\"_blank\" rel=\"noopener\">Tráfico de WSDOT</a>. ¿Viajas a Portland? Un cierre de la US-30 suele significar Cornelius Pass o el puente St. Johns — revisa antes de salir, no después.",
-  shipsh2: '🚢 Tráfico del río Columbia',
+  shipsh2: 'Tráfico del río Columbia',
   shipsnote: 'Barcos ordenados por cuándo pasarán por tu pueblo de residencia — St. Helens hasta que elijas uno en «Hazlo tuyo» en la pestaña Hoy. Los tiempos estimados usan la velocidad actual reportada por cada barco, así que un barco que reduce la velocidad llega más tarde. Posiciones en vivo de AISStream, actualizadas más o menos cada cinco minutos.',
-  ferryh2: '⛴️ El ferry Oscar B — Westport, OR ↔ Cathlamet, WA',
-  ferryminih2: '⛴️ El ferry Oscar B — de un vistazo',
+  ferryh2: 'El ferry Oscar B — Westport, OR ↔ Cathlamet, WA',
+  ferryminih2: 'El ferry Oscar B — de un vistazo',
   ferryminnote: 'Dónde está el barco sale de su horario impreso: el cruce toma unos 12 minutos y el ferry no tiene rastreador en vivo.',
-  ferryplanh3: '🧭 No pierdas el barco — ¿a qué hora tienes que salir?',
+  ferryplanh3: 'No pierdas el barco — ¿a qué hora tienes que salir?',
   fpdiror: 'Hacia Washington',
   fpdirwa: 'De regreso a Oregón',
   fpnote: 'Los tiempos de manejo son típicos para la US-30 / OR-47 en condiciones normales — tu viaje variará, y el barco no espera. El plan añade 10 minutos de margen en el muelle para estacionar, pagar (solo efectivo) y cargar.',
@@ -6420,63 +6431,63 @@ const LANG_ES = {
   evcalnote: '¿Vas a ir? Toca <strong>＋ Agregar</strong> en cualquier evento y llega a tu propio calendario — con la hora convertida y la página oficial adjunta — para que tu teléfono te lo recuerde el mismo día.',
   eventsnote: "Recogido por nuestro recolector de los calendarios oficiales de las ciudades. Fuentes oficiales: <a href=\"https://www.sthelensoregon.gov/calendar.aspx\" target=\"_blank\" rel=\"noopener\">St. Helens</a> · <a href=\"https://www.scappoose.gov/calendar.aspx\" target=\"_blank\" rel=\"noopener\">Scappoose</a> · <a href=\"https://www.columbiacountyor.gov/calendar\" target=\"_blank\" rel=\"noopener\">Condado de Columbia</a>",
   eventadd: '¿Tiene un negocio o grupo local? Agregue su evento →',
-  alertsh2: '⚠️ Alertas del clima',
+  alertsh2: 'Alertas del clima',
   alertslink: 'Servicio Meteorológico Nacional — oficina de Portland →',
-  forecasth2: '🌦️ Pronóstico',
+  forecasth2: 'Pronóstico',
   skyh2: 'En el cielo ahora mismo',
   skyall: 'Todo el tráfico',
   skylow: 'Bajo y local',
   skyground: 'En tierra',
   skynote: 'Aviones: receptores ADS-B de la comunidad vía adsb.fi. Posición de la estación espacial: wheretheiss.at. Las horas de paso se calculan en esta página desde la órbita publicada de la estación. Todo se actualiza automáticamente.',
-  riversh2: '🌊 Niveles del río',
+  riversh2: 'Niveles del río',
   riversnote: 'Las alertas de inundación, cuando se emiten, aparecen en Alertas del clima, arriba. Las lecturas son datos provisionales del USGS.',
-  tidesh2: '🌊 Mareas del río',
+  tidesh2: 'Mareas del río',
   tidesnote: 'El Columbia es un río de mareas en todo su paso por St. Helens — el océano sube por el canal dos veces al día. Para la rampa de botes, el muelle, la playa del río o una hora de pesca, aquí está el próximo cambio de marea en las dos estaciones de NOAA del condado.',
   tidesnote2: 'Las <em>predicciones</em> de marea de NOAA Tides &amp; Currents (estación 9439201 en St. Helens, estación 9439099 en Wauna), en pies sobre el nivel medio de la bajamar. El caudal del río empuja el agua real fuera de la predicción — un río alto corre más alto y más tarde — así que toma las horas como el plan, no como una promesa.',
   fishh2: 'Conteos de peces — las presas',
   fishnote: 'Cada salmón que va hacia el alto Columbia pasa por la presa Bonneville, donde el Cuerpo de Ingenieros los cuenta en las escalas de peces. El día publicado más reciente suele ir uno o dos días detrás del calendario — los conteos se registran en video y se revisan antes de publicarse.',
   fishnote2: 'Conteos: Cuerpo de Ingenieros del Ejército de EE. UU., publicados por el Fish Passage Center y Columbia Basin Research (DART). Un cero es una respuesta real, no un vacío — significa que los contadores no vieron ninguno ese día.',
-  trackerh2: '🎣 Rastreador de salmones',
+  trackerh2: 'Rastreador de salmones',
   methodh3: 'El plan del día — pesca con la corriente',
   methodnote: 'Con corriente fuerte es hora del plunking y del ancla; cuando la corriente muere, es hora del curricán (trolling). Elige tu método y el plan resalta tus horarios.',
-  steelh2: '🎣 Steelhead — los ríos pequeños',
+  steelh2: 'Steelhead — los ríos pequeños',
   steelnote: '¿Es hoy un buen día para pescar steelhead? No hay conteos para estos arroyos a mitad de temporada — las trampas de los criaderos se cuentan, pero los números se publican después — así que esto juzga el día, no los peces: temporada, caudal, claridad del agua, frío y clima. Toca un río para ver el desglose completo.',
   steelhours: 'Regla general de Oregón: la pesca de steelhead es legal desde una hora antes del amanecer hasta una hora después del atardecer — el reglamento de cada río puede añadir excepciones, así que revisa el tuyo.',
-  quakesh2: '🫨 Terremotos — últimos 30 días',
-  firesh2: '🔥 Incendios forestales',
+  quakesh2: 'Terremotos — últimos 30 días',
+  firesh2: 'Incendios forestales',
   firesnote: 'Datos oficiales de incidentes del Centro Nacional Interagencial de Incendios (WFIGS). Para avisos de evacuación, sigue siempre a la Oficina de Manejo de Emergencias del Condado de Columbia e InciWeb.',
-  airh2: '🌫️ Aire y humo',
+  airh2: 'Aire y humo',
   airnote: 'La otra cosa invisible sobre el condado — lo que lleva el aire que respiras. Humo de estufas de leña en las noches quietas de invierno, humo de incendios en verano. Aquí está el Índice de Calidad del Aire para el pueblo de la tarjeta de Pronóstico de arriba, y hacia dónde dice el modelo que va.',
   airnote2: "Una estimación modelada del modelo atmosférico de Open-Meteo (Copernicus CAMS) — no hay un monitor oficial de calidad del aire en el condado, así que léelo como una buena guía, no como un medidor en un poste. Lecturas y alertas oficiales: <a href=\"https://www.airnow.gov/\" target=\"_blank\" rel=\"noopener\">AirNow</a>.",
   schoolsh2: 'Escuelas — Cierres y retrasos',
   schoolsnote: 'En las mañanas de tormenta, los distritos deciden temprano — St. Helens procura decidir antes de las 6:00 AM — y publican primero en sus propios sitios y aplicaciones. Esta tarjeta es un tablero de tormenta actualizado a mano: con clima tranquilo está en espera y muestra dónde publica cada distrito; en una mañana de tormenta lleva el reporte de ese día para cada distrito, verificado contra la publicación del propio distrito antes de subirlo aquí.',
   schoolsnote2: 'No existe ninguna fuente automática de cierres para estos distritos, así que este tablero se actualiza a mano en las mañanas de tormenta — y el sitio del propio distrito es siempre la última palabra para tu familia.',
-  abouth2: '🌲 Acerca de Columbia County Live',
+  abouth2: 'Acerca de Columbia County Live',
   aboutp1: 'Columbia County Live es una sola mirada en vivo al condado de Columbia, Oregón — la US-30 y el puente Lewis &amp; Clark, los ríos Columbia y Nehalem, las alertas del clima, el ferry Oscar B y lo que hay en el condado — reunido de fuentes públicas oficiales y actualizado todo el día. Lo construye y lo opera <strong>Nomad Development Group</strong>, un pequeño estudio local, con datos públicos gratuitos y alojamiento gratuito — así es como una página como esta puede existir para un condado de 54,000 personas.',
   aboutp2: '<strong>Por qué es gratis — y qué se queda gratis.</strong> El centro de esta página son datos de seguridad pública: alertas del clima, niveles de los ríos, estado del puente y del ferry, condiciones de las carreteras. Ese centro es gratis, no lleva patrocinadores, y así se queda — nunca estará detrás de un muro de pago. Esa promesa es la razón de ser de esta página. La sección de Ayuda comunitaria mantiene esa misma promesa: la ayuda gratuita del condado — despensas de comida, líneas de crisis, ayuda con el alquiler y las facturas de servicios, apoyo para familias y veteranos — reunida en un solo lugar, gratis para todo el que la necesite.',
   aboutsupporth: 'Apoya este servicio — patrocinadores fundadores',
   aboutp3: 'Los patrocinios fundadores ya están completos. Solo existirán tres lugares de fundador, y los negocios locales que los ocupen son quienes financian esta página — su apoyo es lo que mantiene gratis para todos el centro de seguridad de arriba. A cambio, cada patrocinador fundador recibe un lugar con su nombre en esta página, una insignia permanente de &ldquo;Patrocinador fundador &middot; 2026&rdquo; y un lugar en el muro de Socios comunitarios de abajo. <strong>Oregon Trail Lanes</strong>, de St. Helens, <strong>Kneeland Brothers LLC</strong> y <strong>C&amp;M Renovations</strong>, de St. Helens, ocupan los tres lugares — gracias. Los tres lugares de fundador están llenos, y el patrocinio fundador cierra el 31 de enero de 2027; después de esa fecha, no habrá nuevos patrocinadores fundadores, nunca.',
-  aboutbtn: '✉️ Pregunta por el patrocinio',
+  aboutbtn: 'Pregunta por el patrocinio',
   aboutnote: 'Ese botón abre un formulario corto de interés: el nombre de tu negocio u organización, un nombre de contacto, tu pueblo y lo que te interesa — un lugar de patrocinador fundador, anunciar un negocio u otra cosa. Te responderemos. Preguntar no cuesta nada y no compromete a nada: los patrocinadores fundadores empiezan con un periodo de prueba gratuito de 30 días, para que veas tu negocio en la página antes de gastar nada.',
-  freshh2: '🕐 ¿Qué tan fresca es esta página?',
+  freshh2: '¿Qué tan fresca es esta página?',
   freshspan: 'las edades se actualizan cada 30 s',
   freshnote: 'Cada número aquí nombra su fuente y su edad. Verde es fresco, ámbar está envejeciendo, rojo significa tratar el panel como viejo y revisar la fuente oficial. Si una fuente se queda callada, este tablero lo muestra en vez de esconderlo.',
   shareh2: 'Ten Columbia County Live a la mano',
   sharep: 'Gratis, sin anuncios, sin registro. Ponla en tu pantalla de inicio como una app, envíasela a un vecino que maneja por la US-30 — o apoya una tableta en el mostrador y toca <strong>Pantalla en pared</strong>: las respuestas del condado, grandes y rotando, hechas para la pantalla que ya está encendida.',
-  sharebtn: '📤 Compartir esta página',
-  installbtn: '📱 Agregar a pantalla de inicio',
-  wallbtn: '📺 Pantalla en pared',
-  saverbtn: '🖥️ Protector de pantalla',
-  saverh2: '📸 El protector de pantalla de la comunidad',
+  sharebtn: 'Compartir esta página',
+  installbtn: 'Agregar a pantalla de inicio',
+  wallbtn: 'Pantalla en pared',
+  saverbtn: 'Protector de pantalla',
+  saverh2: 'El protector de pantalla de la comunidad',
   saverp1: 'La pantalla en pared rota las respuestas del condado. El protector de pantalla es el cuarto más tranquilo: fotografías del condado, cambiando despacio, con el reloj y solo las respuestas que tú fijas — hecho para quedarse encendido en una tableta de cocina, un mostrador o el televisor de una sala de espera. Se actualiza solo desde las mismas fuentes en vivo que esta página, nunca pide nada, y se va con un solo toque.',
-  saverstart: '🖥️ Iniciar el protector de pantalla',
+  saverstart: 'Iniciar el protector de pantalla',
   savertip: '¿Lo vas a poner en un televisor o en una pantalla de oficina? Abre esta página con <strong>?display=1</strong> al final de la dirección y el protector de pantalla inicia solo — guarda esa dirección en el navegador del televisor y aparecerá sin más.',
   saverpinsh: 'Tus respuestas en la pantalla',
   saverspinsp: 'Fija las respuestas que te importan con los botones de aquí abajo. El protector de pantalla muestra tus fijadas, lo bastante grandes para leerse desde el otro lado del cuarto. Las fijadas se guardan solo en este aparato, y puedes cambiarlas cuando quieras.',
   savershareh: 'Comparte tu foto del condado',
   saversharep: 'Las fotografías del protector de pantalla vienen del propio condado — y la tuya podría ser una de ellas. Envía una foto que hayas tomado en cualquier lugar del condado de Columbia y, una vez aprobada, se une al conjunto por el que pasan todos los protectores de pantalla, con tu nombre. Gratis, siempre.',
   saverways: 'Dos maneras fáciles, sin cuenta y sin iniciar sesión: envía tu foto por correo a travis@columbiacountylive.com con tu nombre y dónde la tomaste, o responde 3 preguntas rápidas en el formulario de fotos y luego envía la foto por correo. Eso es todo.',
-  saveremailbtn: '📧 Envía tu foto por correo',
+  saveremailbtn: 'Envía tu foto por correo',
   saverformbtn: 'Usa el formulario rápido de fotos &rarr;',
   saverreview: 'Una puerta honesta: cada foto la mira una persona antes de unirse al conjunto — el lugar, la imagen y el permiso. Nada aparece automáticamente, y una foto que no es tuya para compartir nunca se publica.',
   dirh2: 'Servicios locales — los pequeños',
@@ -6533,14 +6544,14 @@ const LANG_ES = {
   footercreditsmeta: 'Los datos públicos detrás de esta página y los fotógrafos detrás de sus fotos',
   footerdata: 'Datos: Servicio Meteorológico Nacional · Servicio Geológico de EE. UU. (USGS) · NOAA Tides &amp; Currents (mareas del río) · NOAA nowCOAST (radar) · NIFC WFIGS (incendios forestales) · colaboradores de adsb.fi (aviones, ODbL) · wheretheiss.at (posición de la EEI) · CelesTrak / NORAD (órbita de la EEI, para predicciones de paso) · Open-Meteo / Copernicus CAMS (modelo de calidad del aire) · Fish Passage Center y Columbia Basin Research DART (conteos de peces en las presas — datos del Cuerpo de Ingenieros del Ejército de EE. UU.) · colaboradores de OpenStreetMap. Los datos de captura (carreteras, cámaras, puente, alertas del ferry, eventos, tráfico del río) los recoge un pequeño programa recolector de los operadores oficiales — ODOT TripCheck, WSDOT, el condado de Wahkiakum y los calendarios de las ciudades y el condado — y se etiquetan con la hora en que se recogieron. El modelo de capas de rastreo en vivo está inspirado en God&rsquo;s Eye View (código abierto, de Bilawal Sidhu), cuyo DATA_SOURCES.md nos señaló varias de estas fuentes públicas.',
   footerdisc: 'Esta página reúne datos públicos por conveniencia. Antes de viajar con clima severo o agua alta, confirma las condiciones con las fuentes oficiales enlazadas arriba.',
-  pinsh2: '📌 Tus fijadas',
+  pinsh2: 'Tus fijadas',
   pinsclear: 'Desfijar todo',
   installh2: 'Pon Columbia County Live en tu pantalla de inicio',
   installp: 'Instalada, se abre en pantalla completa como una app — sin barra de direcciones, con su propio ícono y el condado a un toque. Gratis, y se sigue actualizando todo el día.',
-  installcardbtn: '📱 Instalar la app',
+  installcardbtn: 'Instalar la app',
   getappbtn: 'Obtén la app',
-  getapptitle: '📱 Pon Columbia County Live en tu pantalla de inicio',
-  getappinstall: '📱 Instalar ahora — un toque',
+  getapptitle: 'Pon Columbia County Live en tu pantalla de inicio',
+  getappinstall: 'Instalar ahora — un toque',
   gastep0fb: '<strong>Primero — estás dentro del navegador de Facebook, y ese no puede agregar apps a la pantalla de inicio.</strong> Toca los <strong>tres puntos</strong> en la esquina superior y elige <strong>Abrir en el navegador externo</strong> o <strong>Abrir en Chrome</strong>. Luego sigue los pasos de abajo.',
   gastep0ios: '<strong>Primero — abre esta página en Safari.</strong> Estás dentro del navegador de otra app, y agregar desde ahí parece que funcionó, pero el ícono nunca aparece — es una regla de Apple, no un error tuyo. Toca el ícono de compartir y elige <strong>Abrir en Safari</strong>, luego sigue los pasos de abajo.',
   gaiosh: 'En iPhone y iPad (en Safari)',
@@ -6559,11 +6570,15 @@ const LANG_ES = {
   gaother: '¿Otro teléfono o navegador? Mira las demás instrucciones',
   ganosee: '<strong>¿No ves el ícono?</strong> Revisa tu última página de inicio — los íconos nuevos suelen caer ahí. En iPhone también puedes deslizar hasta la Biblioteca de apps y buscar «Columbia».',
   signpostline: 'Eso es todo por Hoy — el resto del condado está a un toque:',
-  signposttravel: '🚢 Ferry y carreteras en Viajes',
-  signpostoutdoors: '🎣 Aire libre',
-  signpostmore: '📅 Eventos y más',
+  signposttravel: 'Ferry y carreteras en Viajes',
+  signpostoutdoors: 'Aire libre',
+  signpostmore: 'Eventos y más',
   dwdrive: 'Tu viaje — tiempos de manejo',
-  dwgo: 'Antes de salir',
+  dwgo: '¿Vas a salir?',
+  goh2: '¿Vas a salir?',
+  godrive: 'Manejando',
+  goferry: 'Tomar el ferry',
+  evscrollh2: 'Pasando en el condado',
   dwplan: 'Esta noche y mañana',
   dwschools: 'Escuelas — cierres y retrasos',
   dwbriefing: 'El Resumen del Condado',
@@ -6641,7 +6656,7 @@ function langApply(lang) {
       if (LANG_ES.__finderPh) fi.placeholder = LANG_ES.__finderPh;
     }
     document.documentElement.lang = 'es';
-    if (btn) btn.textContent = '🌎 English';
+    if (btn) btn.textContent = 'English';
     langCur = 'es';
   } else {
     langEls.forEach(el => {
@@ -6652,7 +6667,7 @@ function langApply(lang) {
     const fi = $('finder-input');
     if (fi && langPhOrig != null) fi.placeholder = langPhOrig;
     document.documentElement.lang = 'en';
-    if (btn) btn.textContent = '🌎 En español';
+    if (btn) btn.textContent = 'En español';
     langCur = 'en';
   }
 }
@@ -6690,9 +6705,8 @@ const GO_WHEN = [
   { key: "tm7", mins: null }
 ];
 const GO_TRIPS = {
-  commute: "🚗 The drive",
-  ferry: "⛴️ Catch the ferry",
-  river: "🎣 On the river"
+  commute: "Driving",
+  ferry: "Catching the ferry"
 };
 /* Drive destinations: the spots a corridor drive actually ends at — the
    bridge towns and Portland past the county towns the From list uses. */
@@ -6709,7 +6723,7 @@ let goNotesOpen = false;
 function goTown() {
   return TOWNS.find(t => t.name === goTownName) || currentTown || TOWNS[0];
 }
-function goTripPlain() { return GO_TRIPS[goTrip].split(" ").slice(1).join(" "); }
+function goTripPlain() { return GO_TRIPS[goTrip]; }
 /* "from St. Helens" — the drive names its destination too once one is
    picked ("from St. Helens to Longview"); ferry and river trips start
    somewhere but don't name an end town, so they stay from-only. */
@@ -7051,10 +7065,13 @@ function goCheckRiver(src) {
 }
 
 /* ----- assembly, verdict, render ----- */
+/* REDESIGN ITEM 2: check-row icons render as real icon images in the
+   card; the emoji stays only inside the copied plain-text version. */
+const GO_ICO = { "✅": "icon-check", "⚠️": "icon-alert", "⛔": "icon-block", "❔": "icon-unknown",
+  "🌑": "icon-moon", "☀️": "icon-sunrise", "🌆": "icon-night" };
 function goChecksFor(src, dep) {
   const town = goTown();
   if (goTrip === "ferry") return [goCheckAlerts(src), goCheckBoat(src, dep), goCheckRoads(src, "The road to the dock")];
-  if (goTrip === "river") return [goCheckAlerts(src), goCheckTide(dep), goCheckRiver(src), goCheckLight(dep, town, 3)];
   return [goCheckAlerts(src), goCheckRoads(src, "The corridor"), goCheckForecast(src, dep), goCheckLight(dep, town, 1)];
 }
 function goVerdict(rows) {
@@ -7066,21 +7083,21 @@ function goVerdict(rows) {
        that time" said nothing) — each bad check tags what kind it is. */
     const bad = rows.find(r => r.state === "bad");
     const heads = {
-      bridge: "⛔ Delay on the Lewis & Clark Bridge",
-      route: "⛔ Route not clear",
-      weather: "⛔ Weather alert on the route",
-      ferry: "⛔ Ferry not running",
-      noboat: "⛔ No boat at that time"
+      bridge: "Delay on the Lewis & Clark Bridge",
+      route: "Route not clear",
+      weather: "Weather alert on the route",
+      ferry: "Ferry not running",
+      noboat: "No boat at that time"
     };
-    return { cls: "go-bad", head: (bad && heads[bad.block]) || "⛔ Route not clear" };
+    return { cls: "go-bad", head: (bad && heads[bad.block]) || "Route not clear" };
   }
-  if (worst === 1) return { cls: "go-warn", head: "⚠️ Go — but check the notes first" };
-  return { cls: "go-ok", head: "✅ Good to go" };
+  if (worst === 1) return { cls: "go-warn", head: "Go — but check the notes first" };
+  return { cls: "go-ok", head: "Good to go" };
 }
 function goComposeText(rows, v, dep) {
   const lines = [];
-  lines.push("🛟 BEFORE YOU GO — " + goTripPlain() + " " + goRoutePhrase() + ", " + goWhenLabel(dep));
-  lines.push("Verdict: " + v.head.split(" ").slice(1).join(" "));
+  lines.push("HEADING OUT? — " + goTripPlain() + " " + goRoutePhrase() + ", " + goWhenLabel(dep));
+  lines.push("Verdict: " + v.head);
   rows.forEach(r => { lines.push(r.icon + " " + r.label + " — " + r.detail); });
   lines.push("Checked " + fmtDayTime(new Date()) + " · Columbia County Live — conditions change; re-check before you leave.");
   lines.push("https://columbiacountylive.com/");
@@ -7099,10 +7116,11 @@ async function renderGo(force) {
   const v = goVerdict(rows);
   const first = rows.find(r => r.state === "bad") || rows.find(r => r.state !== "ok");
   const sub = first ? first.label + "." : "Every check this page can run says go.";
-  body.innerHTML = "<div class=\"go-verdict " + v.cls + "\"><div class=\"go-verdict-head\">" + v.head + "</div>"
+  const vIco = v.cls === "go-bad" ? "icon-block" : v.cls === "go-warn" ? "icon-alert" : "icon-check";
+  body.innerHTML = "<div class=\"go-verdict " + v.cls + "\"><div class=\"go-verdict-head\"><img class=\"verdict-ico\" src=\"img/icons/" + vIco + ".png\" alt=\"\" aria-hidden=\"true\">" + v.head + "</div>"
     + "<div class=\"go-verdict-sub\">" + esc(GO_TRIPS[goTrip] + " " + goRoutePhrase() + " · " + goWhenLabel(dep) + " — " + sub) + "</div></div>"
     + "<ul class=\"go-rows\">" + rows.map(r =>
-        "<li class=\"go-row go-row-" + r.state + "\"><span class=\"go-row-ico\">" + r.icon + "</span>"
+        "<li class=\"go-row go-row-" + r.state + "\"><span class=\"go-row-ico\"><img class=\"go-ico\" src=\"img/icons/" + (GO_ICO[r.icon] || "icon-unknown") + ".png\" alt=\"\" aria-hidden=\"true\"></span>"
         + "<span class=\"go-row-main\"><strong>" + esc(r.label) + "</strong>"
         + "<span class=\"go-row-detail\">" + esc(r.detail) + "</span>"
         + (r.notes && r.notes.length ? goNotesHtml(r.notes) : "")
@@ -7124,7 +7142,7 @@ function goIcs() {
     "DTSTAMP:" + evcalStamp(new Date()),
     "DTSTART:" + evcalStamp(new Date(goLastDep)),
     "DURATION:PT1H",
-    "SUMMARY:" + evcalEscText("🛟 Before you go: " + goTripPlain() + " " + goRoutePhrase()),
+    "SUMMARY:" + evcalEscText("Heading out?: " + goTripPlain() + " " + goRoutePhrase()),
     "DESCRIPTION:" + evcalEscText(goLastText),
     "URL:https://columbiacountylive.com/",
     "END:VEVENT", "END:VCALENDAR"];
@@ -7147,7 +7165,7 @@ function goDownloadIcs() {
     a.click();
     a.remove();
     setTimeout(() => { try { URL.revokeObjectURL(url); } catch (e) {} }, 4000);
-    goSay("📅 Trip saved — open the file and it lands in your calendar with the verdict and every check attached. Re-check the live page before you actually leave.");
+    goSay("Trip saved — open the file and it lands in your calendar with the verdict and every check attached. Re-check the live page before you actually leave.");
   } catch (e) {
     goSay("Calendar export didn't work in this browser — the Copy button still takes the check with you.");
   }
@@ -7168,7 +7186,7 @@ async function goCopy() {
     } catch (e) { ok = false; }
   }
   goSay(ok
-    ? "✅ Copied — paste it into a text or a post. It is stamped with the time it was checked; the live page stays newer."
+    ? "Copied — paste it into a text or a post. It is stamped with the time it was checked; the live page stays newer."
     : "Copy didn't work in this browser — the verdict and the checks above are the same words, ready to screenshot.");
 }
 function initGo() {
@@ -7297,7 +7315,7 @@ window.CCLPins = {
    card in its home view. The map card is deliberately not pinnable:
    it is the page's anchor, and a Leaflet container does not need the
    adventure. */
-const PIN_CARDS = ['since-card', 'home-card', 'go-card', 'plan-card', 'schools-card', 'briefing-card',
+const PIN_CARDS = ['since-card', 'home-card', 'go-card', 'schools-card', 'briefing-card',
   'roads-card', 'cameras-card', 'incidents-card', 'drive-card', 'routeahead-card', 'ferry-card', 'ferry-mini-card', 'ships-card', 'aircraft-card', 'mthood-card',
   'alerts-card', 'forecast-week-card', 'forecast-card', 'sky-card', 'dark-card', 'rivers-card', 'tides-card',
   'fish-card', 'tracker-card', 'steelhead-card', 'almanac-card',
@@ -7306,8 +7324,8 @@ const PIN_CARDS = ['since-card', 'home-card', 'go-card', 'plan-card', 'schools-c
 const pinBtns = {};        // card id -> its pin button on the ORIGINAL card
 const pinObservers = {};   // card id -> MutationObserver mirroring it into its copy
 function pinLabel(on) {
-  if (langCur === 'es') return on ? '📌 Fijada' : '📌 Fijar';
-  return on ? '📌 Pinned' : '📌 Pin';
+  if (langCur === 'es') return on ? 'Fijada' : 'Fijar';
+  return on ? 'Pinned' : 'Pin';
 }
 function pinPaint() {
   PIN_CARDS.forEach(id => {
@@ -7333,7 +7351,7 @@ function pinMakeCopy(id) {
   copy.setAttribute('aria-label', (orig.getAttribute('aria-label') || 'Card') + ' — pinned copy');
   const tag = document.createElement('div');
   tag.className = 'pin-copy-tag';
-  tag.textContent = langCur === 'es' ? '📌 Copia fijada — toca para abrir la tarjeta en vivo' : '📌 Pinned copy — tap to open the live card';
+  tag.textContent = langCur === 'es' ? 'Copia fijada — toca para abrir la tarjeta en vivo' : 'Pinned copy — tap to open the live card';
   copy.insertBefore(tag, copy.firstChild);
   /* v73: the forecast's 7-day pill strip lives OUTSIDE its card (the
      standalone block above it, since v71), so a plain card clone pins
@@ -8827,7 +8845,7 @@ const PHOTO_FORM_URL = 'https://forms.gle/e1GU1qnuBKCM9KBk9'; // LIVE 2026-11-05
           + '<img src="' + a.icon + '" alt="" aria-hidden="true">'
           + '<span>' + esc(a.label()) + '</span>'
           + '<span class="saver-chip-state">' + (on
-            ? (langCur === 'es' ? '📌 Fijada' : '📌 Pinned')
+            ? (langCur === 'es' ? 'Fijada' : 'Pinned')
             : (langCur === 'es' ? 'Fijar' : 'Pin')) + '</span></button>';
       }).join('');
     }
@@ -9760,4 +9778,155 @@ function emWireCoords() {
   if (mq.addEventListener) { mq.addEventListener('change', apply); }
   else if (mq.addListener) { mq.addListener(apply); }
   apply();
+})();
+
+/* =====================================================================
+   REDESIGN ITEM 2 (Travis, 2026-11-20) — appended block:
+   (a) Your town card photo backgrounds, (b) the event-cards scroller
+   under the founding panel, (c) ticker event tile deep-linking.
+   ===================================================================== */
+
+/* (a) Real, openly licensed photos per town (sources + licenses are
+   logged in ~/workspace/ccl-redesign/BUILD-LIST.md). No pick = the
+   Beaver Falls scenic (Beaver Creek, Columbia County). */
+var TOWN_PHOTOS = {
+  'St. Helens': { src: 'img/town-st-helens.jpg', credit: 'Columbia View Park, St. Helens — photo by Cacophony, CC BY 3.0, Wikimedia Commons' },
+  'Scappoose': { src: 'img/town-scappoose.jpg', credit: 'Welcome to Scappoose — photo by Cacophony, CC BY 3.0, Wikimedia Commons' },
+  'Rainier': { src: 'img/town-rainier.jpg', credit: 'The Columbia River and Lewis & Clark Bridge from Rainier — photo by Kingofthedead, CC BY-SA 4.0, Wikimedia Commons' },
+  'Clatskanie': { src: 'img/town-clatskanie.jpg', credit: 'Clatskanie from the air (1930s) — U.S. Army aerial via the National Archives, public domain, Wikimedia Commons' },
+  'Vernonia': { src: 'img/town-vernonia.jpg', credit: 'Bridge Street, Vernonia — photo by Geirfuglasker, CC BY-SA 4.0, Wikimedia Commons' },
+  'Columbia City': { src: 'img/town-columbia-city.jpg', credit: 'The railroad crossing, Columbia City — photo by M.O. Stevens, CC BY-SA 4.0, Wikimedia Commons' },
+  'Warren': { src: 'img/town-warren.jpg', credit: 'Warren Baptist Church, Warren — photo by M.O. Stevens, CC BY-SA 3.0, Wikimedia Commons' }
+};
+var TOWN_PHOTO_DEFAULT = { src: 'img/town-default.jpg', credit: 'Beaver Falls, Columbia County — photo by DJ Cane, CC BY-SA 4.0, Wikimedia Commons' };
+function homePhotoApply() {
+  var img = document.getElementById('home-bg-img');
+  if (!img) return;
+  var p = (homeTown && TOWN_PHOTOS[homeTown.name]) || TOWN_PHOTO_DEFAULT;
+  if (img.getAttribute('src') !== p.src) img.setAttribute('src', p.src);
+  var c = document.getElementById('home-photo-credit');
+  if (c) c.textContent = p.credit;
+}
+
+/* (b) The event-cards scroller. Selection: specials first (free /
+   giveaways / bazaars / markets / limited-time items), then the
+   soonest upcoming; duplicates by event key removed; cap 10. Each
+   card links to its own event card in the Events view. */
+var glanceNextEvKey = null;
+var EVS_POOL = ['img/photo-river-bridge.jpg', 'img/town-default.jpg', 'img/card-heading-out.jpg',
+  'img/town-rainier.jpg', 'img/town-st-helens.jpg', 'img/town-vernonia.jpg'];
+function evsIsSpecial(ev) {
+  return /free|giveaway|giving tree|bazaar|boutique|market|tree lighting|breakfast with santa|photos with santa/i
+    .test((ev.title || '') + ' ' + (ev.note || ''));
+}
+function evsImgFor(ev, i) {
+  if (ev.img) return ev.img;
+  var t = (ev.title || '').toLowerCase();
+  if (/tree lighting/.test(t)) return 'img/town-scappoose.jpg';
+  if (/santa|bazaar|boutique|market|shop/.test(t)) return i % 2 ? 'img/town-vernonia.jpg' : 'img/town-st-helens.jpg';
+  return EVS_POOL[i % EVS_POOL.length];
+}
+function buildEventScroller() {
+  var track = document.getElementById('ev-scroll-track');
+  if (!track || typeof eventsCache === 'undefined' || !eventsCache) return;
+  var today = todayStrPT();
+  var evs = (eventsCache.events || []).filter(function (ev) { return ev.date >= today; });
+  evs.sort(function (a, b) {
+    var sa = evsIsSpecial(a) ? 0 : 1, sb = evsIsSpecial(b) ? 0 : 1;
+    if (sa !== sb) return sa - sb;
+    if (a.date !== b.date) return a.date < b.date ? -1 : 1;
+    return parseTimeToMinutes(a.time) - parseTimeToMinutes(b.time);
+  });
+  var seen = {}, picked = [];
+  evs.forEach(function (ev) {
+    var k = evcalKeyOf(ev);
+    if (seen[k]) return;
+    seen[k] = 1;
+    if (picked.length < 10) picked.push(ev);
+  });
+  if (!picked.length) {
+    track.innerHTML = '<p class="loading">Nothing coming up right now.</p>';
+    return;
+  }
+  var html = picked.map(function (ev, i) {
+    var when = fmtDay(new Date(ev.date + 'T12:00:00')) + (ev.time ? ' · ' + esc(ev.time) : '');
+    return '<a class="evs-card" href="#events-card" data-evkey="' + esc(evcalKeyOf(ev)) + '">'
+      + '<img class="evs-img" src="' + esc(evsImgFor(ev, i)) + '" alt="" loading="lazy" decoding="async">'
+      + '<span class="evs-body"><span class="evs-when">' + when
+      + (evsIsSpecial(ev) ? ' <span class="evs-tag">Special</span>' : '') + '</span>'
+      + '<span class="evs-title">' + esc(ev.title || '') + '</span>'
+      + (ev.location ? '<span class="evs-loc">' + esc(ev.location) + '</span>' : '')
+      + '</span></a>';
+  }).join('');
+  /* one duplicate set for the seamless -50% loop; clones carry the
+     same data-evkey, so a tap on a clone opens the same event */
+  track.innerHTML = html + html.replace(/class="evs-card"/g, 'class="evs-card evs-clone" aria-hidden="true" tabindex="-1"');
+  track.querySelectorAll('.evs-card').forEach(function (card) {
+    card.addEventListener('click', function (e) {
+      e.preventDefault();
+      evsOpenEvent(card.getAttribute('data-evkey'));
+    });
+  });
+}
+function evsScrollToKey(key) {
+  if (!key) return;
+  var cards = document.querySelectorAll('#events-card .cev-card');
+  for (var i = 0; i < cards.length; i++) {
+    if (cards[i].getAttribute('data-evkey') === key) {
+      try { cards[i].scrollIntoView({ behavior: 'smooth', block: 'center' }); }
+      catch (e) { cards[i].scrollIntoView(); }
+      finderFlashEl(cards[i], false);
+      return;
+    }
+  }
+}
+function evsOpenEvent(key) {
+  cevResetView(); /* expand the full list so the target card exists */
+  cclRouteAnchor({ getAttribute: function () { return '#events-card'; } });
+  setTimeout(function () { evsScrollToKey(key); }, 500);
+}
+
+/* (c) The glance ticker's "Next event" tile names a specific event —
+   tapping it (or any of its loop clones) opens that event, not just
+   the Events view. The router still handles the view switch; this
+   adds the scroll-to-event once we land. */
+document.addEventListener('click', function (ev) {
+  if (!glanceNextEvKey) return;
+  var t = ev.target;
+  var tile = t && typeof t.closest === 'function' ? t.closest('.glance-tile') : null;
+  if (!tile) return;
+  if (!tile.querySelector('[data-i18n="glevents"]')) return;
+  var key = glanceNextEvKey;
+  cevResetView();
+  setTimeout(function () { evsScrollToKey(key); }, 600);
+});
+
+/* Boot safety net: if an init path rendered before this block's
+   functions were reachable, apply the town photo and build the
+   scroller once everything has settled. */
+setTimeout(function () {
+  homePhotoApply();
+  if (typeof eventsCache !== 'undefined' && eventsCache) buildEventScroller();
+}, 1200);
+
+/* (d) REDESIGN ITEM 2b: the Today forecast card mirrors the Outdoors
+   forecast pills — the same .forecast-week component, filled by the
+   same renderWeekStrip from the same NWS data. A MutationObserver
+   keeps the Today copy in sync (the same mirroring pattern the pins
+   system uses for its copies), and the document-delegated drag-scroll
+   above already covers every .forecast-week, this one included. */
+(function mirrorTodayWx() {
+  var srcEl = document.getElementById('forecast-week');
+  var dstEl = document.getElementById('forecast-week-today');
+  if (!srcEl || !dstEl) return;
+  var sync = function () {
+    if (dstEl.innerHTML !== srcEl.innerHTML) dstEl.innerHTML = srcEl.innerHTML;
+    var su = document.getElementById('forecast-updated');
+    var du = document.getElementById('forecast-updated-today');
+    if (su && du && du.textContent !== su.textContent) du.textContent = su.textContent;
+  };
+  new MutationObserver(sync).observe(srcEl, { childList: true, subtree: true, characterData: true });
+  var su0 = document.getElementById('forecast-updated');
+  if (su0) new MutationObserver(sync).observe(su0, { childList: true, subtree: true, characterData: true });
+  sync();
 })();

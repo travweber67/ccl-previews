@@ -4178,3 +4178,12 @@ body.rd-home{
 .hero.hero-enter.rev{transform:translate(-54px,-32px)}
 .view-leaving.rev{transform:translateX(56px)}
 .view-entering.rev{transform:translateX(-56px)}
+
+/* --- item 2u follow-through: the schools card's photo band shows ---
+   The v1 band retirement (.card-band{display:none}) predates this
+   redesign, where cards carry their own pictures again. Scoped to the
+   schools card only: its band carries the crossing photo (2u). The
+   credit line becomes a static muted line under the chart — the
+   absolute white .photo-credit treatment is for full-photo cards. */
+.schools-card .card-band{display:block}
+.schools-card .photo-credit{position:static;text-align:right;max-width:none;margin-top:8px;color:#8a8474;text-shadow:none}

@@ -2943,13 +2943,13 @@ function tickFerryNext() {
   const el = $('ferry-next');
   if (!el) return;
   if (ferryAlertActive) {
-    el.innerHTML = '<div class="ferry-next-head">⏱️ Sailings may be disrupted — see the closure alert above before heading to the landing.</div>';
+    el.innerHTML = '<div class="ferry-next-head">Sailings may be disrupted — see the closure alert above before heading to the landing.</div>';
     return;
   }
   const now = ptNowParts();
   const nexts = FERRY_SIDES.map(s => ({ side: s, n: nextSailing(s, now) }));
   const soonest = nexts.slice().sort((a, b) => a.n.minsAway - b.n.minsAway)[0];
-  el.innerHTML = '<div class="ferry-next-head">⏱️ Next Oscar B sailing: '
+  el.innerHTML = '<div class="ferry-next-head">Next Oscar B sailing: '
     + esc(soonest.side.label.replace(' side', '')) + ' → ' + esc(soonest.side.to)
     + ' <span class="fn-when">' + esc(fmtAway(soonest.n.minsAway)) + '</span>'
     + (soonest.n.tomorrow ? ' (tomorrow, ' + fmtClock(soonest.n.hour, soonest.n.minute) + ')' : ' (' + fmtClock(soonest.n.hour, soonest.n.minute) + ')')

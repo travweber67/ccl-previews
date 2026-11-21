@@ -34,7 +34,7 @@ document.documentElement.setAttribute("data-theme",t);})();
 <link rel="manifest" href="manifest.webmanifest?v=95">
 <link rel="apple-touch-icon" href="img/apple-touch-icon.png?v=95">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
-<link rel="stylesheet" href="style.css?v=149">
+<link rel="stylesheet" href="style.css?v=150">
 <link rel="icon" type="image/png" sizes="48x48" href="img/favicon-48.png?v=95">
 <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png?v=95">
 <!-- v4 load pass: the two Today backgrounds (one per theme) are the
@@ -153,7 +153,6 @@ document.documentElement.setAttribute("data-theme",t);})();
 <nav class="tabbar" id="tabbar" aria-label="Page sections">
   <button class="tab-btn active" type="button" data-view-btn="today" aria-pressed="true"><span class="tab-ico" aria-hidden="true"><img src="img/icons/icon-today.png" alt=""></span><span data-i18n="tabtoday">Today</span></button>
   <button class="tab-btn" type="button" data-view-btn="more" aria-pressed="false"><span class="tab-ico" aria-hidden="true"><img src="img/icons/icon-events.png" alt=""></span><span data-i18n="tabmore">Events &amp; More</span></button>
-  <button class="tab-btn" type="button" data-view-btn="news" aria-pressed="false"><span class="tab-ico" aria-hidden="true"><img src="img/icons/icon-news.png" alt=""></span><span data-i18n="tabnews">News</span></button>
   <button class="tab-btn" type="button" data-view-btn="travel" aria-pressed="false"><span class="tab-ico" aria-hidden="true"><img src="img/icons/icon-travel.png" alt=""></span><span data-i18n="tabtravel">Travel</span></button>
   <button class="tab-btn" type="button" data-view-btn="outdoors" aria-pressed="false"><span class="tab-ico" aria-hidden="true"><img src="img/icons/icon-outdoors.png" alt=""></span><span data-i18n="taboutdoors">Outdoors</span></button>
 </nav>
@@ -521,6 +520,7 @@ document.documentElement.setAttribute("data-theme",t);})();
 <section class="view" id="view-news" data-view="news" aria-label="Local news" hidden>
 
 <div class="card" id="news-card">
+  <button class="news-back" id="news-view-back" type="button" data-i18n="newsbackview">&#8249; Back</button>
   <div class="card-head">
     <img class="card-ico" src="img/icons/icon-news.png" alt="" aria-hidden="true"><h2 data-i18n="newsh2">Good news around the county</h2>
     <span class="updated" id="news-updated"></span>
@@ -969,6 +969,12 @@ document.documentElement.setAttribute("data-theme",t);})();
     <span class="aec-main"><strong data-i18n="addeventh">Add an event — it&rsquo;s free</strong><span class="aec-sub" data-i18n="addeventsub">Run a local business or group? Put it on the county calendar.</span></span>
     <span class="aec-arrow" aria-hidden="true">&rarr;</span>
   </a>
+
+<button class="news-entry-card" id="news-entry" type="button" aria-label="Local news — read the county's stories">
+    <img class="card-ico" src="img/icons/icon-news.png" alt="" aria-hidden="true">
+    <span class="aec-main"><strong data-i18n="newsentryh">Local news</strong><span class="aec-sub" data-i18n="newsentrysub">Good news around the county — read the stories here, in full view.</span></span>
+    <span class="aec-arrow" aria-hidden="true">&rarr;</span>
+  </button>
 
 <div class="card photo-card" id="events-card">
       <div class="card-photo photo-courthouse"><img src="img/card-courthouse.jpg" alt="The historic Columbia County Courthouse in St. Helens, Oregon" loading="lazy" decoding="async"><img class="photo-night" src="img/dusk/events-night.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async"></div>
@@ -2314,7 +2320,7 @@ document.documentElement.setAttribute("data-theme",t);})();
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/satellite.js/5.0.0/satellite.min.js"></script>
-<script src="app.js?v=134"></script>
+<script src="app.js?v=135"></script>
 <script data-goatcounter="https://columbiacountylive.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
 

@@ -6388,6 +6388,9 @@ const LANG_ES = {
   newsh2: 'Buenas noticias del condado',
   newsnote: 'Historias locales de los medios del condado, reunidas por Oregon Civic Newsstand. Toca una historia para leerla aquí.',
   dwnews: 'Noticias locales',
+  newsentryh: 'Noticias locales',
+  newsentrysub: 'Buenas noticias del condado: lee las historias aquí, en vista completa.',
+  newsbackview: '‹ Volver',
   addeventh: 'Agrega un evento — es gratis',
   addeventsub: '¿Tienes un negocio o grupo local? Ponlo en el calendario del condado.',
   fseyebrow: 'Presentado por nuestros patrocinadores fundadores',
@@ -7547,11 +7550,12 @@ function pinRenderZoneNow(ids, topsBefore) {
      their old spot, then played home with an overshoot ease — the
      little magnetic bounce as they land. */
   if (topsBefore) {
+    /* the settle rides on the LIST, not the copies: a copy can be
+       re-rendered by its live-update observer mid-bounce, and the
+       class on the container survives that */
+    list.classList.add('pin-settling');
+    setTimeout(() => list.classList.remove('pin-settling'), 650);
     list.querySelectorAll('[data-pin-copy]').forEach(el => {
-      /* the height collapse already carried survivors most of the
-         way up — land them with the little spring settle regardless */
-      el.classList.add('pin-settle');
-      setTimeout(() => el.classList.remove('pin-settle'), 650);
       const id = el.getAttribute('data-pin-copy');
       if (!(id in topsBefore)) return;
       const dy = topsBefore[id] - (el.getBoundingClientRect().top + window.scrollY);
@@ -8086,7 +8090,7 @@ function heroSetContent(view) {
    right, header from the top-right); moving to an earlier tab
    reverses (out right, in from the left, header from the
    top-left). */
-const TAB_ORDER = ['today', 'more', 'news', 'travel', 'outdoors'];
+const TAB_ORDER = ['today', 'more', 'travel', 'outdoors'];
 function tabDirOf(prev, name) {
   const a = TAB_ORDER.indexOf(prev), b = TAB_ORDER.indexOf(name);
   if (a === -1 || b === -1 || a === b) return 1;
@@ -8164,7 +8168,7 @@ function cclShowView(name) {
   }
   try { heroApplyView(name, wantAnim, slideDir); } catch (e) { /* hero swap is cosmetic */ }
   document.querySelectorAll('.tab-btn').forEach(b => {
-    const on = !!(b.dataset && b.dataset.viewBtn === name);
+    const on = !!(b.dataset && b.dataset.viewBtn === (name === 'news' ? 'more' : name));
     b.classList.toggle('active', on);
     if (b.setAttribute) b.setAttribute('aria-pressed', on ? 'true' : 'false');
   });
@@ -10172,6 +10176,11 @@ document.addEventListener('click', function (ev) {
    page. The section stays hidden when the snapshot is missing or
    empty, so a failed news fetch never leaves a hole on Today. */
 var newsStoriesCache = [];
+var newsReturnView = 'today';
+function newsEnter(from) {
+  newsReturnView = from || 'today';
+  if (typeof cclShowView === 'function') cclShowView('news');
+}
 function newsWhen(s) {
   try { return fmtDay(new Date(s.date + 'T12:00:00')); } catch (e) { return ''; }
 }
@@ -10246,13 +10255,17 @@ function buildNewsScroller() {
       card.addEventListener('click', function (e) {
         e.preventDefault();
         var idx = parseInt(card.getAttribute('data-news-idx'), 10);
-        if (typeof cclShowView === 'function') cclShowView('news');
+        newsEnter('today');
         openNewsStory(idx);
       });
     });
     sec.hidden = false;
   }).catch(function () { sec.hidden = true; });
 }
+var newsEntryBtn = document.getElementById('news-entry');
+if (newsEntryBtn) newsEntryBtn.addEventListener('click', function () { closeNewsStory(); newsEnter('more'); });
+var newsViewBack = document.getElementById('news-view-back');
+if (newsViewBack) newsViewBack.addEventListener('click', function () { if (typeof cclShowView === 'function') cclShowView(newsReturnView || 'today'); });
 /* Desktop arrows for the swipe scrollers (events + news): they page
    the viewport; the scroll position then stays where it was left. */
 document.querySelectorAll('.sc-arrow').forEach(function (btn) {

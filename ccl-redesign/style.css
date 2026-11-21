@@ -4603,3 +4603,25 @@ html[data-theme="dark"] body.rd-home .card{
   border:1px solid rgba(255,255,255,.70);
   box-shadow:inset 0 1px 0 rgba(255,255,255,.85),inset 0 -2px 3px rgba(35,30,22,.07),0 12px 28px rgba(23,26,30,.30),0 4px 10px rgba(23,26,30,.18);
 }
+
+/* ---- 3w. NEWS SHAPE FINAL (Travis, 2026-11-20 22:35–22:36): News
+   is its OWN full view (story list + reader) but has NO bottom
+   pill. Entered from Today's news scroller and from the entry card
+   inside Events & More; its Back button returns to whichever view
+   the reader came from, and while in News the Events & More pill
+   stays lit (News lives under its umbrella). ---- */
+.news-entry-card{
+  display:flex;align-items:center;gap:12px;width:100%;text-align:left;
+  font:inherit;cursor:pointer;text-decoration:none;
+  background:linear-gradient(rgba(255,252,246,.45),rgba(255,252,246,.45)),url("img/founding-paint.jpg") center/cover no-repeat;
+  color:#2c2418;border:1px solid rgba(232,93,4,.5);border-radius:16px;
+  padding:12px 16px;margin:0 0 16px;
+  box-shadow:0 14px 32px rgba(255,122,26,.30),0 4px 10px rgba(35,30,22,.14);
+}
+.news-entry-card .aec-main{display:flex;flex-direction:column;gap:1px}
+.news-entry-card .aec-sub{font-size:.85rem;color:#5d5342}
+.news-entry-card .aec-arrow{margin-left:auto;font-size:1.3rem;font-weight:800;color:#b95e06}
+#news-view-back{margin-bottom:6px}
+/* pin settle, container edition (see app.js pinRenderZoneNow) */
+#frontpage-list.pin-settling [data-pin-copy]{animation:pinSettle .5s cubic-bezier(.25,.9,.30,1.2)}
+@media (prefers-reduced-motion:reduce){ #frontpage-list.pin-settling [data-pin-copy]{animation:none} }

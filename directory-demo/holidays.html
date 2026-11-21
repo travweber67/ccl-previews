@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#00354e">
+<link rel="apple-touch-icon" href="img/icons/apple-touch-icon.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Riverside County Local Directory">
+<title>Shop Local for the Holidays - Riverside County Local Directory</title>
+<script>(function(){var t='light';try{var s=window.localStorage.getItem('kil-theme');if(s==='dark'||s==='light'){t=s;}else if(window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches){t='dark';}}catch(e){}document.documentElement.setAttribute('data-theme',t);})();</script>
+<link rel="stylesheet" href="style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,wonk@0,9..144,800..900,1;1,9..144,500..600,0&family=Montserrat:wght@600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="demo-bar">Demo rebuild preview by <b>Nomad Development Group</b> &middot; Not the live site</div>
+<header class="site">
+  <button class="logo-btn" id="menuBtn" aria-label="Open the menu" aria-haspopup="true" aria-expanded="false"><span class="logo-ring"><img src="img/logo.webp" alt="Riverside County Local Directory"></span><small class="menu-cap">Menu</small></button><span class="logo-word">Riverside County<small>Local Directory</small></span>
+  <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch to dark mode" aria-pressed="false"><svg class="ic-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><svg class="ic-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button>
+</header>
+<div class="scrim" id="scrim"></div>
+<nav class="drawer" id="drawer" aria-hidden="true" aria-label="Site menu">
+  <div class="drawer-head"><img src="img/logo.webp" alt=""><span class="dt">Riverside County<small>Local Directory</small></span><button class="drawer-x" id="drawerClose" aria-label="Close the menu">&times;</button></div>
+  <a href="index.html">Home</a>
+  <a href="directory.html">Directory</a>
+  <a href="events.html">Events</a>
+  <a href="bundles.html">Explore the Bundles</a>
+  <div class="drawer-cat">Browse by Category</div>
+  <a href="directory.html?cat=Shop">Shop</a>
+  <a href="directory.html?cat=Taste">Taste</a>
+  <a href="directory.html?cat=Play">Play</a>
+  <a href="directory.html?cat=Services">Services</a>
+  <a href="directory.html?cat=Community">Community</a>
+  <a href="events.html">Events</a>
+  <a href="https://docs.google.com/forms/d/e/1FAIpQLSfU93t_QGHyFiDihI21XO8fY7tObjT_ytt5qG82A3WyPfxDtg/viewform" target="_blank" rel="noopener">Add a Listing</a>
+  <a href="index.html#about">About Us</a>
+  <button class="drawer-install" id="installBtn" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M4 21h16"/></svg>Install the App</button>
+  <p class="drawer-install-hint" id="installHint" hidden></p>
+</nav>
+<section class="page-hero ph-holidays">
+  <div class="page-hero-in">
+    <h1>Shop Local for the Holidays</h1>
+    <svg class="ph-swoosh" viewBox="0 0 300 14" preserveAspectRatio="none" aria-hidden="true"><path d="M4,10 C80,3 210,2 296,7" stroke="#71bfa0" stroke-width="5.5" fill="none" stroke-linecap="round"/></svg>
+  </div>
+</section>
+<div class="wrap hol">
+  <section class="holiday hol-hero">
+    <canvas class="snow" id="snowCanvas" aria-hidden="true"></canvas>
+    <div class="holiday-panel wide">
+    <img class="hol-hero-img" src="img/holidays/campaign-graphic.jpg" alt="Shop Local for the Holidays 2026 campaign graphic: the Wonderland Card, a wooden Bigfoot footprint, and the Columbia County E-Gift Card">
+    <h2>Welcome to Columbia County&rsquo;s Wonderland</h2>
+    <p class="hol-dates">November 13th 2026 &ndash; January 8th 2027</p>
+    <p>Welcome to Columbia County&rsquo;s 10th Annual Shop Local for the Holidays Campaign! Begin your journey in our local wonderland by shopping local with your Wonderland Card at over 100 locations for a chance to win $5000, 30+ prizes, and a $150 cash prize in each city. Plus, keep an eye out for Bigfoot&rsquo;s hidden footprints to earn a free collectible ornament and a shot at a $500 cash prize.</p>
+    <p>Also, give the gift of local this year with the NEW <a href="#egift-card">Columbia County E-gift card</a>! E-gift card dollars can be spent year-round at over 30+ participating locations.</p>
+    <p>Overall, this is the perfect way to discover local treasures, support small businesses, and make this holiday season truly meaningful.</p>
+    <div class="nums">
+      <div><b>106</b>participating businesses</div>
+      <div><b>Nov 13 - Jan 8</b>campaign dates</div>
+      <div><b>90+</b>Bigfoot Trail stops</div>
+      <div><b>$5,000</b>Wonderland Card prize</div>
+    </div>
+    <nav class="hol-toc" aria-label="On this page">
+      <a href="#wonderland-card">The Wonderland Card</a>
+      <a href="#locations">Participating Locations</a>
+      <a href="#bigfoot-trail">The Bigfoot Trail</a>
+      <a href="#egift-card">E-Gift Card</a>
+      <a href="#wonderland-bazaar">The Wonderland Bazaar</a>
+    </nav>
+    </div>
+  </section>
+
+  <h2 class="sec" id="wonderland-card">The Wonderland Card</h2>
+  <figure class="hol-fig"><img src="img/holidays/wonderland-card.jpg" alt="The Wonderland Card: a stamp card reading Explore the Wonderland of Columbia County"></figure>
+  <p>Experience the thrill of local shopping with the Wonderland Card! With your card in hand, shop local at any of our 100+ participating locations to earn a stamp for every $10 you spend. Once your card(s) are complete, turn them in for a chance to win $5000 and 30+ incredible prizes! Plus, there will be a $150 cash prize winner in each city! This is a fun way to support small businesses, AND, you might just land a big holiday win!</p>
+  <div class="hol-chips">
+    <span class="hol-chip">$5,000 grand prize</span>
+    <span class="hol-chip">$150 winner in each city</span>
+    <span class="hol-chip">Winners drawn live Jan 15</span>
+  </div>
+  <p><a href="#locations">A list of participating locations is below &darr;</a></p>
+  <h3>How the Wonderland Card Works</h3>
+  <div class="wsteps">
+    <div class="wstep"><span class="wstep-n" aria-hidden="true">1</span><p>For every $10* you spend at a participating business, an employee will stamp off one box on your card.</p></div>
+    <div class="wstep"><span class="wstep-n" aria-hidden="true">2</span><p>When all 20 boxes are full, sign and take your completed card(s) to one of the drop-off card locations</p></div>
+    <div class="wstep"><span class="wstep-n" aria-hidden="true">3</span><p>To enter the grand prize drawing!</p></div>
+  </div>
+  <p class="hol-note">One visit per day at financial institutions and service-type businesses is equal to one box. Credit Unions may give 2 stamps for new opened accounts and a full card for new loans.</p>
+  <h3>When is the drawing?</h3>
+  <p>The winners will be drawn live on Riverside County Local Directory&rsquo;s <a href="#" target="_blank" rel="noopener">Facebook page</a> January 15th &mdash; and notified afterwards. You do not have to watch the live video to win.</p>
+  <h3>Can I turn in multiple incomplete cards?</h3>
+  <p>So long as you have at least 20 stamps between the cards, we will count your entry! Staple them together and drop them off at a Wonderland Card drop off location to enter the grand drawing.</p>
+  <h3>Additional Terms &amp; Conditions</h3>
+  <ul class="hol-list">
+    <li>Submitting a Wonderland Card means the participant agrees to these terms and conditions.</li>
+    <li>There is a 50 card limit per person for the drawing.</li>
+    <li>Winning any prize (including the $5000 cash prize, $150/city prizes, or the 30+ donated prizes) is not guaranteed by your participation.</li>
+    <li>No purchase is necessary for stamps collected by visiting local credit unions, the Clatskanie PUD, and realtor offices. Up to 20 Wonderland Cards can be submitted this way. An additional 30 Wonderland Cards can be earned without a purchase by completing 50 locations on the Bigfoot Trail. More information on the Trail is below.</li>
+    <li>Only 18 years+ participants are eligible to win the $5000 cash prize.</li>
+    <li>All ages can win the 30+ donated prizes and $150/city cash prizes. Participants under 18 must have parent or legal guardian consent to enter these drawings. If a minor wins, the City of Scappoose (which hosts Riverside County Local Directory) will coordinate with their parent or legal guardian to claim the prize, subject to the City&rsquo;s approved procedures.</li>
+  </ul>
+
+  <h2 class="sec" id="locations">Participating Locations</h2>
+  <p>Below is a list of Wonderland Card participating locations, organized by city/location.</p>
+  <h3>Countywide</h3>
+  <table class="loc" id="loc-countywide">
+    <thead><tr><th>Business Name</th><th>Description</th><th>Website</th></tr></thead>
+    <tbody>
+      <tr><td>Becki Bozart Cruise Planners</td><td>Travel Agency</td><td><a class="dirpill" href="https://www.bribecktravel.com/" target="_blank" rel="noopener">Website</a></td></tr>
+      <tr><td>Boursaw Creations</td><td>Woodworking</td><td><a class="dirpill" href="https://boursawcreations.com/" target="_blank" rel="noopener">Website</a></td></tr>
+      <tr><td>Ember&#x27;s Craft Store</td><td>Arts &amp; Crafts</td><td><a class="dirpill" href="https://www.facebook.com/groups/679546898084334" target="_blank" rel="noopener">Facebook Group</a> <a class="dirpill" href="https://www.instagram.com/ember_scrafts/" target="_blank" rel="noopener">Instagram</a></td></tr>
+      <tr><td>Teyema’s Touch LLC</td><td>Exterior Cleaning</td><td><a class="dirpill" href="https://www.teyemastouch.com/" target="_blank" rel="noopener">Website</a></td></tr>
+      <tr class="loc-x"><td>Three Crescents Auto</td><td>Mobile Auto Repair</td><td><a class="dirpill" href="https://www.threecrescentsauto.com/" target="_blank" rel="noopener">Website</a></td></tr>
+    </tbody>
+  </table>
+  <div class="loc-more-wrap"><button type="button" class="loc-more" data-loc-toggle="loc-countywide" data-more="See all 5 in Countywide" data-less="Show fewer" aria-expanded="false" aria-controls="loc-countywide"><span class="loc-label">See all 5 in Countywide</span> <span class="loc-chev" aria-hidden="true">&#9660;</span></button></div>
+  <h3>Clatskanie</h3>
+  <table class="loc" id="loc-clatskanie">
+    <thead><tr><th>Business Name</th><th>Description</th><th>Directions</th></tr></thead>
+    <tbody>
+      <tr><td>Bundy&#x27;s Cafe &amp; Drive In</td><td>Restaurant</td><td><a class="dirpill" href="https://share.google/syQVawiF90UvHY03S" target="_blank" rel="noopener">Directions</a></td></tr>
+      <tr><td>CC Lawn &amp; Tractor</td><td>Farm Equipment &amp; Feed</td><td><a class="dirpill" href="https://share.google/QG6V7krHzpigRJS5O" target="_blank" rel="noopener">Directions</a></td></tr>
+      <tr><td>Clatskanie Builders Supply</td><td>Building Supplies</td><td><a class="dirpill" href="https://maps.app.goo.gl/oTGMPESqxBzkpnCV7" target="_blank" rel="noopener">Directions</a></td></tr>
+      <tr><td>Clatskanie Food Hub</td><td>Local Food Market</td><td><a class="dirpill" href="https://maps.app.goo.gl/WHyKvXiSmcHfnYk3A" target="_blank" rel="noopener">Directions</a></td></tr>
+      <tr class="loc-x"><td>Clatskanie PUD</td><td>Electric Utility</td><td><a class="dirpill" href="https://maps.app.goo.gl/3z7QA42en9LpWYJp7" target="_blank" rel="noopener">Directions</a></td></tr>
+      <tr class="loc-x"><td>Colvin&#x27;s Pub &amp; Grill</td><td>Pub &amp; Grill</td><td><a class="dirpill" href="https://maps.app.goo.gl/BXoAUWmCFhUcZqzY6" target="_blank" rel="noopener">Directions</a></td></tr>
+      <tr class="loc-x"><td>Cryptid Cookies</td><td>Bakery</td><td><a class="dirpill" href="https://maps.app.goo.gl/eoLTnpJhFEpRdeFx5" target="_blank" rel="noopener">Directions</a></td></tr>
+      <tr class="loc-x"><td>Farmhouse Coffee</td><td>Coffee Shop</td><td><a class="dirpill" href="https://maps.app.goo.gl/SiJUBgjiqy22pvez6" target="_blank" rel="noopener">Directions</a></td></tr>
+      <tr class="loc-x"><td>Flowers &#x27;N Fluff</td><td>Florist &amp; Gifts</td><td><a class="dirpill" href="https://maps.app.goo.gl/FzGYMbadvuZg9pEd9" target="_blank" rel="noopener">Directions</a></td></tr>
+      <tr class="loc-x"><td>Fultano&#x27;s Pizza</td><td>Pizza Restaurant</td><td><a class="dirpill" href="https://maps.app.goo.gl/muwsRYBrF9vhza6o6" target="_blank" rel="noopener">Directions</a></td></tr>
+      <tr class="loc-x"><td>Ixtapa</td><td>Mexican Restaurant</td><td><a class="dirpill" href="https://maps.app.goo.gl/WXvynNbVn5RmuUx16" target="_blank" rel="noopener">Directions</a></td></tr>
+      <tr class="loc-x"><td>Jim&#x27;s Garage</td><td>Auto Repair Shop</td><td><a class="dirpill" href="https://maps.app.goo.gl/9rVrJG9YV7SSi9LB9" target="_blank" rel="noopener">Directions</a></td></tr>
+      <tr class="loc-x"><td>Northwest Connection Trading Post</td><td>Gifts &amp; Collectibles</td><td><a class="dirpill" href="https://share.google/rcRuZjlGnIVZHpJPc" target="_blank" rel="noopener">Directions</a></td></tr>
+      <tr class="loc-x"><td>Trinity Outdoors</td><td>Sporting Goods</td><td><a class="dirpill" href="https://maps.app.goo.gl/HQSyEeCeCEbyn5rt5" target="_blank" rel="noopener">Directions</a></td></tr>
+      <tr class="loc-x"><td>Turning Point Community Services Center</td><td>Thrift Store</td><td><a class="dirpill" href="https://maps.app.goo.gl/xK38qzmJpL5Gz5aS8" target="_blank" rel="noopener">Directions</a></td></tr>
+      <tr class="loc-x"><td>Wauna Credit Union</td><td>Credit Union</td><td><a class="dirpill" href="https://maps.app.goo.gl/cs4kuQgX9jk4yP4q8" target="_blank" rel="noopener">Directions</a></td></tr>
+    </tbody>
+  </table>
+  <div class="loc-more-wrap"><button type="button" class="loc-more" data-loc-toggle="loc-clatskanie" data-more="See all 16 in Clatskanie" data-less="Show fewer" aria-expanded="false" aria-controls="loc-clatskanie"><span class="loc-label">See all 16 in Clatskanie</span> <span class="loc-chev" aria-hidden="true">&#9660;</span></button></div>
+  <h3>Rainier</h3>
+  <table class="loc" id="loc-rainier">
+    <thead><tr><th>Business Name</th><th>Description</th><th>Directions</th></tr></thead>
+    <tbody>
+      <tr><td>Bridgeway Uniques</td><td>Boutique &amp; Antiques</td><td><a class="dirpill" href="https://share.google/YbdlMhYv17BdHfsXK" target="_blank" rel="noopener">Directions</a></td></tr>
+      <tr><td>Columbia River Treasures</td><td>Vintage &amp; Collectibles</td><td><a class="dirpill" href="https://maps.app.goo.gl/H3XHfEBv3PP8t9qf9" target="_blank" rel="noopener">Directions</a></td></tr>
+      <tr><td>Cornerstone Cafe</td><td>Cafe &amp; Restaurant</td><td><a class="dirpill" href="https://maps.app.goo.gl/UKnUJhvZ6dPRnVrG9" target="_blank" rel="noopener">Directions</a></td></tr>
+      <tr><td>Deli Store &amp; More</td><td>Deli &amp; Convenience</td><td><a class="dirpill" href="https://maps.app.goo.gl/2ECNctnepHZbAKhx9" target="_blank" rel="noopener">Directions</a></td></tr>
+      <tr class="loc-x"><td>El Tapatio</td><td>Mexican Restaurant</td><td><a class="dirpill" href="https://maps.app.goo.gl/r1GzW6oVjJN1HZ8P7" target="_blank" rel="noopener">Directions</a></td></tr>
+      <tr class="loc-x"><td>Farmhouse Coffee</td><td>Coffee Shop</td><td><a class="dirpill" href="https://maps.app.goo.gl/7Ti7EeaNgQQKVmiU6" target="_blank" rel="noopener">Directions</a></td></tr>
+      <tr class="loc-x"><td>Heroes &amp; Villains</td><td>Comics &amp; Action Figures</td><td><a class="dirpill" href="https://maps.app.goo.gl/tagjhmgrqTb2Xu72A" target="_blank" rel="noopener">Directions</a></td></tr>
+      <tr class="loc-x"><td>Hill Climb Coffee</td><td>Coffee Shop</td><td><a class="dirpill" href="https://maps.app.goo.gl/P8vM2jJbNqJq8qcg8" target="_blank" rel="noopener">Directions</a></td></tr>
+      <tr class="loc-x"><td>Hope of Rainier</td><td>Nonprofit Thrift Shop</td><td><a class="dirpill" href="https://share.google/sJ7Lw4YxChSMjiWTf" target="_blank" rel="noopener">Directions</a></td></tr>
+      <tr class="loc-x"><td>InRoads Credit Union</td><td>Credit Union</td><td><a class="dirpill" href="https://share.google/cbP07pNbN6O7UBxfl" target="_blank" rel="noopener">Directions</a></td></tr>
+      <tr class="loc-x"><td>Rainier Liquor Store</td><td>Liquor Store</td><td><a class="dirpill" href="https://share.google/SLwM9rpMU0dLdzXhs" target="_blank" rel="noopener">Directions</a></td></tr>
+      <tr class="loc-x"><td>The Columbia Bakehouse</td><td>Bakery</td><td><a class="dirpill" href="https://maps.app.goo.gl/jzVuNpjdosEUBQpm8" target="_blank" rel="noopener">Directions</a></td></tr>
+      <tr class="loc-x"><td>Wrae Collective</td><td>Home &amp; Kitchen supplies</td><td><a class="dirpill" href="https://share.google/CZEYPK4xK30Z647oD" target="_blank" rel="noopener">Directions</a></td></tr>
+    </tbody>
+  </table>
+  <div class="loc-more-wrap"><button type="button" class="loc-more" data-loc-toggle="loc-rainier" data-more="See all 13 in Rainier" data-less="Show fewer" aria-expanded="false" aria-controls="loc-rainier"><span class="loc-label">See all 13 in Rainier</span> <span class="loc-chev" aria-hidden="true">&#9660;</span></button></div>
+  <h3>Scappoose</h3>
+  <table class="loc" id="loc-scappoose">
+    <thead><tr><th>Business Name</th><th>Description</th><th>Directions</th></tr></thead>
+    <tbody>
+      <tr><td>Black Cat Ink</td><td>Tattoo Studio</td><td><a class="dirpill" href="https://maps.app.goo.gl/gjKVeKoQzuxFpcJv7" target="_blank" rel="noopener">Directions</a></td></tr>
+      <tr><td>Columbia Feed &amp; Supply</td><td>Feed &amp; Farm Supply</td><td><a class="dirpill" href="https://share.google/ufjfYJsdqiKkCeg3G" target="_blank" rel="noopener">Directions</a></td></tr>
+      <tr><td>Columbia River Jewelers</td><td>Jewelry Store</td><td><a class="dirpill" href="https://maps.app.goo.gl/tTJhRVC2udgZ7GK28" target="_blank" rel="noopener">Directions</a></td></tr>
+      <tr><td>Fultano&#x27;s Pizza</td><td>Pizza Restaurant</td><td><a class="dirpill" href="https://maps.app.goo.gl/rGk9ou2ew9Xh2ju26" target="_blank" rel="noopener">Directions</a></td></tr>
+      <tr class="loc-x"><td>Ichabod&#x27;s Restaurant</td><td>Restaurant &amp; Bar</td><td><a class="dirpill" href="https://maps.app.goo.gl/LBDf9d1e1vAmaEgr8" target="_blank" rel="noopener">Directions</a></td></tr>
+      <tr class="loc-x"><td>InRoads Credit Union</td><td>Credit Union</td><td><a class="dirpill" href="https://share.google/h4h8hOt4JBSGOEjed" target="_blank" rel="noopener">Directions</a></td></tr>
+      <tr class="loc-x"><td>Ixtapa</td><td>Mexican Restaurant</td><td><a class="dirpill" href="https://maps.app.goo.gl/2qPpaBV4WroDy1Rk7" target="_blank" rel="noopener">Directions</a></td></tr>
+      <tr class="loc-x"><td>Jen Parral - Columbia County Realtor</td><td>Real Estate Agent</td><td><a class="dirpill" href="https://maps.app.goo.gl/YRWW6bvL4qNfRz8D7" target="_blank" rel="noopener">Directions</a></td></tr>
+      <tr class="loc-x"><td>Means Nursery Inc.</td><td>Plant Nursery</td><td><a class="dirpill" href="https://maps.app.goo.gl/PbGmt6ztD1xvkmb9A" target="_blank" rel="noopener">Directions</a></td></tr>
+      <tr class="loc-x"><td>OnPoint Community Credit Union</td><td>Credit Union</td><td><a class="dirpill" href="https://maps.app.goo.gl/6LT7creH2rg1Y1Ai8" target="_blank" rel="noopener">Directions</a></td></tr>
+      <tr class="loc-x"><td>Pizza Vendor</td><td>Pizza Restaurant</td><td><a class="dirpill" href="https://maps.app.goo.gl/cjidMWGWUtUSyMxPA" target="_blank" rel="noopener">Directions</a></td></tr>
+      <tr class="loc-x"><td>PNW Massage Therapy- Karli Shull-Soderstrom, LMT</td><td>Massage Therapy</td><td><a class="dirpill" href="https://maps.app.goo.gl/mMwDF9eSqBSd3qYs8" target="_blank" rel="noopener">Directions</a></td></tr>
+      <tr class="loc-x"><td>Purrz and Paws Pet Supply</td><td>Pet Supply Store</td><td><a class="dirpill" href="https://maps.app.goo.gl/ZizGWpppkXx4S5GA9" target="_blank" rel="noopener">Directions</a></td></tr>
+      <tr class="loc-x"><td>Scappoose Outfitters</td><td>Apparel &amp; Gear</td><td><a class="dirpill" href="https://share.google/84bXwe9rTZ7k0M5Kq" target="_blank" rel="noopener">Directions</a></td></tr>
+      <tr class="loc-x"><td>Shadley Shack Coffee</td><td>Coffee Shop</td><td><a class="dirpill" href="https://maps.app.goo.gl/qRadH9Y7sfP3CM3w8" target="_blank" rel="noopener">Directions</a></td></tr>
+      <tr class="loc-x"><td>Sunsations Scappoose</td><td>Tanning Salon</td><td><a class="dirpill" href="https://maps.app.goo.gl/Qm7UswzkxhCcCpd77" target="_blank" rel="noopener">Directions</a></td></tr>
+      <tr class="loc-x"><td>Sweet &amp; Knot</td><td>Bakery</td><td><a class="dirpill" href="https://share.google/y4sQBH8Kop9kvyAo6" target="_blank" rel="noopener">Directions</a></td></tr>
+      <tr class="loc-x"><td>The Lodge Carts (Inside)</td><td>Bar &amp; Drinks</td><td><a class="dirpill" href="https://maps.app.goo.gl/TJqFh8obB89LPMFe7" target="_blank" rel="noopener">Directions</a></td></tr>
+      <tr class="loc-x"><td>Wauna Credit Union</td><td>Credit Union</td><td><a class="dirpill" href="https://maps.app.goo.gl/Hgpsr8DXCshR8QuM7" target="_blank" rel="noopener">Directions</a></td></tr>
+    </tbody>
+  </table>
+  <div class="loc-more-wrap"><button type="button" class="loc-more" data-loc-toggle="loc-scappoose" data-more="See all 19 in Scappoose" data-less="Show fewer" aria-expanded="false" aria-controls="loc-scappoose"><span class="loc-label">See all 19 in Scappoose</span> <span class="loc-chev" aria-hidden="true">&#9660;</span></button></div>
+  <h3>St. Helens, Deer Island, Warren</h3>
+  <table class="loc" id="loc-st-helens-deer-island-warren">
+    <thead><tr><th>Business Name</th><th>Description</th><th>Directions</th></tr></thead>
+    <tbody>
+      <tr><td>A Better Way Massage</td><td>Massage Therapy</td><td><a class="dirpill" href="https://maps.app.goo.gl/voGLWAPB4ZrSWFFz7" target="_blank" rel="noopener">Directions</a></td></tr>
+      <tr><td>Bertucci&#x27;s Chocolates</td><td>Chocolates &amp; Gifts</td><td><a class="dirpill" href="https://maps.app.goo.gl/DX7EXfrRBkW36NrV8" target="_blank" rel="noopener">Directions</a></td></tr>
+      <tr><td>Beyond the Forest</td><td>Plant &amp; Gift Shop</td><td><a class="dirpill" href="https://maps.app.goo.gl/5UriHJH69UFGTMJj8" target="_blank" rel="noopener">Directions</a></td></tr>
+      <tr><td>Big River</td><td>Restaurant</td><td><a class="dirpill" href="https://share.google/Lr8hB3tacqGWYi6jr" target="_blank" rel="noopener">Directions</a></td></tr>
+      <tr class="loc-x"><td>Cigar &amp; Vape Outlet</td><td>Cigar &amp; Vape Shop</td><td><a class="dirpill" href="https://maps.app.goo.gl/7LvHv1DBd6VtXCZq9" target="_blank" rel="noopener">Directions</a></td></tr>
+      <tr class="loc-x"><td>Columbia County Habitat for Humanity</td><td>Thrift Store</td><td><a class="dirpill" href="https://maps.app.goo.gl/X5hQ7czcjMhbn9ZU8" target="_blank" rel="noopener">Directions</a></td></tr>
+      <tr class="loc-x"><td>Content Cafe Garage</td><td>Cafe &amp; Creative Studio</td><td><a class="dirpill" href="https://share.google/LfOCMQCC1rI8TXKad" target="_blank" rel="noopener">Directions</a></td></tr>
+      <tr class="loc-x"><td>Crooked Creek Brewery</td><td>Brewery &amp; Taproom</td><td><a class="dirpill" href="https://maps.app.goo.gl/gqZbaD15xemJRTqg8" target="_blank" rel="noopener">Directions</a></td></tr>
+      <tr class="loc-x"><td>Crunchy Littles Consignment</td><td>Children&#x27;s Consignment</td><td><a class="dirpill" href="https://maps.app.goo.gl/feknHgZFRR9yZyKL8" target="_blank" rel="noopener">Directions</a></td></tr>
+      <tr class="loc-x"><td>Deer Island Store</td><td>Gas Station</td><td><a class="dirpill" href="https://maps.app.goo.gl/7fjzmwTzbN2CxqwR7" target="_blank" rel="noopener">Directions</a></td></tr>
+      <tr class="loc-x"><td>Dianna&#x27;s Formal Affair</td><td>Formalwear &amp; Bridal</td><td><a class="dirpill" href="https://maps.app.goo.gl/Snnp5Smp246ZHb4Q6" target="_blank" rel="noopener">Directions</a></td></tr>
+      <tr class="loc-x"><td>El Tapatio</td><td>Mexican Restaurant</td><td><a class="dirpill" href="https://maps.app.goo.gl/LKvWrCSDghWqhQaV8" target="_blank" rel="noopener">Directions</a></td></tr>
+      <tr class="loc-x"><td>Endlessound Records</td><td>Record Store</td><td><a class="dirpill" href="https://maps.app.goo.gl/wyyk19m7vMXSgZeYA" target="_blank" rel="noopener">Directions</a></td></tr>
+      <tr class="loc-x"><td>Glazed and Confused</td><td>Donut Shop</td><td><a class="dirpill" href="https://share.google/EgaOc5YYxjPSSQsbi" target="_blank" rel="noopener">Directions</a></td></tr>
+      <tr class="loc-x"><td>Gnome Grown</td><td>Cannabis Dispensary</td><td><a class="dirpill" href="https://maps.app.goo.gl/wH6ferYJAidWQuiJ8" target="_blank" rel="noopener">Directions</a></td></tr>
+      <tr class="loc-x"><td>Hands of Redemption Massage</td><td>Massage Therapy</td><td><a class="dirpill" href="https://maps.app.goo.gl/p1yyfuXvMHLABgNQ7" target="_blank" rel="noopener">Directions</a></td></tr>
+      <tr class="loc-x"><td>Harrington&#x27;s</td><td>Workwear &amp; Clothes</td><td><a class="dirpill" href="https://maps.app.goo.gl/JSKzHnydk2m3DK8r8" target="_blank" rel="noopener">Directions</a></td></tr>
+      <tr class="loc-x"><td>Infusions &amp; Injections MedSpa</td><td>Medical Spa</td><td><a class="dirpill" href="https://maps.app.goo.gl/uzJ3BRFDFDNTJboDA" target="_blank" rel="noopener">Directions</a></td></tr>
+      <tr class="loc-x"><td>InRoads Credit Union</td><td>Credit Union</td><td><a class="dirpill" href="https://share.google/aQB1EzNxevPnkTmnk" target="_blank" rel="noopener">Directions</a></td></tr>
+      <tr class="loc-x"><td>Lightning Treats &amp; Sweets</td><td>Bakery &amp; Sweets</td><td><a class="dirpill" href="https://maps.app.goo.gl/PyqbCKtEGUgSn2Dz9" target="_blank" rel="noopener">Directions</a></td></tr>
+      <tr class="loc-x"><td>Mailboxes Northwest</td><td>Shipping &amp; Mail</td><td><a class="dirpill" href="https://share.google/fQ11UF6aKR19UyaZ2" target="_blank" rel="noopener">Directions</a></td></tr>
+      <tr class="loc-x"><td>Material Magic</td><td>Fabric &amp; Quilt Shop</td><td><a class="dirpill" href="https://maps.app.goo.gl/w6bVsvUXiNxo4sCh8" target="_blank" rel="noopener">Directions</a></td></tr>
+      <tr class="loc-x"><td>Northwest Plumbing Services</td><td>Plumbing Contractor</td><td><a class="dirpill" href="https://maps.app.goo.gl/TjAFX97gZMRTV1d66" target="_blank" rel="noopener">Directions</a></td></tr>
+      <tr class="loc-x"><td>Pantheon Comics and Games</td><td>Comic &amp; Game Store</td><td><a class="dirpill" href="https://maps.app.goo.gl/X18T9ecsovS3TH4FA" target="_blank" rel="noopener">Directions</a></td></tr>
+      <tr class="loc-x"><td>Plymouth Pub</td><td>Pub &amp; Restaurant</td><td><a class="dirpill" href="https://maps.app.goo.gl/dBwFdasVQG7wRNH1A" target="_blank" rel="noopener">Directions</a></td></tr>
+      <tr class="loc-x"><td>Purrz and Paws Pet Supply</td><td>Pet Supply Store</td><td><a class="dirpill" href="https://maps.app.goo.gl/ePQaDTgdtazLsY5r6" target="_blank" rel="noopener">Directions</a></td></tr>
+      <tr class="loc-x"><td>Richardson&#x27;s Furniture &amp; Mattress Gallery</td><td>Furniture Store</td><td><a class="dirpill" href="https://maps.app.goo.gl/gEj2uGPA18HLpBo36" target="_blank" rel="noopener">Directions</a></td></tr>
+      <tr class="loc-x"><td>Riverfront Books</td><td>Bookstore</td><td><a class="dirpill" href="https://maps.app.goo.gl/P9UyzZk4LUGwoNbt6" target="_blank" rel="noopener">Directions</a></td></tr>
+      <tr class="loc-x"><td>Riverside Grill and Catering</td><td>Restaurant &amp; Catering</td><td><a class="dirpill" href="https://share.google/HvzXbIdyhzIBv1bhp" target="_blank" rel="noopener">Directions</a></td></tr>
+      <tr class="loc-x"><td>Sass at Home</td><td>Home Decor &amp; Gifts</td><td><a class="dirpill" href="https://maps.app.goo.gl/TjAFX97gZMRTV1d66" target="_blank" rel="noopener">Directions</a></td></tr>
+      <tr class="loc-x"><td>Spilt Ink Gallery and Gifts</td><td>Art Gallery &amp; Gifts</td><td><a class="dirpill" href="https://maps.app.goo.gl/3D2kgiyze32oYxEm7" target="_blank" rel="noopener">Directions</a></td></tr>
+      <tr class="loc-x"><td>St. Helens Ace Hardware</td><td>Hardware Store</td><td><a class="dirpill" href="https://maps.app.goo.gl/bo9setEkidvaMjBq6" target="_blank" rel="noopener">Directions</a></td></tr>
+      <tr class="loc-x"><td>St. Helens Market Fresh</td><td>Grocery</td><td><a class="dirpill" href="https://maps.app.goo.gl/g97PnJDFy13kUYn38" target="_blank" rel="noopener">Directions</a></td></tr>
+      <tr class="loc-x"><td>Sunsations St. Helens</td><td>Tanning Salon</td><td><a class="dirpill" href="https://maps.app.goo.gl/fdm8LvrSHT6tG6aT9" target="_blank" rel="noopener">Directions</a></td></tr>
+      <tr class="loc-x"><td>Sunshine Pizza</td><td>Pizza Restaurant</td><td><a class="dirpill" href="https://share.google/uNXK6AX1JWyOGzcKg" target="_blank" rel="noopener">Directions</a></td></tr>
+      <tr class="loc-x"><td>Sweet Starling Co</td><td>Boutique &amp; Gifts</td><td><a class="dirpill" href="https://maps.app.goo.gl/KUv1PvCh3HZtB4vr9" target="_blank" rel="noopener">Directions</a></td></tr>
+      <tr class="loc-x"><td>The Klondike Tavern</td><td>Tavern &amp; Restaurant</td><td><a class="dirpill" href="https://maps.app.goo.gl/mab9DpxAet54QqFp7" target="_blank" rel="noopener">Directions</a></td></tr>
+      <tr class="loc-x"><td>The Paddle Shack</td><td>Water Sports Rentals</td><td><a class="dirpill" href="https://maps.app.goo.gl/1UxP8mQ8BwVNNCd47" target="_blank" rel="noopener">Directions</a></td></tr>
+      <tr class="loc-x"><td>The Real Deahl Home &amp; Garden</td><td>Home &amp; Garden Store</td><td><a class="dirpill" href="https://maps.app.goo.gl/iQRZ3u6kqohvFzwZA" target="_blank" rel="noopener">Directions</a></td></tr>
+      <tr class="loc-x"><td>Top Notch Thrift Store</td><td>Thrift Store</td><td><a class="dirpill" href="https://maps.app.goo.gl/6MiYucTARHahLHo49" target="_blank" rel="noopener">Directions</a></td></tr>
+      <tr class="loc-x"><td>Uptown Wine &amp; Table</td><td>Wine Bar &amp; Dining</td><td><a class="dirpill" href="https://maps.app.goo.gl/ifAEJ2V7J4G3jWSh9" target="_blank" rel="noopener">Directions</a></td></tr>
+      <tr class="loc-x"><td>Warren Country Inn</td><td>Restaurant &amp; Bar</td><td><a class="dirpill" href="https://maps.app.goo.gl/MNcgvKg7nPAy3DTCA" target="_blank" rel="noopener">Directions</a></td></tr>
+      <tr class="loc-x"><td>Wauna Credit Union</td><td>Credit Union</td><td><a class="dirpill" href="https://maps.app.goo.gl/RGnwNimbM4k8NJnH9" target="_blank" rel="noopener">Directions</a></td></tr>
+      <tr class="loc-x"><td>Wiggle Butz Dog Bakery</td><td>Pet Bakery &amp; Gifts</td><td><a class="dirpill" href="https://www.google.com/maps/place/Wiggle+Butz+Dog+Boutique/@45.863146,-122.8008252,458m/data=!3m2!1e3!4b1!4m6!3m5!1s0x54944e2e0797e629:0x578d2e28a71d59b7!8m2!3d45.8631423!4d-122.7982503!16s%2Fg%2F1tv23w0c?entry=ttu&amp;g_ep=EgoyMDI1MTAyMC4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener">Directions</a></td></tr>
+      <tr class="loc-x"><td>Yoga Younion</td><td>Yoga Studio</td><td><a class="dirpill" href="https://maps.app.goo.gl/bY3djeYWXsiXprwZA" target="_blank" rel="noopener">Directions</a></td></tr>
+    </tbody>
+  </table>
+  <div class="loc-more-wrap"><button type="button" class="loc-more" data-loc-toggle="loc-st-helens-deer-island-warren" data-more="See all 45 in St. Helens, Deer Island, Warren" data-less="Show fewer" aria-expanded="false" aria-controls="loc-st-helens-deer-island-warren"><span class="loc-label">See all 45 in St. Helens, Deer Island, Warren</span> <span class="loc-chev" aria-hidden="true">&#9660;</span></button></div>
+  <h3>Vernonia</h3>
+  <table class="loc" id="loc-vernonia">
+    <thead><tr><th>Business Name</th><th>Description</th><th>Directions</th></tr></thead>
+    <tbody>
+      <tr><td>Artisan Coffee</td><td>Roasted Coffee</td><td><a class="dirpill" href="https://maps.app.goo.gl/PLY6hNKU75kAR7Es6" target="_blank" rel="noopener">Directions</a></td></tr>
+      <tr><td>Four Stags Pizzeria</td><td>Pizza Restaurant</td><td><a class="dirpill" href="https://maps.app.goo.gl/RTs96TwBuQXKtC1e8" target="_blank" rel="noopener">Directions</a></td></tr>
+      <tr><td>Grey Dawn Art Gallery</td><td>Art Gallery</td><td><a class="dirpill" href="https://maps.app.goo.gl/YFSZrV16BGw815Tg8" target="_blank" rel="noopener">Directions</a></td></tr>
+      <tr><td>Happy Tails Pet Store &amp; Grooming</td><td>Pet Care &amp; Grooming</td><td><a class="dirpill" href="https://maps.app.goo.gl/UF3x1NyxTooNe35bA" target="_blank" rel="noopener">Directions</a></td></tr>
+      <tr class="loc-x"><td>Holy Smoker BBQ</td><td>Barbecue Food Truck</td><td><a class="dirpill" href="https://maps.app.goo.gl/tr7KoozN3JwTirF48" target="_blank" rel="noopener">Directions</a></td></tr>
+      <tr class="loc-x"><td>R&amp;S Market</td><td>Grocery Store</td><td><a class="dirpill" href="https://maps.app.goo.gl/E5ner9nGXmNVpkW87" target="_blank" rel="noopener">Directions</a></td></tr>
+      <tr class="loc-x"><td>Vernonia Hardware</td><td>Hardware Store</td><td><a class="dirpill" href="https://maps.app.goo.gl/jCoZjEGhwD6j8BA4A" target="_blank" rel="noopener">Directions</a></td></tr>
+      <tr class="loc-x"><td>Wauna Credit Union</td><td>Credit Union</td><td><a class="dirpill" href="https://maps.app.goo.gl/tb6GrS9aaabkRaQC9" target="_blank" rel="noopener">Directions</a></td></tr>
+    </tbody>
+  </table>
+  <div class="loc-more-wrap"><button type="button" class="loc-more" data-loc-toggle="loc-vernonia" data-more="See all 8 in Vernonia" data-less="Show fewer" aria-expanded="false" aria-controls="loc-vernonia"><span class="loc-label">See all 8 in Vernonia</span> <span class="loc-chev" aria-hidden="true">&#9660;</span></button></div>
+
+  <h2 class="sec" id="bigfoot-trail">The Bigfoot Trail</h2>
+  <figure class="hol-fig"><img src="img/holidays/bigfoot-trail.jpg" alt="The Bigfoot Trail: a wooden footprint sign reading You Found One!"></figure>
+  <p>From November 13th to January 8th, Bigfoot is shopping local across Columbia County&rsquo;s Wonderland, leaving a trail of footprints behind in 90+ businesses! Each footprint has a unique QR code. Find and scan 7 codes using the free &ldquo;Columbia County&rdquo; mobile app to earn a FREE collectible ornament* and a chance to win $500!</p>
+  <p>Don&rsquo;t forget to bring your Wonderland Card along. Happy searching! *While supplies last. We have 100+ ornaments to give away!</p>
+  <h3>How to Scan a Bigfoot Footprint</h3>
+  <ol class="hol-steps">
+    <li>Download the FREE &ldquo;Columbia County Oregon&rdquo; mobile app on Apple or Google Play here: <a href="#" target="_blank" rel="noopener">the app download page</a></li>
+    <li>Open the app and log in or create an account.</li>
+    <li>iPhone: Go to Settings &gt; Privacy &amp; Security &gt; Location Services &gt; Columbia County, OR App. Choose &ldquo;While Using the App&rdquo; and turn on &ldquo;Precise Location.&rdquo;</li>
+    <li>Android: Go to Settings &gt; Apps &gt; Columbia County, OR app &gt; Permissions &gt; Location. Choose &ldquo;Allow only while using the app&rdquo; and turn on &ldquo;Use precise location.&rdquo;</li>
+    <li>Ensure you set up your app to share your location. This is required to ensure participants are at the place of business when they check-in.</li>
+    <li>Tap the green &ldquo;Trails&rdquo; button on the home screen, then select &ldquo;Bigfoot Trail.&rdquo;</li>
+    <li>Visit a participating business and find Bigfoot&rsquo;s hidden footprint in that business.</li>
+    <li>Once you find a footprint, find and click the listing of that business under the app&rsquo;s Bigfoot Trail. Then tap the &ldquo;Scan QR Code&rdquo; button in that business&rsquo;s listing to scan the QR code on Bigfoot&rsquo;s footprint.</li>
+    <li>Repeat at 6 more locations! Once you&rsquo;ve completed 7 locations, you&rsquo;re entered into the $500 drawing and can redeem your FREE collectible ornament!</li>
+  </ol>
+  <h3>Ornament Redeeming Locations</h3>
+  <p>After completing 7 locations on the Bigfoot Trail, click the &ldquo;submit&rdquo; button at the top to complete the Trail and fill out the form. The cover will then turn green. After that, visit any of the locations below to claim your ornament by showing a staff member your completion screen.</p>
+  <ul class="hol-list">
+    <li>Clatskanie, Vernonia, Scappoose: Wauna Credit Union</li>
+    <li>St. Helens: Sass at Home, Richardson&rsquo;s Furniture &amp; Mattress Gallery, Crooked Creek Brewery, Wauna Credit Union</li>
+    <li>Rainier: Rainier City Hall</li>
+  </ul>
+  <div class="hol-callout">
+  <h3>Bonus Challenge</h3>
+  <p>Feeling like a Bigfoot sighting champion? Then this challenge is for you! Visit 50 Bigfoot Trail locations to earn 30 filled-out Wonderland Cards for even more chances to win holiday prizes, including our $5,000 grand prize!</p>
+  </div>
+  <h3>Additional Terms</h3>
+  <ul class="hol-list">
+    <li>All ages can participate in the Bigfoot footprint hunt and receive an ornament. Participants under 18 must have parent or legal guardian consent to enter the cash prize drawing. If a minor wins, the City of Scappoose (which hosts Riverside County Local Directory) will coordinate with their parent or legal guardian to claim the prize, subject to the City&rsquo;s approved procedures.</li>
+    <li>No purchase is necessary to find footprints, collect an ornament, or enter the $500 drawing. Winning is not guaranteed by your participation.</li>
+  </ul>
+
+  <p class="hol-eyebrow">Give the Gift of Local with the</p>
+  <h2 class="sec hol-nomargin" id="egift-card">Columbia County E-Gift Card</h2>
+  <figure class="hol-fig"><img src="img/holidays/egift-card.jpg" alt="The Columbia County E-Gift Card"></figure>
+  <h3>How It Works</h3>
+  <p>Purchase an e-gift card online <a href="https://app.yiftee.com/gift-card/columbia-county-community-card" target="_blank" rel="noopener">HERE</a> and send it to your friends, family, employees, or coworkers via email or text. They can then enjoy spending it year-round at 30+ local shops, restaurants, and services. It&rsquo;s the perfect gift that offers variety, supports local, and makes a difference.</p>
+  <p>The card runs on Yiftee. Buying one adds a $1 + 5% eDelivery fee on top of the card&rsquo;s face value &mdash; and participating businesses pay nothing extra to accept it: they receive the full face value, minus only their normal card-processing fee.</p>
+  <p>For local businesses, the E-Gift Card is part of the bundles: E-Gift Card participation comes with the Business and Sponsor bundles, and sponsoring the E-Gift Card is a Sponsor-tier perk. <a href="bundles.html">See the bundles &rarr;</a></p>
+  <p><a class="bf-btn hol-buy" href="https://app.yiftee.com/gift-card/columbia-county-community-card" target="_blank" rel="noopener">Buy a Columbia County E-Gift Card</a></p>
+
+  <h2 class="sec" id="wonderland-bazaar">The Wonderland Bazaar</h2>
+  <figure class="hol-fig"><img src="img/holidays/bazaar-poster.jpg" alt="The 2026 Wonderland Bazaar poster"></figure>
+  <p>In celebration of National Small Business Saturday, we invite you to experience a magical evening filled with holiday cheer, community spirit, and local shopping.</p>
+  <p class="hol-when">Saturday, November 28 &middot; 10am&ndash;3pm<br>John Gumm Building: 251 St. Helens St., St. Helens, OR</p>
+  <p>Here&rsquo;s what you can look forward to:</p>
+  <ul class="hol-list">
+    <li>Shop 40+ small business vendors</li>
+    <li>Take free photos with Santa (timing TBD)</li>
+    <li>Stay cozy with a complimentary cup of hot cocoa</li>
+    <li>Craft your own holiday cards</li>
+    <li>Get your Wonderland Card stamped with each purchase</li>
+    <li>Explore the beautifully restored John Gumm Building</li>
+  </ul>
+</div>
+<footer class="site">
+  <div class="foot-contact">
+    <p><b>Riverside County Local Directory</b> &middot; PO Box 1653, St. Helens, OR 97051 &middot; <a href="mailto:hello@example.com">hello@example.com</a></p>
+    <div class="foot-social">
+      <a href="#" target="_blank" rel="noopener" aria-label="Riverside County Local Directory on Facebook"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13.5 21.9v-7.2h2.42l.36-2.8H13.5V10.1c0-.81.23-1.36 1.4-1.36h1.5V6.24c-.26-.03-1.15-.11-2.18-.11-2.16 0-3.64 1.32-3.64 3.74v2.03H8.14v2.8h2.44v7.2a10 10 0 0 0 2.92 0z"/></svg></a>
+      <a href="#" target="_blank" rel="noopener" aria-label="Riverside County Local Directory on Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><rect x="3.2" y="3.2" width="17.6" height="17.6" rx="4.8"/><circle cx="12" cy="12" r="4.1"/><circle cx="17.3" cy="6.7" r="1.15" fill="currentColor" stroke="none"/></svg></a>
+    </div>
+  </div>
+  <div class="cols">
+    <div><h4>Find Local</h4><a href="directory.html">Directory Page</a><a href="events.html">Find Local Events</a></div>
+    <div><h4>Get Started</h4><a href="bundles.html">How to Make a Listing</a><a href="bundles.html">Register</a><a href="bundles.html">Featured Bundle</a><a href="bundles.html">Business Bundle</a><a href="bundles.html">Sponsor Bundle</a></div>
+    <div><h4>Manage</h4><a href="bundles.html">Add Place</a><a href="events.html">Add Event</a><a href="bundles.html">Login</a></div>
+    <div><h4>About Us</h4><a href="index.html#about">About Riverside County Local Directory</a><a href="holidays.html">Shop Local for the Holidays</a><a href="bundles.html">FAQs</a><a href="news.html">News</a><a href="index.html">Contact Us</a><a href="#" target="_blank" rel="noopener">Terms and Conditions</a></div>
+  </div>
+  <p class="sponsor-line"><b>Thank You Local Champion Sponsors:</b> Wauna Credit Union &middot; Richardson&rsquo;s Furniture &middot; Clatskanie PUD &middot; Sass at Home &middot; Columbia Economic Team &middot; Portrait Homes Northwest &middot; Purrz &amp; Paws Pet Supply</p>
+  <div class="sponsor-strip">
+    <button type="button" class="s-strip" data-panel-open="wauna-credit-union" aria-label="Wauna Credit Union"><img src="img/logos/wauna-credit-union.png" alt=""><span class="s-strip-name">Wauna Credit Union</span></button>
+    <button type="button" class="s-strip" data-panel-open="richardsons-furniture" aria-label="Richardson&rsquo;s Furniture &amp; Mattress Gallery"><img src="img/logos/richardsons-furniture.jpg" alt=""><span class="s-strip-name">Richardson&rsquo;s Furniture &amp; Mattress Gallery</span></button>
+    <button type="button" class="s-strip" data-panel-open="clatskanie-pud" aria-label="Clatskanie People&rsquo;s Utility District"><img src="img/logos/clatskanie-pud.jpg" alt=""><span class="s-strip-name">Clatskanie People&rsquo;s Utility District</span></button>
+    <button type="button" class="s-strip" data-panel-open="sass-at-home" aria-label="Sass at Home"><img src="img/logos/sass-at-home.png" alt=""><span class="s-strip-name">Sass at Home</span></button>
+    <button type="button" class="s-strip" data-panel-open="columbia-economic-team" aria-label="Columbia Economic Team"><img src="img/logos/columbia-economic-team.png" alt=""><span class="s-strip-name">Columbia Economic Team</span></button>
+    <button type="button" class="s-strip" data-panel-open="portrait-homes-northwest" aria-label="Portrait Homes Northwest"><img src="img/logos/portrait-homes-northwest.jpg" alt=""><span class="s-strip-name">Portrait Homes Northwest</span></button>
+    <button type="button" class="s-strip" data-panel-open="purrz-and-paws-pet-supply" aria-label="Purrz &amp; Paws Pet Supply"><img src="img/logos/purrz-and-paws-pet-supply.jpg" alt=""><span class="s-strip-name">Purrz &amp; Paws Pet Supply</span></button>
+  </div>
+  <p class="fine foot-credit"><a href="https://sproutbox.co/" target="_blank" rel="noopener">Digital Marketing Agency Credit</a></p>
+  <p class="fine">Demo rebuild preview prepared by Nomad Development Group, November 2026.</p>
+  <p class="fine hero-credit">Hero photo: <a href="https://commons.wikimedia.org/wiki/File:Lewis_and_Clark_Bridge,_Columbia_River,_Longview,_Washington,_Rainier_Riverfront_Park,_Rainier_-_DPLA_-_6302b3350c27b9a884a25b5b356a180a.jpg" target="_blank" rel="noopener">Gary Halvorson, Oregon State Archives</a> &middot; <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a></p>
+  <p class="fine hero-credit">Dark-mode hero photo: Anthony Krueger / Local Resident / Photo of Clatskanie, OR</p>
+
+</footer>
+<script src="data.js"></script>
+<script src="logos.js"></script>
+<script src="panel.js"></script>
+<script src="theme.js"></script>
+<script src="nav.js"></script>
+<script src="install.js"></script>
+<script>
+// Holidays page falling snow: same light canvas treatment as the home
+// Holidays panel — over the snowy hero photo, under the frosted panel.
+(function(){
+  var canvas=document.getElementById('snowCanvas');
+  if(!canvas)return;
+  if(window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  var ctx=canvas.getContext('2d');
+  var flakes=[],W=0,H=0,running=false,raf=0,last=0;
+  function size(){
+    var r=canvas.parentElement.getBoundingClientRect();
+    W=Math.max(1,Math.round(r.width)); H=Math.max(1,Math.round(r.height));
+    canvas.width=W; canvas.height=H;
+    var target=W<600?30:Math.min(80,Math.round(W/16));
+    flakes=[];
+    for(var i=0;i<target;i++)flakes.push({
+      x:Math.random()*W, y:Math.random()*H,
+      r:.8+Math.random()*1.9, s:20+Math.random()*32,
+      o:.3+Math.random()*.55, ph:Math.random()*6.283, sw:8+Math.random()*16
+    });
+  }
+  function frame(t){
+    if(!running)return;
+    var dt=Math.min(.05,(t-last)/1000||0); last=t;
+    ctx.clearRect(0,0,W,H);
+    ctx.fillStyle='#fff';
+    for(var i=0;i<flakes.length;i++){
+      var f=flakes[i];
+      f.y+=f.s*dt; f.ph+=dt*.7;
+      if(f.y>H+4){f.y=-4;f.x=Math.random()*W;}
+      ctx.globalAlpha=f.o;
+      ctx.beginPath();
+      ctx.arc(f.x+Math.sin(f.ph)*f.sw*.3,f.y,f.r,0,6.283);
+      ctx.fill();
+    }
+    ctx.globalAlpha=1;
+    raf=requestAnimationFrame(frame);
+  }
+  function start(){if(running)return;running=true;last=performance.now();raf=requestAnimationFrame(frame);}
+  function stop(){running=false;if(raf)cancelAnimationFrame(raf);}
+  size();
+  window.addEventListener('resize',size);
+  if('IntersectionObserver' in window){
+    new IntersectionObserver(function(en){en[0].isIntersecting?start():stop();},{threshold:.02}).observe(canvas.parentElement);
+  } else start();
+  document.addEventListener('visibilitychange',function(){document.hidden?stop():start();});
+})();
+</script>
+
+<script>
+/* Pass 40: Participating Locations expanders — each town table opens
+   with its first 4 rows; the rest unfold in place. */
+document.querySelectorAll('[data-loc-toggle]').forEach(function(btn){
+  btn.addEventListener('click',function(){
+    var table=document.getElementById(btn.getAttribute('data-loc-toggle'));
+    var open=table.classList.toggle('loc-open');
+    btn.setAttribute('aria-expanded',open?'true':'false');
+    btn.querySelector('.loc-label').textContent=open?btn.getAttribute('data-less'):btn.getAttribute('data-more');
+    btn.querySelector('.loc-chev').innerHTML=open?'&#9650;':'&#9660;';
+  });
+});
+</script>
+</body>
+</html>

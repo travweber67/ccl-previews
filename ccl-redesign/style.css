@@ -4024,3 +4024,15 @@ body.rd-home .hero-spot{flex:1 1 0;text-align:center;white-space:nowrap}
 .founding-panel{
   background:#fff8f0 url("img/founding-paint.jpg") center/cover no-repeat;
 }
+
+/* ---- REDESIGN ITEM 2m: tab bar active color (Travis, 2026-11-20
+   20:57). The green on the bottom tab buttons is out — the active
+   tab now wears the redesign's soft orange (the ticker-pill ombre),
+   white text, warm shadow. Applies to the active/selected state
+   only; the bar itself and inactive tabs are unchanged, both
+   themes. ---- */
+.tab-btn.active{
+  background:linear-gradient(135deg,#ffb347 0%,#ff7a1a 55%,#e85d04 100%);
+  border-color:#e85d04;color:#fff;
+  box-shadow:0 3px 10px rgba(232,93,4,.35);
+}

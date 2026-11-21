@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Columbia County Live — Roads, Rivers, Weather &amp; Ferry for Columbia County, Oregon</title>
 <meta name="description" content="One live map for Columbia County, Oregon: US-30 and Lewis & Clark Bridge status, Columbia & Nehalem river levels, weather alerts, earthquakes, wildfires, aircraft and river traffic overhead and under way, the Oscar B ferry, events, and town forecasts. Free, from official public sources.">
 <meta property="og:type" content="website">
@@ -34,7 +34,7 @@ document.documentElement.setAttribute("data-theme",t);})();
 <link rel="manifest" href="manifest.webmanifest?v=95">
 <link rel="apple-touch-icon" href="img/apple-touch-icon.png?v=95">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
-<link rel="stylesheet" href="style.css?v=142">
+<link rel="stylesheet" href="style.css?v=143">
 <link rel="icon" type="image/png" sizes="48x48" href="img/favicon-48.png?v=95">
 <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png?v=95">
 <!-- v4 load pass: the two Today backgrounds (one per theme) are the
@@ -153,6 +153,7 @@ document.documentElement.setAttribute("data-theme",t);})();
 <nav class="tabbar" id="tabbar" aria-label="Page sections">
   <button class="tab-btn active" type="button" data-view-btn="today" aria-pressed="true"><span class="tab-ico" aria-hidden="true"><img src="img/icons/icon-today.png" alt=""></span><span data-i18n="tabtoday">Today</span></button>
   <button class="tab-btn" type="button" data-view-btn="more" aria-pressed="false"><span class="tab-ico" aria-hidden="true"><img src="img/icons/icon-events.png" alt=""></span><span data-i18n="tabmore">Events &amp; More</span></button>
+  <button class="tab-btn" type="button" data-view-btn="news" aria-pressed="false"><span class="tab-ico" aria-hidden="true"><img src="img/icons/icon-news.png" alt=""></span><span data-i18n="tabnews">News</span></button>
   <button class="tab-btn" type="button" data-view-btn="travel" aria-pressed="false"><span class="tab-ico" aria-hidden="true"><img src="img/icons/icon-travel.png" alt=""></span><span data-i18n="tabtravel">Travel</span></button>
   <button class="tab-btn" type="button" data-view-btn="outdoors" aria-pressed="false"><span class="tab-ico" aria-hidden="true"><img src="img/icons/icon-outdoors.png" alt=""></span><span data-i18n="taboutdoors">Outdoors</span></button>
 </nav>
@@ -252,18 +253,18 @@ document.documentElement.setAttribute("data-theme",t);})();
       </article>
       <article class="founding-cell taken" data-pv-cell>
         <img class="founding-ribbon cell-ribbon" src="img/founding-ribbon.png?v=95" alt="Founding Sponsor" title="Founding Sponsor">
-        <div class="otl-logo-box"><img src="img/preview-kneeland-brothers-logo.png" alt="Kneeland Brothers Roofing logo" style="border-radius:0"></div>
+        <div class="otl-logo-box"><img src="img/preview-kneeland-brothers-logo.png" alt="Kneeland Brothers Roofing logo"></div>
         <p class="cell-eyebrow">Founding Sponsor · 2026</p>
-        <h3>Kneeland Brothers LLC</h3>
+        <h3>Kneeland Brothers LLC <span class="dir-badge" data-i18n="dirfounding">Founding business</span></h3>
         <p>Superior workmanship. Integrity. Guaranteed.<br>33459 SW JP West Rd, Scappoose<br><a class="otl-tel" href="tel:+15033196871">(503) 319-6871</a><br>Malarkey Certified Contractor</p>
         <a class="founding-cta" href="https://www.kneelandbrothersllc.com/" target="_blank" rel="noopener">Visit Kneeland Brothers LLC &rarr;</a>
         <button class="otl-more" type="button" data-pv-open aria-haspopup="dialog" aria-controls="pv-sheet" aria-expanded="false">See hours &amp; what&rsquo;s on &rarr;</button>
       </article>
       <article class="founding-cell taken" data-cm-cell>
-        <img class="founding-ribbon cell-ribbon" src="img/founding-ribbon.png?v=98" alt="Founding Sponsor" title="Founding Sponsor">
-        <div class="otl-logo-box"><img src="img/preview-cm-renovations-logo.png" alt="C&amp;M Renovations logo" style="border-radius:0"></div>
+        <img class="founding-ribbon cell-ribbon" src="img/founding-ribbon.png?v=95" alt="Founding Sponsor" title="Founding Sponsor">
+        <div class="otl-logo-box"><img src="img/preview-cm-renovations-logo.png" alt="C&amp;M Renovations logo"></div>
         <p class="cell-eyebrow">Founding Sponsor · 2026</p>
-        <h3>C&amp;M Renovations</h3>
+        <h3>C&amp;M Renovations <span class="dir-badge" data-i18n="dirfounding">Founding business</span></h3>
         <p>Fencing, decking &amp; remodeling<br>34797 Pittsburg Road, St. Helens<br><a class="otl-tel" href="tel:+15033968977">(503) 396-8977</a><br>Licensed, bonded &amp; insured · CCB #241111</p>
         <a class="founding-cta" href="https://cmrenovations.live/" target="_blank" rel="noopener">Visit C&amp;M Renovations &rarr;</a>
         <button class="otl-more" type="button" data-cm-open aria-haspopup="dialog" aria-controls="cm-sheet" aria-expanded="false">See hours &amp; what&rsquo;s on &rarr;</button>
@@ -283,8 +284,9 @@ document.documentElement.setAttribute("data-theme",t);})();
   <div class="ev-scroll-head">
     <img class="card-ico" src="img/icons/icon-events.png" alt="" aria-hidden="true">
     <h2 data-i18n="evscrollh2">Happening in the county</h2>
+    <span class="sc-arrows" aria-hidden="false"><button class="sc-arrow" type="button" data-for="ev-scroll-viewport" data-dir="-1" aria-label="Scroll events back">&#8249;</button><button class="sc-arrow" type="button" data-for="ev-scroll-viewport" data-dir="1" aria-label="Scroll events forward">&#8250;</button></span>
   </div>
-  <div class="ev-scroll-viewport">
+  <div class="ev-scroll-viewport" id="ev-scroll-viewport">
     <div class="ev-scroll-track" id="ev-scroll-track"><p class="loading">Loading events…</p></div>
   </div>
 </section>
@@ -407,8 +409,8 @@ document.documentElement.setAttribute("data-theme",t);})();
      #forecast-week-today). The pills now also live inside the merged
      Outdoors weather card — the duplication is intentional per
      Travis's paired directions and is flagged in the build report. -->
-<section class="card wx-today-card" id="today-wx-card" aria-label="Forecast — the week, scrolling pills">
-  <div class="card-head">
+<section class="wx-today-bare" id="today-wx-card" aria-label="Forecast — the week, scrolling pills">
+  <div class="wx-bare-head">
     <img class="card-ico" src="img/icons/icon-weather.png" alt="" aria-hidden="true"><h2 data-i18n="forecasth2">Forecast</h2>
     <span class="updated" id="forecast-updated-today"></span>
   </div>
@@ -445,7 +447,7 @@ document.documentElement.setAttribute("data-theme",t);})();
       <li class="school-row"><span class="school-main"><span class="school-name">Northwest Regional ESD (NWRESD)</span><span class="school-sub">Regional programs follow NWRESD&rsquo;s own notices</span><span class="school-status school-none"><span class="school-dot" aria-hidden="true"></span>No report yet</span></span><a class="school-link" href="https://www.nwresd.org/" target="_blank" rel="noopener">NWRESD site →</a></li>
     </ul>
   </div>
-  <p class="photo-credit">Crossing at a school crosswalk — photo by OregonDOT, CC BY 2.0, via Flickr/Openverse</p>
+  <p class="photo-credit">A school bus on a snowy road — photo by Coastline09, CC BY-SA 4.0, via Wikimedia Commons</p>
 </section>
 
 <!-- v55: the founding panel's nonprofit house cell lives here in
@@ -473,8 +475,9 @@ document.documentElement.setAttribute("data-theme",t);})();
   <div class="news-scroll-head">
     <img class="card-ico" src="img/icons/icon-news.png" alt="" aria-hidden="true">
     <h2 data-i18n="newsscrollh2">Good news around the county</h2>
+  <span class="sc-arrows"><button class="sc-arrow" type="button" data-for="news-scroll-viewport" data-dir="-1" aria-label="Scroll news back">&#8249;</button><button class="sc-arrow" type="button" data-for="news-scroll-viewport" data-dir="1" aria-label="Scroll news forward">&#8250;</button></span>
   </div>
-  <div class="news-scroll-viewport">
+  <div class="news-scroll-viewport" id="news-scroll-viewport">
     <div class="news-scroll-track" id="news-scroll-track"><p class="loading">Loading the good news…</p></div>
   </div>
 </section>
@@ -490,8 +493,6 @@ document.documentElement.setAttribute("data-theme",t);})();
        briefing content itself is unchanged. -->
   <div class="briefing-view" id="briefing-view"><p class="briefing-loading">Putting today's briefing together…</p></div>
   <div class="briefing-actions">
-    <button class="share-btn primary" id="briefing-copy-btn" type="button" ><img class="btn-ico" src="img/icons/icon-clipboard.png" alt="" aria-hidden="true"><span data-i18n="briefcopy">Copy the briefing</span></button>
-    <button class="share-btn" id="briefing-share-btn" type="button" hidden ><img class="btn-ico" src="img/icons/icon-share.png" alt="" aria-hidden="true"><span data-i18n="briefshare">Share as text</span></button>
     <button class="share-btn" id="briefing-listen-btn" type="button" hidden ><img class="btn-ico" src="img/icons/icon-speaker.png" alt="" aria-hidden="true"><span data-i18n="brieflisten">Hear the briefing</span></button>
   </div>
   <p class="install-help" id="briefing-note" hidden></p>
@@ -514,6 +515,20 @@ document.documentElement.setAttribute("data-theme",t);})();
 
 
 
+
+</section>
+
+<section class="view" id="view-news" data-view="news" aria-label="Local news" hidden>
+
+<div class="card" id="news-card">
+  <div class="card-head">
+    <img class="card-ico" src="img/icons/icon-news.png" alt="" aria-hidden="true"><h2 data-i18n="newsh2">Good news around the county</h2>
+    <span class="updated" id="news-updated"></span>
+  </div>
+  <p class="card-note" data-i18n="newsnote">Local stories from the county&rsquo;s own newsrooms, gathered by the Oregon Civic Newsstand. Tap a story to read it here.</p>
+  <div id="news-list" class="news-list"><p class="loading">Loading the news…</p></div>
+  <div id="news-story" class="news-story" hidden></div>
+</div>
 
 </section>
 
@@ -948,6 +963,12 @@ document.documentElement.setAttribute("data-theme",t);})();
     <a class="rail-cta" href="#watch-card">Start the County Watch &rarr;</a>
   </aside>
 </div>
+
+<a class="add-event-card" href="https://forms.gle/dWzcBcnf79Qq5XQQA" target="_blank" rel="noopener" aria-label="Add an event — it's free">
+    <img class="card-ico" src="img/icons/icon-calendar.png" alt="" aria-hidden="true">
+    <span class="aec-main"><strong data-i18n="addeventh">Add an event — it&rsquo;s free</strong><span class="aec-sub" data-i18n="addeventsub">Run a local business or group? Put it on the county calendar.</span></span>
+    <span class="aec-arrow" aria-hidden="true">&rarr;</span>
+  </a>
 
 <div class="card photo-card" id="events-card">
       <div class="card-photo photo-courthouse"><img src="img/card-courthouse.jpg" alt="The historic Columbia County Courthouse in St. Helens, Oregon" loading="lazy" decoding="async"><img class="photo-night" src="img/dusk/events-night.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async"></div>
@@ -1967,6 +1988,7 @@ document.documentElement.setAttribute("data-theme",t);})();
       <a class="drawer-link" href="#today-wx-card" data-i18n="forecasth2">Forecast</a>
       <a class="drawer-link" href="#schools-card" data-i18n="dwschools">Schools — closures &amp; delays</a>
       <a class="drawer-link" href="#briefing-card" data-i18n="dwbriefing">The County Briefing</a>
+      <a class="drawer-link" href="#news-card" data-i18n="dwnews">Local news</a>
     </div>
     <div class="drawer-group">
       <button class="drawer-view" type="button" data-drawer-view="travel"><img src="img/icons/icon-travel.png" alt="" aria-hidden="true"><span data-i18n="tabtravel">Travel</span></button>
@@ -2165,7 +2187,7 @@ document.documentElement.setAttribute("data-theme",t);})();
     <article class="otl-card">
       <img class="founding-ribbon sheet-ribbon" src="img/founding-ribbon.png?v=95" alt="Founding Sponsor" title="Founding Sponsor">
       <div class="otl-body">
-        <div class="otl-logo-box" style="margin-bottom:16px"><img src="img/preview-kneeland-brothers-logo.png" alt="Kneeland Brothers Roofing logo" style="border-radius:0"></div>
+        <div class="otl-logo-box" style="margin-bottom:16px"><img src="img/preview-kneeland-brothers-logo.png" alt="Kneeland Brothers Roofing logo"></div>
         <h3>Kneeland Brothers LLC <span class="dir-badge">Founding Sponsor · 2026</span></h3>
         <p class="otl-tag">Superior workmanship. Integrity. Guaranteed.</p>
         <p class="otl-tag">Malarkey Certified Contractor</p>
@@ -2212,7 +2234,7 @@ document.documentElement.setAttribute("data-theme",t);})();
     <article class="otl-card">
       <img class="founding-ribbon sheet-ribbon" src="img/founding-ribbon.png?v=98" alt="Founding Sponsor" title="Founding Sponsor">
       <div class="otl-body">
-        <div class="otl-logo-box" style="margin-bottom:16px"><img src="img/preview-cm-renovations-logo.png" alt="C&amp;M Renovations logo" style="border-radius:0"></div>
+        <div class="otl-logo-box" style="margin-bottom:16px"><img src="img/preview-cm-renovations-logo.png" alt="C&amp;M Renovations logo"></div>
         <h3>C&amp;M Renovations <span class="dir-badge">Founding Sponsor · 2026</span></h3>
         <p class="otl-tag">Fencing, decking &amp; remodeling</p>
         <p class="otl-blurb">Fencing, decking and remodeling from a St. Helens crew — licensed, bonded and insured, Oregon CCB #241111.</p>
@@ -2292,7 +2314,7 @@ document.documentElement.setAttribute("data-theme",t);})();
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/satellite.js/5.0.0/satellite.min.js"></script>
-<script src="app.js?v=130"></script>
+<script src="app.js?v=131"></script>
 <script data-goatcounter="https://columbiacountylive.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
 

@@ -6348,6 +6348,12 @@ const LANG_ES = {
   tabtravel: 'Viajes',
   taboutdoors: 'Aire libre',
   tabmore: 'Eventos y más',
+  tabnews: 'Noticias',
+  newsh2: 'Buenas noticias del condado',
+  newsnote: 'Historias locales de los medios del condado, reunidas por Oregon Civic Newsstand. Toca una historia para leerla aquí.',
+  dwnews: 'Noticias locales',
+  addeventh: 'Agrega un evento — es gratis',
+  addeventsub: '¿Tienes un negocio o grupo local? Ponlo en el calendario del condado.',
   fseyebrow: 'Presentado por nuestros patrocinadores fundadores',
   fslogohere: 'Tu logo aquí',
   fs2eyebrow: 'Patrocinador fundador · 2026',
@@ -7911,7 +7917,7 @@ initDark();
    gotcha is handled here too: the map is built while its view may be
    hidden, so every switch to Travel calls invalidateSize(). Every open
    starts on Today at the top (see initViews). */
-const VIEW_IDS = ['today', 'travel', 'outdoors', 'more', 'emergency', 'help'];
+const VIEW_IDS = ['today', 'travel', 'outdoors', 'more', 'news', 'emergency', 'help'];
 let cclViewCur = 'today';
 
 function cclParentOf(el) { return el ? (el.parentNode || el.parent || null) : null; }
@@ -7941,6 +7947,9 @@ const HERO_VIEWS = {
   outdoors: { img: 'img/hero-outdoors.jpg', name: 'Outdoors',
     tag: 'Rivers, tides, trails and sky over the county — what\u2019s biting, what\u2019s flowing, and when to go.',
     esName: 'Al aire libre', esTag: 'Ríos, mareas, senderos y el cielo del condado: qué pica, qué fluye y cuándo salir.' },
+  news: { img: 'img/founding-paint.jpg', name: 'News',
+    tag: 'Good news from around the county \u2014 the stories your neighbors are talking about, from the county\u2019s own newsrooms.',
+    esName: 'Noticias', esTag: 'Buenas noticias del condado: las historias de las que hablan tus vecinos, de los medios locales del condado.' },
   more: { img: 'img/hero-events.jpg', name: 'Events & More',
     tag: 'Markets, bazaars, giveaways and get-togethers — everything going on around the county.',
     esName: 'Eventos y más', esTag: 'Mercados, bazares, regalos y reuniones: todo lo que pasa en el condado.' }
@@ -7985,7 +7994,7 @@ function heroSetContent(view) {
    right, header from the top-right); moving to an earlier tab
    reverses (out right, in from the left, header from the
    top-left). */
-const TAB_ORDER = ['today', 'more', 'travel', 'outdoors'];
+const TAB_ORDER = ['today', 'more', 'news', 'travel', 'outdoors'];
 function tabDirOf(prev, name) {
   const a = TAB_ORDER.indexOf(prev), b = TAB_ORDER.indexOf(name);
   if (a === -1 || b === -1 || a === b) return 1;
@@ -10011,9 +10020,10 @@ function buildEventScroller() {
       + (ev.location ? '<span class="evs-loc">' + esc(ev.location) + '</span>' : '')
       + '</span></a>';
   }).join('');
-  /* one duplicate set for the seamless -50% loop; clones carry the
-     same data-evkey, so a tap on a clone opens the same event */
-  track.innerHTML = html + html.replace(/class="evs-card"/g, 'class="evs-card evs-clone" aria-hidden="true" tabindex="-1"');
+  /* REDESIGN FIX BATCH (Travis, 2026-11-20): no auto-scroll and no
+     clone loop — the track is a plain swipe/click scroll that stays
+     exactly where the user leaves it. */
+  track.innerHTML = html;
   track.querySelectorAll('.evs-card').forEach(function (card) {
     card.addEventListener('click', function (e) {
       e.preventDefault();
@@ -10069,29 +10079,98 @@ document.addEventListener('click', function (ev) {
    carrying its own photo. Cards link OUT to the publisher's story
    page. The section stays hidden when the snapshot is missing or
    empty, so a failed news fetch never leaves a hole on Today. */
+var newsStoriesCache = [];
+function newsWhen(s) {
+  try { return fmtDay(new Date(s.date + 'T12:00:00')); } catch (e) { return ''; }
+}
+function newsCardHtml(s, i) {
+  return '<a class="nws-card" href="#news-card" data-news-idx="' + i + '">'
+    + '<img class="nws-img" src="' + esc(s.img || '') + '" alt="" loading="lazy" decoding="async">'
+    + '<span class="nws-body"><span class="nws-when">' + esc(newsWhen(s)) + '</span>'
+    + '<span class="nws-title">' + esc(s.title || '') + '</span>'
+    + (s.source ? '<span class="nws-loc">' + esc(s.source) + '</span>' : '')
+    + '</span></a>';
+}
+function renderNewsList() {
+  var list = document.getElementById('news-list');
+  if (!list) return;
+  var es = (typeof langCur !== 'undefined' && langCur === 'es');
+  if (!newsStoriesCache.length) {
+    list.innerHTML = '<p class="loading">' + (es ? 'No hay historias ahora mismo.' : 'No stories right now.') + '</p>';
+    return;
+  }
+  list.innerHTML = newsStoriesCache.map(function (st, i) {
+    return '<button class="news-row" type="button" data-news-idx="' + i + '">'
+      + '<img class="news-row-img" src="' + esc(st.img || '') + '" alt="" loading="lazy" decoding="async">'
+      + '<span class="news-row-main"><span class="nws-when">' + esc(newsWhen(st)) + (st.source ? ' · ' + esc(st.source) : '') + '</span>'
+      + '<span class="news-row-title">' + esc(st.title || '') + '</span></span>'
+      + '<span class="news-row-arrow" aria-hidden="true">\u203a</span></button>';
+  }).join('');
+  list.querySelectorAll('.news-row').forEach(function (row) {
+    row.addEventListener('click', function () { openNewsStory(parseInt(row.getAttribute('data-news-idx'), 10)); });
+  });
+}
+function openNewsStory(i) {
+  var st = newsStoriesCache[i];
+  var box = document.getElementById('news-story');
+  var list = document.getElementById('news-list');
+  if (!st || !box) return;
+  var es = (typeof langCur !== 'undefined' && langCur === 'es');
+  box.innerHTML = '<button class="news-back" type="button" id="news-back-btn">' + (es ? '\u2039 Todas las historias' : '\u2039 All stories') + '</button>'
+    + (st.img ? '<img class="news-story-img" src="' + esc(st.img) + '" alt="">' : '')
+    + '<h3 class="news-story-title">' + esc(st.title || '') + '</h3>'
+    + '<p class="news-story-meta">' + esc(newsWhen(st)) + (st.source ? ' · ' + esc(st.source) : '') + '</p>'
+    + (st.summary ? '<p class="news-story-summary">' + esc(st.summary) + '</p>' : '')
+    + '<p class="news-story-credit">' + (es ? 'Historia de ' : 'Story from ') + esc(st.source || '') + (es ? ', reunida por Oregon Civic Newsstand.' : ', gathered by the Oregon Civic Newsstand.') + '</p>'
+    + '<a class="news-readfull" href="' + esc(st.url || '') + '" target="_blank" rel="noopener">' + (es ? 'Leer la historia completa \u2192' : 'Read the full story \u2192') + '</a>';
+  if (list) list.hidden = true;
+  box.hidden = false;
+  var back = document.getElementById('news-back-btn');
+  if (back) back.addEventListener('click', closeNewsStory);
+  var card = document.getElementById('news-card');
+  if (card) card.scrollIntoView({ block: 'start' });
+}
+function closeNewsStory() {
+  var box = document.getElementById('news-story');
+  var list = document.getElementById('news-list');
+  if (box) { box.hidden = true; box.innerHTML = ''; }
+  if (list) list.hidden = false;
+  var card = document.getElementById('news-card');
+  if (card) card.scrollIntoView({ block: 'start' });
+}
 function buildNewsScroller() {
   var sec = document.getElementById('news-scroll');
   var track = document.getElementById('news-scroll-track');
   if (!sec || !track) return;
   getSnapshot('news.json').then(function (data) {
     var stories = (data && data.stories) || [];
+    newsStoriesCache = stories;
+    renderNewsList();
     if (!stories.length) { sec.hidden = true; return; }
-    var html = stories.map(function (s) {
-      var when = '';
-      try { when = fmtDay(new Date(s.date + 'T12:00:00')); } catch (e) { when = ''; }
-      return '<a class="nws-card" href="' + esc(s.url || '') + '" target="_blank" rel="noopener">'
-        + '<img class="nws-img" src="' + esc(s.img || '') + '" alt="" loading="lazy" decoding="async">'
-        + '<span class="nws-body"><span class="nws-when">' + esc(when) + '</span>'
-        + '<span class="nws-title">' + esc(s.title || '') + '</span>'
-        + (s.source ? '<span class="nws-loc">' + esc(s.source) + '</span>' : '')
-        + '</span></a>';
-    }).join('');
-    /* one duplicate set for the seamless -50% loop, same as the
-       event scroller; clones are hidden from AT and tab order */
-    track.innerHTML = html + html.replace(/class="nws-card"/g, 'class="nws-card nws-clone" aria-hidden="true" tabindex="-1"');
+    /* REDESIGN FIX BATCH (Travis, 2026-11-20): no auto-scroll, no
+       clones. Cards open the story inside the News view. */
+    track.innerHTML = stories.map(function (st, i) { return newsCardHtml(st, i); }).join('');
+    track.querySelectorAll('.nws-card').forEach(function (card) {
+      card.addEventListener('click', function (e) {
+        e.preventDefault();
+        var idx = parseInt(card.getAttribute('data-news-idx'), 10);
+        if (typeof cclShowView === 'function') cclShowView('news');
+        openNewsStory(idx);
+      });
+    });
     sec.hidden = false;
   }).catch(function () { sec.hidden = true; });
 }
+/* Desktop arrows for the swipe scrollers (events + news): they page
+   the viewport; the scroll position then stays where it was left. */
+document.querySelectorAll('.sc-arrow').forEach(function (btn) {
+  btn.addEventListener('click', function () {
+    var vp = document.getElementById(btn.getAttribute('data-for'));
+    if (!vp) return;
+    var dir = parseInt(btn.getAttribute('data-dir'), 10) || 1;
+    vp.scrollBy({ left: dir * Math.round(vp.clientWidth * 0.85), behavior: 'smooth' });
+  });
+});
 buildNewsScroller();
 
 /* Boot safety net: if an init path rendered before this block's

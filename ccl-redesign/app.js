@@ -7548,6 +7548,10 @@ function pinRenderZoneNow(ids, topsBefore) {
      little magnetic bounce as they land. */
   if (topsBefore) {
     list.querySelectorAll('[data-pin-copy]').forEach(el => {
+      /* the height collapse already carried survivors most of the
+         way up — land them with the little spring settle regardless */
+      el.classList.add('pin-settle');
+      setTimeout(() => el.classList.remove('pin-settle'), 650);
       const id = el.getAttribute('data-pin-copy');
       if (!(id in topsBefore)) return;
       const dy = topsBefore[id] - (el.getBoundingClientRect().top + window.scrollY);

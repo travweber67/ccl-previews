@@ -5073,3 +5073,21 @@ body.view-anim .card,body.view-anim .featured-local,body.view-anim .finder-box,b
 .cev-pill,html[data-theme="dark"] .cev-pill{
   box-shadow:inset 0 1px 0 rgba(255,255,255,.75),inset 0 -1px 0 rgba(43,33,27,.08),0 4px 10px rgba(23,26,30,.12),0 16px 38px rgba(23,26,30,.22),0 30px 60px rgba(23,26,30,.13)}
 .cev-pills{padding-top:8px;padding-bottom:16px}
+/* ---- 4q. SHADOWS ALL THE WAY AROUND (Travis, 2026-11-20 23:23,
+   close-up screenshot): on the scroller cards the shadowing showed
+   only BETWEEN the cards — not on the top or the bottom. Same clip
+   family as the ticker seam (4n): the scroll viewports are
+   overflow-x:auto, which makes overflow-y clip too, and the
+   viewport box is exactly the cards' height, so the top and bottom
+   shadows are guillotined at the viewport's edges while the side
+   shadows (in the gaps) render fully. Fix: internal room — the
+   viewports get vertical padding so top and bottom shadows render
+   like the sides do. AUDIT of the other rows for the same clip:
+   the ticker strip (fixed in 4n), the calendar day-pill strip
+   (fixed in 4p), and the forecast pill strip — same too-tight
+   padding (4px/8px), raised here too, including its in-card and
+   pinned-copy variants. Vertical card stacks don't clip (no
+   overflow), so their shadows already fall all the way around. ---- */
+.ev-scroll-viewport,.news-scroll-viewport{padding-top:18px;padding-bottom:22px}
+.forecast-week{padding-top:14px;padding-bottom:18px}
+.forecast-top .forecast-week,.pin-forecast-top .forecast-week{padding-bottom:18px}

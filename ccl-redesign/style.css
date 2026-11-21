@@ -4625,3 +4625,23 @@ html[data-theme="dark"] body.rd-home .card{
 /* pin settle, container edition (see app.js pinRenderZoneNow) */
 #frontpage-list.pin-settling [data-pin-copy]{animation:pinSettle .5s cubic-bezier(.25,.9,.30,1.2)}
 @media (prefers-reduced-motion:reduce){ #frontpage-list.pin-settling [data-pin-copy]{animation:none} }
+
+/* ---- 3x. COUNTY WATCH HOUSE CELL READABILITY (Travis, 2026-11-20
+   22:37): the "Never miss a change" cell's orange-on-marble blended
+   badly. New treatment — deliberately NOT bright orange: a clean
+   near-solid warm-white frosted surface, ink text, deep-brown
+   eyebrow, and the "Start the County Watch" button as a solid
+   deep ink-brown pill with white text. ---- */
+#founding-cell-watch{
+  background:rgba(255,253,248,.94);
+  -webkit-backdrop-filter:blur(10px) saturate(1.05);backdrop-filter:blur(10px) saturate(1.05);
+  border:1px solid rgba(122,60,0,.28);color:#2c2418;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 14px 32px rgba(60,45,20,.22);
+}
+#founding-cell-watch .cell-eyebrow{color:#7a3c00}
+#founding-cell-watch h3{color:#2c2418}
+#founding-cell-watch p{color:#3d3428}
+#founding-cell-watch .founding-cta{
+  background:#3a2a18;border-color:#3a2a18;color:#fff;
+}
+#founding-cell-watch .founding-cta:hover{background:#57402a;color:#fff}

@@ -4143,3 +4143,28 @@ body.rd-home{
    (and on Today, the view headline block) leaked through. Any
    [hidden] element inside the hero now wins. ---- */
 .hero [hidden]{display:none!important}
+
+/* ---- REDESIGN ITEM 2s: sponsor cards = greyish frosted glass
+   (Travis, 2026-11-20 21:06 — refines 2e/2g/2l). The orange-white
+   paint mix stays as the sponsor area's BACKDROP (the panel
+   surface); the sponsor cards themselves are no longer solid
+   white — they are translucent GREY FROSTED GLASS floating over
+   the paint, still separate with real gaps, content fully
+   readable (dark text on the frost; logo boxes keep their white
+   ground). Scoped to the founding panel; in-flow house cells
+   elsewhere keep their solid treatment. ---- */
+.founding-panel .founding-cell{
+  background:rgba(84,90,98,.32);
+  -webkit-backdrop-filter:blur(14px) saturate(1.05);
+  backdrop-filter:blur(14px) saturate(1.05);
+  border-color:rgba(255,255,255,.55);
+  box-shadow:0 8px 22px rgba(60,45,20,.18);
+}
+.founding-panel .founding-cell.invite{
+  background:rgba(96,100,106,.26);
+  border-color:rgba(255,170,80,.75);
+}
+.founding-panel .founding-cell.taken{
+  background:rgba(84,90,98,.32);
+  border-color:rgba(255,255,255,.55);
+}

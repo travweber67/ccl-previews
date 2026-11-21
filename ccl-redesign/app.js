@@ -6460,6 +6460,8 @@ const LANG_ES = {
   airnote: 'La otra cosa invisible sobre el condado — lo que lleva el aire que respiras. Humo de estufas de leña en las noches quietas de invierno, humo de incendios en verano. Aquí está el Índice de Calidad del Aire para el pueblo de la tarjeta de Pronóstico de arriba, y hacia dónde dice el modelo que va.',
   airnote2: "Una estimación modelada del modelo atmosférico de Open-Meteo (Copernicus CAMS) — no hay un monitor oficial de calidad del aire en el condado, así que léelo como una buena guía, no como un medidor en un poste. Lecturas y alertas oficiales: <a href=\"https://www.airnow.gov/\" target=\"_blank\" rel=\"noopener\">AirNow</a>.",
   schoolsh2: 'Escuelas — Cierres y retrasos',
+  schoolsnote1: 'En las mañanas de tormenta, los distritos deciden temprano y publican primero en sus propios sitios; este tablero refleja su decisión para cada distrito del condado.',
+  seemore: 'Ver más',
   schoolsnote: 'En las mañanas de tormenta, los distritos deciden temprano — St. Helens procura decidir antes de las 6:00 AM — y publican primero en sus propios sitios y aplicaciones. Esta tarjeta es un tablero de tormenta actualizado a mano: con clima tranquilo está en espera y muestra dónde publica cada distrito; en una mañana de tormenta lleva el reporte de ese día para cada distrito, verificado contra la publicación del propio distrito antes de subirlo aquí.',
   schoolsnote2: 'No existe ninguna fuente automática de cierres para estos distritos, así que este tablero se actualiza a mano en las mañanas de tormenta — y el sitio del propio distrito es siempre la última palabra para tu familia.',
   abouth2: 'Acerca de Columbia County Live',
@@ -6670,6 +6672,9 @@ function langApply(lang) {
     if (btn) btn.textContent = 'En español';
     langCur = 'en';
   }
+  /* Item 2c: the per-view header headline/tagline are JS-set, so
+     re-render them in the new language. */
+  try { heroSetContent(heroViewCur); } catch (e) { /* hero not ready */ }
 }
 function langSet(lang) {
   langApply(lang);
@@ -7877,16 +7882,127 @@ function cclViewOf(el) {
   }
   return null;
 }
+/* ---------- REDESIGN ITEM 2c: per-view header card + view slide
+   transition (Travis, 2026-11-20). The header card changes with the
+   view: logo button + wordmark always stay; Travel / Outdoors /
+   Events & More get their section name, a local tagline, and their
+   own photo. Today keeps its headline, finder, and status spots;
+   Travel keeps the finder too. On a tab switch the outgoing view
+   slides off to the left and the incoming view slides in from the
+   right, one coordinated motion, while the header card exits left
+   and its new self enters from the top-right. Emergency / Help have
+   no card treatment of their own — the card keeps whatever the last
+   tab view set. ---------- */
+const HERO_VIEWS = {
+  travel: { img: 'img/hero-travel.jpg', name: 'Travel',
+    tag: 'Get around like a local — the bridge, the ferry, Highway 30 and every road home, checked live.',
+    esName: 'Viajes', esTag: 'Muévete como un local: el puente, el ferry, la autopista 30 y cada camino a casa, verificado en vivo.' },
+  outdoors: { img: 'img/hero-outdoors.jpg', name: 'Outdoors',
+    tag: 'Rivers, tides, trails and sky over the county — what\u2019s biting, what\u2019s flowing, and when to go.',
+    esName: 'Al aire libre', esTag: 'Ríos, mareas, senderos y el cielo del condado: qué pica, qué fluye y cuándo salir.' },
+  more: { img: 'img/hero-events.jpg', name: 'Events & More',
+    tag: 'Markets, bazaars, giveaways and get-togethers — everything going on around the county.',
+    esName: 'Eventos y más', esTag: 'Mercados, bazares, regalos y reuniones: todo lo que pasa en el condado.' }
+};
+let heroViewCur = 'today';
+let viewAnimBusy = false;
+let viewAnimToken = 0;
+function heroReducedMotion() {
+  try { return !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches); }
+  catch (e) { return false; }
+}
+function heroSetContent(view) {
+  const hero = document.querySelector('header.hero');
+  if (!hero) return;
+  const img = hero.querySelector('.hero-img');
+  const titleToday = $('hero-title-today'), vhead = $('hero-view-head');
+  const finder = $('finder-card'), spots = hero.querySelector('.hero-status');
+  const cfg = HERO_VIEWS[view] || null;
+  const es = (typeof langCur !== 'undefined' && langCur === 'es');
+  hero.setAttribute('data-view', cfg ? view : 'today');
+  if (!cfg) {
+    if (img && img.getAttribute('src') !== 'img/hero-bridge.jpg') img.src = 'img/hero-bridge.jpg';
+    if (titleToday) titleToday.hidden = false;
+    if (vhead) vhead.hidden = true;
+    if (finder) finder.hidden = false;
+    if (spots) spots.hidden = false;
+  } else {
+    if (img && img.getAttribute('src') !== cfg.img) img.src = cfg.img;
+    if (titleToday) titleToday.hidden = true;
+    if (vhead) vhead.hidden = false;
+    const nm = $('hero-view-name'), tg = $('hero-view-tag');
+    if (nm) nm.textContent = es ? cfg.esName : cfg.name;
+    if (tg) tg.textContent = es ? cfg.esTag : cfg.tag;
+    if (finder) finder.hidden = view !== 'travel';
+    if (spots) spots.hidden = true;
+  }
+  heroViewCur = cfg ? view : 'today';
+}
+function heroApplyView(name, animated) {
+  if (name !== 'today' && !HERO_VIEWS[name]) return; /* emergency/help: card untouched */
+  const target = HERO_VIEWS[name] ? name : 'today';
+  const hero = document.querySelector('header.hero');
+  if (!hero || !animated || heroViewCur === target) { heroSetContent(target); return; }
+  const h0 = hero.offsetHeight;
+  hero.style.height = h0 + 'px';
+  hero.classList.add('hero-exit');
+  setTimeout(() => {
+    heroSetContent(target);
+    hero.style.height = '';
+    const h1 = hero.offsetHeight;
+    hero.style.height = h0 + 'px';
+    hero.classList.remove('hero-exit');
+    hero.classList.add('hero-enter');
+    void hero.offsetWidth;
+    hero.style.height = h1 + 'px';
+    hero.classList.add('hero-enter-go');
+    setTimeout(() => {
+      hero.classList.remove('hero-enter', 'hero-enter-go');
+      hero.style.height = '';
+    }, 380);
+  }, 235);
+}
+function animateViewSwap(prev, name, token) {
+  const out = $('view-' + prev), inn = $('view-' + name);
+  if (!out || !inn) { viewAnimBusy = false; return; }
+  out.classList.add('view-leaving');
+  setTimeout(() => {
+    if (token !== viewAnimToken) { out.classList.remove('view-leaving'); return; }
+    out.classList.remove('view-leaving');
+    out.hidden = true;
+    out.classList.remove('view-active');
+    inn.hidden = false;
+    inn.classList.add('view-active', 'view-entering');
+    void inn.offsetWidth;
+    inn.classList.add('view-enter-go');
+    setTimeout(() => {
+      inn.classList.remove('view-entering', 'view-enter-go');
+      if (token === viewAnimToken) viewAnimBusy = false;
+    }, 380);
+  }, 240);
+}
 function cclShowView(name) {
   if (VIEW_IDS.indexOf(name) === -1) name = 'today';
+  const prevView = cclViewCur;
   cclViewCur = name;
-  VIEW_IDS.forEach(v => {
-    const sec = $('view-' + v);
-    if (!sec) return;
-    const on = v === name;
-    sec.hidden = !on;
-    sec.classList.toggle('view-active', on);
-  });
+  const wantAnim = !!(prevView && prevView !== name && !viewAnimBusy && !heroReducedMotion()
+    && $('view-' + prevView) && $('view-' + name));
+  if (wantAnim) {
+    viewAnimBusy = true;
+    animateViewSwap(prevView, name, ++viewAnimToken);
+  } else {
+    viewAnimToken++;
+    VIEW_IDS.forEach(v => {
+      const sec = $('view-' + v);
+      if (!sec) return;
+      const on = v === name;
+      sec.hidden = !on;
+      sec.classList.toggle('view-active', on);
+      sec.classList.remove('view-leaving', 'view-entering', 'view-enter-go');
+    });
+    viewAnimBusy = false;
+  }
+  try { heroApplyView(name, wantAnim); } catch (e) { /* hero swap is cosmetic */ }
   document.querySelectorAll('.tab-btn').forEach(b => {
     const on = !!(b.dataset && b.dataset.viewBtn === name);
     b.classList.toggle('active', on);
@@ -8199,14 +8315,14 @@ const SCHOOL_STATUS = {
 };
 const SCHOOL_TXT = {
   en: {
-    dormant: '✅ No closure or delay report is posted for today — this board is standing by for the next storm morning. Regular school days need no report.',
+    dormant: 'No closure or delay report is posted for today — this board is standing by for the next storm morning. Regular school days need no report.',
     reportFor: 'Storm report for ',
     updated: ' · checked against the districts’ own postings',
     standingBy: 'Standing by — no storm report posted',
     site: 'Official site →'
   },
   es: {
-    dormant: '✅ Hoy no hay ningún reporte de cierre o retraso publicado — este tablero está en espera hasta la próxima mañana de tormenta. Los días normales de clases no necesitan reporte.',
+    dormant: 'Hoy no hay ningún reporte de cierre o retraso publicado — este tablero está en espera hasta la próxima mañana de tormenta. Los días normales de clases no necesitan reporte.',
     reportFor: 'Reporte de tormenta para el ',
     updated: ' · verificado contra las publicaciones de los propios distritos',
     standingBy: 'En espera — sin reporte de tormenta',
@@ -8224,7 +8340,7 @@ function renderSchools() {
   if (anyReport) {
     const when = schoolsSnapCache.report_date
       ? fmtDay(new Date(schoolsSnapCache.report_date + 'T12:00:00')) : '';
-    html += '<p class="schools-report">🌨️ <strong>' + esc(L.reportFor + when) + '</strong>'
+    html += '<p class="schools-report"><img class="mini-ico" src="img/icons/icon-weather.png" alt="" aria-hidden="true"> <strong>' + esc(L.reportFor + when) + '</strong>'
       + (schoolsSnapCache.updated_at
           ? ' · ' + esc(fmtDayTime(new Date(schoolsSnapCache.updated_at))) : '')
       + esc(L.updated) + '.</p>';
@@ -8236,8 +8352,8 @@ function renderSchools() {
     return '<li class="school-row"><span class="school-main">'
       + '<span class="school-name">' + esc(d.name) + '</span>'
       + (d.sub ? '<span class="school-sub">' + esc(d.sub) + '</span>' : '')
+      + '<span class="school-status ' + st.cls + '"><span class="school-dot" aria-hidden="true"></span>' + esc(langCur === 'es' ? st.es : st.en) + '</span>'
       + '</span>'
-      + '<span class="school-pill ' + st.cls + '">' + esc(langCur === 'es' ? st.es : st.en) + '</span>'
       + (d.url ? '<a class="school-link" href="' + esc(d.url) + '" target="_blank" rel="noopener">'
           + esc(d.link_label ? (langCur === 'es' ? L.site : d.link_label + ' →') : L.site) + '</a>' : '')
       + (d.note ? '<span class="school-note">' + esc(d.note) + '</span>' : '')

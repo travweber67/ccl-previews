@@ -3868,3 +3868,84 @@ body.rd-home #home-card .home-linkbtn{color:#ffd9a8}
   .ev-scroll-track{animation:none}
   .ev-scroll-viewport{overflow-x:auto}
 }
+
+/* ---- REDESIGN ITEM 2c: per-view header card + view slide transition
+   (Travis, 2026-11-20). Section name + tagline over each view's own
+   photo; tab switches slide the whole view out left / in from the
+   right while the header card exits left and enters from the
+   top-right. Transforms only — no layout reflow; the card's height
+   is JS-animated between its two natural heights. ---- */
+.hero-view-name{
+  font-family:var(--display);font-weight:800;letter-spacing:-.015em;
+  font-size:clamp(1.7rem,4vw,2.4rem);line-height:1.08;margin-top:16px;color:#fff;
+  text-shadow:0 2px 20px rgba(0,0,0,.55);
+}
+.hero-view-tag{
+  margin:8px 0 6px;max-width:36em;color:#f2f7ee;
+  font-size:clamp(.98rem,2.2vw,1.12rem);line-height:1.45;
+  text-shadow:0 1px 14px rgba(0,0,0,.6);
+}
+header.hero[data-view="travel"] .hero-img-night,
+header.hero[data-view="outdoors"] .hero-img-night,
+header.hero[data-view="more"] .hero-img-night{display:none}
+.hero.hero-exit{
+  transform:translateX(-64px);opacity:0;
+  transition:transform .23s ease-in,opacity .23s ease-in;
+}
+.hero.hero-enter{transform:translate(54px,-32px);opacity:0}
+.hero.hero-enter.hero-enter-go{
+  transform:none;opacity:1;
+  transition:transform .36s cubic-bezier(.22,.9,.3,1),opacity .36s ease-out,height .36s ease;
+}
+.view-leaving{
+  transform:translateX(-56px);opacity:0;
+  transition:transform .24s ease-in,opacity .24s ease-in;
+}
+.view-entering{transform:translateX(56px);opacity:0}
+.view-entering.view-enter-go{
+  transform:none;opacity:1;
+  transition:transform .36s cubic-bezier(.22,.9,.3,1),opacity .36s ease-out;
+}
+body{overflow-x:clip}
+@media (prefers-reduced-motion: reduce){
+  .hero.hero-exit,.hero.hero-enter.hero-enter-go,
+  .view-leaving,.view-entering.view-enter-go{transition:none}
+}
+
+/* ---- REDESIGN ITEM 2d: schools closures card (Travis, 2026-11-20).
+   One-line summary up top, the full explanation under a See more
+   expander, and the district list as a chart on its own SOLID surface
+   inside the card — name, status underneath, colors doing the
+   talking: no report yet = bright green, late start = yellow,
+   closed = bright red. ---- */
+.schools-more{margin:0 0 10px}
+.schools-more summary{
+  display:inline-flex;align-items:center;gap:6px;cursor:pointer;
+  font-weight:700;font-size:.88rem;color:var(--accent-2);
+  padding:6px 2px;min-height:36px;list-style:none;
+}
+.schools-more summary::-webkit-details-marker{display:none}
+.schools-more summary::after{content:"▾";font-size:.8em;transition:transform .2s ease}
+.schools-more[open ] summary::after{transform:rotate(180deg)}
+.schools-more .card-note{margin-top:2px}
+.schools-list{
+  background:var(--panel);border:1px solid var(--border);border-radius:14px;
+  padding:2px 14px;box-shadow:0 6px 18px rgba(20,40,25,.10);
+}
+.school-row{padding:11px 0;align-items:center}
+.school-status{
+  display:inline-flex;align-items:center;gap:7px;margin-top:3px;
+  font-size:.87rem;font-weight:800;letter-spacing:.01em;
+  background:transparent;border:none;padding:0;border-radius:0;white-space:normal;
+}
+.school-dot{width:10px;height:10px;border-radius:50%;flex:0 0 auto;background:currentColor}
+.school-status.school-none,.school-status.school-open{color:#0f9d58}
+.school-status.school-none .school-dot,.school-status.school-open .school-dot{background:#22c55e;box-shadow:0 0 0 3px rgba(34,197,94,.18)}
+.school-status.school-delayed{color:#a86e00}
+.school-status.school-delayed .school-dot{background:#f5b301;box-shadow:0 0 0 3px rgba(245,179,1,.20)}
+.school-status.school-closed{color:#d61f1f}
+.school-status.school-closed .school-dot{background:#f52222;box-shadow:0 0 0 3px rgba(245,34,34,.16)}
+html[data-theme="dark"] .school-status.school-none,
+html[data-theme="dark"] .school-status.school-open{color:#4ade80;background:transparent}
+html[data-theme="dark"] .school-status.school-delayed{color:#fbbf24;background:transparent}
+html[data-theme="dark"] .school-status.school-closed{color:#ff7b72;background:transparent}

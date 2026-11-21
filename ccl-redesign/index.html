@@ -34,7 +34,7 @@ document.documentElement.setAttribute("data-theme",t);})();
 <link rel="manifest" href="manifest.webmanifest?v=95">
 <link rel="apple-touch-icon" href="img/apple-touch-icon.png?v=95">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
-<link rel="stylesheet" href="style.css?v=125">
+<link rel="stylesheet" href="style.css?v=127">
 <link rel="icon" type="image/png" sizes="48x48" href="img/favicon-48.png?v=95">
 <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png?v=95">
 <!-- v4 load pass: the two Today backgrounds (one per theme) are the
@@ -113,7 +113,19 @@ document.documentElement.setAttribute("data-theme",t);})();
          promise paragraph and the tagline are retired — the drawer menu
          (logo button, top-left) carries every jump now, and the language
          toggle lives in the drawer too. -->
-    <h1 class="hero-title" data-i18n="herotitle">Everything happening in the county, <em>one live look.</em></h1>
+    <h1 class="hero-title" id="hero-title-today" data-i18n="herotitle">Everything happening in the county, <em>one live look.</em></h1>
+    <!-- REDESIGN ITEM 2c (Travis, 2026-11-20): the header card changes
+         with the view. Travel / Outdoors / Events & More swap the Today
+         headline for the section name + a short local tagline over
+         their own photo; the logo button and wordmark up top never
+         change. The finder stays on Today AND Travel; the status spots
+         are Today's only. app.js heroApplyView drives it, with the
+         slide transition: the old card exits left, the new one comes
+         in from the top-right, and the whole view slides with it. -->
+    <div class="hero-view-head" id="hero-view-head" hidden>
+      <p class="hero-view-name" id="hero-view-name">Travel</p>
+      <p class="hero-view-tag" id="hero-view-tag"></p>
+    </div>
     <!-- REDESIGN ITEM 2 (Travis, 2026-11-20): the "Live view" status
          row is GONE. In its place, on the photo at the bottom of the
          card: the finder (moved up from under the founding panel —
@@ -410,19 +422,29 @@ document.documentElement.setAttribute("data-theme",t);})();
     <img class="card-ico" src="img/icons/icon-school.png" alt="" aria-hidden="true"><h2 data-i18n="schoolsh2">Schools — Closures &amp; Delays</h2>
     <span class="updated" id="schools-updated"></span>
   </div>
-  <p class="card-note" data-i18n="schoolsnote">On storm mornings the districts decide early — St. Helens aims to decide by 6:00 AM — and post first on their own sites and apps. This card is a hand-updated storm-day board: in quiet weather it stands by and shows where each district posts; on a storm morning it carries that morning&rsquo;s report for every district, checked against the district&rsquo;s own posting before it goes up here.</p>
+  <!-- REDESIGN ITEM 2d (Travis, 2026-11-20): the long explanation is
+       summarized to ONE line; the full text lives under a See more
+       expander. The district list is a chart on its own solid surface
+       inside the card — district name, status underneath it, and the
+       colors talk: no report yet = bright green, late start = yellow,
+       closed = bright red. Data wiring unchanged. -->
+  <p class="card-note" data-i18n="schoolsnote1">Storm mornings, the districts decide early and post on their own sites first — this board mirrors their call for every district in the county.</p>
+  <details class="see-more schools-more">
+    <summary data-i18n="seemore">See more</summary>
+    <p class="card-note" data-i18n="schoolsnote">On storm mornings the districts decide early — St. Helens aims to decide by 6:00 AM — and post first on their own sites and apps. This card is a hand-updated storm-day board: in quiet weather it stands by and shows where each district posts; on a storm morning it carries that morning&rsquo;s report for every district, checked against the district&rsquo;s own posting before it goes up here.</p>
+    <p class="card-note small" data-i18n="schoolsnote2">No automated closure feed exists for these districts, so this board is updated by hand on storm mornings — and a district&rsquo;s own site is always the final word for your family.</p>
+  </details>
   <div id="schools-body" class="panel-body">
-    <p class="schools-dormant">✅ No closure or delay report is posted for today — this board is standing by for the next storm morning. Regular school days need no report.</p>
+    <p class="schools-dormant">No closure or delay report is posted for today — this board is standing by for the next storm morning. Regular school days need no report.</p>
     <ul class="schools-list">
-      <li class="school-row"><span class="school-main"><span class="school-name">St. Helens School District</span></span><span class="school-pill school-none">No report yet</span><a class="school-link" href="https://www.sthelens.k12.or.us/parent-info/school-closure-information" target="_blank" rel="noopener">Closure info →</a></li>
-      <li class="school-row"><span class="school-main"><span class="school-name">Scappoose School District</span></span><span class="school-pill school-none">No report yet</span><a class="school-link" href="https://www.scappoosek12.org/" target="_blank" rel="noopener">District site →</a></li>
-      <li class="school-row"><span class="school-main"><span class="school-name">Rainier School District</span></span><span class="school-pill school-none">No report yet</span><a class="school-link" href="https://www.rainier.k12.or.us/" target="_blank" rel="noopener">District site →</a></li>
-      <li class="school-row"><span class="school-main"><span class="school-name">Clatskanie School District</span></span><span class="school-pill school-none">No report yet</span><a class="school-link" href="https://www.csd.k12.or.us/" target="_blank" rel="noopener">District site →</a></li>
-      <li class="school-row"><span class="school-main"><span class="school-name">Vernonia School District</span></span><span class="school-pill school-none">No report yet</span><a class="school-link" href="https://www.vernoniak12.org/" target="_blank" rel="noopener">District site →</a></li>
-      <li class="school-row"><span class="school-main"><span class="school-name">Northwest Regional ESD (NWRESD)</span><span class="school-sub">Regional programs follow NWRESD&rsquo;s own notices</span></span><span class="school-pill school-none">No report yet</span><a class="school-link" href="https://www.nwresd.org/" target="_blank" rel="noopener">NWRESD site →</a></li>
+      <li class="school-row"><span class="school-main"><span class="school-name">St. Helens School District</span><span class="school-status school-none"><span class="school-dot" aria-hidden="true"></span>No report yet</span></span><a class="school-link" href="https://www.sthelens.k12.or.us/parent-info/school-closure-information" target="_blank" rel="noopener">Closure info →</a></li>
+      <li class="school-row"><span class="school-main"><span class="school-name">Scappoose School District</span><span class="school-status school-none"><span class="school-dot" aria-hidden="true"></span>No report yet</span></span><a class="school-link" href="https://www.scappoosek12.org/" target="_blank" rel="noopener">District site →</a></li>
+      <li class="school-row"><span class="school-main"><span class="school-name">Rainier School District</span><span class="school-status school-none"><span class="school-dot" aria-hidden="true"></span>No report yet</span></span><a class="school-link" href="https://www.rainier.k12.or.us/" target="_blank" rel="noopener">District site →</a></li>
+      <li class="school-row"><span class="school-main"><span class="school-name">Clatskanie School District</span><span class="school-status school-none"><span class="school-dot" aria-hidden="true"></span>No report yet</span></span><a class="school-link" href="https://www.csd.k12.or.us/" target="_blank" rel="noopener">District site →</a></li>
+      <li class="school-row"><span class="school-main"><span class="school-name">Vernonia School District</span><span class="school-status school-none"><span class="school-dot" aria-hidden="true"></span>No report yet</span></span><a class="school-link" href="https://www.vernoniak12.org/" target="_blank" rel="noopener">District site →</a></li>
+      <li class="school-row"><span class="school-main"><span class="school-name">Northwest Regional ESD (NWRESD)</span><span class="school-sub">Regional programs follow NWRESD&rsquo;s own notices</span><span class="school-status school-none"><span class="school-dot" aria-hidden="true"></span>No report yet</span></span><a class="school-link" href="https://www.nwresd.org/" target="_blank" rel="noopener">NWRESD site →</a></li>
     </ul>
   </div>
-  <p class="card-note small" data-i18n="schoolsnote2">No automated closure feed exists for these districts, so this board is updated by hand on storm mornings — and a district&rsquo;s own site is always the final word for your family.</p>
 </section>
 
 <!-- v55: the founding panel's nonprofit house cell lives here in
@@ -2253,7 +2275,7 @@ document.documentElement.setAttribute("data-theme",t);})();
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/satellite.js/5.0.0/satellite.min.js"></script>
-<script src="app.js?v=124"></script>
+<script src="app.js?v=125"></script>
 <script data-goatcounter="https://columbiacountylive.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
 

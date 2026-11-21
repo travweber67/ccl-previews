@@ -4036,3 +4036,50 @@ body.rd-home .hero-spot{flex:1 1 0;text-align:center;white-space:nowrap}
   border-color:#e85d04;color:#fff;
   box-shadow:0 3px 10px rgba(232,93,4,.35);
 }
+
+/* ---- REDESIGN ITEM 2n: the tab bar becomes four floating pills
+   (Travis, 2026-11-20 20:58, with the 20:57 color fix). No more
+   connected bar: the bar itself is transparent and borderless, and
+   each view button is its own pill with real gaps, floating over
+   the page. The bar is pinned to the very bottom at a CONSTANT
+   height at every scroll position — the old height:auto bar could
+   grow/stretch at the top of the page; height is now explicit and
+   the buttons have a fixed height. Active pill = soft orange ombre
+   (2m); inactive pills are solid with a soft shadow. ---- */
+@media (max-width:899px){
+  .tabbar{
+    position:fixed;left:0;right:0;bottom:0;top:auto;z-index:1200;
+    height:calc(68px + env(safe-area-inset-bottom));
+    padding:7px 10px calc(7px + env(safe-area-inset-bottom));
+    display:flex;align-items:center;justify-content:space-between;gap:8px;
+    background:transparent;border:none;box-shadow:none;
+    backdrop-filter:none;-webkit-backdrop-filter:none;
+  }
+  .tab-btn{
+    flex:1 1 0;height:54px;border-radius:999px;
+    flex-direction:column;gap:1px;padding:4px 2px;
+    font-size:.68rem;font-weight:700;
+    background:rgba(255,255,255,.97);color:var(--muted);
+    border:1px solid var(--border);
+    box-shadow:0 6px 16px rgba(30,40,20,.18);
+  }
+  .tab-btn .tab-ico img{width:20px;height:20px;display:block}
+  .tab-btn.active{
+    background:linear-gradient(135deg,#ffb347 0%,#ff7a1a 55%,#e85d04 100%);
+    border-color:#e85d04;color:#fff;
+    box-shadow:0 6px 16px rgba(232,93,4,.42);
+  }
+  html[data-theme="dark"] .tab-btn{background:rgba(26,34,28,.97)}
+  html[data-theme="dark"] .tab-btn.active{
+    background:linear-gradient(135deg,#ffb347 0%,#ff7a1a 55%,#e85d04 100%);color:#fff;
+  }
+  body{padding-bottom:calc(80px + env(safe-area-inset-bottom))}
+}
+@media (min-width:900px){
+  .tabbar{background:transparent;border-bottom:none;backdrop-filter:none;-webkit-backdrop-filter:none}
+  .tab-btn{
+    background:rgba(255,255,255,.92);border-color:var(--border);
+    box-shadow:0 3px 10px rgba(30,40,20,.10);
+  }
+  html[data-theme="dark"] .tab-btn{background:rgba(26,34,28,.92)}
+}

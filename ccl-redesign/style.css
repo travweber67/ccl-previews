@@ -4510,3 +4510,11 @@ body.rd-home .go-row-warn{border-left:4px solid var(--warn)}
 .wx-today-bare .wx-place{color:var(--muted);text-shadow:none}
 #events-card .card-head h2{color:var(--text);text-shadow:none}
 #events-card .card-head .updated{color:var(--muted);text-shadow:none}
+
+/* ---- 3p. UNPIN EXIT (Travis, 2026-11-20 22:25): the leaving pinned
+   copy slides right + fades while its height collapses; transitions
+   live here, the JS only sets the end states. ---- */
+.pin-copy.pin-leaving{
+  overflow:hidden;pointer-events:none;
+  transition:transform .32s ease-in,opacity .32s ease-in,height .36s ease,margin .36s ease,padding .36s ease;
+}

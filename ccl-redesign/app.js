@@ -7483,10 +7483,44 @@ function pinMakeCopy(id) {
   }, true);
   return copy;
 }
+/* REDESIGN FIX BATCH item 3p (Travis, 2026-11-20 22:25): UNPIN
+   ANIMATION. Unpinning a pinned copy: the card slides off to the
+   RIGHT and disappears while its space collapses; everything below
+   slides UP to fill the gap and settles with a small spring bounce
+   (overshoot easing), like the cards are floating/magnetic. Quick
+   and smooth; prefers-reduced-motion keeps the instant rebuild. */
+let pinAnimBusy = false;
 function pinRenderZone() {
   const wrap = $('frontpage'), list = $('frontpage-list');
   if (!wrap || !list) return;
   const ids = window.CCLPins.all().cards.filter(id => PIN_CARDS.indexOf(id) !== -1 && $(id));
+  const existing = Array.prototype.slice.call(list.querySelectorAll('[data-pin-copy]'));
+  const removed = existing.filter(el => ids.indexOf(el.getAttribute('data-pin-copy')) === -1);
+  let reduced = false;
+  try { reduced = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches); } catch (e) { /* keep false */ }
+  if (removed.length && !reduced && !pinAnimBusy) {
+    pinAnimBusy = true;
+    const topsBefore = {};
+    existing.forEach(el => { topsBefore[el.getAttribute('data-pin-copy')] = el.getBoundingClientRect().top + window.scrollY; });
+    removed.forEach(el => {
+      el.style.height = el.offsetHeight + 'px';
+      el.classList.add('pin-leaving');
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        el.style.transform = 'translateX(106%)';
+        el.style.opacity = '0';
+        el.style.height = '0px';
+        el.style.marginTop = '0px'; el.style.marginBottom = '0px';
+        el.style.paddingTop = '0px'; el.style.paddingBottom = '0px';
+      }));
+    });
+    setTimeout(() => { pinAnimBusy = false; pinRenderZoneNow(ids, topsBefore); }, 360);
+    return;
+  }
+  pinRenderZoneNow(ids, null);
+}
+function pinRenderZoneNow(ids, topsBefore) {
+  const wrap = $('frontpage'), list = $('frontpage-list');
+  if (!wrap || !list) return;
   wrap.hidden = ids.length === 0;
   list.innerHTML = '';
   Object.keys(pinObservers).forEach(id => { pinObservers[id].disconnect(); delete pinObservers[id]; });
@@ -7509,6 +7543,24 @@ function pinRenderZone() {
     mo.observe(orig, { subtree: true, childList: true, characterData: true });
     pinObservers[id] = mo;
   });
+  /* FLIP settle: surviving copies that moved up get inverted to
+     their old spot, then played home with an overshoot ease — the
+     little magnetic bounce as they land. */
+  if (topsBefore) {
+    list.querySelectorAll('[data-pin-copy]').forEach(el => {
+      const id = el.getAttribute('data-pin-copy');
+      if (!(id in topsBefore)) return;
+      const dy = topsBefore[id] - (el.getBoundingClientRect().top + window.scrollY);
+      if (Math.abs(dy) < 2) return;
+      el.style.transition = 'none';
+      el.style.transform = 'translateY(' + dy + 'px)';
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        el.style.transition = 'transform .45s cubic-bezier(.25,.9,.30,1.30)';
+        el.style.transform = '';
+        setTimeout(() => { el.style.transition = ''; }, 500);
+      }));
+    });
+  }
 }
 function initPins() {
   PIN_CARDS.forEach(id => {

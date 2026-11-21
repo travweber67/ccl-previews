@@ -34,7 +34,7 @@ document.documentElement.setAttribute("data-theme",t);})();
 <link rel="manifest" href="manifest.webmanifest?v=95">
 <link rel="apple-touch-icon" href="img/apple-touch-icon.png?v=95">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
-<link rel="stylesheet" href="style.css?v=151">
+<link rel="stylesheet" href="style.css?v=152">
 <link rel="icon" type="image/png" sizes="48x48" href="img/favicon-48.png?v=95">
 <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png?v=95">
 <!-- v4 load pass: the two Today backgrounds (one per theme) are the
@@ -479,6 +479,10 @@ document.documentElement.setAttribute("data-theme",t);})();
   <div class="news-scroll-viewport" id="news-scroll-viewport">
     <div class="news-scroll-track" id="news-scroll-track"><p class="loading">Loading the good news…</p></div>
   </div>
+  <!-- REDESIGN ITEM 4k(6) (Travis, 2026-11-20 23:02): the way into
+       the News view — a small row under the scroller (the Events
+       entry card is gone). Opens the story list, returns to Today. -->
+  <button class="nws-seeall" id="news-see-all" type="button">See all the news <span aria-hidden="true">&rarr;</span></button>
 </section>
 
 <section class="card band-card briefing-card" id="briefing-card" aria-label="The county briefing — today's summary, ready to copy and share">
@@ -964,17 +968,30 @@ document.documentElement.setAttribute("data-theme",t);})();
   </aside>
 </div>
 
-<a class="add-event-card" href="https://forms.gle/dWzcBcnf79Qq5XQQA" target="_blank" rel="noopener" aria-label="Add an event — it's free">
+<a class="add-event-card" id="add-event-card" href="https://forms.gle/dWzcBcnf79Qq5XQQA" target="_blank" rel="noopener" aria-label="Add an event — it's free">
     <img class="card-ico" src="img/icons/icon-calendar.png" alt="" aria-hidden="true">
     <span class="aec-main"><strong data-i18n="addeventh">Add an event — it&rsquo;s free</strong><span class="aec-sub" data-i18n="addeventsub">Run a local business or group? Put it on the county calendar.</span></span>
     <span class="aec-arrow" aria-hidden="true">&rarr;</span>
   </a>
 
-<button class="news-entry-card" id="news-entry" type="button" aria-label="Local news — read the county's stories">
-    <img class="card-ico" src="img/icons/icon-news.png" alt="" aria-hidden="true">
-    <span class="aec-main"><strong data-i18n="newsentryh">Local news</strong><span class="aec-sub" data-i18n="newsentrysub">Good news around the county — read the stories here, in full view.</span></span>
-    <span class="aec-arrow" aria-hidden="true">&rarr;</span>
-  </button>
+<!-- REDESIGN ITEM 4k(4) (Travis, 2026-11-20 23:02): the Events & More
+     Section Sponsor spot 1 MOVED up to here, directly under the
+     Add-an-event card, and restyled on the Keep It Local demo's
+     addstrip — a ribbon on one side, the pitch in the middle, the
+     claim button on the other side. Inventory of record:
+     SECTION_SPONSORS in app.js (more, spot 1). -->
+<article class="sponsor-strip section-sponsor" data-section-sponsor="more" data-spot="1" aria-label="Section sponsor spot — Events and More, spot 1 of 4, open">
+  <span class="ss-ribbon">First 30 days free</span>
+  <div class="ss-main">
+    <h3 data-i18n="fs3h3">Your business here</h3>
+    <p data-i18n="ssmb">One of only four Section Sponsor spots in Events &amp; More — your name and logo woven between the events, the directory and the weekend everyone checks before they make plans. $29/mo, month to month, cancel anytime.</p>
+  </div>
+  <a class="founding-cta ss-btn" href="sponsor.html#section" data-i18n="sscta">Claim this spot &rarr;</a>
+</article>
+
+<!-- REDESIGN ITEM 4k(5) (Travis, 2026-11-20 23:02): the Local news
+     entry card that stood here is REMOVED — the News view is now
+     entered from Today's "See all the news" row (item 4k(6)). -->
 
 <div class="card photo-card" id="events-card">
       <div class="card-photo photo-courthouse"><img src="img/card-courthouse.jpg" alt="The historic Columbia County Courthouse in St. Helens, Oregon" loading="lazy" decoding="async"><img class="photo-night" src="img/dusk/events-night.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async"></div>
@@ -1011,16 +1028,11 @@ document.documentElement.setAttribute("data-theme",t);})();
     </article>
   </div>
 </section>
-<!-- v95: Section Sponsor (Slot B) — Events &amp; More spot 1 of 4, open.
-     Inventory of record: SECTION_SPONSORS in app.js. A sale swaps this
-     invite article for a taken cell, founding-panel style. -->
-<article class="founding-cell invite in-flow section-sponsor" data-section-sponsor="more" data-spot="1" aria-label="Section sponsor spot — Events &amp; More, spot 1 of 4, open">
-  <div class="ghost-logo" aria-hidden="true"><img src="img/icons/icon-sponsor.png" alt=""><span data-i18n="fslogohere">Your logo here</span></div>
-  <p class="cell-eyebrow" data-i18n="ssm1">Section Sponsor &middot; Events &amp; More &middot; Spot 1 of 4 &mdash; Open</p>
-  <h3 data-i18n="fs3h3">Your business here</h3>
-  <p data-i18n="ssmb">One of only four Section Sponsor spots in Events &amp; More &mdash; your name and logo woven between the events, the directory and the weekend everyone checks before they make plans. $29/mo, month to month, cancel anytime.</p>
-  <a class="founding-cta" href="sponsor.html#section" data-i18n="sscta">Claim this spot &rarr;</a>
-</article>
+<!-- v95: Section Sponsor (Slot B) — Events & More spot 1 of 4.
+     REDESIGN ITEM 4k(4): this spot's invite MOVED up under the
+     Add-an-event card as the KIL-style sponsor strip (same
+     data-section-sponsor / data-spot attributes; inventory of
+     record: SECTION_SPONSORS in app.js). -->
 
 <!-- Micro-business directory (business plan §6 Phase 2 addendum,
      2026-11-05): the tier BELOW sponsors and featured — plain list
@@ -1057,12 +1069,12 @@ document.documentElement.setAttribute("data-theme",t);})();
     <button class="dir-chip" type="button" data-dirfilter="freehelp" aria-pressed="false" data-i18n="dirfreehelp">Free help / community support</button>
   </div>
   <div class="dir-list" id="dir-list">
-    <article class="dir-item" data-dircat="fun" data-lat="45.85067" data-lng="-122.83077">
+    <article class="dir-item dir-founding" data-dircat="fun" data-lat="45.85067" data-lng="-122.83077">
       <!-- Photo: Oregon Trail Lanes' own website (oregontraillanes.com) — league night at the lanes, May 2023. Added v45. -->
       <img class="dir-photo" src="img/dir-oregon-trail-lanes.jpg" alt="League night inside Oregon Trail Lanes in St. Helens" loading="lazy" decoding="async">
       <img class="founding-ribbon dir-ribbon" src="img/founding-ribbon.png?v=95" alt="Founding Sponsor" title="Founding Sponsor — Oregon Trail Lanes">
       <div class="dir-item-main">
-        <h3>Oregon Trail Lanes</h3>
+        <h3>Oregon Trail Lanes <span class="dir-badge">Founding Sponsor &middot; 2026</span></h3>
         <p class="dir-meta">St. Helens &middot; <span data-i18n="dirfun">Bowling &amp; family fun</span></p>
         <p class="dir-desc" data-i18n="dirotldesc">Bowling, leagues and birthday parties on Columbia River Highway.</p>
         <button class="otl-more dir-otl-more" type="button" data-otl-open aria-haspopup="dialog" aria-controls="otl-sheet" aria-expanded="false">See hours &amp; what&rsquo;s on &rarr;</button>
@@ -1072,11 +1084,11 @@ document.documentElement.setAttribute("data-theme",t);})();
         <span class="dir-addr">735 S Columbia River Hwy</span>
       </div>
     </article>
-    <article class="dir-item" data-dircat="handyman">
+    <article class="dir-item dir-founding" data-dircat="handyman">
       <img class="dir-photo" src="img/dir-kneeland-brothers.jpg" alt="A new roof by Kneeland Brothers on a Columbia County home" loading="lazy" decoding="async">
       <img class="founding-ribbon dir-ribbon" src="img/founding-ribbon.png?v=95" alt="Founding Sponsor" title="Founding Sponsor — Kneeland Brothers LLC">
       <div class="dir-item-main">
-        <h3>Kneeland Brothers LLC</h3>
+        <h3>Kneeland Brothers LLC <span class="dir-badge">Founding Sponsor &middot; 2026</span></h3>
         <p class="dir-meta">Scappoose &middot; <span data-i18n="dirhandyman">Handyman &amp; home repair</span></p>
         <p class="dir-desc">Roof replacement and repair from a family crew born and raised in Columbia County — free estimates, financing, and a warranty on every new roof.</p>
         <button class="otl-more dir-otl-more" type="button" data-pv-open aria-haspopup="dialog" aria-controls="pv-sheet" aria-expanded="false">See hours &amp; what&rsquo;s on &rarr;</button>
@@ -1086,11 +1098,11 @@ document.documentElement.setAttribute("data-theme",t);})();
         <span class="dir-addr">33459 SW JP West Rd</span>
       </div>
     </article>
-    <article class="dir-item" data-dircat="handyman" data-lat="45.86043" data-lng="-122.85104">
+    <article class="dir-item dir-founding" data-dircat="handyman" data-lat="45.86043" data-lng="-122.85104">
       <img class="dir-photo" src="img/dir-cm-renovations.jpg" alt="A new cedar deck by C&amp;M Renovations on a Columbia County home" loading="lazy" decoding="async">
       <img class="founding-ribbon dir-ribbon" src="img/founding-ribbon.png?v=98" alt="Founding Sponsor" title="Founding Sponsor — C&amp;M Renovations">
       <div class="dir-item-main">
-        <h3>C&amp;M Renovations</h3>
+        <h3>C&amp;M Renovations <span class="dir-badge">Founding Sponsor &middot; 2026</span></h3>
         <p class="dir-meta">St. Helens &middot; <span data-i18n="dirremodel">Home repair &amp; remodeling</span></p>
         <p class="dir-desc">Fencing, decking and remodeling from a licensed, bonded and insured St. Helens crew — Oregon CCB #241111.</p>
         <button class="otl-more dir-otl-more" type="button" data-cm-open aria-haspopup="dialog" aria-controls="cm-sheet" aria-expanded="false">See hours &amp; what&rsquo;s on &rarr;</button>
@@ -2320,7 +2332,7 @@ document.documentElement.setAttribute("data-theme",t);})();
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/satellite.js/5.0.0/satellite.min.js"></script>
-<script src="app.js?v=135"></script>
+<script src="app.js?v=136"></script>
 <script data-goatcounter="https://columbiacountylive.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
 

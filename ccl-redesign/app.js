@@ -8103,33 +8103,38 @@ function heroApplyView(name, animated, dir) {
   if (!hero || !animated || heroViewCur === target) { heroSetContent(target); return; }
   const rev = dir === -1;
   const h0 = hero.offsetHeight;
+  /* Item 4i (Travis, 2026-11-20 22:59): the height is LOCKED at h0
+     for the whole swap and released in one step at the end. The old
+     code CSS-transitioned height to the new natural height, which
+     re-laid-out the entire page on every frame — the view-switch
+     jank. .hero has overflow:hidden, so taller content clips
+     briefly instead of spilling. Timings match style.css 4i. */
   hero.style.height = h0 + 'px';
   hero.classList.add('hero-exit');
   if (rev) hero.classList.add('rev');
   setTimeout(() => {
     heroSetContent(target);
-    hero.style.height = '';
-    const h1 = hero.offsetHeight;
-    hero.style.height = h0 + 'px';
     hero.classList.remove('hero-exit');
     hero.classList.add('hero-enter');
     void hero.offsetWidth;
-    hero.style.height = h1 + 'px';
     hero.classList.add('hero-enter-go');
     setTimeout(() => {
       hero.classList.remove('hero-enter', 'hero-enter-go', 'rev');
       hero.style.height = '';
-    }, 380);
-  }, 235);
+    }, 520);
+  }, 320);
 }
 function animateViewSwap(prev, name, token, dir) {
   const out = $('view-' + prev), inn = $('view-' + name);
   if (!out || !inn) { viewAnimBusy = false; return; }
   const rev = dir === -1;
+  /* Item 4i: body.view-anim suspends card backdrop-filter while the
+     views move (style.css 4i); timings .32s out / .52s in. */
+  document.body.classList.add('view-anim');
   out.classList.add('view-leaving');
   if (rev) out.classList.add('rev');
   setTimeout(() => {
-    if (token !== viewAnimToken) { out.classList.remove('view-leaving', 'rev'); return; }
+    if (token !== viewAnimToken) { out.classList.remove('view-leaving', 'rev'); document.body.classList.remove('view-anim'); return; }
     out.classList.remove('view-leaving', 'rev');
     out.hidden = true;
     out.classList.remove('view-active');
@@ -8140,9 +8145,10 @@ function animateViewSwap(prev, name, token, dir) {
     inn.classList.add('view-enter-go');
     setTimeout(() => {
       inn.classList.remove('view-entering', 'view-enter-go', 'rev');
+      document.body.classList.remove('view-anim');
       if (token === viewAnimToken) viewAnimBusy = false;
-    }, 380);
-  }, 240);
+    }, 520);
+  }, 320);
 }
 function cclShowView(name) {
   if (VIEW_IDS.indexOf(name) === -1) name = 'today';
@@ -8404,7 +8410,7 @@ const SECTION_SPONSORS = [
   { section: 'outdoors', spot: 2, after: 'tides-card',     business: null },
   { section: 'outdoors', spot: 3, after: 'steelhead-card', business: null },
   { section: 'outdoors', spot: 4, after: 'air-card',       business: null },
-  { section: 'more',     spot: 1, after: 'featured-local', business: null },
+  { section: 'more',     spot: 1, after: 'add-event-card', business: null }, /* Item 4k(4): moved up under the Add-an-event card, restyled as the KIL-style strip */
   { section: 'more',     spot: 2, after: 'cascade-card',   business: null },
   { section: 'more',     spot: 3, after: 'watch-card',     business: null },
   { section: 'more',     spot: 4, after: 'about-card',     business: null }
@@ -10113,7 +10119,8 @@ function buildEventScroller() {
       + '<span class="evs-body"><span class="evs-when">' + when
       + (evsIsSpecial(ev) ? ' <span class="evs-tag">Special</span>' : '') + '</span>'
       + '<span class="evs-title">' + esc(ev.title || '') + '</span>'
-      + (ev.location ? '<span class="evs-loc">' + esc(ev.location) + '</span>' : '')
+      + (ev.note ? '<span class="evs-sum">' + esc(ev.note) + '</span>' : '')
+      + (ev.location ? '<span class="evs-loc">' + esc(ev.location) + '</span>' : (ev.source ? '<span class="evs-loc">' + esc(ev.source) + '</span>' : ''))
       + '</span></a>';
   }).join('');
   /* REDESIGN FIX BATCH (Travis, 2026-11-20): no auto-scroll and no
@@ -10189,6 +10196,7 @@ function newsCardHtml(s, i) {
     + '<img class="nws-img" src="' + esc(s.img || '') + '" alt="" loading="lazy" decoding="async">'
     + '<span class="nws-body"><span class="nws-when">' + esc(newsWhen(s)) + '</span>'
     + '<span class="nws-title">' + esc(s.title || '') + '</span>'
+    + (s.summary ? '<span class="nws-sum">' + esc(s.summary) + '</span>' : '')
     + (s.source ? '<span class="nws-loc">' + esc(s.source) + '</span>' : '')
     + '</span></a>';
 }
@@ -10264,6 +10272,11 @@ function buildNewsScroller() {
 }
 var newsEntryBtn = document.getElementById('news-entry');
 if (newsEntryBtn) newsEntryBtn.addEventListener('click', function () { closeNewsStory(); newsEnter('more'); });
+/* Item 4k(6): the Events entry card is gone (Travis, 2026-11-20
+   23:02); Today's way in is the "See all the news" row under the
+   news scroller, returning to Today. */
+var newsSeeAllBtn = document.getElementById('news-see-all');
+if (newsSeeAllBtn) newsSeeAllBtn.addEventListener('click', function () { closeNewsStory(); newsEnter('today'); });
 var newsViewBack = document.getElementById('news-view-back');
 if (newsViewBack) newsViewBack.addEventListener('click', function () { if (typeof cclShowView === 'function') cclShowView(newsReturnView || 'today'); });
 /* Desktop arrows for the swipe scrollers (events + news): they page

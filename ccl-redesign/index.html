@@ -34,7 +34,7 @@ document.documentElement.setAttribute("data-theme",t);})();
 <link rel="manifest" href="manifest.webmanifest?v=95">
 <link rel="apple-touch-icon" href="img/apple-touch-icon.png?v=95">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
-<link rel="stylesheet" href="style.css?v=123">
+<link rel="stylesheet" href="style.css?v=124">
 <link rel="icon" type="image/png" sizes="48x48" href="img/favicon-48.png?v=95">
 <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png?v=95">
 <!-- v4 load pass: the two Today backgrounds (one per theme) are the
@@ -43,7 +43,7 @@ document.documentElement.setAttribute("data-theme",t);})();
 <link rel="preload" as="image" href="img/bg/bg-day-6.jpg">
 <link rel="preload" as="image" href="img/bg/bg-dusk-2.jpg">
 </head>
-<body>
+<body class="rd-home">
 
 <!-- v4: full-page county photo background — CALM. One strong static
      photo per view (portfolio pattern: imagery changes only when the
@@ -114,6 +114,26 @@ document.documentElement.setAttribute("data-theme",t);})();
          (logo button, top-left) carries every jump now, and the language
          toggle lives in the drawer too. -->
     <h1 class="hero-title" data-i18n="herotitle">Everything happening in the county, <em>one live look.</em></h1>
+    <!-- REDESIGN ITEM 1 (Travis, 2026-11-20): the old green sticky bar
+         is retired as a separate bar — its live status row now lives
+         INSIDE the hero card, on the photo, as the card's bottom row.
+         Same element, same IDs (app.js setPill wiring unchanged); the
+         rd-home CSS layer makes it static — it scrolls away with the
+         card at every width, nothing sticks. -->
+    <div class="sticky-bar" id="sticky-bar">
+      <!-- v4: the green bar no longer repeats the masthead's name — it
+           says what this bar is: the live view, condensed. -->
+      <span class="sticky-brand"><img class="sticky-ico" src="img/icons/icon-logo-courthouse.png" alt="" aria-hidden="true"> Live view</span>
+      <a class="sticky-pill" id="sticky-weather" href="#alerts-card">⚠️ Weather —</a>
+      <a class="sticky-pill" id="sticky-bridge" href="#roads-card">🌉 Bridge —</a>
+      <nav class="sticky-links" aria-label="Jump to a section">
+        <a href="#rivers-card" data-i18n="stickyriver">River</a>
+        <a href="#ferry-card" data-i18n="stickyferry">Ferry</a>
+        <a href="#events-card" data-i18n="stickyevents">Events</a>
+        <a href="#services-card" data-i18n="stickybiz">Businesses</a>
+        <a href="#sky-card" data-i18n="stickysky">Sky</a>
+      </nav>
+    </div>
   </div>
 </header>
 
@@ -123,21 +143,6 @@ document.documentElement.setAttribute("data-theme",t);})();
   <button class="tab-btn" type="button" data-view-btn="outdoors" aria-pressed="false"><span class="tab-ico" aria-hidden="true"><img src="img/icons/icon-outdoors.png" alt=""></span><span data-i18n="taboutdoors">Outdoors</span></button>
   <button class="tab-btn" type="button" data-view-btn="more" aria-pressed="false"><span class="tab-ico" aria-hidden="true"><img src="img/icons/icon-events.png" alt=""></span><span data-i18n="tabmore">Events &amp; More</span></button>
 </nav>
-
-<div class="sticky-bar" id="sticky-bar">
-  <!-- v4: the green bar no longer repeats the masthead's name — it
-       says what this bar is: the live view, condensed. -->
-  <span class="sticky-brand"><img class="sticky-ico" src="img/icons/icon-logo-courthouse.png" alt="" aria-hidden="true"> Live view</span>
-  <a class="sticky-pill" id="sticky-weather" href="#alerts-card">⚠️ Weather —</a>
-  <a class="sticky-pill" id="sticky-bridge" href="#roads-card">🌉 Bridge —</a>
-  <nav class="sticky-links" aria-label="Jump to a section">
-    <a href="#rivers-card" data-i18n="stickyriver">River</a>
-    <a href="#ferry-card" data-i18n="stickyferry">Ferry</a>
-    <a href="#events-card" data-i18n="stickyevents">Events</a>
-    <a href="#services-card" data-i18n="stickybiz">Businesses</a>
-    <a href="#sky-card" data-i18n="stickysky">Sky</a>
-  </nav>
-</div>
 
 <div id="alert-banner" class="alert-banner" hidden></div>
 

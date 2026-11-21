@@ -3686,3 +3686,47 @@ html[data-theme="dark"] .cev-src{background:rgba(255,255,255,.06)}
   .cev-daynum{font-size:1.3rem}
   .cev-title{font-size:.98rem}
 }
+
+/* =====================================================================
+   REDESIGN ITEM 1 (Travis, 2026-11-20) — homepage only (body.rd-home).
+   The full-bleed top bar is retired. The bridge photo now lives inside
+   ONE rounded card at the top of the page, carrying everything the top
+   area carried: the brand (logo = menu button) + wordmark, the clock,
+   the headline, and the live status row (the old green sticky bar,
+   moved inside the card in the HTML — same IDs, same app.js wiring).
+   The page background is a flat soft grey: the full-page photo layers
+   are off on this page. The card is in normal flow and scrolls away
+   with the page at every width — not sticky, not fixed. Everything
+   below the header is untouched by this layer.
+   ===================================================================== */
+body.rd-home{background:#e9ebee}
+html:has(> body.rd-home){background:#e9ebee}
+body.rd-home .page-bg{display:none}
+html[data-theme="dark"] body.rd-home{background:#242628}
+html[data-theme="dark"]:has(> body.rd-home){background:#242628}
+
+/* the hero becomes a card: inset from the page edges, aligned with the
+   content column below (1200px column minus its 20px side padding),
+   rounded corners, a soft lift off the grey */
+body.rd-home .hero{
+  max-width:1160px;width:calc(100% - 40px);
+  margin:16px auto 0;
+  border:1px solid rgba(255,255,255,.35);
+  border-radius:22px;
+  box-shadow:0 14px 34px rgba(23,32,27,.22);
+}
+@media (max-width:899px){
+  body.rd-home .hero{width:calc(100% - 24px);margin-top:12px;border-radius:18px}
+}
+
+/* the live status row inside the card: static (scrolls with the card),
+   translucent dark glass on the photo instead of the solid green band */
+body.rd-home .hero .sticky-bar{
+  position:static;
+  margin-top:14px;
+  background:rgba(9,22,13,.48);
+  border:1px solid rgba(255,255,255,.22);
+  border-radius:14px;
+  padding:8px 12px;
+  -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+}

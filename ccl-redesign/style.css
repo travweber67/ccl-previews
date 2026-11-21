@@ -4083,3 +4083,34 @@ body.rd-home .hero-spot{flex:1 1 0;text-align:center;white-space:nowrap}
   }
   html[data-theme="dark"] .tab-btn{background:rgba(26,34,28,.92)}
 }
+
+/* ---- REDESIGN ITEM 2o: card glow flavors (Travis, 2026-11-20
+   20:59). The page is one grey ground and every card floats on it,
+   so shadows carry the depth — in three rotating flavors, assigned
+   by card family (logged in BUILD-LIST.md):
+   ORANGE glow — the hero, the founding sponsor panel, Heading out?,
+   and the featured-local card (the warm/action family).
+   BLACKISH-GREY — the right-to-left scrolling feed cards (event
+   scroller cards + ticker pills) and the Your town photo card.
+   REGULAR GREY — everything else keeps the standard soft shadow;
+   the schools/briefing inner surfaces already wear it.
+   A glow here is a colored shadow only — never a blur over content. ---- */
+body.rd-home .hero{box-shadow:0 18px 42px rgba(255,122,26,.30),0 4px 12px rgba(30,40,20,.16)}
+.founding-panel{box-shadow:0 16px 38px rgba(255,122,26,.32),0 4px 12px rgba(30,40,20,.14)}
+#go-card{box-shadow:0 16px 38px rgba(255,122,26,.30),0 4px 12px rgba(30,40,20,.16)}
+.featured-local{box-shadow:0 14px 34px rgba(255,122,26,.28),0 4px 12px rgba(30,40,20,.12)}
+.evs-card{box-shadow:0 12px 28px rgba(22,24,28,.48),0 2px 6px rgba(22,24,28,.35)}
+body.rd-home .strip-item.glance-tile{box-shadow:0 10px 24px rgba(22,24,28,.45),0 2px 6px rgba(22,24,28,.32)}
+#home-card{box-shadow:0 14px 32px rgba(22,24,28,.42),0 4px 10px rgba(22,24,28,.25)}
+
+/* ---- REDESIGN ITEM 2p: no boxes around floating elements
+   (Travis, 2026-11-20 21:01). The scrolling strip's dark full-width
+   band — background, top/bottom border lines, shadow, blur — is
+   REMOVED: the pills float directly on the page grey like
+   everything else. The full-width breakout stays (the scroll track
+   needs the width), but it is now invisible: no container, no
+   lines crossing the page. ---- */
+.glance-strip{
+  background:transparent;border-top:none;border-bottom:none;box-shadow:none;
+  -webkit-backdrop-filter:none;backdrop-filter:none;
+}

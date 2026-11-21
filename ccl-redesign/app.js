@@ -4088,6 +4088,28 @@ function homeSavePref() {
     else window.localStorage.removeItem(HOME_KEY);
   } catch (e) { /* non-fatal */ }
 }
+/* (a) Real, openly licensed photos per town (sources + licenses are
+   logged in ~/workspace/ccl-redesign/BUILD-LIST.md). No pick = the
+   Beaver Falls scenic (Beaver Creek, Columbia County). */
+var TOWN_PHOTOS = {
+  'St. Helens': { src: 'img/town-st-helens.jpg', credit: 'Columbia View Park, St. Helens — photo by Cacophony, CC BY 3.0, Wikimedia Commons' },
+  'Scappoose': { src: 'img/town-scappoose.jpg', credit: 'Welcome to Scappoose — photo by Cacophony, CC BY 3.0, Wikimedia Commons' },
+  'Rainier': { src: 'img/town-rainier.jpg', credit: 'The Columbia River and Lewis & Clark Bridge from Rainier — photo by Kingofthedead, CC BY-SA 4.0, Wikimedia Commons' },
+  'Clatskanie': { src: 'img/town-clatskanie.jpg', credit: 'Clatskanie from the air (1930s) — U.S. Army aerial via the National Archives, public domain, Wikimedia Commons' },
+  'Vernonia': { src: 'img/town-vernonia.jpg', credit: 'Bridge Street, Vernonia — photo by Geirfuglasker, CC BY-SA 4.0, Wikimedia Commons' },
+  'Columbia City': { src: 'img/town-columbia-city.jpg', credit: 'The railroad crossing, Columbia City — photo by M.O. Stevens, CC BY-SA 4.0, Wikimedia Commons' },
+  'Warren': { src: 'img/town-warren.jpg', credit: 'Warren Baptist Church, Warren — photo by M.O. Stevens, CC BY-SA 3.0, Wikimedia Commons' }
+};
+var TOWN_PHOTO_DEFAULT = { src: 'img/town-default.jpg', credit: 'Beaver Falls, Columbia County — photo by DJ Cane, CC BY-SA 4.0, Wikimedia Commons' };
+function homePhotoApply() {
+  var img = document.getElementById('home-bg-img');
+  if (!img) return;
+  var p = (homeTown && TOWN_PHOTOS[homeTown.name]) || TOWN_PHOTO_DEFAULT;
+  if (img.getAttribute('src') !== p.src) img.setAttribute('src', p.src);
+  var c = document.getElementById('home-photo-credit');
+  if (c) c.textContent = p.credit;
+}
+
 /* v75: the Your town card's own composed strings (status label, See
    events button, events note). langCur is read only through
    homeLang(): initHome() runs long before the i18n module's
@@ -9919,28 +9941,6 @@ function emWireCoords() {
    (a) Your town card photo backgrounds, (b) the event-cards scroller
    under the founding panel, (c) ticker event tile deep-linking.
    ===================================================================== */
-
-/* (a) Real, openly licensed photos per town (sources + licenses are
-   logged in ~/workspace/ccl-redesign/BUILD-LIST.md). No pick = the
-   Beaver Falls scenic (Beaver Creek, Columbia County). */
-var TOWN_PHOTOS = {
-  'St. Helens': { src: 'img/town-st-helens.jpg', credit: 'Columbia View Park, St. Helens — photo by Cacophony, CC BY 3.0, Wikimedia Commons' },
-  'Scappoose': { src: 'img/town-scappoose.jpg', credit: 'Welcome to Scappoose — photo by Cacophony, CC BY 3.0, Wikimedia Commons' },
-  'Rainier': { src: 'img/town-rainier.jpg', credit: 'The Columbia River and Lewis & Clark Bridge from Rainier — photo by Kingofthedead, CC BY-SA 4.0, Wikimedia Commons' },
-  'Clatskanie': { src: 'img/town-clatskanie.jpg', credit: 'Clatskanie from the air (1930s) — U.S. Army aerial via the National Archives, public domain, Wikimedia Commons' },
-  'Vernonia': { src: 'img/town-vernonia.jpg', credit: 'Bridge Street, Vernonia — photo by Geirfuglasker, CC BY-SA 4.0, Wikimedia Commons' },
-  'Columbia City': { src: 'img/town-columbia-city.jpg', credit: 'The railroad crossing, Columbia City — photo by M.O. Stevens, CC BY-SA 4.0, Wikimedia Commons' },
-  'Warren': { src: 'img/town-warren.jpg', credit: 'Warren Baptist Church, Warren — photo by M.O. Stevens, CC BY-SA 3.0, Wikimedia Commons' }
-};
-var TOWN_PHOTO_DEFAULT = { src: 'img/town-default.jpg', credit: 'Beaver Falls, Columbia County — photo by DJ Cane, CC BY-SA 4.0, Wikimedia Commons' };
-function homePhotoApply() {
-  var img = document.getElementById('home-bg-img');
-  if (!img) return;
-  var p = (homeTown && TOWN_PHOTOS[homeTown.name]) || TOWN_PHOTO_DEFAULT;
-  if (img.getAttribute('src') !== p.src) img.setAttribute('src', p.src);
-  var c = document.getElementById('home-photo-credit');
-  if (c) c.textContent = p.credit;
-}
 
 /* (b) The event-cards scroller. Selection: specials first (free /
    giveaways / bazaars / markets / limited-time items), then the

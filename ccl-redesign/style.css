@@ -3972,3 +3972,17 @@ html[data-theme="dark"] .school-status.school-closed{color:#ff7b72;background:tr
 .otl-more:hover{color:#8a4a00}
 .founding-cta.alt{background:transparent;color:#7a4a00;border-color:rgba(150,90,10,.55)}
 .founding-foot{color:#7d7261}
+
+/* ---- REDESIGN ITEM 2g: two fixes (Travis, 2026-11-20 20:47).
+   (1) The header status spots are THREE EVEN SECTIONS in one row
+   across the card's bottom — equal widths, no wrapping/stacking at
+   any width. (2) The founding cells read as separate cards again:
+   solid white with an orange-tinted border and a soft shadow, so
+   the ombre shows in the gaps between them instead of the cells
+   blending into one mass. ---- */
+body.rd-home .hero-status{flex-wrap:nowrap;gap:6px 10px}
+body.rd-home .hero-spot{flex:1 1 0;text-align:center;white-space:nowrap}
+@media (max-width:480px){ body.rd-home .hero-spot{font-size:.93rem} }
+.founding-cell{background:#ffffff;border-color:rgba(176,94,0,.38);box-shadow:0 4px 14px rgba(150,85,10,.13)}
+.founding-cell.invite{background:#fffdf6;border-color:rgba(233,140,30,.7)}
+.founding-cell.taken{background:#ffffff;border-color:rgba(233,140,30,.5)}

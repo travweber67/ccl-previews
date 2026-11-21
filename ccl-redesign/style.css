@@ -4990,3 +4990,42 @@ body.view-anim .card,body.view-anim .featured-local,body.view-anim .finder-box,b
   color:#7a3c00;font-weight:800;font-size:.92rem;font-family:var(--sans);
   box-shadow:0 4px 12px rgba(23,26,30,.14)}
 .nws-seeall:active{transform:translateY(1px)}
+/* ---- 4l. TRAVEL + CARD-TREATMENT BATCH (Travis, 2026-11-20 23:06). ---- */
+/* (4) EVERY card carries a treatment — the orange marbling OR a
+   picture. The marbling becomes the DEFAULT card surface (strong
+   white wash, text unchanged); cards with their own picture or a
+   more specific surface rule keep it (photo bands, the hero, the
+   founding panel, the schools paint, the scroller bodies are all
+   more specific or separate elements). Long cards where a fitting
+   photo is hard to find get the marbling — that is what it is for. */
+.card,html[data-theme="dark"] .card{
+  background:linear-gradient(rgba(255,255,255,.84),rgba(255,255,255,.84)),url('img/founding-paint.jpg') center/cover,#fff8f0}
+/* (5) GRAPH EXCEPTION: a chart keeps its own solid card surface so
+   it stays fully visible and readable — the river sparklines and
+   the air-quality scale sit on warm-white, never on the marbling. */
+.river-spark{background:#fffdf8;border:1px solid rgba(122,60,0,.16);border-radius:10px;padding:8px 10px 6px}
+.air-scale{background-color:#fffdf8;border:1px solid rgba(122,60,0,.16);border-radius:10px}
+/* (1) Cameras: the "See more cameras" expander matches the schools
+   See-more pattern. (The ~6-up cut and the I-5 removal live in
+   app.js renderRoads — item 4l.) */
+.cams-more{margin-top:10px}
+.cams-more summary{
+  display:inline-flex;align-items:center;gap:6px;cursor:pointer;
+  font-weight:700;font-size:.88rem;color:var(--accent-2);
+  padding:6px 2px;min-height:36px;list-style:none}
+.cams-more summary::-webkit-details-marker{display:none}
+.cams-more summary::after{content:"▾";font-size:.8em;transition:transform .2s ease}
+.cams-more[open ] summary::after{transform:rotate(180deg)}
+.cams-more .camera-grid{margin-top:10px}
+/* (3) SPONSOR SPACING: one rhythm in every view. Views lay out with
+   a uniform flex/grid gap; sponsor cells carry NO margins of their
+   own, so a sponsor sits exactly as far from its neighbours as any
+   card does — Travel, Events & More and Outdoors alike (Outdoors
+   was Travis's reference for "right"). This also retires the extra
+   14px the sponsor strip carried under itself in 4k. */
+.view>.section-sponsor,.view>.founding-cell.in-flow{margin-top:0;margin-bottom:0}
+.sponsor-strip{margin:0}
+/* ---- 4m. TAB BAR LAYER (companion to the app.js visual-viewport
+   anchor, item 4m): the bar keeps its own composited layer at phone
+   widths so its position never waits on a repaint. ---- */
+@media (max-width:899px){.tabbar{will-change:transform}}

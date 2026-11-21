@@ -1209,17 +1209,22 @@ function renderRoads(roads, camerasSnap) {
     iEl.innerHTML = '<p class="status-note">🛠️ The bridge status above and event/ferry panels are live now. ODOT\'s incident feed itself needs ODOT\'s free developer key added to our fetcher — the plumbing is built and waiting on that one signup (it\'s free; it just has to be done by a person). Until then, the snapshot above is WSDOT + county sources only for roads.</p>';
   }
   // Cameras — batch Nov 15 (item 9): the main grid keeps only the cameras
-  // that matter to county drivers — US-30, Cornelius Pass (OR-127), the
-  // I-5 Columbia crossing and OR-47 out of Vernonia (Stub Stewart) — and
-  // sorts the in-county cameras first (stable sort: feed order is kept
-  // inside each group; cameras without coordinates ride with the
-  // out-of-county group). The cut is keyed to the route so it survives
-  // feed refreshes. My Route below still reads the full snapshot; the
-  // map markers follow the grid.
+  // that matter to county drivers — US-30, Cornelius Pass (OR-127) and
+  // OR-47 out of Vernonia (Stub Stewart) — and sorts the in-county
+  // cameras first (stable sort: feed order is kept inside each group;
+  // cameras without coordinates ride with the out-of-county group). The
+  // cut is keyed to the route so it survives feed refreshes. My Route
+  // below still reads the full snapshot; the map markers follow the grid.
+  // REDESIGN ITEM 4l (Travis, 2026-11-20 23:06): I-5 is OUT entirely —
+  // the Nov 15 build included the I-5 Columbia crossing and Travis has
+  // reversed that: Columbia County corridors only, and any camera whose
+  // name says I-5 / Interstate 5 is dropped even if its route key would
+  // pass. And the grid shows the first SIX cameras only; the rest sit
+  // behind a "See more cameras" expander.
   const cEl = $('cameras-body');
   const cams = (camerasSnap && camerasSnap.cameras) || [];
-  const GRID_ROUTES = { US30: 1, OR127: 1, I5: 1, OR47: 1 };
-  const gridCams = cams.filter(c => GRID_ROUTES[c.route])
+  const GRID_ROUTES = { US30: 1, OR127: 1, OR47: 1 };
+  const gridCams = cams.filter(c => GRID_ROUTES[c.route] && !/\bI-?5\b|Interstate\s*5/i.test(c.name || ''))
     .sort((a, b) => (inBox(b.lat, b.lon) ? 1 : 0) - (inBox(a.lat, a.lon) ? 1 : 0));
   if (gridCams.length) {
     // TripCheck stills live at static URLs that update in place — without a
@@ -1228,10 +1233,13 @@ function renderRoads(roads, camerasSnap) {
     // snapshot yields fresh stills, an unchanged one stays cached.
     const camBust = encodeURIComponent((camerasSnap && camerasSnap.fetched_at) || 'live');
     const camSrc = u => esc(u + (u.indexOf('?') >= 0 ? '&' : '?') + 'snap=' + camBust);
-    cEl.innerHTML = '<div class="camera-grid">' + gridCams.map(c =>
+    const camFig = c =>
       '<figure class="camera-fig">'
       + (c.image_url ? '<img loading="lazy" src="' + camSrc(c.image_url) + '" alt="Road camera: ' + esc(c.name) + '" onerror="this.parentNode.classList.add(\'cam-dead\');this.remove();">' : '')
-      + '<figcaption>' + esc(c.name) + (c.route ? ' · ' + esc(c.route) : '') + '</figcaption></figure>').join('') + '</div>'
+      + '<figcaption>' + esc(c.name) + (c.route ? ' · ' + esc(c.route) : '') + '</figcaption></figure>';
+    const firstCams = gridCams.slice(0, 6), restCams = gridCams.slice(6);
+    cEl.innerHTML = '<div class="camera-grid">' + firstCams.map(camFig).join('') + '</div>'
+      + (restCams.length ? '<details class="cams-more"><summary>See more cameras (' + restCams.length + ' more)</summary><div class="camera-grid">' + restCams.map(camFig).join('') + '</div></details>' : '')
       + '<p class="card-note small">Camera stills are the latest snapshot frame; the fetcher refreshes the list every run.</p>';
     if (map && !renderRoads._camsDrawn) {
       renderRoads._camsDrawn = true;
@@ -8191,6 +8199,45 @@ function cclShowView(name) {
     setTimeout(() => { try { fitHeatLabels(); } catch (e) { /* strip not rendered yet */ } }, 60);
   }
 }
+/* REDESIGN ITEM 4m — TAB BAR VISUAL-VIEWPORT ANCHOR (Travis,
+   2026-11-20 23:08: on his real phone the bottom pills intermittently
+   float UP over the content instead of sitting at the bottom; the
+   headless probe never reproduced it). Root cause: the bar is
+   position:fixed;bottom:0, which anchors to the LAYOUT viewport —
+   but a phone browser's VISUAL viewport is a different size whenever
+   its dynamic toolbar is shown vs hidden (and in in-app WebViews),
+   so the bar paints offset from the bottom the user actually sees,
+   by about a toolbar's height, until a repaint snaps it back.
+   Headless Chromium has no dynamic toolbar, so its layout and visual
+   viewports always agree and the probe sees nothing. (Ruled out on
+   the way: the bar is a direct child of <body> — no transformed,
+   filtered or will-change ancestor exists to re-anchor it; the body
+   state classes only set overflow:hidden.) Fix: continuously anchor
+   the bar to the VISUAL viewport — whenever the visual viewport's
+   bottom sits above/below the layout viewport's bottom, translate
+   the bar by exactly that delta. translateZ(0) keeps the bar on its
+   own composited layer so it never lags a repaint. Desktop (≥900px)
+   keeps the plain sticky top bar, untouched. */
+(function anchorTabBar() {
+  const bar = document.getElementById('tabbar');
+  if (!bar || !window.visualViewport) return;
+  let queued = false;
+  function anchor() {
+    queued = false;
+    if (window.innerWidth >= 900) { bar.style.transform = ''; return; }
+    const vv = window.visualViewport;
+    const off = window.innerHeight - vv.height - vv.offsetTop;
+    bar.style.transform = Math.abs(off) > 0.5
+      ? 'translateY(' + (-off).toFixed(1) + 'px) translateZ(0)'
+      : 'translateZ(0)';
+  }
+  function queue() { if (!queued) { queued = true; requestAnimationFrame(anchor); } }
+  window.visualViewport.addEventListener('resize', queue);
+  window.visualViewport.addEventListener('scroll', queue);
+  window.addEventListener('resize', queue);
+  window.addEventListener('orientationchange', queue);
+  anchor();
+})();
 function cclReveal(el) {
   if (!el) return;
   const v = cclViewOf(el);

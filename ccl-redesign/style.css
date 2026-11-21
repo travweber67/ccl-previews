@@ -5029,3 +5029,20 @@ body.view-anim .card,body.view-anim .featured-local,body.view-anim .finder-box,b
    anchor, item 4m): the bar keeps its own composited layer at phone
    widths so its position never waits on a repaint. ---- */
 @media (max-width:899px){.tabbar{will-change:transform}}
+/* ---- 4n. THE SEAM UNDER THE TICKER (Travis, 2026-11-20 23:11,
+   localized with his phone screenshot: directly below the
+   auto-scrolling ticker feed, right above the founding panel).
+   ACTUAL CAUSE: not the strip container (its background, borders
+   and shadow were removed in item 2n) and not the page ground (4a)
+   — it is the pills' own shadows being CLIPPED. .strip-viewport is
+   overflow:hidden (the marquee needs it); each orange pill carries
+   box-shadow 0 5px 16px, reaching ~21px below the pill, but the
+   pill's bottom margin inside the viewport is only 9px, so every
+   shadow is cut off mid-fade at the viewport's bottom edge —
+   drawing one straight horizontal line the full width of the
+   strip, exactly where Travis saw it. Fix: give the viewport
+   vertical room so the shadows finish their fade INSIDE the clip;
+   the strip is transparent, so the extra room shows the page
+   ground and the feed blends in with no edge. (Top padding covers
+   the smaller top clip too.) ---- */
+.strip-viewport{padding-top:14px;padding-bottom:18px}

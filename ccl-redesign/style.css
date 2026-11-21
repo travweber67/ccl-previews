@@ -4114,3 +4114,13 @@ body.rd-home .strip-item.glance-tile{box-shadow:0 10px 24px rgba(22,24,28,.45),0
   background:transparent;border-top:none;border-bottom:none;box-shadow:none;
   -webkit-backdrop-filter:none;backdrop-filter:none;
 }
+
+/* ---- REDESIGN ITEM 2q: page background gradient (Travis,
+   2026-11-20 21:02). The light grey is no longer dead flat: a soft
+   radial lightening sits toward the TOP-LEFT corner (fixed to the
+   viewport, so the corner glow stays put while the page scrolls).
+   Gentle only — it reads as light grey everywhere. Light theme
+   only; dark theme's ground is unchanged. ---- */
+body.rd-home{
+  background:#f4f5f7 radial-gradient(1100px 750px at 0% 0%, #fcfdfe 0%, #f4f5f7 58%, #eceff2 100%) fixed no-repeat;
+}

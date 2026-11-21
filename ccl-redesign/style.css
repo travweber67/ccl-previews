@@ -3869,6 +3869,37 @@ body.rd-home #home-card .home-linkbtn{color:#ffd9a8}
   .ev-scroll-viewport{overflow-x:auto}
 }
 
+/* --- news scroller (item 2k built, under the Community Notice cell):
+   same side-sliding picture-card pattern as the event scroller;
+   cards link out to the publisher's story --- */
+.news-scroll{margin:18px 0 4px}
+.news-scroll-head{display:flex;align-items:center;gap:9px;margin:0 2px 10px}
+.news-scroll-head h2{font-size:1.15rem;margin:0}
+.news-scroll-viewport{overflow:hidden}
+.news-scroll-track{display:flex;width:max-content;animation:evsScroll 55s linear infinite;will-change:transform}
+.news-scroll:hover .news-scroll-track,.news-scroll:focus-within .news-scroll-track{animation-play-state:paused}
+.nws-card{
+  flex:none;width:198px;margin-right:12px;
+  background:var(--panel);border:1px solid var(--border);border-radius:16px;
+  overflow:hidden;text-decoration:none;color:var(--text);
+  box-shadow:0 6px 16px rgba(23,32,27,.10);
+  display:flex;flex-direction:column;
+}
+.nws-img{width:100%;height:88px;object-fit:cover;display:block}
+.nws-body{padding:9px 12px 11px;display:flex;flex-direction:column;gap:2px}
+.nws-when{font-size:.68rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--accent-dark)}
+.nws-title{font-weight:700;font-size:.93rem;line-height:1.25}
+.nws-loc{font-size:.76rem;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+@media (min-width:900px){
+  .nws-card{width:234px}
+  .nws-img{height:106px}
+  .nws-title{font-size:.97rem}
+}
+@media (prefers-reduced-motion:reduce){
+  .news-scroll-track{animation:none}
+  .news-scroll-viewport{overflow-x:auto}
+}
+
 /* ---- REDESIGN ITEM 2c: per-view header card + view slide transition
    (Travis, 2026-11-20). Section name + tagline over each view's own
    photo; tab switches slide the whole view out left / in from the
@@ -4099,7 +4130,7 @@ body.rd-home .hero{box-shadow:0 18px 42px rgba(255,122,26,.30),0 4px 12px rgba(3
 .founding-panel{box-shadow:0 16px 38px rgba(255,122,26,.32),0 4px 12px rgba(30,40,20,.14)}
 #go-card{box-shadow:0 16px 38px rgba(255,122,26,.30),0 4px 12px rgba(30,40,20,.16)}
 .featured-local{box-shadow:0 14px 34px rgba(255,122,26,.28),0 4px 12px rgba(30,40,20,.12)}
-.evs-card{box-shadow:0 12px 28px rgba(22,24,28,.48),0 2px 6px rgba(22,24,28,.35)}
+.evs-card,.nws-card{box-shadow:0 12px 28px rgba(22,24,28,.48),0 2px 6px rgba(22,24,28,.35)}
 body.rd-home .strip-item.glance-tile{box-shadow:0 10px 24px rgba(22,24,28,.45),0 2px 6px rgba(22,24,28,.32)}
 #home-card{box-shadow:0 14px 32px rgba(22,24,28,.42),0 4px 10px rgba(22,24,28,.25)}
 

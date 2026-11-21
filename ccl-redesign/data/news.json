@@ -1,0 +1,47 @@
+{
+ "fetched_at": "2026-11-21T05:34:41Z",
+ "sources": [
+  {
+   "name": "Oregon Civic Newsstand — Columbia County week view",
+   "status": "ok",
+   "note": "Republishes the county's newsrooms (Columbia County Spotlight et al.) filtered to Columbia County, with headline, link, date, categories and the story's own photo. CCL filter applied: picture required, no politics, no heavy news, county-local only."
+  }
+ ],
+ "stories": [
+  {
+   "title": "Whoville to make its 2026 debut in Scappoose",
+   "source": "Columbia County Spotlight",
+   "url": "https://columbiacountyspotlight.com/2026/11/19/whoville-to-make-its-2026-debut-in-scappoose/",
+   "img": "https://columbiacountyspotlight.com/wp-content/uploads/sites/27/2026/11/Whoville202026208.jpg",
+   "date": "2026-11-19"
+  },
+  {
+   "title": "Scappoose Senior Center sets holiday bazaar",
+   "source": "Columbia County Spotlight",
+   "url": "https://columbiacountyspotlight.com/2026/11/18/scappoose-senior-center-sets-holiday-bazaar/",
+   "img": "https://columbiacountyspotlight.com/wp-content/uploads/sites/27/2026/11/scapseniorcenterbazaar.jpg",
+   "date": "2026-11-18"
+  },
+  {
+   "title": "Measles is no longer eliminated in the U.S. These Columbia County schools are vulnerable to outbreaks.",
+   "source": "Columbia County Spotlight",
+   "url": "https://columbiacountyspotlight.com/2026/11/17/measles-is-no-longer-eliminated-in-the-u-s-these-columbia-county-schools-are-vulnerable-to-outbreaks/",
+   "img": "https://columbiacountyspotlight.com/wp-content/uploads/sites/27/2026/11/news_vaccines_061226_SPL-01.jpg",
+   "date": "2026-11-17"
+  },
+  {
+   "title": "Columbia County restaurant inspections: How Fultano’s Pizza, Goble Tavern & more scored",
+   "source": "Columbia County Spotlight",
+   "url": "https://columbiacountyspotlight.com/2026/11/17/columbia-county-restaurant-inspections-how-fultanos-pizza-goble-tavern-more-scored/",
+   "img": "https://columbiacountyspotlight.com/wp-content/uploads/sites/27/2026/11/news_restaurantinspections_022026_SPL-01.jpg",
+   "date": "2026-11-17"
+  },
+  {
+   "title": "Head out to holiday markets!",
+   "source": "Columbia County Spotlight",
+   "url": "https://columbiacountyspotlight.com/2026/11/13/head-out-to-holiday-markets/",
+   "img": "https://columbiacountyspotlight.com/wp-content/uploads/sites/27/2026/11/Holiday20Bazaars.jpg",
+   "date": "2026-11-13"
+  }
+ ]
+}

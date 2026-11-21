@@ -34,7 +34,7 @@ document.documentElement.setAttribute("data-theme",t);})();
 <link rel="manifest" href="manifest.webmanifest?v=95">
 <link rel="apple-touch-icon" href="img/apple-touch-icon.png?v=95">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
-<link rel="stylesheet" href="style.css?v=141">
+<link rel="stylesheet" href="style.css?v=142">
 <link rel="icon" type="image/png" sizes="48x48" href="img/favicon-48.png?v=95">
 <link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png?v=95">
 <!-- v4 load pass: the two Today backgrounds (one per theme) are the
@@ -457,6 +457,27 @@ document.documentElement.setAttribute("data-theme",t);})();
   <p>This space rotates free notices for Columbia County nonprofits — food banks, libraries, volunteer fire &amp; EMS recruitment. A community service, not an ad.</p>
   <a class="founding-cta alt" href="sponsor.html#community">How community notices work &rarr;</a>
 </article>
+
+<!-- REDESIGN ITEM 2k, BUILT (Travis, 2026-11-20): the NEWS scroller,
+     in Travis's placement for this stretch of Today: Community
+     Notice (above) → this sliding news feed → the County Briefing
+     (below) → the final sponsor card. Same side-sliding picture-card
+     pattern as the events scroller, but every card is a real local
+     news story from data/news.json — built by fetch_news.py from the
+     Oregon Civic Newsstand's Columbia County view, politics and
+     heavy news filtered out at the source, every story carrying its
+     own photo — and each card links OUT to the publisher's story.
+     Cards are built by buildNewsScroller() in app.js; the section
+     hides itself when the snapshot is missing or empty. -->
+<section class="news-scroll" id="news-scroll" aria-label="Good news around the county — local stories, scrolling" hidden>
+  <div class="news-scroll-head">
+    <img class="card-ico" src="img/icons/icon-news.png" alt="" aria-hidden="true">
+    <h2 data-i18n="newsscrollh2">Good news around the county</h2>
+  </div>
+  <div class="news-scroll-viewport">
+    <div class="news-scroll-track" id="news-scroll-track"><p class="loading">Loading the good news…</p></div>
+  </div>
+</section>
 
 <section class="card band-card briefing-card" id="briefing-card" aria-label="The county briefing — today's summary, ready to copy and share">
       <div class="card-band" aria-hidden="true"><img src="img/dusk/ticker-panorama.jpg" alt="" loading="lazy" decoding="async"></div>
@@ -2271,7 +2292,7 @@ document.documentElement.setAttribute("data-theme",t);})();
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/satellite.js/5.0.0/satellite.min.js"></script>
-<script src="app.js?v=129"></script>
+<script src="app.js?v=130"></script>
 <script data-goatcounter="https://columbiacountylive.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
 

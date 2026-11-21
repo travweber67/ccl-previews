@@ -4096,9 +4096,9 @@ var TOWN_PHOTOS = {
   'Scappoose': { src: 'img/town-scappoose.jpg', credit: 'Welcome to Scappoose — photo by Cacophony, CC BY 3.0, Wikimedia Commons' },
   'Rainier': { src: 'img/town-rainier.jpg', credit: 'The Columbia River and Lewis & Clark Bridge from Rainier — photo by Kingofthedead, CC BY-SA 4.0, Wikimedia Commons' },
   'Clatskanie': { src: 'img/town-clatskanie.jpg', credit: 'Clatskanie from the air (1930s) — U.S. Army aerial via the National Archives, public domain, Wikimedia Commons' },
-  'Vernonia': { src: 'img/town-vernonia.jpg', credit: 'Bridge Street, Vernonia — photo by Geirfuglasker, CC BY-SA 4.0, Wikimedia Commons' },
+  'Vernonia': { src: 'img/town-vernonia.jpg', credit: 'The Welcome to Vernonia sign — photo by Geirfuglasker, CC BY-SA 4.0, Wikimedia Commons' },
   'Columbia City': { src: 'img/town-columbia-city.jpg', credit: 'The railroad crossing, Columbia City — photo by M.O. Stevens, CC BY-SA 4.0, Wikimedia Commons' },
-  'Warren': { src: 'img/town-warren.jpg', credit: 'Warren Baptist Church, Warren — photo by M.O. Stevens, CC BY-SA 3.0, Wikimedia Commons' }
+  'Warren': { src: 'img/town-warren.jpg', credit: 'The Warren Elementary School sign, Warren — photo by Tedder, CC BY 3.0, Wikimedia Commons' }
 };
 var TOWN_PHOTO_DEFAULT = { src: 'img/town-default.jpg', credit: 'Beaver Falls, Columbia County — photo by DJ Cane, CC BY-SA 4.0, Wikimedia Commons' };
 function homePhotoApply() {
@@ -6621,6 +6621,7 @@ const LANG_ES = {
   godrive: 'Manejando',
   goferry: 'Tomar el ferry',
   evscrollh2: 'Pasando en el condado',
+  newsscrollh2: 'Buenas noticias del condado',
   dwplan: 'Esta noche y mañana',
   dwschools: 'Escuelas — cierres y retrasos',
   dwbriefing: 'El Resumen del Condado',
@@ -10061,12 +10062,45 @@ document.addEventListener('click', function (ev) {
   setTimeout(function () { evsScrollToKey(key); }, 600);
 });
 
+/* (e) REDESIGN ITEM 2k, BUILT (Travis, 2026-11-20): the NEWS
+   scroller under the Community Notice cell. Data comes from
+   data/news.json (built by fetch_news.py) — real local stories,
+   politics and heavy news filtered out at the source, every story
+   carrying its own photo. Cards link OUT to the publisher's story
+   page. The section stays hidden when the snapshot is missing or
+   empty, so a failed news fetch never leaves a hole on Today. */
+function buildNewsScroller() {
+  var sec = document.getElementById('news-scroll');
+  var track = document.getElementById('news-scroll-track');
+  if (!sec || !track) return;
+  getSnapshot('news.json').then(function (data) {
+    var stories = (data && data.stories) || [];
+    if (!stories.length) { sec.hidden = true; return; }
+    var html = stories.map(function (s) {
+      var when = '';
+      try { when = fmtDay(new Date(s.date + 'T12:00:00')); } catch (e) { when = ''; }
+      return '<a class="nws-card" href="' + esc(s.url || '') + '" target="_blank" rel="noopener">'
+        + '<img class="nws-img" src="' + esc(s.img || '') + '" alt="" loading="lazy" decoding="async">'
+        + '<span class="nws-body"><span class="nws-when">' + esc(when) + '</span>'
+        + '<span class="nws-title">' + esc(s.title || '') + '</span>'
+        + (s.source ? '<span class="nws-loc">' + esc(s.source) + '</span>' : '')
+        + '</span></a>';
+    }).join('');
+    /* one duplicate set for the seamless -50% loop, same as the
+       event scroller; clones are hidden from AT and tab order */
+    track.innerHTML = html + html.replace(/class="nws-card"/g, 'class="nws-card nws-clone" aria-hidden="true" tabindex="-1"');
+    sec.hidden = false;
+  }).catch(function () { sec.hidden = true; });
+}
+buildNewsScroller();
+
 /* Boot safety net: if an init path rendered before this block's
    functions were reachable, apply the town photo and build the
    scroller once everything has settled. */
 setTimeout(function () {
   homePhotoApply();
   if (typeof eventsCache !== 'undefined' && eventsCache) buildEventScroller();
+  buildNewsScroller();
 }, 1200);
 
 /* (d) REDESIGN ITEM 2b: the Today forecast card mirrors the Outdoors

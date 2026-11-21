@@ -4168,3 +4168,13 @@ body.rd-home{
   background:rgba(84,90,98,.32);
   border-color:rgba(255,255,255,.55);
 }
+
+/* ---- REDESIGN ITEM 2t: reverse-direction slides (Travis,
+   2026-11-20). Tab order is Today → Events → Travel → Outdoors;
+   going BACKWARD in that order mirrors the motion: the old view
+   exits right, the new one enters from the left, and the header
+   card enters from the top-left instead of the top-right. ---- */
+.hero.hero-exit.rev{transform:translateX(64px)}
+.hero.hero-enter.rev{transform:translate(-54px,-32px)}
+.view-leaving.rev{transform:translateX(56px)}
+.view-entering.rev{transform:translateX(-56px)}

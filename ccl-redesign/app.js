@@ -7978,14 +7978,28 @@ function heroSetContent(view) {
   }
   heroViewCur = cfg ? view : 'today';
 }
-function heroApplyView(name, animated) {
+/* Item 2t (Travis, 2026-11-20): tab order is Today, Events,
+   Travel, Outdoors — and the slide animation follows that order:
+   moving to a later tab slides forward (out left, in from the
+   right, header from the top-right); moving to an earlier tab
+   reverses (out right, in from the left, header from the
+   top-left). */
+const TAB_ORDER = ['today', 'more', 'travel', 'outdoors'];
+function tabDirOf(prev, name) {
+  const a = TAB_ORDER.indexOf(prev), b = TAB_ORDER.indexOf(name);
+  if (a === -1 || b === -1 || a === b) return 1;
+  return b > a ? 1 : -1;
+}
+function heroApplyView(name, animated, dir) {
   if (name !== 'today' && !HERO_VIEWS[name]) return; /* emergency/help: card untouched */
   const target = HERO_VIEWS[name] ? name : 'today';
   const hero = document.querySelector('header.hero');
   if (!hero || !animated || heroViewCur === target) { heroSetContent(target); return; }
+  const rev = dir === -1;
   const h0 = hero.offsetHeight;
   hero.style.height = h0 + 'px';
   hero.classList.add('hero-exit');
+  if (rev) hero.classList.add('rev');
   setTimeout(() => {
     heroSetContent(target);
     hero.style.height = '';
@@ -7997,26 +8011,29 @@ function heroApplyView(name, animated) {
     hero.style.height = h1 + 'px';
     hero.classList.add('hero-enter-go');
     setTimeout(() => {
-      hero.classList.remove('hero-enter', 'hero-enter-go');
+      hero.classList.remove('hero-enter', 'hero-enter-go', 'rev');
       hero.style.height = '';
     }, 380);
   }, 235);
 }
-function animateViewSwap(prev, name, token) {
+function animateViewSwap(prev, name, token, dir) {
   const out = $('view-' + prev), inn = $('view-' + name);
   if (!out || !inn) { viewAnimBusy = false; return; }
+  const rev = dir === -1;
   out.classList.add('view-leaving');
+  if (rev) out.classList.add('rev');
   setTimeout(() => {
-    if (token !== viewAnimToken) { out.classList.remove('view-leaving'); return; }
-    out.classList.remove('view-leaving');
+    if (token !== viewAnimToken) { out.classList.remove('view-leaving', 'rev'); return; }
+    out.classList.remove('view-leaving', 'rev');
     out.hidden = true;
     out.classList.remove('view-active');
     inn.hidden = false;
     inn.classList.add('view-active', 'view-entering');
+    if (rev) inn.classList.add('rev');
     void inn.offsetWidth;
     inn.classList.add('view-enter-go');
     setTimeout(() => {
-      inn.classList.remove('view-entering', 'view-enter-go');
+      inn.classList.remove('view-entering', 'view-enter-go', 'rev');
       if (token === viewAnimToken) viewAnimBusy = false;
     }, 380);
   }, 240);
@@ -8027,9 +8044,10 @@ function cclShowView(name) {
   cclViewCur = name;
   const wantAnim = !!(prevView && prevView !== name && !viewAnimBusy && !heroReducedMotion()
     && $('view-' + prevView) && $('view-' + name));
+  const slideDir = tabDirOf(prevView, name);
   if (wantAnim) {
     viewAnimBusy = true;
-    animateViewSwap(prevView, name, ++viewAnimToken);
+    animateViewSwap(prevView, name, ++viewAnimToken, slideDir);
   } else {
     viewAnimToken++;
     VIEW_IDS.forEach(v => {
@@ -8038,11 +8056,11 @@ function cclShowView(name) {
       const on = v === name;
       sec.hidden = !on;
       sec.classList.toggle('view-active', on);
-      sec.classList.remove('view-leaving', 'view-entering', 'view-enter-go');
+      sec.classList.remove('view-leaving', 'view-entering', 'view-enter-go', 'rev');
     });
     viewAnimBusy = false;
   }
-  try { heroApplyView(name, wantAnim); } catch (e) { /* hero swap is cosmetic */ }
+  try { heroApplyView(name, wantAnim, slideDir); } catch (e) { /* hero swap is cosmetic */ }
   document.querySelectorAll('.tab-btn').forEach(b => {
     const on = !!(b.dataset && b.dataset.viewBtn === name);
     b.classList.toggle('active', on);

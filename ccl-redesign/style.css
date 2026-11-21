@@ -4563,6 +4563,4 @@ body.rd-home .go-row-warn{border-left:4px solid var(--warn)}
   .evs-img,.nws-img{height:156px}
   .evs-title,.nws-title{font-size:1.06rem}
 }
-body.rd-home .card{padding-top:26px;padding-bottom:26px}
-body.rd-home .card-head h2{font-size:1.34rem}
-.frontpage-list{gap:20px}
+/* (scope correction, Travis 22:29: the general card scale-up is OUT — only the two scroller feeds grow.) */

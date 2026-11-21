@@ -1,0 +1,332 @@
+{
+ "fetched_at": "2026-11-20T18:04:27Z",
+ "sources": [
+  {
+   "name": "Facebook public events (discover search)",
+   "status": "ok",
+   "note": "40 in-county events kept of 601 candidates checked; 532 dropped (out-of-county, unlocated, or duplicate)."
+  }
+ ],
+ "events": [
+  {
+   "date": "2026-11-20",
+   "time": "9:00 AM",
+   "title": "Give Blood Friday, Nov. 20 at CCMH Creekside",
+   "source": "Facebook",
+   "url": "https://www.facebook.com/events/4019062108225300/",
+   "location": "58646 McNulty Way, Saint Helens, OR, United States, Oregon 97051"
+  },
+  {
+   "date": "2026-11-20",
+   "time": "12:00 PM",
+   "title": "💙 Veterans and Families: QPR Suicide Prevention Training 💙",
+   "source": "Facebook",
+   "url": "https://www.facebook.com/events/1900729254430518/",
+   "location": "105 Port Ave, St Helens, OR 97051-3000, United States"
+  },
+  {
+   "date": "2026-11-20",
+   "time": "3:00 PM",
+   "title": "Client Appreciation Day",
+   "source": "Facebook",
+   "url": "https://www.facebook.com/events/2354283988744322/",
+   "location": "115 N 21st St, Saint Helens, OR"
+  },
+  {
+   "date": "2026-11-20",
+   "time": "4:00 PM",
+   "title": "Holiday Bazaar",
+   "source": "Facebook",
+   "url": "https://www.facebook.com/events/1139755961862366/",
+   "location": "25272 Alston Rd, Rainier, OR 97048"
+  },
+  {
+   "date": "2026-11-20",
+   "time": "4:00 PM",
+   "title": "Thanksgiving Kids Night Out",
+   "source": "Facebook",
+   "url": "https://www.facebook.com/events/1742562910820676/",
+   "location": "51555 SW Old Portland Rd, Scappoose, OR"
+  },
+  {
+   "date": "2026-11-21",
+   "time": "8:00 AM",
+   "title": "Columbia Arts Guild Holiday Bazaar",
+   "source": "Facebook",
+   "url": "https://www.facebook.com/events/1756566945428060/",
+   "location": ""
+  },
+  {
+   "date": "2026-11-21",
+   "time": "9:00 AM",
+   "title": "Holiday Church Bazaar",
+   "source": "Facebook",
+   "url": "https://www.facebook.com/events/1650802746497944/",
+   "location": "2615 Sykes Rd, St Helens, OR 97051-2708, United States"
+  },
+  {
+   "date": "2026-11-21",
+   "time": "10:00 AM",
+   "title": "Annual Holiday Kick Off Anniverday Event",
+   "source": "Facebook",
+   "url": "https://www.facebook.com/events/1455884416642063/",
+   "location": "33611 E Columbia Ave, Scappoose, OR, United States, Oregon 97056"
+  },
+  {
+   "date": "2026-11-21",
+   "time": "10:00 AM",
+   "title": "Book Signing with Author Janelle Moriah, \"It Does Exist\"",
+   "source": "Facebook",
+   "url": "https://www.facebook.com/events/1643547217176531/",
+   "location": "230 S 1st , Saint Helens, OR, United States, Oregon 97051"
+  },
+  {
+   "date": "2026-11-21",
+   "time": "10:00 AM",
+   "title": "Lions Bazaar",
+   "source": "Facebook",
+   "url": "https://www.facebook.com/events/1521406300044224/",
+   "location": "St. Helens High School    2375 Gable Rd., Saint Helens, OR"
+  },
+  {
+   "date": "2026-11-21",
+   "time": "10:00 AM",
+   "title": "Winter Street Market",
+   "source": "Facebook",
+   "url": "https://www.facebook.com/events/1114995244601252/",
+   "location": "80 Steele St., Clatskanie, OR, United States, Oregon 97016"
+  },
+  {
+   "date": "2026-11-21",
+   "time": "12:00 PM",
+   "title": "$10 Pawdicure Day",
+   "source": "Facebook",
+   "url": "https://www.facebook.com/events/2917269915303726/",
+   "location": "241 S 1st Street, Saint Helens, OR"
+  },
+  {
+   "date": "2026-11-21",
+   "time": "12:30 PM",
+   "title": "Fellowship Lunch",
+   "source": "Facebook",
+   "url": "https://www.facebook.com/events/4774109816247375/",
+   "location": "54289 Columbia River Hwy, Scappoose, OR, United States, Oregon 97056"
+  },
+  {
+   "date": "2026-11-22",
+   "time": "11:00 AM",
+   "title": "Hebrews: God's Final Word",
+   "source": "Facebook",
+   "url": "https://www.facebook.com/events/1594886965193650/",
+   "location": "235 S 15th, Saint Helens, OR, United States, Oregon 97051"
+  },
+  {
+   "date": "2026-11-22",
+   "time": "12:00 PM",
+   "title": "November Shop For a Cause - Columbia Pacific Food Bank *Sip & Shop*",
+   "source": "Facebook",
+   "url": "https://www.facebook.com/events/3273664999510213/",
+   "location": "1271 Columbia Blvd, St Helens, OR 97051-1846, United States"
+  },
+  {
+   "date": "2026-11-22",
+   "time": "5:00 PM",
+   "title": "Soup for the Group!",
+   "source": "Facebook",
+   "url": "https://www.facebook.com/events/4635061576769217/",
+   "location": "80 Steele St., Clatskanie, OR, United States, Oregon 97016"
+  },
+  {
+   "date": "2026-11-24",
+   "time": "3:00 PM",
+   "title": "Youth Drop Thanksgiving meal",
+   "source": "Facebook",
+   "url": "https://www.facebook.com/events/1035150729625024/",
+   "location": "Broadleaf Arbor, 2250 Gable Road, St. Helens, OR 97051, US"
+  },
+  {
+   "date": "2026-11-24",
+   "time": "7:00 PM",
+   "title": "Faith in Translation",
+   "source": "Facebook",
+   "url": "https://www.facebook.com/events/1458286289681421/",
+   "location": "101 E C St PO Box 188, Rainier, OR, United States, Oregon 97048"
+  },
+  {
+   "date": "2026-11-25",
+   "time": "11:00 AM",
+   "title": "Friendsgiving",
+   "source": "Facebook",
+   "url": "https://www.facebook.com/events/1417926367185069/",
+   "location": "51875 SW Old Portland Road, Scappoose, OR, United States, Oregon 97056"
+  },
+  {
+   "date": "2026-11-26",
+   "time": "8:00 AM",
+   "title": "Vernonia Great Awake Turkey Trot",
+   "source": "Facebook",
+   "url": "https://www.facebook.com/events/1545810187307517/",
+   "location": ""
+  },
+  {
+   "date": "2026-11-27",
+   "time": "4:00 PM",
+   "title": "Wreath Workshop",
+   "source": "Facebook",
+   "url": "https://www.facebook.com/events/2394714907964244/",
+   "location": "254 N Columbia River Hwy, Saint Helens, OR, United States, Oregon 97051"
+  },
+  {
+   "date": "2026-11-27",
+   "time": "5:30 PM",
+   "title": "Black Friday Bingo!",
+   "source": "Facebook",
+   "url": "https://www.facebook.com/events/1457679443143746/",
+   "location": "33342 SW Meadow Dr, Scappoose, OR, United States, Oregon 97056"
+  },
+  {
+   "date": "2026-11-28",
+   "time": "10:00 AM",
+   "title": "Minis on Main Street",
+   "source": "Facebook",
+   "url": "https://www.facebook.com/events/1670840674668895/",
+   "location": "Saint Helens St, St Helens, OR 97051, United States"
+  },
+  {
+   "date": "2026-11-28",
+   "time": "10:00 AM",
+   "title": "The 2026 Wonderland Bazaar",
+   "source": "Facebook",
+   "url": "https://www.facebook.com/events/1153898070920322/",
+   "location": "John Gumm Building - 251 St Helens St. St Helens"
+  },
+  {
+   "date": "2026-11-28",
+   "time": "1:30 PM",
+   "title": "Grace and Gratitude a Sound and Stillness Immersion",
+   "source": "Facebook",
+   "url": "https://www.facebook.com/events/1459339756169422/",
+   "location": "1805 St Helens Street, Saint Helens, OR, United States, Oregon 97051"
+  },
+  {
+   "date": "2026-11-28",
+   "time": "2:00 PM",
+   "title": "Wreath Making Workshop",
+   "source": "Facebook",
+   "url": "https://www.facebook.com/events/1662748708920272/",
+   "location": "51875 SW Old Portland Road, Scappoose, OR, United States, Oregon 97056"
+  },
+  {
+   "date": "2026-11-28",
+   "time": "7:00 PM",
+   "title": "Line Dancing & Karaoke at Alston",
+   "source": "Facebook",
+   "url": "https://www.facebook.com/events/2433516913842172/",
+   "location": "25196 Alston Rd, Rainier, OR"
+  },
+  {
+   "date": "2026-11-29",
+   "time": "12:00 PM",
+   "title": "Lego Thrill- Free Build November",
+   "source": "Facebook",
+   "url": "https://www.facebook.com/events/1316481100427455/",
+   "location": "230 S 1st , Saint Helens, OR, United States, Oregon 97051"
+  },
+  {
+   "date": "2026-11-29",
+   "time": "2:00 PM",
+   "title": "Open Mic (Sign Ups Not Required)",
+   "source": "Facebook",
+   "url": "https://www.facebook.com/events/1498720052099484/",
+   "location": "230 S 1st , Saint Helens, OR, United States, Oregon 97051"
+  },
+  {
+   "date": "2026-11-30",
+   "time": "6:00 PM",
+   "title": "Barrel & Brew Club Whiskey Tasting (Round 4)",
+   "source": "Facebook",
+   "url": "https://www.facebook.com/events/1146303097748262/",
+   "location": "51875 SW Old Portland Road, Scappoose, OR, United States, Oregon 97056"
+  },
+  {
+   "date": "2026-12-01",
+   "time": "9:00 AM",
+   "title": "Capital Options for Businesses (Scappoose/Hybrid)",
+   "source": "Facebook",
+   "url": "https://www.facebook.com/events/1417691429819566/",
+   "location": "34001 Northeast Wagner Court,Scappoose,97056,US"
+  },
+  {
+   "date": "2026-12-01",
+   "time": "9:00 AM",
+   "title": "December 1st, 2026 Vaccine Clinic: Pippin Doc",
+   "source": "Facebook",
+   "url": "https://www.facebook.com/events/1829670857953313/",
+   "location": "905 NE Van St, 97016"
+  },
+  {
+   "date": "2026-12-01",
+   "time": "5:00 PM",
+   "title": "Wreath Making Night at Sass at Home",
+   "source": "Facebook",
+   "url": "https://www.facebook.com/events/1900943371087534/",
+   "location": "1271 Columbia Blvd, Saint Helens, OR, United States, Oregon 97051"
+  },
+  {
+   "date": "2026-12-02",
+   "time": "4:00 AM",
+   "title": "December's CHS Fundraising Night at Burgerville",
+   "source": "Facebook",
+   "url": "https://www.facebook.com/events/1659969922524965/",
+   "location": "715 S Columbia River Hwy, St Helens, OR 97051-2928, United States"
+  },
+  {
+   "date": "2026-12-02",
+   "time": "11:00 AM",
+   "title": "Columbia River Jewelers Presents a Buying Event",
+   "source": "Facebook",
+   "url": "https://www.facebook.com/events/1118849260504879/",
+   "location": "33611 E Columbia Ave Suite A, Scappoose, OR 97056"
+  },
+  {
+   "date": "2026-12-02",
+   "time": "11:00 AM",
+   "title": "Sell Your Valuables - Buying Event",
+   "source": "Facebook",
+   "url": "https://www.facebook.com/events/1140513478361296/",
+   "location": "33611 E Columbia Ave, Scappoose, OR, United States, Oregon 97056"
+  },
+  {
+   "date": "2026-12-02",
+   "time": "7:00 PM",
+   "title": "Scappoose Boosters: Quarterly Meeting",
+   "source": "Facebook",
+   "url": "https://www.facebook.com/events/4443227189272229/",
+   "location": ""
+  },
+  {
+   "date": "2026-12-03",
+   "time": "4:00 PM",
+   "title": "43rd Annual Santa Pictures",
+   "source": "Facebook",
+   "url": "https://www.facebook.com/events/1074961738925521/",
+   "location": "400 W Columbia River Hwy, Clatskanie, OR 97016"
+  },
+  {
+   "date": "2026-12-04",
+   "time": "6:30 PM",
+   "title": "Oh, Holy Night!",
+   "source": "Facebook",
+   "url": "https://www.facebook.com/events/1138184818737805/",
+   "location": "2755 Sykes Rd St Helens"
+  },
+  {
+   "date": "2026-12-05",
+   "time": "10:00 AM",
+   "title": "46th Annual Vernonia Christmas in the Country Bazaar",
+   "source": "Facebook",
+   "url": "https://www.facebook.com/events/2012967316051067/",
+   "location": "1000 Missouri Ave, Vernonia, OR"
+  }
+ ]
+}

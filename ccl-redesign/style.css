@@ -4136,3 +4136,10 @@ body.rd-home{
   border-radius:18px 0 0 18px;
   box-shadow:-22px 20px 54px rgba(20,30,16,.38),-6px 0 20px rgba(20,30,16,.20);
 }
+
+/* ---- FIX (QC round 5): the hero's [hidden] elements must actually
+   hide. The status row is display:flex by rule, which overrides the
+   hidden attribute — on Travel/Outdoors/Events the Today-only spots
+   (and on Today, the view headline block) leaked through. Any
+   [hidden] element inside the hero now wins. ---- */
+.hero [hidden]{display:none!important}

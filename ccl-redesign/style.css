@@ -4124,3 +4124,15 @@ body.rd-home .strip-item.glance-tile{box-shadow:0 10px 24px rgba(22,24,28,.45),0
 body.rd-home{
   background:#f4f5f7 linear-gradient(135deg, #fcfdfe 0%, #f4f5f7 52%, #e8ecf0 100%) fixed no-repeat;
 }
+
+/* ---- REDESIGN ITEM 2r: slide-in panels FLOAT (Travis, 2026-11-20
+   21:04). The right-side slide-in sheets (business/listing detail,
+   get-the-app, and the menu drawer — same pattern) no longer run
+   full height: they are inset from the top and bottom, keep contact
+   with the right edge, and their left side floats free with rounded
+   left corners and a deep soft shadow. Backdrops unchanged. ---- */
+.getapp-sheet,.drawer{
+  top:12px;bottom:12px;height:auto;
+  border-radius:18px 0 0 18px;
+  box-shadow:-22px 20px 54px rgba(20,30,16,.38),-6px 0 20px rgba(20,30,16,.20);
+}

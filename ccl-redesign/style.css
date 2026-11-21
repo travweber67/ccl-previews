@@ -4564,3 +4564,16 @@ body.rd-home .go-row-warn{border-left:4px solid var(--warn)}
   .evs-title,.nws-title{font-size:1.06rem}
 }
 /* (scope correction, Travis 22:29: the general card scale-up is OUT — only the two scroller feeds grow.) */
+
+/* ---- 3t. BRIEFING "…AND N MORE TODAY" LINE (Travis, 2026-11-20
+   22:30): the muted small line vanished on the paint. It now sits
+   on its own frosted chip — same family as the briefing's frosted
+   event cards — in deep orange-brown, bold. ---- */
+#briefing-card .briefing-more{
+  display:inline-block;margin-top:8px;padding:5px 12px;border-radius:999px;
+  background:rgba(255,255,255,.60);
+  -webkit-backdrop-filter:blur(8px) saturate(1.1);backdrop-filter:blur(8px) saturate(1.1);
+  border:1px solid rgba(255,255,255,.65);
+  color:#7a3c00;font-weight:700;font-size:.88rem;
+  box-shadow:0 4px 12px rgba(60,45,20,.16);
+}

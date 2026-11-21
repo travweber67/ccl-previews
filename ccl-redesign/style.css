@@ -4577,3 +4577,29 @@ body.rd-home .go-row-warn{border-left:4px solid var(--warn)}
   color:#7a3c00;font-weight:700;font-size:.88rem;
   box-shadow:0 4px 12px rgba(60,45,20,.16);
 }
+
+/* ---- 3u. BACKGROUND SETTLED (Travis, 2026-11-20 22:33, final
+   word): REALLY LIGHT GREY — the light end of grey, unmistakably
+   grey rather than white. Diagonal as before, lightest top-left.
+   SETTLED VALUES: #f2f3f5 (top-left) → #e9ebee (mid) → #dde1e6
+   (bottom-right), fixed to the viewport. ---- */
+body.rd-home{
+  background:#e9ebee linear-gradient(135deg,#f2f3f5 0%,#e9ebee 48%,#dde1e6 100%) fixed no-repeat;
+}
+
+/* ---- 3v. CARD EDGES (Travis, 2026-11-20 22:32): cards get a fine
+   light rim + an inset top highlight and a hairline of shade at
+   the bottom edge, layered WITH the deepened outer shadows — the
+   cards read as physical floating objects with thickness. ---- */
+body.rd-home .card{
+  border:1px solid rgba(255,255,255,.70);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.85),inset 0 -2px 3px rgba(35,30,22,.07),0 14px 34px rgba(35,30,22,.20),0 4px 10px rgba(35,30,22,.12);
+}
+html[data-theme="dark"] body.rd-home .card{
+  border-color:rgba(255,255,255,.16);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.14),inset 0 -2px 3px rgba(0,0,0,.25),0 14px 34px rgba(0,0,0,.45),0 4px 10px rgba(0,0,0,.35);
+}
+.evs-card,.nws-card,.news-row{
+  border:1px solid rgba(255,255,255,.70);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.85),inset 0 -2px 3px rgba(35,30,22,.07),0 12px 28px rgba(23,26,30,.30),0 4px 10px rgba(23,26,30,.18);
+}

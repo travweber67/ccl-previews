@@ -4122,5 +4122,5 @@ body.rd-home .strip-item.glance-tile{box-shadow:0 10px 24px rgba(22,24,28,.45),0
    Gentle only — it reads as light grey everywhere. Light theme
    only; dark theme's ground is unchanged. ---- */
 body.rd-home{
-  background:#f4f5f7 radial-gradient(1100px 750px at 0% 0%, #fcfdfe 0%, #f4f5f7 58%, #eceff2 100%) fixed no-repeat;
+  background:#f4f5f7 linear-gradient(135deg, #fcfdfe 0%, #f4f5f7 52%, #e8ecf0 100%) fixed no-repeat;
 }

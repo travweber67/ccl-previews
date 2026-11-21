@@ -5091,3 +5091,13 @@ body.view-anim .card,body.view-anim .featured-local,body.view-anim .finder-box,b
 .ev-scroll-viewport,.news-scroll-viewport{padding-top:18px;padding-bottom:22px}
 .forecast-week{padding-top:14px;padding-bottom:18px}
 .forecast-top .forecast-week,.pin-forecast-top .forecast-week{padding-bottom:18px}
+/* ---- 4r. EVERY-CARD MARBLE — SPECIFICITY CORRECTION (found in
+   qc12 measurements, 2026-11-20): the 4l default used a plain .card
+   selector (0,1,0), but the redesign's own card surfaces live at
+   body.rd-home scope (0,2,1 light / 0,3,1 dark — items 3a/4c), so
+   bare cards kept the old cream glass and the marbling never
+   landed (measured on #news-card). Re-declared here at the winning
+   scope, both themes. More specific surfaces still win: schools
+   paint (4f), the founding panel cells, photo bands. ---- */
+body.rd-home .card,html[data-theme="dark"] body.rd-home .card{
+  background:linear-gradient(rgba(255,255,255,.84),rgba(255,255,255,.84)),url('img/founding-paint.jpg') center/cover,#fff8f0}

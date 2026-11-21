@@ -3947,8 +3947,13 @@ function buildBriefing() {
         const t = (ev.time ? ev.time + ' — ' : '') + ev.title + (ev.source ? ' (' + ev.source + ')' : '');
         lines.push('• ' + t); items.push(t);
       });
-      const row = { icon: '📅', label: 'Today around the county · ' + todays.length + (todays.length === 1 ? ' event' : ' events'), items };
-      if (todays.length > 4) { const more = '…and ' + (todays.length - 4) + ' more — the full list is on the page.'; lines.push('• ' + more); row.note = more; }
+      /* Item 2i (Travis, 2026-11-20): the card's visual front no
+         longer shows a bare count — today's events render as
+         individual clickable cards (row.evs, see briefingRowHtml).
+         The copied/spoken text keeps its compact list form. */
+      const row = { icon: '📅', label: 'Today around the county', evs: todays };
+      if (todays.length > 4) { const more = '…and ' + (todays.length - 4) + ' more — the full list is on the page.'; lines.push('• ' + more); }
+      if (todays.length > 6) { row.note = '…and ' + (todays.length - 6) + ' more today — the full list is in the events card.'; }
       rows.push(row);
     } else {
       lines.push('📅 Nothing on the city/county calendars today.');
@@ -3967,9 +3972,12 @@ function buildBriefing() {
    text — so what a visitor reads here and what they paste from the Copy
    button are the same words from the same source. The raw note text is
    never displayed; it is generated in the background for copy/share. */
+const BRIEF_ICO = { '⚠️': 'alert', '🌦️': 'weather', '🌉': 'bridge', '🌊': 'river', '⛴️': 'ferry', '📅': 'calendar' };
 function briefingRowHtml(r) {
+  const icoName = BRIEF_ICO[r.icon] || null;
   let h = '<div class="briefing-row' + (r.alert ? ' briefing-row-alert' : '') + '">'
-    + '<span class="briefing-ico" aria-hidden="true">' + r.icon + '</span>'
+    + '<span class="briefing-ico" aria-hidden="true">' + (icoName
+      ? '<img src="img/icons/icon-' + icoName + '.png" alt="">' : esc(r.icon || '')) + '</span>'
     + '<div class="briefing-main">';
   if (r.label) h += '<div class="briefing-label">' + esc(r.label) + '</div>';
   if (r.temp || r.body) {
@@ -3977,7 +3985,17 @@ function briefingRowHtml(r) {
       + (r.temp ? '<span class="briefing-temp">' + esc(r.temp) + '</span>' : '')
       + (r.body ? esc(r.body) : '') + '</div>';
   }
-  if (r.items && r.items.length) {
+  if (r.evs && r.evs.length) {
+    /* Item 2i: today's events as individual clickable cards —
+       calendar-style rows that deep-link to the event, same
+       evsOpenEvent path as the event scroller. */
+    h += '<div class="brief-ev-grid">' + r.evs.slice(0, 6).map(ev =>
+      '<a class="brief-ev-card" href="#events-card" data-evkey="' + esc(evcalKeyOf(ev)) + '">'
+      + '<span class="bec-time">' + esc(ev.time || 'All day') + '</span>'
+      + '<span class="bec-main"><span class="bec-title">' + esc(ev.title || '') + '</span>'
+      + ((ev.location || ev.source) ? '<span class="bec-loc">' + esc(ev.location || ev.source) + '</span>' : '')
+      + '</span></a>').join('') + '</div>';
+  } else if (r.items && r.items.length) {
     h += '<ul class="briefing-items">' + r.items.map(i => '<li>' + esc(i) + '</li>').join('') + '</ul>';
   }
   if (r.note) h += '<div class="briefing-more">' + esc(r.note) + '</div>';
@@ -9984,6 +10002,14 @@ function buildEventScroller() {
     });
   });
 }
+/* Item 2i: the briefing card's per-event cards ride the same
+   deep-link path as the scroller's cards. */
+document.addEventListener('click', function (e) {
+  var c = e.target && e.target.closest ? e.target.closest('.brief-ev-card[data-evkey]') : null;
+  if (!c) return;
+  e.preventDefault();
+  evsOpenEvent(c.getAttribute('data-evkey'));
+});
 function evsScrollToKey(key) {
   if (!key) return;
   var cards = document.querySelectorAll('#events-card .cev-card');

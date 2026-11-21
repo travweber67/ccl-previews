@@ -5054,3 +5054,22 @@ body.view-anim .card,body.view-anim .featured-local,body.view-anim .finder-box,b
 #forecast-week-card,html[data-theme="dark"] #forecast-week-card{
   background:none;border:none;border-radius:0;box-shadow:none;
   -webkit-backdrop-filter:none;backdrop-filter:none;padding:0}
+/* ---- 4p. EVENTS SHADOWS (Travis, 2026-11-20 23:19, phone
+   screenshot). (2) The event cards' shadows ended before reaching
+   the left and right sides: the clipping ancestor is #events-body —
+   its overflow-x:clip cut every card shadow flat at the body's
+   content edge (the cards are full-width inside it, so their side
+   shadows always land outside its box). The clip is removed (the
+   pill strip scrolls itself, the cev grid is minmax-guarded, and
+   body{overflow-x:clip} remains the page-level guard), so shadows
+   now fall naturally on ALL sides; the cards also move from their
+   old green-tinted shadow to the standard dark stack (4e). (1) The
+   calendar day pills (FRI 20 / SAT 21…) carried only a whisper
+   shadow (0 1px 2px) — they now get the same standard stack, and
+   their strip gets the vertical room for those shadows to land. ---- */
+#events-body{overflow-x:visible}
+.cev-card,html[data-theme="dark"] .cev-card{
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.75),inset 0 -1px 0 rgba(43,33,27,.08),0 4px 10px rgba(23,26,30,.12),0 16px 38px rgba(23,26,30,.22),0 30px 60px rgba(23,26,30,.13)}
+.cev-pill,html[data-theme="dark"] .cev-pill{
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.75),inset 0 -1px 0 rgba(43,33,27,.08),0 4px 10px rgba(23,26,30,.12),0 16px 38px rgba(23,26,30,.22),0 30px 60px rgba(23,26,30,.13)}
+.cev-pills{padding-top:8px;padding-bottom:16px}

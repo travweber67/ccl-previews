@@ -3820,7 +3820,7 @@ async function initSince() {
   } catch (e) { /* signal unavailable this visit */ }
 
   if (!prev) {
-    body.innerHTML = '<p class="since-welcome">👋 <strong>First visit?</strong> This spot keeps watch between your visits. Come back later and it will tell you what changed while you were away — new weather alerts, river movement, and new events on the calendar.</p>';
+    body.innerHTML = '<p class="since-welcome"><strong>First visit?</strong> This spot keeps watch between your visits. Come back later and it will tell you what changed while you were away — new weather alerts, river movement, and new events on the calendar.</p>';
     card.hidden = false;
   } else if (cur.alerts || cur.riverFt != null || cur.evKeys) {
     const when = fmtDayTime(new Date(prev.t));

@@ -5046,3 +5046,11 @@ body.view-anim .card,body.view-anim .featured-local,body.view-anim .finder-box,b
    ground and the feed blends in with no edge. (Top padding covers
    the smaller top clip too.) ---- */
 .strip-viewport{padding-top:14px;padding-bottom:18px}
+/* ---- 4o. OUTDOORS WEATHER UN-MERGED (Travis, 2026-11-20 23:17):
+   the forecast block moved out of #alerts-card and floats BARE like
+   Today's — its old in-card glass rule (#forecast-week-card, ~line
+   3106: background/border/shadow/padding) is neutralized here, both
+   themes. The pills themselves are unchanged. ---- */
+#forecast-week-card,html[data-theme="dark"] #forecast-week-card{
+  background:none;border:none;border-radius:0;box-shadow:none;
+  -webkit-backdrop-filter:none;backdrop-filter:none;padding:0}

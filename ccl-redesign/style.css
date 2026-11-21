@@ -3699,8 +3699,8 @@ html[data-theme="dark"] .cev-src{background:rgba(255,255,255,.06)}
    with the page at every width — not sticky, not fixed. Everything
    below the header is untouched by this layer.
    ===================================================================== */
-body.rd-home{background:#e9ebee}
-html:has(> body.rd-home){background:#e9ebee}
+body.rd-home{background:#f4f5f7}
+html:has(> body.rd-home){background:#f4f5f7}
 body.rd-home .page-bg{display:none}
 html[data-theme="dark"] body.rd-home{background:#242628}
 html[data-theme="dark"]:has(> body.rd-home){background:#242628}
@@ -3949,3 +3949,26 @@ html[data-theme="dark"] .school-status.school-none,
 html[data-theme="dark"] .school-status.school-open{color:#4ade80;background:transparent}
 html[data-theme="dark"] .school-status.school-delayed{color:#fbbf24;background:transparent}
 html[data-theme="dark"] .school-status.school-closed{color:#ff7b72;background:transparent}
+
+/* ---- REDESIGN ITEM 2e: founding sponsor cards — no photo, ombre
+   (Travis, 2026-11-20). The founding panel's sunset photo and dark
+   scrim are replaced by a white-dominant white-to-orange ombre;
+   layout, content, wording and placement unchanged — background
+   treatment only. The block is light by design in both themes, with
+   dark text flipped in for the light ground. ---- */
+.founding-panel{
+  background:linear-gradient(155deg,#ffffff 0%,#fff9ee 42%,#ffdfae 76%,#ff9e45 100%);
+}
+.founding-inner{background:transparent;backdrop-filter:none;-webkit-backdrop-filter:none;color:#2c2418}
+.founding-eyebrow{color:#b05e00}
+.founding-cell{background:rgba(255,255,255,.78);border-color:rgba(176,94,0,.30)}
+.founding-cell.invite{background:rgba(255,255,255,.92);border-color:rgba(233,140,30,.65)}
+.founding-cell.taken{background:rgba(255,255,255,.68);border-color:rgba(233,140,30,.45)}
+.founding-cell p{color:#5d5342}
+.cell-eyebrow{color:#b05e00}
+.ghost-logo{border-color:rgba(122,90,30,.45);background:rgba(255,255,255,.55);color:#7a6748}
+.ghost-logo.claimed{border-color:rgba(233,140,30,.6);background:rgba(255,170,60,.18);color:#b05e00}
+.otl-more{color:#b05e00}
+.otl-more:hover{color:#8a4a00}
+.founding-cta.alt{background:transparent;color:#7a4a00;border-color:rgba(150,90,10,.55)}
+.founding-foot{color:#7d7261}

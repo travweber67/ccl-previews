@@ -113,9 +113,11 @@
 .merch-row{
   display:flex;align-items:center;justify-content:space-between;gap:10px;
   margin-top:12px;
+  flex-wrap:nowrap;
 }
 .merch-dots{display:flex;gap:7px;padding:4px 2px;}
 .merch-dot{
+  flex:none;
   width:11px;height:11px;border-radius:50%;
   border:2px solid rgba(46,21,3,.75);
   background:transparent;
@@ -123,6 +125,7 @@
 }
 .merch-dot.is-active{background:#2e1503;}
 .merch-count{
+  flex:none;white-space:nowrap;
   font-size:.8rem;font-weight:700;letter-spacing:.06em;
   color:#571f02;
   font-variant-numeric:tabular-nums;
@@ -145,6 +148,8 @@
 .merch-in-slot .merch-stage{max-width:330px;}
 .merch-in-slot .merch-title{font-size:1.3rem;}
 .merch-in-slot .merch-arrow{width:32px;height:32px;font-size:20px;}
+.merch-in-slot .merch-btn{padding:8px 13px;font-size:.88rem;}
+.merch-in-slot .merch-dots{gap:5px;}
 
 @media (max-width:640px){
   .merch-card{padding:14px 12px 12px;}

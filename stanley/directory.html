@@ -95,7 +95,7 @@
     <button type="button" class="s-strip" data-panel-open="sawtooth-mountain-guides" aria-label="Sawtooth Mountain Guides"><img src="img/listings/sawtooth-mountain-guides.jpg" alt=""><span class="s-strip-name">Sawtooth Mountain Guides</span></button>
   </div>
   <p class="fine foot-credit"><a href="https://sproutbox.co/" target="_blank" rel="noopener">Digital Marketing Agency Credit</a></p>
-  <p class="fine">Demo rebuild preview prepared by Nomad Development Group, November 2026. Sample of 62 of the live directory's 602 listings.</p>
+  <p class="fine">Demo rebuild preview prepared by Nomad Development Group, November 2026. Sample of 38 of the 99 businesses in the current chamber directory.</p>
   <p class="fine hero-credit">Hero photo: Redfish Lake and the Sawtooth Range — openly licensed area photography (see BUILD-NOTES.md)</p>
   
 
@@ -114,7 +114,7 @@ if(params.get('q'))qIn.value=params.get('q');
 function apply(){
   const q=qIn.value.toLowerCase(),c=catSel.value,t=townSel.value;
   const list=LISTINGS.filter(l=>(!c||l.cat===c)&&(!t||l.town===t)&&(!q||(l.name+' '+l.town+' '+l.cat+' '+l.desc).toLowerCase().includes(q)));
-  document.getElementById('count').textContent='Showing Places 1-'+list.length+' of 602 on the live directory (demo sample: '+list.length+' shown)';
+  document.getElementById('count').textContent='Showing Places 1-'+list.length+' of 99 in the current chamber directory (demo sample)';
   renderInto('results',list);
 }
 [qIn,catSel,townSel].forEach(el=>el.addEventListener('input',apply));

@@ -94,7 +94,7 @@
     <button type="button" class="s-strip" data-panel-open="free-heel-and-wheel" aria-label="Free Heel &amp; Wheel"><span class="s-strip-name">Free Heel &amp; Wheel</span></button>
   </div>
   <p class="fine foot-credit"><a href="https://sproutbox.co/" target="_blank" rel="noopener">Digital Marketing Agency Credit</a></p>
-  <p class="fine">Demo rebuild preview prepared by Nomad Development Group, November 2026. Sample of 62 of the live directory's 602 listings.</p>
+  <p class="fine">Demo rebuild preview prepared by Nomad Development Group, November 2026. Sample of 36 of the 268 businesses in the current member directory.</p>
   <p class="fine hero-credit">Photos: West Yellowstone and Yellowstone National Park area photos from Wikimedia Commons (see BUILD-NOTES.md); business photos from each business&rsquo;s own website where available.</p>
 
 </footer>
@@ -112,7 +112,7 @@ if(params.get('q'))qIn.value=params.get('q');
 function apply(){
   const q=qIn.value.toLowerCase(),c=catSel.value,t=townSel.value;
   const list=LISTINGS.filter(l=>(!c||l.cat===c)&&(!t||l.town===t)&&(!q||(l.name+' '+l.town+' '+l.cat+' '+l.desc).toLowerCase().includes(q)));
-  document.getElementById('count').textContent='Showing Places 1-'+list.length+' of 602 on the live directory (demo sample: '+list.length+' shown)';
+  document.getElementById('count').textContent='Showing Places 1-'+list.length+' of 268 in the current member directory (demo sample)';
   renderInto('results',list);
 }
 [qIn,catSel,townSel].forEach(el=>el.addEventListener('input',apply));

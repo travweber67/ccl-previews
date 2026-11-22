@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shop | NW Saber Syndicate</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Poppins:wght@200;300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <div class="header-grid">
+      <a class="header-logo" href="index.html"><img src="https://static.wixstatic.com/media/e11055_6dc49f7104494e3888c0d753693bd0ae~mv2.jpg/v1/fit/w_372,h_204,q_85/file.jpg" alt="NW Saber Syndicate logo"></a>
+      <div class="header-title">
+        <div class="shop-name">Shop Nexus Sabers &amp;<br>Accessories</div>
+        <div class="tagline">Proud to be an official Nexus Sabers retailer</div>
+      </div>
+      <div class="header-utils">
+        <div class="utils-row"><a href="#" onclick="return false">Log In</a><a class="cart-link" href="#" onclick="return false">🛒 My Cart</a></div>
+        <form class="search-box" id="site-search" data-shop="shop.html">
+          <input id="site-search-input" type="search" placeholder="Search..." aria-label="Search products">
+        </form>
+      </div>
+    </div>
+    <button class="nav-toggle" type="button">Menu</button>
+    <nav class="main-nav">
+      <a href="index.html" class="">Home</a>
+      <a href="shop.html" class="active">Shop</a>
+      <a href="https://www.nwsabersyndicate.com/blog" target="_blank" rel="noopener">Blog</a>
+      <span class="more-wrap"><button class="more-btn" type="button">More ▾</button>
+        <span class="more-menu">
+          <span class="menu-head">Shop by category</span>
+          <a href="shop.html?cat=Form%20I%3A%20Shii-Cho">Form I: Shii-Cho</a><a href="shop.html?cat=Form%20II%3A%20Makashi">Form II: Makashi</a><a href="shop.html?cat=Form%20III%3A%20Soresu">Form III: Soresu</a><a href="shop.html?cat=Form%20IV%3A%20Ataru">Form IV: Ataru</a><a href="shop.html?cat=Form%20V%3A%20Shien%20%26%20Djem%20So">Form V: Shien &amp; Djem So</a><a href="shop.html?cat=Form%20VI%3A%20Niman">Form VI: Niman</a><a href="shop.html?cat=Frankensaber%20Form%20VII%3A%20Juyo">Frankensaber Form VII: Juyo</a><a href="shop.html?cat=Accessories">Accessories</a><a href="shop.html?cat=Blades">Blades</a><a href="shop.html?cat=EMITTERS">EMITTERS</a><a href="shop.html?cat=POMMELS">POMMELS</a><a href="shop.html?cat=GRIPS">GRIPS</a><a href="shop.html?cat=ACTIVATION%20SWITCH">ACTIVATION SWITCH</a><a href="shop.html?cat=ELECTRONICS">ELECTRONICS</a><a href="shop.html?cat=Power">Power</a><a href="shop.html?cat=Clearance">Clearance</a><a href="shop.html?cat=Currently%20In%20Stock">Currently In Stock</a><a href="shop.html?cat=In%20Stock%20Soon">In Stock Soon</a>
+          <span class="menu-head">Help &amp; info (live site)</span>
+          <a href="https://www.nwsabersyndicate.com/giftcard" target="_blank" rel="noopener">Buy a Gift Card</a><a href="https://www.nwsabersyndicate.com/blog" target="_blank" rel="noopener">Blog</a><a href="https://www.nwsabersyndicate.com/faq" target="_blank" rel="noopener">FAQ</a><a href="https://www.nwsabersyndicate.com/additional-saber-specs" target="_blank" rel="noopener">Additional Lightsaber Specs</a><a href="https://www.nwsabersyndicate.com/warranty" target="_blank" rel="noopener">Warranty</a><a href="https://www.nwsabersyndicate.com/shippinginfo" target="_blank" rel="noopener">Shipping Info</a><a href="https://www.nwsabersyndicate.com/returnpolicy" target="_blank" rel="noopener">Return &amp; Refund Policy</a><a href="https://www.nwsabersyndicate.com/troubleshooting" target="_blank" rel="noopener">Troubleshooting</a><a href="https://www.nwsabersyndicate.com/contact" target="_blank" rel="noopener">Contact</a><a href="https://www.nwsabersyndicate.com/loyalty" target="_blank" rel="noopener">Loyalty Program</a>
+        </span>
+      </span>
+    </nav>
+  </div>
+</header>
+
+<section class="shop-head"><div class="wrap"><h1>Shop</h1><div class="shop-count" id="shop-count"></div></div></section>
+<div class="wrap">
+  <div class="chips"><button class="chip" data-cat="All Products" type="button">All Products</button><button class="chip" data-cat="Form I: Shii-Cho" type="button">Form I: Shii-Cho</button><button class="chip" data-cat="Form II: Makashi" type="button">Form II: Makashi</button><button class="chip" data-cat="Form III: Soresu" type="button">Form III: Soresu</button><button class="chip" data-cat="Form IV: Ataru" type="button">Form IV: Ataru</button><button class="chip" data-cat="Form V: Shien &amp; Djem So" type="button">Form V: Shien &amp; Djem So</button><button class="chip" data-cat="Form VI: Niman" type="button">Form VI: Niman</button><button class="chip" data-cat="Frankensaber Form VII: Juyo" type="button">Frankensaber Form VII: Juyo</button><button class="chip" data-cat="Accessories" type="button">Accessories</button><button class="chip" data-cat="Blades" type="button">Blades</button><button class="chip" data-cat="EMITTERS" type="button">EMITTERS</button><button class="chip" data-cat="POMMELS" type="button">POMMELS</button><button class="chip" data-cat="GRIPS" type="button">GRIPS</button><button class="chip" data-cat="ACTIVATION SWITCH" type="button">ACTIVATION SWITCH</button><button class="chip" data-cat="ELECTRONICS" type="button">ELECTRONICS</button><button class="chip" data-cat="Power" type="button">Power</button><button class="chip" data-cat="Clearance" type="button">Clearance</button><button class="chip" data-cat="Currently In Stock" type="button">Currently In Stock</button><button class="chip" data-cat="In Stock Soon" type="button">In Stock Soon</button></div>
+  <div class="shop-tools"><label>Sort by&nbsp;<select id="sort-select">
+    <option value="featured">Featured</option><option value="price-asc">Price: Low to High</option>
+    <option value="price-desc">Price: High to Low</option><option value="name">Name: A–Z</option>
+  </select></label></div>
+  <div class="grid" id="product-grid"><a class="card" href="product/3600mah-battery.html" data-idx="0" data-name="Lithium-Ion Batteries" data-price="8.5" data-cats="In Stock Soon|All Products">
+  <span class="card-img"><img loading="lazy" src="https://static.wixstatic.com/media/e11055_a8cc3c3c81f1420ab4cf13eea1911a38~mv2.jpg/v1/fit/w_600,h_600,q_85/file.jpg" alt="Lithium-Ion Batteries"><span class="badge-oos">Out of Stock</span></span>
+  <span class="c-name">Lithium-Ion Batteries</span>
+  <span class="c-price"><span class="was">$10.00</span><span class="now">$8.50</span></span>
+  <span class="c-cat">In Stock Soon</span></a><a class="card" href="product/coruscant-protector.html" data-idx="1" data-name="Coruscant Protector" data-price="110.5" data-cats="In Stock Soon|All Products">
+  <span class="card-img"><img loading="lazy" src="https://static.wixstatic.com/media/e11055_c05e0bed4d50441798ad84ecf31963f3~mv2.jpg/v1/fit/w_600,h_600,q_85/file.jpg" alt="Coruscant Protector"><span class="badge-oos">Out of Stock</span></span>
+  <span class="c-name">Coruscant Protector</span>
+  <span class="c-price"><span class="was">$130.00</span><span class="now">$110.50</span></span>
+  <span class="c-cat">In Stock Soon</span></a><a class="card" href="product/k-katarn.html" data-idx="2" data-name="Kyle Katarn" data-price="170" data-cats="Form V: Shien &amp; Djem So|All Products|Currently In Stock">
+  <span class="card-img"><img loading="lazy" src="https://static.wixstatic.com/media/e11055_64a302ef5a1c4908b46425c71396a7e4~mv2.jpg/v1/fit/w_600,h_600,q_85/file.jpg" alt="Kyle Katarn"></span>
+  <span class="c-name">Kyle Katarn</span>
+  <span class="c-price"><span class="was">$200.00</span><span class="now">$170.00</span></span>
+  <span class="c-cat">Form V: Shien &amp; Djem So</span></a><a class="card" href="product/as-v8.html" data-idx="3" data-name="AS V8" data-price="170" data-cats="Form V: Shien &amp; Djem So|Currently In Stock|All Products">
+  <span class="card-img"><img loading="lazy" src="https://static.wixstatic.com/media/e11055_c550b768f2e542c38481bb112aa3a6c1~mv2.jpg/v1/fit/w_600,h_600,q_85/file.jpg" alt="AS V8"><span class="badge-ribbon">New for 2026</span></span>
+  <span class="c-name">AS V8</span>
+  <span class="c-price"><span class="was">$200.00</span><span class="now">$170.00</span></span>
+  <span class="c-cat">Form V: Shien &amp; Djem So</span></a><a class="card" href="product/graflex.html" data-idx="4" data-name="AS (Graflex)" data-price="272" data-cats="Form VI: Niman|All Products|Currently In Stock">
+  <span class="card-img"><img loading="lazy" src="https://static.wixstatic.com/media/e11055_fe9ff03c136745219e2cd035ef2515bf~mv2.jpg/v1/fit/w_600,h_600,q_85/file.jpg" alt="AS (Graflex)"></span>
+  <span class="c-name">AS (Graflex)</span>
+  <span class="c-price"><span class="was">$320.00</span><span class="now">$272.00</span></span>
+  <span class="c-cat">Form VI: Niman</span></a><a class="card" href="product/fallen-order-undamaged.html" data-idx="5" data-name="Fallen Order" data-price="153" data-cats="All Products|Form VI: Niman|Clearance|Currently In Stock">
+  <span class="card-img"><img loading="lazy" src="https://static.wixstatic.com/media/e11055_e95fc11d62044289b738bda2de67c874~mv2.jpg/v1/fit/w_600,h_600,q_85/file.jpg" alt="Fallen Order"></span>
+  <span class="c-name">Fallen Order</span>
+  <span class="c-price"><span class="was">$220.00</span><span class="now">$153.00</span></span>
+  <span class="c-cat">Form VI: Niman</span></a><a class="card" href="product/darksaber-v3.html" data-idx="6" data-name="Darksaber V3" data-price="340" data-cats="In Stock Soon|All Products">
+  <span class="card-img"><img loading="lazy" src="https://static.wixstatic.com/media/e11055_15a91cdd8dcd470cbed7bc9274d1bac3~mv2.jpg/v1/fit/w_600,h_600,q_85/file.jpg" alt="Darksaber V3"><span class="badge-oos">Out of Stock</span></span>
+  <span class="c-name">Darksaber V3</span>
+  <span class="c-price"><span class="was">$400.00</span><span class="now">$340.00</span></span>
+  <span class="c-cat">In Stock Soon</span></a><a class="card" href="product/as1.html" data-idx="7" data-name="AS V2" data-price="229.5" data-cats="All Products|In Stock Soon">
+  <span class="card-img"><img loading="lazy" src="https://static.wixstatic.com/media/e11055_8b9cd143824f4e78b0129e35eb969399~mv2.jpg/v1/fit/w_600,h_600,q_85/file.jpg" alt="AS V2"><span class="badge-oos">Out of Stock</span></span>
+  <span class="c-name">AS V2</span>
+  <span class="c-price"><span class="was">$270.00</span><span class="now">$229.50</span></span>
+  <span class="c-cat">All Products</span></a><a class="card" href="product/eno-cordova.html" data-idx="8" data-name="Eno Cordova" data-price="170" data-cats="In Stock Soon|All Products">
+  <span class="card-img"><img loading="lazy" src="https://static.wixstatic.com/media/e11055_6f4df2ed10da4426b3b93713a31ba288~mv2.jpg/v1/fit/w_600,h_600,q_85/file.jpg" alt="Eno Cordova"><span class="badge-oos">Out of Stock</span></span>
+  <span class="c-name">Eno Cordova</span>
+  <span class="c-price"><span class="was">$200.00</span><span class="now">$170.00</span></span>
+  <span class="c-cat">In Stock Soon</span></a><a class="card" href="product/dark-shroud.html" data-idx="9" data-name="Dark Shroud" data-price="136" data-cats="In Stock Soon|All Products">
+  <span class="card-img"><img loading="lazy" src="https://static.wixstatic.com/media/e11055_210b3aa7055d4e2fbdd7939fa6aa1fe7~mv2.jpg/v1/fit/w_600,h_600,q_85/file.jpg" alt="Dark Shroud"><span class="badge-oos">Out of Stock</span></span>
+  <span class="c-name">Dark Shroud</span>
+  <span class="c-price"><span class="was">$160.00</span><span class="now">$136.00</span></span>
+  <span class="c-cat">In Stock Soon</span></a><a class="card" href="product/order-66-vestige.html" data-idx="10" data-name="Order 66 Vestige" data-price="119" data-cats="All Products|Frankensaber Form VII: Juyo|Currently In Stock">
+  <span class="card-img"><img loading="lazy" src="https://static.wixstatic.com/media/e11055_31ae8d2912084322b8ce17118aabe610~mv2.jpg/v1/fit/w_600,h_600,q_85/file.jpg" alt="Order 66 Vestige"></span>
+  <span class="c-name">Order 66 Vestige</span>
+  <span class="c-price"><span class="was">$140.00</span><span class="now">$119.00</span></span>
+  <span class="c-cat">Frankensaber Form VII: Juyo</span></a><a class="card" href="product/rgb-blades.html" data-idx="11" data-name="RGB Blades" data-price="17" data-cats="All Products|Blades|Accessories">
+  <span class="card-img"><img loading="lazy" src="https://static.wixstatic.com/media/e11055_dced77de1b6745fb897598d20780e6b5~mv2.jpg/v1/fit/w_600,h_600,q_85/file.jpg" alt="RGB Blades"></span>
+  <span class="c-name">RGB Blades</span>
+  <span class="c-price"><span class="was">$20.00</span><span class="now">$17.00</span></span>
+  <span class="c-cat">Blades</span></a><a class="card" href="product/as-v7.html" data-idx="12" data-name="AS V7 &quot;What If...?&quot;" data-price="255" data-cats="In Stock Soon|All Products">
+  <span class="card-img"><img loading="lazy" src="https://static.wixstatic.com/media/e11055_cf4eb75618f948b294bd8a04e446b5aa~mv2.jpg/v1/fit/w_600,h_600,q_85/file.jpg" alt="AS V7 &quot;What If...?&quot;"><span class="badge-ribbon">Spinning Kyber Crystal</span><span class="badge-oos">Out of Stock</span></span>
+  <span class="c-name">AS V7 &quot;What If...?&quot;</span>
+  <span class="c-price"><span class="was">$300.00</span><span class="now">$255.00</span></span>
+  <span class="c-cat">In Stock Soon</span></a><a class="card" href="product/pixel-to-base-lit-adapter.html" data-idx="13" data-name="Pixel to Base-Lit Adapter" data-price="21.25" data-cats="Accessories|All Products">
+  <span class="card-img"><img loading="lazy" src="https://static.wixstatic.com/media/e11055_bafe28607eb1464195089667943cbcfe~mv2.jpg/v1/fit/w_600,h_600,q_85/file.jpg" alt="Pixel to Base-Lit Adapter"><span class="badge-oos">Out of Stock</span></span>
+  <span class="c-name">Pixel to Base-Lit Adapter</span>
+  <span class="c-price"><span class="was">$25.00</span><span class="now">$21.25</span></span>
+  <span class="c-cat">Accessories</span></a><a class="card" href="product/emitter.html" data-idx="14" data-name="Emitter" data-price="17" data-cats="All Products|EMITTERS">
+  <span class="card-img"><img loading="lazy" src="https://static.wixstatic.com/media/e11055_7170e754addf4d49a4304a41d95f1270~mv2.jpeg/v1/fit/w_600,h_600,q_85/file.jpg" alt="Emitter"><span class="badge-oos">Out of Stock</span></span>
+  <span class="c-name">Emitter</span>
+  <span class="c-price"><span class="was">$20.00</span><span class="now">$17.00</span></span>
+  <span class="c-cat">EMITTERS</span></a><a class="card" href="product/a-tano-v2.html" data-idx="15" data-name="A&#x27;Tano V2" data-price="467.5" data-cats="All Products|In Stock Soon">
+  <span class="card-img"><img loading="lazy" src="https://static.wixstatic.com/media/e11055_02272c485db74db2a66a195b3800b4c4~mv2.jpg/v1/fit/w_600,h_600,q_85/file.jpg" alt="A&#x27;Tano V2"><span class="badge-oos">Out of Stock</span></span>
+  <span class="c-name">A&#x27;Tano V2</span>
+  <span class="c-price"><span class="was">$550.00</span><span class="now">$467.50</span></span>
+  <span class="c-cat">All Products</span></a><a class="card" href="product/activation-switch.html" data-idx="16" data-name="Activation Switch" data-price="17" data-cats="All Products|ACTIVATION SWITCH">
+  <span class="card-img"><img loading="lazy" src="https://static.wixstatic.com/media/e11055_e93a1c3f80ec4452a2f5c43be86ae4b6~mv2.png/v1/fit/w_600,h_600,q_85/file.jpg" alt="Activation Switch"><span class="badge-oos">Out of Stock</span></span>
+  <span class="c-name">Activation Switch</span>
+  <span class="c-price"><span class="was">$20.00</span><span class="now">$17.00</span></span>
+  <span class="c-cat">ACTIVATION SWITCH</span></a><a class="card" href="product/darksaber-variant.html" data-idx="17" data-name="Darksaber V2" data-price="102" data-cats="Form II: Makashi|All Products|Currently In Stock">
+  <span class="card-img"><img loading="lazy" src="https://static.wixstatic.com/media/e11055_0c9c7034ba9f4b84a684312f63a5847d~mv2.jpg/v1/fit/w_600,h_600,q_85/file.jpg" alt="Darksaber V2"></span>
+  <span class="c-name">Darksaber V2</span>
+  <span class="c-price"><span class="was">$120.00</span><span class="now">$102.00</span></span>
+  <span class="c-cat">Form II: Makashi</span></a><a class="card" href="product/mysterybox.html" data-idx="18" data-name="Mystery Box" data-price="68" data-cats="Form V: Shien &amp; Djem So|Form III: Soresu|Form II: Makashi|Form IV: Ataru|Form I: Shii-Cho|Currently In Stock|All Products|Form VI: Niman">
+  <span class="card-img"><img loading="lazy" src="https://static.wixstatic.com/media/e11055_7c608b9e06bc4e7786f9542b089402d2~mv2.jpg/v1/fit/w_600,h_600,q_85/file.jpg" alt="Mystery Box"></span>
+  <span class="c-name">Mystery Box</span>
+  <span class="c-price"><span class="was">$80.00</span><span class="now">$68.00</span></span>
+  <span class="c-cat">Form V: Shien &amp; Djem So</span></a><a class="card" href="product/owk1-obi-wan-kenobi.html" data-idx="19" data-name="OWK" data-price="212.5" data-cats="In Stock Soon|All Products">
+  <span class="card-img"><img loading="lazy" src="https://static.wixstatic.com/media/e11055_d683b963e66a4e638bb4d89cced2f405~mv2.jpg/v1/fit/w_600,h_600,q_85/file.jpg" alt="OWK"><span class="badge-oos">Out of Stock</span></span>
+  <span class="c-name">OWK</span>
+  <span class="c-price"><span class="was">$250.00</span><span class="now">$212.50</span></span>
+  <span class="c-cat">In Stock Soon</span></a><a class="card" href="product/dark-noble.html" data-idx="20" data-name="Cerean" data-price="123.25" data-cats="All Products|In Stock Soon">
+  <span class="card-img"><img loading="lazy" src="https://static.wixstatic.com/media/e11055_81d258bea873461985b115467fc3f693~mv2.jpg/v1/fit/w_600,h_600,q_85/file.jpg" alt="Cerean"><span class="badge-oos">Out of Stock</span></span>
+  <span class="c-name">Cerean</span>
+  <span class="c-price"><span class="was">$145.00</span><span class="now">$123.25</span></span>
+  <span class="c-cat">All Products</span></a><a class="card" href="product/quick-connect-coupler.html" data-idx="21" data-name="Quick Connect Coupler" data-price="21.25" data-cats="Accessories|All Products">
+  <span class="card-img"><img loading="lazy" src="https://static.wixstatic.com/media/e11055_fcfe5f323f754c9baccf16832ae9db30~mv2.jpg/v1/fit/w_600,h_600,q_85/file.jpg" alt="Quick Connect Coupler"></span>
+  <span class="c-name">Quick Connect Coupler</span>
+  <span class="c-price"><span class="was">$25.00</span><span class="now">$21.25</span></span>
+  <span class="c-cat">Accessories</span></a><a class="card" href="product/charger-led-indicator.html" data-idx="22" data-name="Chargers" data-price="4.25" data-cats="Accessories|All Products|Power">
+  <span class="card-img"><img loading="lazy" src="https://static.wixstatic.com/media/e11055_1b02c64fae87405c9168ac712bd66d6c~mv2.png/v1/fit/w_600,h_600,q_85/file.jpg" alt="Chargers"></span>
+  <span class="c-name">Chargers</span>
+  <span class="c-price"><span class="was">$5.00</span><span class="now">$4.25</span></span>
+  <span class="c-cat">Accessories</span></a><a class="card" href="product/darth-vader.html" data-idx="23" data-name="AS V6 Dark Lord" data-price="272" data-cats="All Products|Form VI: Niman|Currently In Stock">
+  <span class="card-img"><img loading="lazy" src="https://static.wixstatic.com/media/e11055_107ecf1e59384c509742c77772b848bc~mv2.jpg/v1/fit/w_600,h_600,q_85/file.jpg" alt="AS V6 Dark Lord"></span>
+  <span class="c-name">AS V6 Dark Lord</span>
+  <span class="c-price"><span class="was">$320.00</span><span class="now">$272.00</span></span>
+  <span class="c-cat">Form VI: Niman</span></a><a class="card" href="product/fn-2187.html" data-idx="24" data-name="FN-2187" data-price="255" data-cats="In Stock Soon|All Products">
+  <span class="card-img"><img loading="lazy" src="https://static.wixstatic.com/media/e11055_98cab9491aa24f469d63d705989777c1~mv2.jpg/v1/fit/w_600,h_600,q_85/file.jpg" alt="FN-2187"><span class="badge-oos">Out of Stock</span></span>
+  <span class="c-name">FN-2187</span>
+  <span class="c-price"><span class="was">$300.00</span><span class="now">$255.00</span></span>
+  <span class="c-cat">In Stock Soon</span></a><a class="card" href="product/as-v5.html" data-idx="25" data-name="AS V5" data-price="178.5" data-cats="All Products|Form VI: Niman|Clearance|Currently In Stock">
+  <span class="card-img"><img loading="lazy" src="https://static.wixstatic.com/media/e11055_3347df0faf34432594cae6c979b08f49~mv2.jpg/v1/fit/w_600,h_600,q_85/file.jpg" alt="AS V5"></span>
+  <span class="c-name">AS V5</span>
+  <span class="c-price"><span class="was">$250.00</span><span class="now">$178.50</span></span>
+  <span class="c-cat">Form VI: Niman</span></a><a class="card" href="product/katana.html" data-idx="26" data-name="Katana" data-price="114.75" data-cats="In Stock Soon|All Products">
+  <span class="card-img"><img loading="lazy" src="https://static.wixstatic.com/media/e11055_bd32c4449d1044e9a88a17a07842fdde~mv2.jpg/v1/fit/w_600,h_600,q_85/file.jpg" alt="Katana"><span class="badge-oos">Out of Stock</span></span>
+  <span class="c-name">Katana</span>
+  <span class="c-price"><span class="was">$135.00</span><span class="now">$114.75</span></span>
+  <span class="c-cat">In Stock Soon</span></a><a class="card" href="product/fallen-order-v5-1.html" data-idx="27" data-name="Fallen Order V6" data-price="467.5" data-cats="In Stock Soon|All Products">
+  <span class="card-img"><img loading="lazy" src="https://static.wixstatic.com/media/e11055_5fedf77f09464dcebb8ce7bc69a59f82~mv2.jpg/v1/fit/w_600,h_600,q_85/file.jpg" alt="Fallen Order V6"><span class="badge-oos">Out of Stock</span></span>
+  <span class="c-name">Fallen Order V6</span>
+  <span class="c-price"><span class="was">$550.00</span><span class="now">$467.50</span></span>
+  <span class="c-cat">In Stock Soon</span></a><a class="card" href="product/diplomat.html" data-idx="28" data-name="Diplomat" data-price="72.25" data-cats="Clearance|All Products|Currently In Stock|Form I: Shii-Cho">
+  <span class="card-img"><img loading="lazy" src="https://static.wixstatic.com/media/e11055_b84fa0b0399949ce9b954890f5734dc6~mv2.jpg/v1/fit/w_600,h_600,q_85/file.jpg" alt="Diplomat"></span>
+  <span class="c-name">Diplomat</span>
+  <span class="c-price"><span class="was">$85.00</span><span class="now">$72.25</span></span>
+  <span class="c-cat">Clearance</span></a><a class="card" href="product/sailor-moon-variant.html" data-idx="29" data-name="Moon Stick" data-price="187" data-cats="All Products|In Stock Soon">
+  <span class="card-img"><img loading="lazy" src="https://static.wixstatic.com/media/e11055_bf9105043adb429eaff4f7901e0ce35b~mv2.jpg/v1/fit/w_600,h_600,q_85/file.jpg" alt="Moon Stick"><span class="badge-oos">Out of Stock</span></span>
+  <span class="c-name">Moon Stick</span>
+  <span class="c-price"><span class="was">$220.00</span><span class="now">$187.00</span></span>
+  <span class="c-cat">All Products</span></a><a class="card" href="product/pixel-blade.html" data-idx="30" data-name="Pixel Blades" data-price="68" data-cats="Blades|All Products|Accessories">
+  <span class="card-img"><img loading="lazy" src="https://static.wixstatic.com/media/e11055_dced77de1b6745fb897598d20780e6b5~mv2.jpg/v1/fit/w_600,h_600,q_85/file.jpg" alt="Pixel Blades"></span>
+  <span class="c-name">Pixel Blades</span>
+  <span class="c-price"><span class="was">$80.00</span><span class="now">$68.00</span></span>
+  <span class="c-cat">Blades</span></a><a class="card" href="product/owk2-obi-wan-kenobi-variant.html" data-idx="31" data-name="OWK V2" data-price="255" data-cats="All Products|In Stock Soon">
+  <span class="card-img"><img loading="lazy" src="https://static.wixstatic.com/media/e11055_41143e2c7ef241d7b775a28f9d551062~mv2.jpg/v1/fit/w_600,h_600,q_85/file.jpg" alt="OWK V2"><span class="badge-oos">Out of Stock</span></span>
+  <span class="c-name">OWK V2</span>
+  <span class="c-price"><span class="was">$300.00</span><span class="now">$255.00</span></span>
+  <span class="c-cat">All Products</span></a><a class="card" href="product/nightshade-eclipse.html" data-idx="32" data-name="Nightshade Eclipse" data-price="85" data-cats="All Products|In Stock Soon">
+  <span class="card-img"><img loading="lazy" src="https://static.wixstatic.com/media/e11055_d5742d29c12a46f48ba2ffa154e21e34~mv2.jpg/v1/fit/w_600,h_600,q_85/file.jpg" alt="Nightshade Eclipse"><span class="badge-oos">Out of Stock</span></span>
+  <span class="c-name">Nightshade Eclipse</span>
+  <span class="c-price"><span class="was">$100.00</span><span class="now">$85.00</span></span>
+  <span class="c-cat">All Products</span></a><a class="card" href="product/pommel.html" data-idx="33" data-name="Pommel" data-price="17" data-cats="All Products|POMMELS">
+  <span class="card-img"><img loading="lazy" src="https://static.wixstatic.com/media/e11055_e93a1c3f80ec4452a2f5c43be86ae4b6~mv2.png/v1/fit/w_600,h_600,q_85/file.jpg" alt="Pommel"><span class="badge-oos">Out of Stock</span></span>
+  <span class="c-name">Pommel</span>
+  <span class="c-price"><span class="was">$20.00</span><span class="now">$17.00</span></span>
+  <span class="c-cat">POMMELS</span></a><a class="card" href="product/je-daii-relic.html" data-idx="34" data-name="Je&#x27;Daii Relic" data-price="110.5" data-cats="Form III: Soresu|Currently In Stock|All Products">
+  <span class="card-img"><img loading="lazy" src="https://static.wixstatic.com/media/e11055_eea610c2a6694f16b3fb8a624e8a9637~mv2.jpg/v1/fit/w_600,h_600,q_85/file.jpg" alt="Je&#x27;Daii Relic"></span>
+  <span class="c-name">Je&#x27;Daii Relic</span>
+  <span class="c-price"><span class="was">$130.00</span><span class="now">$110.50</span></span>
+  <span class="c-cat">Form III: Soresu</span></a><a class="card" href="product/indara.html" data-idx="35" data-name="Indara" data-price="170" data-cats="All Products|In Stock Soon">
+  <span class="card-img"><img loading="lazy" src="https://static.wixstatic.com/media/e11055_53ae04c4ebb34ce4ada29e2065f5fdfa~mv2.jpg/v1/fit/w_600,h_600,q_85/file.jpg" alt="Indara"><span class="badge-oos">Out of Stock</span></span>
+  <span class="c-name">Indara</span>
+  <span class="c-price"><span class="was">$200.00</span><span class="now">$170.00</span></span>
+  <span class="c-cat">All Products</span></a><a class="card" href="product/neophyte-v2.html" data-idx="36" data-name="Neophyte V2" data-price="85" data-cats="Form I: Shii-Cho|Currently In Stock|All Products">
+  <span class="card-img"><img loading="lazy" src="https://static.wixstatic.com/media/e11055_c34abf3073f34f19952f34cae30515fb~mv2.jpg/v1/fit/w_600,h_600,q_85/file.jpg" alt="Neophyte V2"></span>
+  <span class="c-name">Neophyte V2</span>
+  <span class="c-price"><span class="was">$100.00</span><span class="now">$85.00</span></span>
+  <span class="c-cat">Form I: Shii-Cho</span></a><a class="card" href="product/antares-draco.html" data-idx="37" data-name="Antares Draco" data-price="148.75" data-cats="In Stock Soon|All Products">
+  <span class="card-img"><img loading="lazy" src="https://static.wixstatic.com/media/e11055_15b7f4e1c03447dfbb54e98cafa16400~mv2.jpg/v1/fit/w_600,h_600,q_85/file.jpg" alt="Antares Draco"><span class="badge-oos">Out of Stock</span></span>
+  <span class="c-name">Antares Draco</span>
+  <span class="c-price"><span class="was">$175.00</span><span class="now">$148.75</span></span>
+  <span class="c-cat">In Stock Soon</span></a><a class="card" href="product/mystery-crate.html" data-idx="38" data-name="Mystery Crate" data-price="255" data-cats="Form V: Shien &amp; Djem So|Form III: Soresu|Form II: Makashi|Form IV: Ataru|Frankensaber Form VII: Juyo|Form I: Shii-Cho|Currently In Stock|All Products|Form VI: Niman">
+  <span class="card-img"><img loading="lazy" src="https://static.wixstatic.com/media/e11055_e48f0a0f1bba4906a606077d55a12ba3~mv2.jpg/v1/fit/w_600,h_600,q_85/file.jpg" alt="Mystery Crate"><span class="badge-ribbon">4 Lightsabers</span></span>
+  <span class="c-name">Mystery Crate</span>
+  <span class="c-price"><span class="was">$300.00</span><span class="now">$255.00</span></span>
+  <span class="c-cat">Form V: Shien &amp; Djem So</span></a><a class="card" href="product/nari.html" data-idx="39" data-name="Nari" data-price="170" data-cats="In Stock Soon|All Products">
+  <span class="card-img"><img loading="lazy" src="https://static.wixstatic.com/media/e11055_a474c020a9544ce78c0a118644abfca3~mv2.jpg/v1/fit/w_600,h_600,q_85/file.jpg" alt="Nari"><span class="badge-oos">Out of Stock</span></span>
+  <span class="c-name">Nari</span>
+  <span class="c-price"><span class="was">$200.00</span><span class="now">$170.00</span></span>
+  <span class="c-cat">In Stock Soon</span></a><a class="card" href="product/agent-of-justice.html" data-idx="40" data-name="Agent of Justice" data-price="127.5" data-cats="In Stock Soon|All Products">
+  <span class="card-img"><img loading="lazy" src="https://static.wixstatic.com/media/e11055_a9990b359c1c490b84e8be9b14f4aeb5~mv2.jpg/v1/fit/w_600,h_600,q_85/file.jpg" alt="Agent of Justice"><span class="badge-oos">Out of Stock</span></span>
+  <span class="c-name">Agent of Justice</span>
+  <span class="c-price"><span class="was">$150.00</span><span class="now">$127.50</span></span>
+  <span class="c-cat">In Stock Soon</span></a><a class="card" href="product/knight-of-ren.html" data-idx="41" data-name="Knight of Ren" data-price="170" data-cats="Currently In Stock|Form V: Shien &amp; Djem So|All Products">
+  <span class="card-img"><img loading="lazy" src="https://static.wixstatic.com/media/e11055_6155b45a5d3147ba917465221fd55aa9~mv2.jpg/v1/fit/w_600,h_600,q_85/file.jpg" alt="Knight of Ren"></span>
+  <span class="c-name">Knight of Ren</span>
+  <span class="c-price"><span class="was">$200.00</span><span class="now">$170.00</span></span>
+  <span class="c-cat">Form V: Shien &amp; Djem So</span></a><a class="card" href="product/as-v3.html" data-idx="42" data-name="AS V3" data-price="255" data-cats="All Products|In Stock Soon">
+  <span class="card-img"><img loading="lazy" src="https://static.wixstatic.com/media/e11055_e3095e169fe7418eb4191e2d7917acad~mv2.jpg/v1/fit/w_600,h_600,q_85/file.jpg" alt="AS V3"><span class="badge-oos">Out of Stock</span></span>
+  <span class="c-name">AS V3</span>
+  <span class="c-price"><span class="was">$300.00</span><span class="now">$255.00</span></span>
+  <span class="c-cat">All Products</span></a><a class="card" href="product/owk-v3-weathered.html" data-idx="43" data-name="OWK V3 Weathered" data-price="255" data-cats="All Products|In Stock Soon">
+  <span class="card-img"><img loading="lazy" src="https://static.wixstatic.com/media/e11055_01dd263963de450f84a3613487d7266a~mv2.jpg/v1/fit/w_600,h_600,q_85/file.jpg" alt="OWK V3 Weathered"><span class="badge-oos">Out of Stock</span></span>
+  <span class="c-name">OWK V3 Weathered</span>
+  <span class="c-price"><span class="was">$300.00</span><span class="now">$255.00</span></span>
+  <span class="c-cat">All Products</span></a><a class="card" href="product/luke-with-control-box-1.html" data-idx="44" data-name="LS V2" data-price="187" data-cats="All Products|In Stock Soon">
+  <span class="card-img"><img loading="lazy" src="https://static.wixstatic.com/media/e11055_a5e155b9191e4bbb829f0be224133852~mv2.jpg/v1/fit/w_600,h_600,q_85/file.jpg" alt="LS V2"><span class="badge-oos">Out of Stock</span></span>
+  <span class="c-name">LS V2</span>
+  <span class="c-price"><span class="was">$220.00</span><span class="now">$187.00</span></span>
+  <span class="c-cat">All Products</span></a><a class="card" href="product/b8-r4.html" data-idx="45" data-name="BB-Series" data-price="110.5" data-cats="All Products|In Stock Soon">
+  <span class="card-img"><img loading="lazy" src="https://static.wixstatic.com/media/e11055_40cadd6ac1234d749de4dba25ef97092~mv2.jpg/v1/fit/w_600,h_600,q_85/file.jpg" alt="BB-Series"><span class="badge-oos">Out of Stock</span></span>
+  <span class="c-name">BB-Series</span>
+  <span class="c-price"><span class="was">$130.00</span><span class="now">$110.50</span></span>
+  <span class="c-cat">All Products</span></a><a class="card" href="product/rgb-electronic-kit.html" data-idx="46" data-name="Electronic Core Kits" data-price="51" data-cats="Accessories|All Products|ELECTRONICS">
+  <span class="card-img"><img loading="lazy" src="https://static.wixstatic.com/media/e11055_467c4ba970d040e084350ea416365b20~mv2.jpg/v1/fit/w_600,h_600,q_85/file.jpg" alt="Electronic Core Kits"></span>
+  <span class="c-name">Electronic Core Kits</span>
+  <span class="c-price"><span class="was">$60.00</span><span class="now">$51.00</span></span>
+  <span class="c-cat">Accessories</span></a><a class="card" href="product/m-jade.html" data-idx="47" data-name="Mara Jade Skywalker" data-price="191.25" data-cats="Currently In Stock|All Products|Form VI: Niman">
+  <span class="card-img"><img loading="lazy" src="https://static.wixstatic.com/media/e11055_206ba88bc4534e9ebca72611b361402d~mv2.jpg/v1/fit/w_600,h_600,q_85/file.jpg" alt="Mara Jade Skywalker"></span>
+  <span class="c-name">Mara Jade Skywalker</span>
+  <span class="c-price"><span class="was">$225.00</span><span class="now">$191.25</span></span>
+  <span class="c-cat">Form VI: Niman</span></a><a class="card" href="product/owk3.html" data-idx="48" data-name="OWK V3" data-price="212.5" data-cats="In Stock Soon|All Products">
+  <span class="card-img"><img loading="lazy" src="https://static.wixstatic.com/media/e11055_dd00f80301624a3e9ae7737bc813cd87~mv2.jpg/v1/fit/w_600,h_600,q_85/file.jpg" alt="OWK V3"><span class="badge-oos">Out of Stock</span></span>
+  <span class="c-name">OWK V3</span>
+  <span class="c-price"><span class="was">$250.00</span><span class="now">$212.50</span></span>
+  <span class="c-cat">In Stock Soon</span></a><a class="card" href="product/master-sentinel.html" data-idx="49" data-name="Master Sentinel" data-price="136" data-cats="All Products|In Stock Soon">
+  <span class="card-img"><img loading="lazy" src="https://static.wixstatic.com/media/e11055_86a3ac5603114e1eba2dffaa88efe220~mv2.jpg/v1/fit/w_600,h_600,q_85/file.jpg" alt="Master Sentinel"><span class="badge-oos">Out of Stock</span></span>
+  <span class="c-name">Master Sentinel</span>
+  <span class="c-price"><span class="was">$160.00</span><span class="now">$136.00</span></span>
+  <span class="c-cat">All Products</span></a><a class="card" href="product/covertec-wheel-and-extension.html" data-idx="50" data-name="Covertec Wheel and Extension" data-price="12.75" data-cats="Accessories|All Products">
+  <span class="card-img"><img loading="lazy" src="https://static.wixstatic.com/media/e11055_8a50270f79684c5e858deda3852ec28b~mv2.jpg/v1/fit/w_600,h_600,q_85/file.jpg" alt="Covertec Wheel and Extension"></span>
+  <span class="c-name">Covertec Wheel and Extension</span>
+  <span class="c-price"><span class="was">$15.00</span><span class="now">$12.75</span></span>
+  <span class="c-cat">Accessories</span></a><a class="card" href="product/fallen-order-v2.html" data-idx="51" data-name="Fallen Order V2" data-price="195.5" data-cats="In Stock Soon|All Products">
+  <span class="card-img"><img loading="lazy" src="https://static.wixstatic.com/media/e11055_c24755145f26441f951bfc91446b16f7~mv2.jpg/v1/fit/w_600,h_600,q_85/file.jpg" alt="Fallen Order V2"><span class="badge-oos">Out of Stock</span></span>
+  <span class="c-name">Fallen Order V2</span>
+  <span class="c-price"><span class="was">$230.00</span><span class="now">$195.50</span></span>
+  <span class="c-cat">In Stock Soon</span></a><a class="card" href="product/master-sol.html" data-idx="52" data-name="Master Sol" data-price="170" data-cats="All Products|In Stock Soon">
+  <span class="card-img"><img loading="lazy" src="https://static.wixstatic.com/media/e11055_88ce5b5aba8c430986f91a278e41a7bf~mv2.jpg/v1/fit/w_600,h_600,q_85/file.jpg" alt="Master Sol"><span class="badge-oos">Out of Stock</span></span>
+  <span class="c-name">Master Sol</span>
+  <span class="c-price"><span class="was">$200.00</span><span class="now">$170.00</span></span>
+  <span class="c-cat">All Products</span></a><a class="card" href="product/sg-knight-of-the-high-republic.html" data-idx="53" data-name="Knight of the High Republic" data-price="425" data-cats="All Products|In Stock Soon">
+  <span class="card-img"><img loading="lazy" src="https://static.wixstatic.com/media/e11055_394e1ec56c7a415ca10aa066a357d719~mv2.jpg/v1/fit/w_600,h_600,q_85/file.jpg" alt="Knight of the High Republic"><span class="badge-oos">Out of Stock</span></span>
+  <span class="c-name">Knight of the High Republic</span>
+  <span class="c-price"><span class="was">$500.00</span><span class="now">$425.00</span></span>
+  <span class="c-cat">All Products</span></a><a class="card" href="product/cutlass.html" data-idx="54" data-name="Cutlass" data-price="102" data-cats="In Stock Soon|All Products">
+  <span class="card-img"><img loading="lazy" src="https://static.wixstatic.com/media/e11055_70a4fd21083448698ec3b60d18fc0d0c~mv2.jpg/v1/fit/w_600,h_600,q_85/file.jpg" alt="Cutlass"><span class="badge-oos">Out of Stock</span></span>
+  <span class="c-name">Cutlass</span>
+  <span class="c-price"><span class="was">$120.00</span><span class="now">$102.00</span></span>
+  <span class="c-cat">In Stock Soon</span></a><a class="card" href="product/devlyn-dizgiize.html" data-idx="55" data-name="Devlyn Dizgiize" data-price="170" data-cats="All Products|In Stock Soon">
+  <span class="card-img"><img loading="lazy" src="https://static.wixstatic.com/media/e11055_f08affaebe7b40a984ce7bd01cb8c6fd~mv2.jpg/v1/fit/w_600,h_600,q_85/file.jpg" alt="Devlyn Dizgiize"><span class="badge-oos">Out of Stock</span></span>
+  <span class="c-name">Devlyn Dizgiize</span>
+  <span class="c-price"><span class="was">$200.00</span><span class="now">$170.00</span></span>
+  <span class="c-cat">All Products</span></a><a class="card" href="product/cade-skywalker.html" data-idx="56" data-name="Cade Skywalker" data-price="110.5" data-cats="In Stock Soon|All Products">
+  <span class="card-img"><img loading="lazy" src="https://static.wixstatic.com/media/e11055_37bac618431743a6a85e619619e50061~mv2.jpg/v1/fit/w_600,h_600,q_85/file.jpg" alt="Cade Skywalker"><span class="badge-oos">Out of Stock</span></span>
+  <span class="c-name">Cade Skywalker</span>
+  <span class="c-price"><span class="was">$130.00</span><span class="now">$110.50</span></span>
+  <span class="c-cat">In Stock Soon</span></a><a class="card" href="product/rule-of-two-staff-v2.html" data-idx="57" data-name="Rule of Two Staff V2" data-price="297.5" data-cats="All Products|In Stock Soon">
+  <span class="card-img"><img loading="lazy" src="https://static.wixstatic.com/media/e11055_05a09a1cea0b456e84ef1544ce6a3eaa~mv2.jpg/v1/fit/w_600,h_600,q_85/file.jpg" alt="Rule of Two Staff V2"><span class="badge-oos">Out of Stock</span></span>
+  <span class="c-name">Rule of Two Staff V2</span>
+  <span class="c-price"><span class="was">$350.00</span><span class="now">$297.50</span></span>
+  <span class="c-cat">All Products</span></a><a class="card" href="product/grip.html" data-idx="58" data-name="Grip" data-price="17" data-cats="All Products|GRIPS">
+  <span class="card-img"><img loading="lazy" src="https://static.wixstatic.com/media/e11055_e93a1c3f80ec4452a2f5c43be86ae4b6~mv2.png/v1/fit/w_600,h_600,q_85/file.jpg" alt="Grip"><span class="badge-oos">Out of Stock</span></span>
+  <span class="c-name">Grip</span>
+  <span class="c-price"><span class="was">$20.00</span><span class="now">$17.00</span></span>
+  <span class="c-cat">GRIPS</span></a><a class="card" href="product/eb-v3.html" data-idx="59" data-name="Ezra V3" data-price="255" data-cats="In Stock Soon|All Products">
+  <span class="card-img"><img loading="lazy" src="https://static.wixstatic.com/media/e11055_13f8029609ff4f70b5a6590ccf73f569~mv2.jpg/v1/fit/w_600,h_600,q_85/file.jpg" alt="Ezra V3"><span class="badge-oos">Out of Stock</span></span>
+  <span class="c-name">Ezra V3</span>
+  <span class="c-price"><span class="was">$300.00</span><span class="now">$255.00</span></span>
+  <span class="c-cat">In Stock Soon</span></a><a class="card" href="product/fallen-order-bk.html" data-idx="60" data-name="Fallen Order V4" data-price="255" data-cats="Currently In Stock|Form VI: Niman|All Products">
+  <span class="card-img"><img loading="lazy" src="https://static.wixstatic.com/media/e11055_b153f535548e42c48c5926ae8e7bd63c~mv2.jpg/v1/fit/w_600,h_600,q_85/file.jpg" alt="Fallen Order V4"></span>
+  <span class="c-name">Fallen Order V4</span>
+  <span class="c-price"><span class="was">$300.00</span><span class="now">$255.00</span></span>
+  <span class="c-cat">Form VI: Niman</span></a><a class="card" href="product/bushido.html" data-idx="61" data-name="Bushido" data-price="127.5" data-cats="All Products|Form IV: Ataru|Currently In Stock">
+  <span class="card-img"><img loading="lazy" src="https://static.wixstatic.com/media/e11055_7d5d94efd89e4eccbe5cf5d249ffca37~mv2.jpg/v1/fit/w_600,h_600,q_85/file.jpg" alt="Bushido"></span>
+  <span class="c-name">Bushido</span>
+  <span class="c-price"><span class="was">$150.00</span><span class="now">$127.50</span></span>
+  <span class="c-cat">Form IV: Ataru</span></a><a class="card" href="product/as-v9.html" data-idx="62" data-name="AS V9" data-price="170" data-cats="Form V: Shien &amp; Djem So|Currently In Stock|All Products">
+  <span class="card-img"><img loading="lazy" src="https://static.wixstatic.com/media/e11055_008491329d1b46499a55d32ea272a634~mv2.jpg/v1/fit/w_600,h_600,q_85/file.jpg" alt="AS V9"><span class="badge-ribbon">New for 2026</span></span>
+  <span class="c-name">AS V9</span>
+  <span class="c-price"><span class="was">$200.00</span><span class="now">$170.00</span></span>
+  <span class="c-cat">Form V: Shien &amp; Djem So</span></a><a class="card" href="product/bludgeon-2-0.html" data-idx="63" data-name="Bludgeon 2.0" data-price="153" data-cats="All Products">
+  <span class="card-img"><img loading="lazy" src="https://static.wixstatic.com/media/e11055_f3b055c1257c462d929a6bb3fc7eb1d9~mv2.jpg/v1/fit/w_600,h_600,q_85/file.jpg" alt="Bludgeon 2.0"><span class="badge-oos">Out of Stock</span></span>
+  <span class="c-name">Bludgeon 2.0</span>
+  <span class="c-price"><span class="was">$180.00</span><span class="now">$153.00</span></span>
+  <span class="c-cat">All Products</span></a><a class="card" href="product/mystery-box-v2.html" data-idx="64" data-name="Mystery Box V2" data-price="170" data-cats="Form V: Shien &amp; Djem So|Form III: Soresu|Form II: Makashi|Form IV: Ataru|Form I: Shii-Cho|Currently In Stock|All Products|Form VI: Niman">
+  <span class="card-img"><img loading="lazy" src="https://static.wixstatic.com/media/e11055_97710832d4424e3fade71699c210c1a2~mv2.jpg/v1/fit/w_600,h_600,q_85/file.jpg" alt="Mystery Box V2"></span>
+  <span class="c-name">Mystery Box V2</span>
+  <span class="c-price"><span class="was">$200.00</span><span class="now">$170.00</span></span>
+  <span class="c-cat">Form V: Shien &amp; Djem So</span></a><a class="card" href="product/pristine.html" data-idx="65" data-name="Pristine" data-price="85" data-cats="All Products|In Stock Soon">
+  <span class="card-img"><img loading="lazy" src="https://static.wixstatic.com/media/e11055_824fa46cf4b0420fa6a2aaf8a91fc4b4~mv2.jpg/v1/fit/w_600,h_600,q_85/file.jpg" alt="Pristine"><span class="badge-oos">Out of Stock</span></span>
+  <span class="c-name">Pristine</span>
+  <span class="c-price"><span class="was">$100.00</span><span class="now">$85.00</span></span>
+  <span class="c-cat">All Products</span></a><a class="card" href="product/qui-gon-jinn-variant.html" data-idx="66" data-name="QGJ" data-price="229.5" data-cats="All Products|In Stock Soon">
+  <span class="card-img"><img loading="lazy" src="https://static.wixstatic.com/media/e11055_74ef5d6bc07d41ca975868a1159ef1c4~mv2.jpg/v1/fit/w_600,h_600,q_85/file.jpg" alt="QGJ"><span class="badge-oos">Out of Stock</span></span>
+  <span class="c-name">QGJ</span>
+  <span class="c-price"><span class="was">$270.00</span><span class="now">$229.50</span></span>
+  <span class="c-cat">All Products</span></a><a class="card" href="product/deviant.html" data-idx="67" data-name="Deviant" data-price="110.5" data-cats="In Stock Soon|All Products">
+  <span class="card-img"><img loading="lazy" src="https://static.wixstatic.com/media/e11055_9d982da5c5d8477c85d34912e4d8e1ff~mv2.jpg/v1/fit/w_600,h_600,q_85/file.jpg" alt="Deviant"><span class="badge-oos">Out of Stock</span></span>
+  <span class="c-name">Deviant</span>
+  <span class="c-price"><span class="was">$130.00</span><span class="now">$110.50</span></span>
+  <span class="c-cat">In Stock Soon</span></a><a class="card" href="product/cepheus.html" data-idx="68" data-name="Cepheus" data-price="102" data-cats="In Stock Soon|All Products">
+  <span class="card-img"><img loading="lazy" src="https://static.wixstatic.com/media/e11055_eaa5f7d0120043c68c6519dc92785be1~mv2.jpg/v1/fit/w_600,h_600,q_85/file.jpg" alt="Cepheus"><span class="badge-oos">Out of Stock</span></span>
+  <span class="c-name">Cepheus</span>
+  <span class="c-price"><span class="was">$120.00</span><span class="now">$102.00</span></span>
+  <span class="c-cat">In Stock Soon</span></a><a class="card" href="product/fallen-order-v3.html" data-idx="69" data-name="Fallen Order V3" data-price="212.5" data-cats="In Stock Soon|All Products">
+  <span class="card-img"><img loading="lazy" src="https://static.wixstatic.com/media/e11055_eaf27ebd08b64e82a33908b5760081f0~mv2.jpg/v1/fit/w_600,h_600,q_85/file.jpg" alt="Fallen Order V3"><span class="badge-oos">Out of Stock</span></span>
+  <span class="c-name">Fallen Order V3</span>
+  <span class="c-price"><span class="was">$250.00</span><span class="now">$212.50</span></span>
+  <span class="c-cat">In Stock Soon</span></a><a class="card" href="product/beast-tamer.html" data-idx="70" data-name="Beast Tamer" data-price="106.25" data-cats="All Products|Currently In Stock|Frankensaber Form VII: Juyo">
+  <span class="card-img"><img loading="lazy" src="https://static.wixstatic.com/media/e11055_e2cced70114e441db87bf5fc031f0000~mv2.jpg/v1/fit/w_600,h_600,q_85/file.jpg" alt="Beast Tamer"></span>
+  <span class="c-name">Beast Tamer</span>
+  <span class="c-price"><span class="was">$125.00</span><span class="now">$106.25</span></span>
+  <span class="c-cat">Frankensaber Form VII: Juyo</span></a><a class="card" href="product/belt-clip.html" data-idx="71" data-name="Belt Clip" data-price="12.75" data-cats="All Products|Accessories">
+  <span class="card-img"><img loading="lazy" src="https://static.wixstatic.com/media/e11055_378edba83f494143a0fa404ed7ca834e~mv2.jpg/v1/fit/w_600,h_600,q_85/file.jpg" alt="Belt Clip"></span>
+  <span class="c-name">Belt Clip</span>
+  <span class="c-price"><span class="was">$15.00</span><span class="now">$12.75</span></span>
+  <span class="c-cat">Accessories</span></a><a class="card" href="product/edge-of-balance.html" data-idx="72" data-name="Edge of Balance" data-price="212.5" data-cats="All Products|Currently In Stock|Form VI: Niman">
+  <span class="card-img"><img loading="lazy" src="https://static.wixstatic.com/media/e11055_4eb1755a5c304496a2f3802560ac1d31~mv2.jpg/v1/fit/w_600,h_600,q_85/file.jpg" alt="Edge of Balance"><span class="badge-ribbon">New for 2026</span></span>
+  <span class="c-name">Edge of Balance</span>
+  <span class="c-price"><span class="was">$250.00</span><span class="now">$212.50</span></span>
+  <span class="c-cat">Form VI: Niman</span></a><a class="card" href="product/aurora.html" data-idx="73" data-name="Aurora" data-price="110.5" data-cats="In Stock Soon|All Products">
+  <span class="card-img"><img loading="lazy" src="https://static.wixstatic.com/media/e11055_a9172ab2d201434f91ff03e6b9a64bc7~mv2.jpg/v1/fit/w_600,h_600,q_85/file.jpg" alt="Aurora"><span class="badge-oos">Out of Stock</span></span>
+  <span class="c-name">Aurora</span>
+  <span class="c-price"><span class="was">$130.00</span><span class="now">$110.50</span></span>
+  <span class="c-cat">In Stock Soon</span></a><a class="card" href="product/at1.html" data-idx="74" data-name="A&#x27;Tano" data-price="357" data-cats="All Products|In Stock Soon">
+  <span class="card-img"><img loading="lazy" src="https://static.wixstatic.com/media/e11055_bd21c2448a5642a9a2eb5a3a0cd718dc~mv2.jpg/v1/fit/w_600,h_600,q_85/file.jpg" alt="A&#x27;Tano"><span class="badge-oos">Out of Stock</span></span>
+  <span class="c-name">A&#x27;Tano</span>
+  <span class="c-price"><span class="was">$420.00</span><span class="now">$357.00</span></span>
+  <span class="c-cat">All Products</span></a><a class="card" href="product/the-neophyte.html" data-idx="75" data-name="Neophyte" data-price="85" data-cats="In Stock Soon|All Products">
+  <span class="card-img"><img loading="lazy" src="https://static.wixstatic.com/media/e11055_eeb6cc1e21ab4c149e7770609e9d6dd6~mv2.jpg/v1/fit/w_600,h_600,q_85/file.jpg" alt="Neophyte"><span class="badge-oos">Out of Stock</span></span>
+  <span class="c-name">Neophyte</span>
+  <span class="c-price"><span class="was">$100.00</span><span class="now">$85.00</span></span>
+  <span class="c-cat">In Stock Soon</span></a><a class="card" href="product/elder.html" data-idx="76" data-name="Elder" data-price="102" data-cats="Currently In Stock|Form II: Makashi|All Products">
+  <span class="card-img"><img loading="lazy" src="https://static.wixstatic.com/media/e11055_038c08bea77849198c45bcc772a57ccb~mv2.jpg/v1/fit/w_600,h_600,q_85/file.jpg" alt="Elder"></span>
+  <span class="c-name">Elder</span>
+  <span class="c-price"><span class="was">$120.00</span><span class="now">$102.00</span></span>
+  <span class="c-cat">Form II: Makashi</span></a><a class="card" href="product/enforcer.html" data-idx="77" data-name="Enforcer" data-price="127.5" data-cats="In Stock Soon|All Products">
+  <span class="card-img"><img loading="lazy" src="https://static.wixstatic.com/media/e11055_2bd53dca0c764953aa1affc8688f8663~mv2.jpg/v1/fit/w_600,h_600,q_85/file.jpg" alt="Enforcer"><span class="badge-oos">Out of Stock</span></span>
+  <span class="c-name">Enforcer</span>
+  <span class="c-price"><span class="was">$150.00</span><span class="now">$127.50</span></span>
+  <span class="c-cat">In Stock Soon</span></a><a class="card" href="product/as-v4.html" data-idx="78" data-name="AS V4" data-price="178.5" data-cats="All Products|Clearance|Form VI: Niman|Currently In Stock">
+  <span class="card-img"><img loading="lazy" src="https://static.wixstatic.com/media/e11055_401d05b6db1847db81c3f1711d582f58~mv2.jpg/v1/fit/w_600,h_600,q_85/file.jpg" alt="AS V4"></span>
+  <span class="c-name">AS V4</span>
+  <span class="c-price"><span class="was">$250.00</span><span class="now">$178.50</span></span>
+  <span class="c-cat">Clearance</span></a><a class="card" href="product/ls3.html" data-idx="79" data-name="LS V3" data-price="187" data-cats="In Stock Soon|All Products">
+  <span class="card-img"><img loading="lazy" src="https://static.wixstatic.com/media/e11055_1d6778fcb4594be595f00939350e7d3c~mv2.jpg/v1/fit/w_600,h_600,q_85/file.jpg" alt="LS V3"><span class="badge-oos">Out of Stock</span></span>
+  <span class="c-name">LS V3</span>
+  <span class="c-price"><span class="was">$220.00</span><span class="now">$187.00</span></span>
+  <span class="c-cat">In Stock Soon</span></a><a class="card" href="product/kaze-kumo.html" data-idx="80" data-name="Kaze Kumo" data-price="170" data-cats="Currently In Stock|Form V: Shien &amp; Djem So|All Products">
+  <span class="card-img"><img loading="lazy" src="https://static.wixstatic.com/media/e11055_7e4e7996b1ec4c06aa6a31270f50364a~mv2.jpg/v1/fit/w_600,h_600,q_85/file.jpg" alt="Kaze Kumo"><span class="badge-ribbon">New for 2026</span></span>
+  <span class="c-name">Kaze Kumo</span>
+  <span class="c-price"><span class="was">$200.00</span><span class="now">$170.00</span></span>
+  <span class="c-cat">Form V: Shien &amp; Djem So</span></a><a class="card" href="product/fallen-order-v5.html" data-idx="81" data-name="Fallen Order V5" data-price="127.5" data-cats="All Products|In Stock Soon">
+  <span class="card-img"><img loading="lazy" src="https://static.wixstatic.com/media/e11055_e0694ca9e47940429eb537b8e4b0f37b~mv2.jpg/v1/fit/w_600,h_600,q_85/file.jpg" alt="Fallen Order V5"><span class="badge-oos">Out of Stock</span></span>
+  <span class="c-name">Fallen Order V5</span>
+  <span class="c-price"><span class="was">$150.00</span><span class="now">$127.50</span></span>
+  <span class="c-cat">All Products</span></a><a class="card" href="product/perseverance.html" data-idx="82" data-name="Perseverance" data-price="170" data-cats="All Products|In Stock Soon">
+  <span class="card-img"><img loading="lazy" src="https://static.wixstatic.com/media/e11055_f4b235b94176488b9a1511596ed449f1~mv2.jpg/v1/fit/w_600,h_600,q_85/file.jpg" alt="Perseverance"><span class="badge-oos">Out of Stock</span></span>
+  <span class="c-name">Perseverance</span>
+  <span class="c-price"><span class="was">$200.00</span><span class="now">$170.00</span></span>
+  <span class="c-cat">All Products</span></a><a class="card" href="product/bludgeon.html" data-idx="83" data-name="Bludgeon" data-price="131.75" data-cats="All Products|In Stock Soon">
+  <span class="card-img"><img loading="lazy" src="https://static.wixstatic.com/media/e11055_2deba8c2848d44e5b5f7d6db100063de~mv2.jpg/v1/fit/w_600,h_600,q_85/file.jpg" alt="Bludgeon"><span class="badge-oos">Out of Stock</span></span>
+  <span class="c-name">Bludgeon</span>
+  <span class="c-price"><span class="was">$155.00</span><span class="now">$131.75</span></span>
+  <span class="c-cat">All Products</span></a><a class="card" href="product/echa-nunchaku.html" data-idx="84" data-name="Echa-Nunchaku" data-price="127.5" data-cats="Form IV: Ataru|Currently In Stock|All Products">
+  <span class="card-img"><img loading="lazy" src="https://static.wixstatic.com/media/e11055_ac38b4b09acd4e1c9d8bb14071d18cbc~mv2.jpg/v1/fit/w_600,h_600,q_85/file.jpg" alt="Echa-Nunchaku"><span class="badge-ribbon">New for 2025</span></span>
+  <span class="c-name">Echa-Nunchaku</span>
+  <span class="c-price"><span class="was">$150.00</span><span class="now">$127.50</span></span>
+  <span class="c-cat">Form IV: Ataru</span></a><a class="card" href="product/luke-no-control-box.html" data-idx="85" data-name="LS" data-price="148.75" data-cats="In Stock Soon|All Products">
+  <span class="card-img"><img loading="lazy" src="https://static.wixstatic.com/media/e11055_32f8120b148149d3aadf610397d205ed~mv2.jpg/v1/fit/w_600,h_600,q_85/file.jpg" alt="LS"><span class="badge-oos">Out of Stock</span></span>
+  <span class="c-name">LS</span>
+  <span class="c-price"><span class="was">$175.00</span><span class="now">$148.75</span></span>
+  <span class="c-cat">In Stock Soon</span></a><a class="card" href="product/bastila-shan.html" data-idx="86" data-name="Bastila Shan" data-price="255" data-cats="All Products|In Stock Soon">
+  <span class="card-img"><img loading="lazy" src="https://static.wixstatic.com/media/e11055_09cdb70df30e4efd9ee929ebcb684502~mv2.jpg/v1/fit/w_600,h_600,q_85/file.jpg" alt="Bastila Shan"><span class="badge-oos">Out of Stock</span></span>
+  <span class="c-name">Bastila Shan</span>
+  <span class="c-price"><span class="was">$300.00</span><span class="now">$255.00</span></span>
+  <span class="c-cat">All Products</span></a><a class="card" href="product/owk-v4.html" data-idx="87" data-name="OWK V4" data-price="170" data-cats="Form V: Shien &amp; Djem So|Currently In Stock|All Products">
+  <span class="card-img"><img loading="lazy" src="https://static.wixstatic.com/media/e11055_a5363e1f44f641a19454b9d57ff4b6c4~mv2.jpg/v1/fit/w_600,h_600,q_85/file.jpg" alt="OWK V4"><span class="badge-ribbon">New for 2026</span></span>
+  <span class="c-name">OWK V4</span>
+  <span class="c-price"><span class="was">$200.00</span><span class="now">$170.00</span></span>
+  <span class="c-cat">Form V: Shien &amp; Djem So</span></a><a class="card" href="product/rogue-black.html" data-idx="88" data-name="Rogue" data-price="119" data-cats="All Products|In Stock Soon">
+  <span class="card-img"><img loading="lazy" src="https://static.wixstatic.com/media/e11055_ac9ba0f0336843b9aff634b61a4ab00e~mv2.jpg/v1/fit/w_600,h_600,q_85/file.jpg" alt="Rogue"><span class="badge-oos">Out of Stock</span></span>
+  <span class="c-name">Rogue</span>
+  <span class="c-price"><span class="was">$140.00</span><span class="now">$119.00</span></span>
+  <span class="c-cat">All Products</span></a><a class="card" href="product/cerean-2-0.html" data-idx="89" data-name="Cerean 2.0" data-price="119" data-cats="All Products|Frankensaber Form VII: Juyo|Currently In Stock">
+  <span class="card-img"><img loading="lazy" src="https://static.wixstatic.com/media/e11055_7b287777b0994198af79f23b1aab9e4d~mv2.jpg/v1/fit/w_600,h_600,q_85/file.jpg" alt="Cerean 2.0"></span>
+  <span class="c-name">Cerean 2.0</span>
+  <span class="c-price"><span class="was">$140.00</span><span class="now">$119.00</span></span>
+  <span class="c-cat">Frankensaber Form VII: Juyo</span></a><a class="card" href="product/kcs-kyber-crystal-saber.html" data-idx="90" data-name="KCS (Kyber Crystal Saber)" data-price="136" data-cats="All Products|In Stock Soon">
+  <span class="card-img"><img loading="lazy" src="https://static.wixstatic.com/media/e11055_2a20cb14d5724dbe8a3a6390604006d8~mv2.jpg/v1/fit/w_600,h_600,q_85/file.jpg" alt="KCS (Kyber Crystal Saber)"><span class="badge-oos">Out of Stock</span></span>
+  <span class="c-name">KCS (Kyber Crystal Saber)</span>
+  <span class="c-price"><span class="was">$160.00</span><span class="now">$136.00</span></span>
+  <span class="c-cat">All Products</span></a><a class="card" href="product/blind-knight.html" data-idx="91" data-name="Blind Knight" data-price="255" data-cats="All Products|Form VI: Niman|Currently In Stock">
+  <span class="card-img"><img loading="lazy" src="https://static.wixstatic.com/media/e11055_43f3b1c9a14f4a51b66d14ac77188ac4~mv2.jpg/v1/fit/w_600,h_600,q_85/file.jpg" alt="Blind Knight"></span>
+  <span class="c-name">Blind Knight</span>
+  <span class="c-price"><span class="was">$300.00</span><span class="now">$255.00</span></span>
+  <span class="c-cat">Form VI: Niman</span></a><a class="card" href="product/darth-maul-black-staff.html" data-idx="92" data-name="Rule of Two Staff" data-price="255" data-cats="In Stock Soon|All Products">
+  <span class="card-img"><img loading="lazy" src="https://static.wixstatic.com/media/e11055_5abd7bc4b6f541c0aadae2d52b94d1f0~mv2.jpg/v1/fit/w_600,h_600,q_85/file.jpg" alt="Rule of Two Staff"><span class="badge-oos">Out of Stock</span></span>
+  <span class="c-name">Rule of Two Staff</span>
+  <span class="c-price"><span class="was">$300.00</span><span class="now">$255.00</span></span>
+  <span class="c-cat">In Stock Soon</span></a><a class="card" href="product/pontentium.html" data-idx="93" data-name="Potentium" data-price="76.5" data-cats="In Stock Soon|All Products">
+  <span class="card-img"><img loading="lazy" src="https://static.wixstatic.com/media/e11055_643122917537428cadfb240adb5eaa90~mv2.jpg/v1/fit/w_600,h_600,q_85/file.jpg" alt="Potentium"><span class="badge-oos">Out of Stock</span></span>
+  <span class="c-name">Potentium</span>
+  <span class="c-price"><span class="was">$90.00</span><span class="now">$76.50</span></span>
+  <span class="c-cat">In Stock Soon</span></a><a class="card" href="product/apprentice.html" data-idx="94" data-name="Dark Apprentice" data-price="85" data-cats="In Stock Soon|All Products">
+  <span class="card-img"><img loading="lazy" src="https://static.wixstatic.com/media/e11055_9f524761bbf348b0af44403c117807a4~mv2.jpg/v1/fit/w_600,h_600,q_85/file.jpg" alt="Dark Apprentice"><span class="badge-oos">Out of Stock</span></span>
+  <span class="c-name">Dark Apprentice</span>
+  <span class="c-price"><span class="was">$100.00</span><span class="now">$85.00</span></span>
+  <span class="c-cat">In Stock Soon</span></a><a class="card" href="product/monarch-black.html" data-idx="95" data-name="Monarch" data-price="102" data-cats="All Products|In Stock Soon">
+  <span class="card-img"><img loading="lazy" src="https://static.wixstatic.com/media/e11055_e1b1e094c57944018e487699af0683fc~mv2.jpg/v1/fit/w_600,h_600,q_85/file.jpg" alt="Monarch"><span class="badge-oos">Out of Stock</span></span>
+  <span class="c-name">Monarch</span>
+  <span class="c-price"><span class="was">$120.00</span><span class="now">$102.00</span></span>
+  <span class="c-cat">All Products</span></a><a class="card" href="product/couplers.html" data-idx="96" data-name="Couplers" data-price="12.75" data-cats="Accessories|All Products">
+  <span class="card-img"><img loading="lazy" src="https://static.wixstatic.com/media/e11055_7b0022b194f84c77b2025abd5d35e16e~mv2.jpg/v1/fit/w_600,h_600,q_85/file.jpg" alt="Couplers"></span>
+  <span class="c-name">Couplers</span>
+  <span class="c-price"><span class="was">$15.00</span><span class="now">$12.75</span></span>
+  <span class="c-cat">Accessories</span></a><a class="card" href="product/m-a-t.html" data-idx="97" data-name="M-AT" data-price="68" data-cats="Form I: Shii-Cho|Currently In Stock|All Products">
+  <span class="card-img"><img loading="lazy" src="https://static.wixstatic.com/media/e11055_ef302fde8ffc4084b478f22009c5929f~mv2.jpg/v1/fit/w_600,h_600,q_85/file.jpg" alt="M-AT"></span>
+  <span class="c-name">M-AT</span>
+  <span class="c-price"><span class="was">$80.00</span><span class="now">$68.00</span></span>
+  <span class="c-cat">Form I: Shii-Cho</span></a><a class="card" href="product/old-republic-forend.html" data-idx="98" data-name="Old Republic Scavenged Forend" data-price="106.25" data-cats="Form III: Soresu|Currently In Stock|All Products">
+  <span class="card-img"><img loading="lazy" src="https://static.wixstatic.com/media/e11055_60cba691a6bb4d9e8768f458ed937290~mv2.jpg/v1/fit/w_600,h_600,q_85/file.jpg" alt="Old Republic Scavenged Forend"></span>
+  <span class="c-name">Old Republic Scavenged Forend</span>
+  <span class="c-price"><span class="was">$125.00</span><span class="now">$106.25</span></span>
+  <span class="c-cat">Form III: Soresu</span></a><a class="card" href="product/cerulean-sabre.html" data-idx="99" data-name="Cerulean Sabre" data-price="170" data-cats="All Products">
+  <span class="card-img"><img loading="lazy" src="https://static.wixstatic.com/media/e11055_e7fda08a47da48b7a38b5f6dd9840788~mv2.jpg/v1/fit/w_600,h_600,q_85/file.jpg" alt="Cerulean Sabre"><span class="badge-ribbon">2021</span><span class="badge-oos">Out of Stock</span></span>
+  <span class="c-name">Cerulean Sabre</span>
+  <span class="c-price"><span class="was">$200.00</span><span class="now">$170.00</span></span>
+  <span class="c-cat">All Products</span></a><a class="card" href="product/the-echo-of-time.html" data-idx="100" data-name="The Echo of Time" data-price="102" data-cats="Form II: Makashi|Currently In Stock|All Products">
+  <span class="card-img"><img loading="lazy" src="https://static.wixstatic.com/media/e11055_5cd97ceb8a964b8bad21f0d7c21b6280~mv2.jpg/v1/fit/w_600,h_600,q_85/file.jpg" alt="The Echo of Time"></span>
+  <span class="c-name">The Echo of Time</span>
+  <span class="c-price"><span class="was">$120.00</span><span class="now">$102.00</span></span>
+  <span class="c-cat">Form II: Makashi</span></a><a class="card" href="product/gm2.html" data-idx="101" data-name="Starkiller V2" data-price="255" data-cats="In Stock Soon|All Products">
+  <span class="card-img"><img loading="lazy" src="https://static.wixstatic.com/media/e11055_b41868939e454911b5f7346c07db5d21~mv2.jpg/v1/fit/w_600,h_600,q_85/file.jpg" alt="Starkiller V2"><span class="badge-oos">Out of Stock</span></span>
+  <span class="c-name">Starkiller V2</span>
+  <span class="c-price"><span class="was">$300.00</span><span class="now">$255.00</span></span>
+  <span class="c-cat">In Stock Soon</span></a><a class="card" href="product/the-void.html" data-idx="102" data-name="Void" data-price="119" data-cats="In Stock Soon|All Products">
+  <span class="card-img"><img loading="lazy" src="https://static.wixstatic.com/media/e11055_c2c58c87bf9e4684b9006f52961e9b6c~mv2.jpg/v1/fit/w_600,h_600,q_85/file.jpg" alt="Void"><span class="badge-oos">Out of Stock</span></span>
+  <span class="c-name">Void</span>
+  <span class="c-price"><span class="was">$140.00</span><span class="now">$119.00</span></span>
+  <span class="c-cat">In Stock Soon</span></a><a class="card" href="product/leia.html" data-idx="103" data-name="The General and a Princess" data-price="255" data-cats="Currently In Stock|Form VI: Niman|All Products">
+  <span class="card-img"><img loading="lazy" src="https://static.wixstatic.com/media/e11055_7a3312a5e96846b8a522c8fd187e49f6~mv2.jpg/v1/fit/w_600,h_600,q_85/file.jpg" alt="The General and a Princess"></span>
+  <span class="c-name">The General and a Princess</span>
+  <span class="c-price"><span class="was">$300.00</span><span class="now">$255.00</span></span>
+  <span class="c-cat">Form VI: Niman</span></a><a class="card" href="product/starkiller-variant.html" data-idx="104" data-name="Starkiller" data-price="238" data-cats="All Products|In Stock Soon">
+  <span class="card-img"><img loading="lazy" src="https://static.wixstatic.com/media/e11055_cc5d05bfaa3f4c889a8a61bc992adb89~mv2.jpg/v1/fit/w_600,h_600,q_85/file.jpg" alt="Starkiller"><span class="badge-oos">Out of Stock</span></span>
+  <span class="c-name">Starkiller</span>
+  <span class="c-price"><span class="was">$280.00</span><span class="now">$238.00</span></span>
+  <span class="c-cat">All Products</span></a><a class="card" href="product/wraith.html" data-idx="105" data-name="Wraith" data-price="102" data-cats="All Products|In Stock Soon">
+  <span class="card-img"><img loading="lazy" src="https://static.wixstatic.com/media/e11055_5facf388d74d4c2f852b9bf9fc04b347~mv2.jpg/v1/fit/w_600,h_600,q_85/file.jpg" alt="Wraith"><span class="badge-oos">Out of Stock</span></span>
+  <span class="c-name">Wraith</span>
+  <span class="c-price"><span class="was">$120.00</span><span class="now">$102.00</span></span>
+  <span class="c-cat">All Products</span></a><a class="card" href="product/pike.html" data-idx="106" data-name="Saber Pike" data-price="170" data-cats="Form V: Shien &amp; Djem So|Currently In Stock|All Products">
+  <span class="card-img"><img loading="lazy" src="https://static.wixstatic.com/media/e11055_8c59f3799dc6463b95f5e99bbe432d52~mv2.jpg/v1/fit/w_600,h_600,q_85/file.jpg" alt="Saber Pike"></span>
+  <span class="c-name">Saber Pike</span>
+  <span class="c-price"><span class="was">$200.00</span><span class="now">$170.00</span></span>
+  <span class="c-cat">Form V: Shien &amp; Djem So</span></a><a class="card" href="product/warden-s-spike.html" data-idx="107" data-name="Warden&#x27;s Spike" data-price="93.5" data-cats="All Products|Form II: Makashi|Currently In Stock">
+  <span class="card-img"><img loading="lazy" src="https://static.wixstatic.com/media/e11055_a2586378cf5340c9806088ccb654445b~mv2.jpg/v1/fit/w_600,h_600,q_85/file.jpg" alt="Warden&#x27;s Spike"></span>
+  <span class="c-name">Warden&#x27;s Spike</span>
+  <span class="c-price"><span class="was">$110.00</span><span class="now">$93.50</span></span>
+  <span class="c-cat">Form II: Makashi</span></a><a class="card" href="product/sarlacc.html" data-idx="108" data-name="Sarlacc" data-price="131.75" data-cats="All Products|In Stock Soon">
+  <span class="card-img"><img loading="lazy" src="https://static.wixstatic.com/media/e11055_eca1ff2fd62b44c990b89b46e8536588~mv2.jpg/v1/fit/w_600,h_600,q_85/file.jpg" alt="Sarlacc"><span class="badge-oos">Out of Stock</span></span>
+  <span class="c-name">Sarlacc</span>
+  <span class="c-price"><span class="was">$155.00</span><span class="now">$131.75</span></span>
+  <span class="c-cat">All Products</span></a><a class="card" href="product/starkiller-v3.html" data-idx="109" data-name="Starkiller V3" data-price="297.5" data-cats="All Products|Form VI: Niman|Currently In Stock">
+  <span class="card-img"><img loading="lazy" src="https://static.wixstatic.com/media/e11055_979b29542aef4f76a028f42a718248fe~mv2.jpg/v1/fit/w_600,h_600,q_85/file.jpg" alt="Starkiller V3"></span>
+  <span class="c-name">Starkiller V3</span>
+  <span class="c-price"><span class="was">$350.00</span><span class="now">$297.50</span></span>
+  <span class="c-cat">Form VI: Niman</span></a><a class="card" href="product/scavenger.html" data-idx="110" data-name="Scavenger" data-price="102" data-cats="In Stock Soon|All Products">
+  <span class="card-img"><img loading="lazy" src="https://static.wixstatic.com/media/e11055_e3d4fc28703f446e8cfa9cb0deb82a6d~mv2.jpg/v1/fit/w_600,h_600,q_85/file.jpg" alt="Scavenger"><span class="badge-oos">Out of Stock</span></span>
+  <span class="c-name">Scavenger</span>
+  <span class="c-price"><span class="was">$120.00</span><span class="now">$102.00</span></span>
+  <span class="c-cat">In Stock Soon</span></a><a class="card" href="product/shadowclaw-of-malachor.html" data-idx="111" data-name="Shadowclaw of Malachor" data-price="110.5" data-cats="All Products|Currently In Stock|Form III: Soresu">
+  <span class="card-img"><img loading="lazy" src="https://static.wixstatic.com/media/e11055_a4a1f77fdf33475b8e6c2bb2ead055b3~mv2.jpg/v1/fit/w_600,h_600,q_85/file.jpg" alt="Shadowclaw of Malachor"></span>
+  <span class="c-name">Shadowclaw of Malachor</span>
+  <span class="c-price"><span class="was">$130.00</span><span class="now">$110.50</span></span>
+  <span class="c-cat">Form III: Soresu</span></a><a class="card" href="product/scabbards.html" data-idx="112" data-name="Scabbards" data-price="17" data-cats="All Products|Accessories">
+  <span class="card-img"><img loading="lazy" src="https://static.wixstatic.com/media/e11055_bf55841391094cd2bf2e5bd61c8994f4~mv2.jpg/v1/fit/w_600,h_600,q_85/file.jpg" alt="Scabbards"><span class="badge-oos">Out of Stock</span></span>
+  <span class="c-name">Scabbards</span>
+  <span class="c-price"><span class="was">$20.00</span><span class="now">$17.00</span></span>
+  <span class="c-cat">Accessories</span></a><a class="card" href="product/ahch-to-relic.html" data-idx="113" data-name="Satele Shan" data-price="382.5" data-cats="In Stock Soon|All Products">
+  <span class="card-img"><img loading="lazy" src="https://static.wixstatic.com/media/e11055_66a974f5ab424cc7993cafcde758306b~mv2.jpg/v1/fit/w_600,h_600,q_85/file.jpg" alt="Satele Shan"><span class="badge-oos">Out of Stock</span></span>
+  <span class="c-name">Satele Shan</span>
+  <span class="c-price"><span class="was">$450.00</span><span class="now">$382.50</span></span>
+  <span class="c-cat">In Stock Soon</span></a><a class="card" href="product/villain.html" data-idx="114" data-name="Villain" data-price="106.25" data-cats="In Stock Soon|All Products">
+  <span class="card-img"><img loading="lazy" src="https://static.wixstatic.com/media/e11055_00f34a51959c4b38a7a32e06f75cd8a6~mv2.jpg/v1/fit/w_600,h_600,q_85/file.jpg" alt="Villain"><span class="badge-oos">Out of Stock</span></span>
+  <span class="c-name">Villain</span>
+  <span class="c-price"><span class="was">$125.00</span><span class="now">$106.25</span></span>
+  <span class="c-cat">In Stock Soon</span></a><a class="card" href="product/sentinel-s-spike.html" data-idx="115" data-name="Sentinel&#x27;s Spike" data-price="93.5" data-cats="All Products|Currently In Stock|Form II: Makashi">
+  <span class="card-img"><img loading="lazy" src="https://static.wixstatic.com/media/e11055_87cfd46a430e4aa7901f74af68b606cb~mv2.jpg/v1/fit/w_600,h_600,q_85/file.jpg" alt="Sentinel&#x27;s Spike"></span>
+  <span class="c-name">Sentinel&#x27;s Spike</span>
+  <span class="c-price"><span class="was">$110.00</span><span class="now">$93.50</span></span>
+  <span class="c-cat">Form II: Makashi</span></a><a class="card" href="product/tsithrelic.html" data-idx="116" data-name="Tsith Relic" data-price="85" data-cats="In Stock Soon|All Products">
+  <span class="card-img"><img loading="lazy" src="https://static.wixstatic.com/media/e11055_9e8856af147048e69fe22f25f9385faf~mv2.jpg/v1/fit/w_600,h_600,q_85/file.jpg" alt="Tsith Relic"><span class="badge-oos">Out of Stock</span></span>
+  <span class="c-name">Tsith Relic</span>
+  <span class="c-price"><span class="was">$100.00</span><span class="now">$85.00</span></span>
+  <span class="c-cat">In Stock Soon</span></a></div>
+  <div class="no-results" id="no-results">No products match that filter.</div>
+</div>
+<footer>
+  <div class="social-band">
+    <div class="sb-title">Want to see videos?<br>Check out our social media pages!</div>
+    <div class="social-links">
+      <a href="https://www.tiktok.com/@nwsabersyndicate" target="_blank" rel="noopener">TikTok</a>
+      <a href="https://www.facebook.com/NWSaberSyndicate" target="_blank" rel="noopener">Facebook</a>
+      <a href="https://www.instagram.com/nwsabersyndicate/" target="_blank" rel="noopener">Instagram</a>
+    </div>
+  </div>
+  <div class="subscribe-band">
+    <div class="sb-wrap">
+      <form id="subscribe-form">
+        <label for="sub-email">Subscribe for updates</label>
+        <input id="sub-email" type="email" placeholder="Enter your email address here!" required>
+        <button type="submit">Submit</button>
+        <div class="sub-thanks">Thank you! May the force be with you!</div>
+      </form>
+    </div>
+  </div>
+  <div class="legal-band">
+    ©2020-2026 Northwest Saber Syndicate<br>
+    Northwest Saber Syndicate (NWSS) is not affiliated with Disney, Star Wars, NOR BANDAI trademarks<br>
+    Saint Helens, Oregon, USA
+    <div class="copy-note">Static preview copy of nwsabersyndicate.com, built for review — checkout is not active on this copy.</div>
+  </div>
+</footer>
+<script src="app.js"></script>
+</body>
+</html>

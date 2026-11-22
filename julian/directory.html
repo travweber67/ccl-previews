@@ -111,7 +111,7 @@ if(params.get('q'))qIn.value=params.get('q');
 function apply(){
   const q=qIn.value.toLowerCase(),c=catSel.value,t=townSel.value;
   const list=LISTINGS.filter(l=>(!c||l.cat===c)&&(!t||l.town===t)&&(!q||(l.name+' '+l.town+' '+l.cat+' '+l.desc).toLowerCase().includes(q)));
-  document.getElementById('count').textContent='Showing Places 1-'+list.length+' of 241 in the chamber's published member directory (demo sample: '+list.length+' shown)';
+  document.getElementById('count').textContent='Showing Places 1-'+list.length+' of 241 in the published chamber member directory (demo sample: '+list.length+' shown)';
   renderInto('results',list);
 }
 [qIn,catSel,townSel].forEach(el=>el.addEventListener('input',apply));

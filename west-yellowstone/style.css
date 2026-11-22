@@ -1664,3 +1664,5 @@ footer.site .foot-credit a{display:inline;padding:0;color:#cfd6cc;text-decoratio
   .page-hero{min-height:302px}
   .page-hero-in{padding:26px 18px 22px}
 }
+
+@media (max-width:560px){.logo-word{font-size:18px}.logo-word small{font-size:10px;letter-spacing:1px}}

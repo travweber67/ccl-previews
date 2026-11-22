@@ -1,0 +1,30 @@
+{
+ "background_color": "#faf6ef",
+ "description": "Virginia City, Nevada's directory of local businesses, saloons, museums, lodging and events. A Virginia City Tourism Commission demo.",
+ "display": "standalone",
+ "icons": [
+  {
+   "purpose": "any",
+   "sizes": "192x192",
+   "src": "img/icons/icon-192.png",
+   "type": "image/png"
+  },
+  {
+   "purpose": "any",
+   "sizes": "512x512",
+   "src": "img/icons/icon-512.png",
+   "type": "image/png"
+  },
+  {
+   "purpose": "maskable",
+   "sizes": "512x512",
+   "src": "img/icons/icon-maskable-512.png",
+   "type": "image/png"
+  }
+ ],
+ "name": "Visit Virginia City",
+ "scope": "./",
+ "short_name": "Visit VC",
+ "start_url": "./index.html",
+ "theme_color": "#54300f"
+}

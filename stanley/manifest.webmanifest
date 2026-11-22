@@ -1,0 +1,30 @@
+{
+ "background_color": "#1b4059",
+ "description": "Stanley, Idaho's directory of local businesses, nonprofits, events and organizations \u2014 Sawtooth Valley, Redfish Lake and the Salmon River.",
+ "display": "standalone",
+ "icons": [
+  {
+   "purpose": "any",
+   "sizes": "192x192",
+   "src": "img/icons/icon-192.png",
+   "type": "image/png"
+  },
+  {
+   "purpose": "any",
+   "sizes": "512x512",
+   "src": "img/icons/icon-512.png",
+   "type": "image/png"
+  },
+  {
+   "purpose": "maskable",
+   "sizes": "512x512",
+   "src": "img/icons/icon-maskable-512.png",
+   "type": "image/png"
+  }
+ ],
+ "name": "Stanley-Sawtooth Chamber of Commerce",
+ "scope": "./",
+ "short_name": "Stanley Chamber",
+ "start_url": "./index.html",
+ "theme_color": "#1b4059"
+}

@@ -1,0 +1,30 @@
+{
+ "name": "Julian Chamber of Commerce",
+ "short_name": "Julian Chamber",
+ "description": "Julian Chamber of Commerce directory of local businesses, nonprofits, events and organizations in Julian, California.",
+ "background_color": "#47531a",
+ "theme_color": "#47531a",
+ "display": "standalone",
+ "scope": "./",
+ "start_url": "./index.html",
+ "icons": [
+  {
+   "purpose": "any",
+   "sizes": "192x192",
+   "src": "img/icons/icon-192.png",
+   "type": "image/png"
+  },
+  {
+   "purpose": "any",
+   "sizes": "512x512",
+   "src": "img/icons/icon-512.png",
+   "type": "image/png"
+  },
+  {
+   "purpose": "maskable",
+   "sizes": "512x512",
+   "src": "img/icons/icon-maskable-512.png",
+   "type": "image/png"
+  }
+ ]
+}

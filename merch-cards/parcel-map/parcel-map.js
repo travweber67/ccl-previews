@@ -1,0 +1,422 @@
+/* Columbia County Live — preview module: Property lines + Hunting units.
+ *
+ * Adds two toggleable overlays to the Travel map's existing layer control:
+ *  - "Property lines": Columbia County tax-lot boundaries (Assessor data).
+ *    Tap a parcel -> frosted map card with owner of record, situs address,
+ *    acreage and assessed value, straight from the county file.
+ *  - "Hunting units": ODFW wildlife management units + travel management
+ *    areas, with public/private land shading derived from parcel ownership.
+ *    Access & Habitat areas get their own treatment when present.
+ *
+ * Data ships as PMTiles vector archives rendered by protomaps-leaflet.
+ * Both layers are OFF by default; the map behaves exactly as before until
+ * a visitor toggles one on. All strings are bilingual (EN/ES) following
+ * the site's documentElement.lang pattern (same as offline-map.js).
+ *
+ * v102: (1) the archives are the same files the Offline map download
+ * saves — when a visitor has downloaded the map, both layers read the
+ * on-device OPFS copies and work with no signal; otherwise they stream
+ * from parcel-map/ as before. (2) Parcel data only exists at street
+ * level (tiles start at z13), which made the toggle look dead from the
+ * county-wide view: switching either layer on below z13 now flies the
+ * map to street level (z14, current center) so the lines appear, and
+ * the legend carries a one-line street-level hint.
+ */
+(function () {
+  'use strict';
+
+  var STR = {
+    en: {
+      parcels: '🏠 Property lines',
+      hunting: '🦌 Hunting units',
+      owner: 'Owner',
+      address: 'Address',
+      acres: 'Acres',
+      av: 'Assessed value',
+      taxlot: 'Tax lot',
+      unit: 'Hunting unit',
+      unitsize: 'Unit size',
+      region: 'Region',
+      publicLand: 'Public land',
+      privateLand: 'Private land',
+      streetHint: 'Property lines draw at street level',
+      ahName: 'Access & Habitat area',
+      ahNote: 'Private land open to hunting by agreement through ODFW\u2019s Access & Habitat program. Check current ODFW rules before you go.',
+      tmaNote: 'Travel Management Area \u2014 motor vehicle rules apply during hunting season. Check ODFW for the current rules.',
+      parcelFoot: 'Tax map boundaries are approximate. Not a legal survey. County data is provided as-is and may not be accurate. Source: Columbia County Assessor, updated every two weeks.',
+      unitFoot: 'Unit boundaries are for general knowledge and illustration only. The legal unit descriptions in the Oregon Big Game Regulations govern. Source: ODFW.'
+    },
+    es: {
+      parcels: '🏠 Líneas de propiedad',
+      hunting: '🦌 Unidades de caza',
+      owner: 'Propietario',
+      address: 'Dirección',
+      acres: 'Acres',
+      av: 'Valor tasado',
+      taxlot: 'Lote fiscal',
+      unit: 'Unidad de caza',
+      unitsize: 'Tamaño de la unidad',
+      region: 'Región',
+      publicLand: 'Tierra pública',
+      privateLand: 'Tierra privada',
+      streetHint: 'Las líneas de propiedad se dibujan a nivel de calle',
+      ahName: 'Área de Acceso y Hábitat',
+      ahNote: 'Tierra privada abierta a la caza por acuerdo a través del programa Access & Habitat de ODFW. Verifique las reglas actuales de ODFW antes de ir.',
+      tmaNote: 'Área de gestión de viajes: aplican reglas para vehículos motorizados durante la temporada de caza. Consulte a ODFW para conocer las reglas actuales.',
+      parcelFoot: 'Los límites del mapa fiscal son aproximados. No es un levantamiento legal. Los datos del condado se ofrecen tal cual y pueden no ser exactos. Fuente: Tasador del Condado de Columbia, actualización cada dos semanas.',
+      unitFoot: 'Los límites de las unidades son solo para conocimiento general e ilustración. Rigen las descripciones legales de las Regulaciones de Caza Mayor de Oregón. Fuente: ODFW.'
+    }
+  };
+
+  function lang() { return document.documentElement.lang === 'es' ? 'es' : 'en'; }
+  function t(k) { return STR[lang()][k]; }
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+  function fmtAcres(a) {
+    if (a == null || isNaN(a)) return '';
+    a = Number(a);
+    if (a >= 100) return Math.round(a).toLocaleString('en-US');
+    if (a >= 10) return a.toFixed(1);
+    return a.toFixed(2);
+  }
+  function fmtMoney(v) {
+    if (v == null || isNaN(v)) return '';
+    return '$' + Math.round(Number(v)).toLocaleString('en-US');
+  }
+  // Mirror app.js popRows/popCard markup so the site's .mapcard CSS applies.
+  function rows(pairs) {
+    var r = (pairs || []).filter(function (p) { return p && p[1] != null && p[1] !== ''; });
+    if (!r.length) return '';
+    return '<dl class="mapcard-rows">' + r.map(function (p) {
+      return '<dt>' + p[0] + '</dt><dd>' + p[1] + '</dd>';
+    }).join('') + '</dl>';
+  }
+  function card(title, sub, pairs, notes, foot) {
+    return '<div class="mapcard"><div class="mapcard-title">' + title + '</div>'
+      + (sub ? '<div class="mapcard-sub">' + sub + '</div>' : '')
+      + rows(pairs)
+      + (notes || []).map(function (n) {
+        return '<div class="mapcard-foot">' + n + '</div>';
+      }).join('')
+      + (foot ? '<div class="mapcard-foot">' + foot + '</div>' : '')
+      + '</div>';
+  }
+
+  /* -------- archive sources: downloaded OPFS copies first, else stream.
+     The Offline map download saves these same archives into OPFS under
+     the same file names (ids 'parcels' / 'hunting' in its local record).
+     When a saved copy matches the size in OFFLINE_MAP_CONFIG, read it
+     from the device; otherwise fall back to streaming from parcel-map/. */
+  var pmtilesLibP = null;
+  function loadPmtilesLib() {
+    if (window.pmtiles) return Promise.resolve();
+    if (pmtilesLibP) return pmtilesLibP;
+    pmtilesLibP = new Promise(function (resolve, reject) {
+      var s = document.createElement('script');
+      s.src = 'offline-map/vendor/pmtiles.js';
+      s.onload = resolve;
+      s.onerror = reject;
+      document.head.appendChild(s);
+    });
+    return pmtilesLibP;
+  }
+  async function resolveSource(id, file, size, fallbackUrl) {
+    try {
+      var CFG = window.OFFLINE_MAP_CONFIG;
+      if (!CFG || !file || !size) return fallbackUrl;
+      var recs = {};
+      try { recs = JSON.parse(localStorage.getItem(CFG.storageKey) || '{}'); } catch (e) { return fallbackUrl; }
+      var rec = recs[id];
+      if (!rec || rec.size !== size) return fallbackUrl;
+      await loadPmtilesLib();
+      var root = await navigator.storage.getDirectory();
+      var dir = await root.getDirectoryHandle('packs');
+      var fh = await dir.getFileHandle(file);
+      var blob = await fh.getFile();
+      if (!blob || blob.size !== size) return fallbackUrl;
+      return new window.pmtiles.PMTiles(new window.pmtiles.FileSource(blob));
+    } catch (e) { return fallbackUrl; }
+  }
+  function resolveSourceTimed(id, file, size, fallbackUrl) {
+    var timeout = new Promise(function (res) { setTimeout(function () { res(fallbackUrl); }, 3000); });
+    return Promise.race([resolveSource(id, file, size, fallbackUrl), timeout]);
+  }
+
+  var map = null, parcelsView = null, huntingParcelsView = null,
+      huntingView = null, huntingGroup = null;
+  var selectedId = null, myPopup = null;
+
+  function isSel(f) { return selectedId != null && f.props && f.props.id === selectedId; }
+
+  function buildLayers(srcs) {
+    var PM = window.protomapsL;
+    // NOTE: no minZoom on these layers, deliberately. Leaflet 1.9's
+    // layers control DISABLES an overlay's checkbox whenever the map is
+    // outside the layer's zoom range — from the default county-wide
+    // view the Property lines box sat grey and unclickable with no
+    // explanation (Travis hit exactly this, Nov 17). The archives hold
+    // no tiles below z13 anyway, so nothing draws early; the toggle
+    // stays live at every zoom and onLayerAdd flies the visitor in.
+    parcelsView = PM.leafletLayer({
+      url: srcs.parcels,
+      maxDataZoom: 16, zIndex: 262,
+      paintRules: [{
+        dataLayer: 'parcels',
+        symbolizer: new PM.PolygonSymbolizer({
+          fill: function (z, f) { return isSel(f) ? 'rgba(245,197,66,0.45)' : 'rgba(245,197,66,0.05)'; },
+          stroke: function (z, f) { return isSel(f) ? '#b45309' : 'rgba(146,110,30,0.55)'; },
+          width: function (z, f) { return isSel(f) ? 2.4 : 0.7; }
+        })
+      }]
+    });
+    // Same archive, second view: public/private shading for the hunting layer.
+    huntingParcelsView = PM.leafletLayer({
+      url: srcs.parcels,
+      maxDataZoom: 16, zIndex: 258,
+      paintRules: [{
+        dataLayer: 'parcels',
+        symbolizer: new PM.PolygonSymbolizer({
+          fill: function (z, f) {
+            return f.props.ownclass === 'public'
+              ? 'rgba(34,150,80,0.32)' : 'rgba(168,140,90,0.10)';
+          },
+          stroke: 'rgba(100,90,70,0.30)',
+          width: 0.5
+        })
+      }]
+    });
+    huntingView = PM.leafletLayer({
+      url: srcs.hunting,
+      maxDataZoom: 14, zIndex: 259,
+      paintRules: [
+        { dataLayer: 'wmu', symbolizer: new PM.PolygonSymbolizer({ fill: 'rgba(179,84,30,0.05)', stroke: '#b3541e', width: 1.8 }) },
+        { dataLayer: 'tma', symbolizer: new PM.PolygonSymbolizer({ fill: 'rgba(220,38,38,0.07)', stroke: '#dc2626', width: 1.2 }) },
+        { dataLayer: 'ah', symbolizer: new PM.PolygonSymbolizer({ fill: 'rgba(13,148,136,0.35)', stroke: '#0f766e', width: 1.5 }) }
+      ]
+    });
+    huntingGroup = L.layerGroup([huntingParcelsView, huntingView]);
+
+    var ctl = window.CCL_LAYERS_CTL;
+    ctl.addOverlay(parcelsView, '<span id="pm-lab-parcels">' + t('parcels') + '</span>');
+    ctl.addOverlay(huntingGroup, '<span id="pm-lab-hunting">' + t('hunting') + '</span>');
+  }
+
+  /* ------------------------------------------------------------- legend */
+  function refreshLegend() {
+    var el = document.getElementById('pm-legend');
+    if (!el || !map) return;
+    var hasP = map.hasLayer(parcelsView);
+    var hasH = map.hasLayer(huntingGroup);
+    var items = [];
+    if (hasP) items.push('<span><i class="pm-sw pm-sw-parcel"></i>' + t('parcels').replace(/^🏠\s*/, '') + '</span>');
+    if (hasH) {
+      items.push('<span><i class="pm-sw pm-sw-public"></i>' + t('publicLand') + '</span>');
+      items.push('<span><i class="pm-sw pm-sw-private"></i>' + t('privateLand') + '</span>');
+      items.push('<span><i class="pm-sw pm-sw-unit"></i>' + t('hunting').replace(/^🦌\s*/, '') + '</span>');
+    }
+    if (hasP || hasH) {
+      items.push('<span class="pm-hint">' + t('streetHint') + '</span>');
+    }
+    el.innerHTML = items.join('');
+    el.style.display = items.length ? '' : 'none';
+  }
+  function refreshLabels() {
+    var a = document.getElementById('pm-lab-parcels');
+    var b = document.getElementById('pm-lab-hunting');
+    if (a) a.textContent = t('parcels');
+    if (b) b.textContent = t('hunting');
+    refreshLegend();
+  }
+
+  /* ---------------------------------------------------------------- tap */
+  function pick(view, latlng, layerName) {
+    try {
+      var bySrc = view.queryTileFeaturesDebug(latlng.lng, latlng.lat, 2);
+      var found = [];
+      bySrc.forEach(function (arr) {
+        (arr || []).forEach(function (pf) {
+          if (pf.layerName === layerName) found.push(pf.feature.props);
+        });
+      });
+      return found;
+    } catch (err) { return []; }
+  }
+  function openCard(latlng, html) {
+    var opts = {
+      maxWidth: 284, minWidth: 230, autoPanPadding: [16, 16],
+      className: 'mapcard-pop'
+    };
+    // Phone widths: the map is only ~340x320, so size the card to fit
+    // INSIDE it. The left autopan padding (48) keeps the card's left
+    // edge clear of the zoom control (which ends 44px into the map),
+    // the capped width leaves room for that padding plus a right
+    // margin, and the compact CSS in parcel-map.css keeps the card
+    // short enough for the shallow map. Desktop layout is untouched.
+    if (map && map.getSize().x <= 480) {
+      var mx = map.getSize().x;
+      opts.maxWidth = Math.max(210, Math.min(300, mx - 92));
+      opts.minWidth = 200;
+      opts.autoPanPaddingTopLeft = [48, 20];
+      opts.autoPanPaddingBottomRight = [10, 10];
+    }
+    myPopup = L.popup(opts).setLatLng(latlng).setContent(html);
+    myPopup.openOn(map);
+  }
+  function parcelCard(p, unit, ah, tma, huntingOn) {
+    var title = p.owner || p.situs || (t('taxlot') + ' ' + p.taxlot);
+    var sub = (p.owner && p.situs) ? p.situs : '';
+    var pairs = [
+      [t('taxlot'), esc(p.taxlot)],
+      [t('acres'), p.acres != null ? fmtAcres(p.acres) : ''],
+      [t('av'), p.av != null ? fmtMoney(p.av) : '']
+    ];
+    if (p.owner && p.situs) pairs.unshift([t('owner'), esc(p.owner)]);
+    if (huntingOn && unit) {
+      pairs.push([t('unit'), esc(unit.name) + ' ' + esc(unit.num)]);
+    }
+    var notes = [];
+    if (huntingOn && ah) notes.push('<strong>' + esc(ah.name) + '</strong> \u2014 ' + t('ahNote'));
+    if (huntingOn && tma) notes.push('<strong>' + esc(tma.name) + '</strong> \u2014 ' + t('tmaNote'));
+    return card(esc(title), esc(sub), pairs, notes, t('parcelFoot'));
+  }
+  function unitCard(u, ah, tma) {
+    var pairs = [
+      [t('unitsize'), u.acres != null ? fmtAcres(u.acres) + ' ac' : ''],
+      [t('region'), esc(u.region)]
+    ];
+    var notes = [];
+    if (ah) notes.push('<strong>' + esc(ah.name) + '</strong> \u2014 ' + t('ahNote'));
+    if (tma) notes.push('<strong>' + esc(tma.name) + '</strong> \u2014 ' + t('tmaNote'));
+    return card(esc(u.name) + ' ' + t('unit') + ' ' + esc(u.num), '', pairs, notes, t('unitFoot'));
+  }
+  function ahCard(a, unit) {
+    var pairs = [[t('acres'), a.acres != null ? fmtAcres(a.acres) : '']];
+    if (unit) pairs.push([t('unit'), esc(unit.name) + ' ' + esc(unit.num)]);
+    return card(esc(a.name), t('ahName'), pairs, [t('ahNote')], t('unitFoot'));
+  }
+  function tmaCard(tm, unit) {
+    var pairs = [];
+    if (unit) pairs.push([t('unit'), esc(unit.name) + ' ' + esc(unit.num)]);
+    return card(esc(tm.name), '', pairs, [t('tmaNote')], t('unitFoot'));
+  }
+
+  function onMapClick(e) {
+    if (!parcelsView) return;
+    var hasP = map.hasLayer(parcelsView);
+    var hasH = map.hasLayer(huntingGroup);
+    if (!hasP && !hasH) return;
+    var unit = null, ah = null, tma = null;
+    if (hasH) {
+      unit = pick(huntingView, e.latlng, 'wmu')[0] || null;
+      ah = pick(huntingView, e.latlng, 'ah')[0] || null;
+      tma = pick(huntingView, e.latlng, 'tma')[0] || null;
+    }
+    var parcel = null;
+    if (hasP) parcel = pick(parcelsView, e.latlng, 'parcels')[0] || null;
+    if (!parcel && hasH) parcel = pick(huntingParcelsView, e.latlng, 'parcels')[0] || null;
+
+    if (parcel && hasP) {
+      selectedId = parcel.id;
+      try { parcelsView.rerenderTiles(); } catch (err) { /* older build */ }
+      openCard(e.latlng, parcelCard(parcel, unit, ah, tma, hasH));
+    } else if (hasH && ah) {
+      openCard(e.latlng, ahCard(ah, unit));
+    } else if (hasH && unit) {
+      openCard(e.latlng, unitCard(unit, null, tma));
+    } else if (hasH && tma) {
+      openCard(e.latlng, tmaCard(tma, null));
+    } else if (parcel && hasH) {
+      // Hunting-only mode: parcel shading tap still answers "who owns this"
+      selectedId = null;
+      openCard(e.latlng, parcelCard(parcel, unit, ah, tma, true));
+    }
+  }
+
+  /* ---------------------------------------------------------------- init */
+  // Parcel tiles start at z13. Below that the layers can be switched on
+  // but nothing can draw, which reads as a dead toggle from the default
+  // county-wide view. Fix: switching either layer on below the draw
+  // level flies the map to street level around the current center, so
+  // the lines appear in front of the visitor. Never zooms back out.
+  var DRAW_ZOOM = 13, STREET_ZOOM = 14;
+  function onLayerAdd(e) {
+    refreshLegend();
+    if ((e.layer === parcelsView || e.layer === huntingGroup)
+        && map.getZoom() < DRAW_ZOOM) {
+      map.flyTo(map.getCenter(), STREET_ZOOM, { duration: 0.9 });
+    }
+  }
+
+  function init() {
+    map = window.CCL_MAP;
+    // Legend hook: our own span inside the site's map legend.
+    var legend = document.querySelector('#map-card .map-legend');
+    if (legend && !document.getElementById('pm-legend')) {
+      var span = document.createElement('span');
+      span.className = 'pm-legend';
+      span.id = 'pm-legend';
+      span.style.display = 'none';
+      legend.appendChild(span);
+    }
+    new MutationObserver(refreshLabels).observe(document.documentElement, {
+      attributes: true, attributeFilter: ['lang']
+    });
+    map.on('click', onMapClick);
+    map.on('layeradd', onLayerAdd);
+    map.on('layerremove', function () { refreshLegend(); });
+    map.on('popupclose', function (ev) {
+      if (myPopup && ev.popup === myPopup && selectedId != null) {
+        selectedId = null;
+        try { parcelsView.rerenderTiles(); } catch (err) { /* noop */ }
+      }
+    });
+    rebuildLayers();
+    /* The offline download set changed (offline-map.js): re-resolve so
+       layers switched on later in this same session read the on-device
+       copies - or stream again after a Remove. */
+    window.addEventListener('ccl-packs-changed', rebuildLayers);
+  }
+
+  /* (Re)build both layers from freshly resolved sources, preserving
+     on/off state. Sources resolve through a 3s timeout race that falls
+     back to streaming, so a rebuild never hangs on OPFS. */
+  var buildingLayers = false, rebuildQueued = false;
+  function rebuildLayers() {
+    if (buildingLayers) { rebuildQueued = true; return; }
+    buildingLayers = true;
+    var CFG = window.OFFLINE_MAP_CONFIG || {};
+    Promise.all([
+      resolveSourceTimed('parcels', CFG.parcelsFile, CFG.parcelsSize, 'parcel-map/parcels.pmtiles'),
+      resolveSourceTimed('hunting', CFG.huntingFile, CFG.huntingSize, 'parcel-map/hunting.pmtiles')
+    ]).then(function (resolved) {
+      try {
+        var ctl = window.CCL_LAYERS_CTL;
+        var wasP = parcelsView && map.hasLayer(parcelsView);
+        var wasH = huntingGroup && map.hasLayer(huntingGroup);
+        if (parcelsView) { try { ctl.removeLayer(parcelsView); } catch (err) { /* noop */ } if (wasP) map.removeLayer(parcelsView); }
+        if (huntingGroup) { try { ctl.removeLayer(huntingGroup); } catch (err) { /* noop */ } if (wasH) map.removeLayer(huntingGroup); }
+        selectedId = null;
+        buildLayers({ parcels: resolved[0], hunting: resolved[1] });
+        if (wasP) map.addLayer(parcelsView);
+        if (wasH) map.addLayer(huntingGroup);
+        refreshLabels();
+      } catch (err) { if (window.console) console.error('parcel-map layers failed', err); }
+      buildingLayers = false;
+      if (rebuildQueued) { rebuildQueued = false; rebuildLayers(); }
+    }).catch(function () { buildingLayers = false; });
+  }
+
+  var tries = 0;
+  var timer = setInterval(function () {
+    tries++;
+    if (window.CCL_MAP && window.CCL_LAYERS_CTL && window.L && window.protomapsL) {
+      clearInterval(timer);
+      try { init(); } catch (err) { if (window.console) console.error('parcel-map init failed', err); }
+    } else if (tries > 160) {
+      clearInterval(timer);
+    }
+  }, 250);
+})();

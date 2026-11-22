@@ -1,0 +1,105 @@
+/* Columbia County Live — merch card (preview build, 2026-11-21).
+   One component, two placements: Today flow + Events for-rent slot.
+   Marbled-orange promo card with a rotating product slider.
+   Self-contained: does not modify the site's style.css. */
+
+.merch-card{
+  position:relative;
+  border-radius:var(--radius,16px);
+  padding:18px 16px 16px;
+  margin:0 0 14px;
+  background:#8a4416 url("img/merch/merch-bg.jpg") center/cover no-repeat;
+  border:1px solid rgba(96,45,4,.45);
+  box-shadow:var(--shadow,0 1px 2px rgba(43,52,30,.06),0 10px 28px rgba(43,52,30,.07));
+  cursor:pointer;
+  overflow:hidden;
+  text-align:center;
+}
+.merch-stage{max-width:540px;margin:0 auto;}
+.merch-eyebrow{
+  margin:0 0 2px;
+  font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  color:#571f02;
+}
+.merch-title{
+  margin:0 0 12px;
+  font-family:var(--display,Georgia,serif);
+  font-size:1.5rem;line-height:1.15;
+  color:#2e1503;
+}
+
+.merch-viewport{
+  position:relative;
+  overflow:hidden;
+  border-radius:14px;
+  aspect-ratio:1/1;
+  background:#fff;
+  box-shadow:0 6px 22px rgba(46,21,3,.35);
+}
+.merch-slide{
+  position:absolute;inset:0;
+  display:block;
+  transform:translateX(103%);
+  visibility:hidden;
+  transition:transform .62s cubic-bezier(.22,.61,.36,1);
+}
+.merch-slide.is-on{visibility:visible;}
+.merch-slide.no-anim{transition:none !important;}
+.merch-slide img{
+  width:100%;height:100%;
+  object-fit:cover;
+  display:block;
+}
+/* The windbreaker slide is a 2400x1200 front+back pair — never crop it. */
+.merch-slide.wide{background:#fff;}
+.merch-slide.wide img{object-fit:contain;}
+
+.merch-meta{
+  display:flex;align-items:baseline;justify-content:space-between;gap:10px;
+  margin-top:12px;
+  padding:9px 14px;
+  background:rgba(255,246,230,.94);
+  border-radius:10px;
+  transition:opacity .18s ease;
+  text-align:left;
+}
+.merch-meta.fading{opacity:0;}
+.merch-name{font-weight:700;color:#2e1503;font-size:1rem;}
+.merch-price{font-weight:700;color:#8a4416;font-size:.95rem;white-space:nowrap;}
+
+.merch-row{
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  margin-top:12px;
+}
+.merch-dots{display:flex;gap:7px;padding:4px 2px;}
+.merch-dot{
+  width:11px;height:11px;border-radius:50%;
+  border:2px solid rgba(46,21,3,.75);
+  background:transparent;
+  padding:0;cursor:pointer;
+}
+.merch-dot.is-active{background:#2e1503;}
+.merch-btn{
+  display:inline-block;
+  background:var(--accent-dark,#1e4228);
+  color:#f8f3e4 !important;
+  font-weight:700;font-size:.95rem;
+  padding:10px 18px;border-radius:999px;
+  text-decoration:none;
+  box-shadow:0 3px 10px rgba(30,20,4,.35);
+}
+.merch-btn:hover{filter:brightness(1.12);}
+
+/* Events for-rent slot variant: narrower stage so the card
+   sits comfortably beside the house card in the featured row. */
+.merch-in-slot{height:100%;}
+.merch-in-slot .merch-stage{max-width:330px;}
+.merch-in-slot .merch-title{font-size:1.3rem;}
+
+@media (max-width:640px){
+  .merch-card{padding:14px 12px 12px;}
+  .merch-title{font-size:1.32rem;}
+}
+@media (prefers-reduced-motion: reduce){
+  .merch-slide{transition:none;}
+}

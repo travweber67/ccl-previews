@@ -498,3 +498,20 @@ body.home .about h2{color:#dfe4e8;text-shadow:0 2px 0 #4a5157,0 4px 16px rgba(0,
 .space-zone .returning-card.has-mast:hover,.space-zone .returning-card.has-mast2:hover{background-position:center,center 0%}
 .space-zone .returning-card.has-mast>img{margin-top:16%}
 .space-zone .returning-card.has-mast2>img{margin-top:34%}
+
+/* ================= ROUND 3H: true-390 carousel =================
+   At phone width the console arrows + wrap padding starved the viewport (cards ~51px).
+   Mobile: the Featured section goes full-bleed, the arrows float over the fade zones at
+   the viewport edges, and the cards get the full width — 3 across with peeks, readable. */
+@media (max-width:640px){
+  .returning .wrap{padding-left:6px;padding-right:6px}
+  .carousel{position:relative;margin-left:0;margin-right:0}
+  .car-viewport{flex:none;width:100%}
+  .car-arrow{position:absolute;top:50%;transform:translateY(-50%);z-index:5;width:44px;height:44px}
+  .car-prev{left:2px}
+  .car-next{right:2px}
+  .car-page{gap:12px}
+  .returning-card{padding:10px 10px 9px}
+  .rc-name{font-size:14px}
+  .rc-price{font-size:13px}
+}

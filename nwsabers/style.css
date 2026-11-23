@@ -352,17 +352,55 @@ header .wrap{position:relative;z-index:1}
 .nsw-logo-wrap{position:relative;flex:none}
 .nsw-logo-btn{position:relative;display:block;background:none;border:0;padding:0;cursor:pointer;line-height:0;border-radius:6px}
 .nsw-logo-btn:focus-visible{outline:2px solid rgba(0,201,60,.85);outline-offset:3px}
-.nsw-logo-base{height:98px;width:auto;display:block}
-.nsw-blade{position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:none;transform-origin:47.9% 83.5%;transition:transform .62s cubic-bezier(.55,0,.85,.36),filter .62s ease;filter:drop-shadow(0 0 5px rgba(0,201,60,.90)) drop-shadow(0 0 15px rgba(0,201,60,.55)) drop-shadow(0 0 34px rgba(0,201,60,.30))}
-.nsw-logo-wrap.open .nsw-blade{transform:scaleY(0);filter:drop-shadow(0 0 1px rgba(0,201,60,0)) drop-shadow(0 0 2px rgba(0,201,60,0)) drop-shadow(0 0 3px rgba(0,201,60,0))}
-.nsw-menu{position:absolute;top:calc(100% + 12px);left:0;width:300px;max-height:72vh;overflow:auto;text-align:left;background:linear-gradient(180deg,#131b13,#090e09);border:1px solid #39543a;border-radius:12px;box-shadow:0 26px 54px rgba(0,0,0,.78),0 0 0 1px rgba(0,201,60,.12);padding:10px 0;z-index:300;opacity:0;visibility:hidden;transform:translateY(-8px) scaleY(.92);transform-origin:top left;transition:opacity .30s ease,transform .38s cubic-bezier(.2,.8,.3,1),visibility 0s linear .38s}
-.nsw-logo-wrap.open .nsw-menu{opacity:1;visibility:visible;transform:translateY(0) scaleY(1);transition:opacity .30s ease,transform .38s cubic-bezier(.2,.8,.3,1)}
+.nsw-logo-base{height:132px;width:auto;display:block}
+.nsw-blade{position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:none;transform-origin:47.9% 83.5%;transition:transform .62s cubic-bezier(.55,0,.85,.36) .55s,filter .62s ease .55s;filter:drop-shadow(0 0 5px rgba(0,201,60,.90)) drop-shadow(0 0 15px rgba(0,201,60,.55)) drop-shadow(0 0 34px rgba(0,201,60,.30))}
+.nsw-logo-wrap.open .nsw-blade{transform:scaleY(0);filter:drop-shadow(0 0 1px rgba(0,201,60,0)) drop-shadow(0 0 2px rgba(0,201,60,0)) drop-shadow(0 0 3px rgba(0,201,60,0));transition:transform .62s cubic-bezier(.55,0,.85,.36) 0s,filter .62s ease 0s}
+.nsw-menu{position:fixed;top:0;left:0;width:min(330px,88vw);height:100vh;height:100dvh;max-height:none;overflow-y:auto;text-align:left;background:linear-gradient(180deg,#131b13,#090e09);border:0;border-right:1px solid #39543a;border-radius:0;box-shadow:26px 0 54px rgba(0,0,0,.55),0 0 0 1px rgba(0,201,60,.10);padding:14px 0 20px;z-index:1000;opacity:1;visibility:hidden;transform:translateX(-107%);transition:transform .6s cubic-bezier(.5,0,.75,.4),visibility 0s linear .65s}
+.nsw-menu.open{visibility:visible;transform:translateX(0);transition:transform 1s cubic-bezier(.22,.8,.28,1) .25s,visibility 0s}
 .nsw-menu a{display:block;padding:8px 18px;text-decoration:none;font-size:14.5px;color:#e7f2df;letter-spacing:.03em;font-family:'Fredoka',sans-serif}
 .nsw-menu a:hover{background:rgba(0,201,60,.13);color:#fff}
 .nsw-menu .menu-head{display:block;font-family:'Fredoka',sans-serif;font-size:10.5px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:#8fd694;padding:11px 18px 3px}
-@media (max-width:640px){.nsw-logo-base{height:78px}.nsw-menu{width:min(300px,86vw)}}
+@media (max-width:640px){.nsw-logo-base{height:104px}}
 @media (prefers-reduced-motion:reduce){
   .nsw-blade{transition:none}
   .nsw-logo-wrap.open .nsw-blade{transform:none;filter:drop-shadow(0 0 5px rgba(0,201,60,.90)) drop-shadow(0 0 15px rgba(0,201,60,.55)) drop-shadow(0 0 34px rgba(0,201,60,.30))}
   .nsw-menu{transition:none}
 }
+
+/* ================= ROUND 2 (Nov 22, 19:42): corner logo, hover lift only, full-page starfield ================= */
+/* header spans the full width so the logo sits in the left corner */
+.site-header .wrap{max-width:none;padding:0 22px 0 10px}
+@media (max-width:640px){
+  .site-header .wrap{padding:0 14px 0 8px}
+  .header-grid{justify-content:flex-start}
+}
+
+/* menu panel close control (button injected by app.js) */
+.nsw-menu-close{display:flex;align-items:center;gap:7px;margin:0 14px 10px auto;background:rgba(0,201,60,.10);border:1px solid #39543a;color:#d9ffe2;font-family:'Fredoka',sans-serif;font-weight:600;font-size:13.5px;letter-spacing:.05em;padding:8px 15px;border-radius:999px;cursor:pointer}
+.nsw-menu-close:hover{background:rgba(0,201,60,.22);color:#fff}
+
+/* hover = a little lift + glow ONLY. The hull texture is pixel-identical at rest, hover and active: no background change, no filter, no scaling. */
+.hull-btn{transition:transform .16s ease,box-shadow .22s ease}
+.hull-btn:hover{background-image:linear-gradient(rgba(13,17,21,.20),rgba(13,17,21,.20)),url('img/hull.jpg');filter:none;transform:translateY(-2px);border-color:#090b0d;box-shadow:inset 0 2px 0 rgba(255,255,255,.85),inset 0 -3px 0 rgba(0,0,0,.55),inset 2px 0 0 rgba(255,255,255,.20),inset -2px 0 0 rgba(0,0,0,.32),0 10px 20px rgba(0,0,0,.66),0 0 30px rgba(0,201,60,.35),0 0 64px rgba(0,201,60,.18)}
+.hull-btn:active{filter:none}
+.space-zone .btn{transition:transform .16s ease,box-shadow .22s ease}
+.space-zone .btn:hover{background-image:linear-gradient(rgba(13,17,21,.20),rgba(13,17,21,.20)),url('img/hull.jpg');filter:none;transform:translateY(-2px);border-color:#090b0d;box-shadow:inset 0 2px 0 rgba(255,255,255,.85),inset 0 -3px 0 rgba(0,0,0,.55),inset 2px 0 0 rgba(255,255,255,.20),inset -2px 0 0 rgba(0,0,0,.32),0 10px 20px rgba(0,0,0,.66),0 0 30px rgba(0,201,60,.35),0 0 64px rgba(0,201,60,.18)}
+.space-zone .btn:active{filter:none}
+.search-go:hover{filter:none;background-image:linear-gradient(rgba(0,104,40,.36),rgba(0,88,34,.42)),url('img/hull.jpg')}
+@media (prefers-reduced-motion:reduce){
+  .hull-btn,.space-zone .btn{transition:none}
+  .hull-btn:hover,.space-zone .btn:hover{transform:none}
+}
+
+/* full-page starfield backdrop (homepage): fixed sky behind everything; the top zones keep their own parallax layers on top of it */
+body.home{background:#04070d}
+.page-sky{position:fixed;inset:0;z-index:-1;overflow:hidden;background-color:#04070d;background-image:radial-gradient(1100px 520px at 18% -60px,rgba(38,74,128,.32),rgba(38,74,128,0) 62%),radial-gradient(900px 620px at 86% 12%,rgba(9,84,54,.19),rgba(9,84,54,0) 60%),radial-gradient(760px 520px at 55% 112%,rgba(64,32,96,.15),rgba(64,32,96,0) 65%)}
+body.home .thanks{color:#d7ded7}
+body.home .thanks h2{color:#dfe4e8;text-shadow:0 2px 0 #4a5157,0 4px 16px rgba(0,0,0,.85),0 0 40px rgba(0,201,60,.18)}
+body.home .thanks a{color:#8fd694}
+body.home .about{color:#d7ded7}
+body.home .about h2{color:#dfe4e8;text-shadow:0 2px 0 #4a5157,0 4px 16px rgba(0,0,0,.85),0 0 40px rgba(0,201,60,.18)}
+
+/* section spacing for the new homepage order (carousel first under the header, welcome below it) */
+.space-zone .returning{padding-top:46px}
+.space-zone .welcome{padding:40px 0 36px}

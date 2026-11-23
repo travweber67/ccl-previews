@@ -144,14 +144,21 @@
 
   // ---------- procedural starfield: 3 depths, pin-sharp box-shadow stars, layered parallax ----------
   var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var starZones = document.querySelectorAll('.site-header,.space-zone');
+  var starZones = Array.prototype.slice.call(document.querySelectorAll('.site-header,.space-zone'));
+  // homepage: a fixed full-page sky behind everything, same star style; static (rect never moves), so it never fights the zones' parallax
+  if (document.body.classList.contains('home')) {
+    var pageSky = document.createElement('div');
+    pageSky.className = 'page-sky'; pageSky.setAttribute('aria-hidden', 'true');
+    document.body.insertBefore(pageSky, document.body.firstChild);
+    starZones.push(pageSky);
+  }
   if (starZones.length) {
     var _seed = 987654321;
     function rnd() { _seed = (_seed * 1664525 + 1013904223) >>> 0; return _seed / 4294967296; }
     var starLayers = [
-      { cls: 'far', size: 1, per: 6500, max: 650, aMin: .30, aMax: .62, rate: .05, glow: 0 },
-      { cls: 'mid', size: 2, per: 17000, max: 300, aMin: .55, aMax: .90, rate: .11, glow: 0 },
-      { cls: 'near', size: 3, per: 52000, max: 110, aMin: .85, aMax: 1, rate: .19, glow: 1 }
+      { cls: 'far', size: 1, per: 6500, max: 650, aMin: .30, aMax: .62, rate: .03, glow: 0 },
+      { cls: 'mid', size: 2, per: 17000, max: 300, aMin: .55, aMax: .90, rate: .14, glow: 0 },
+      { cls: 'near', size: 3, per: 52000, max: 110, aMin: .85, aMax: 1, rate: .34, glow: 1 }
     ];
     var builtZones = [];
     function buildStars(zone) {
@@ -195,7 +202,7 @@
         builtZones.forEach(function (b) {
           var r = b.zone.getBoundingClientRect();
           if (r.bottom < -120 || r.top > (window.innerHeight || 800) + 120) return;
-          var shift = Math.max(-95, Math.min(95, -r.top));
+          var shift = Math.max(-110, Math.min(110, -r.top));
           b.layers.forEach(function (L) { L.el.style.transform = 'translateY(' + (shift * L.rate).toFixed(1) + 'px)'; });
         });
         starTick = false;
@@ -207,26 +214,45 @@
     }
   }
 
-  // ---------- header logo menu (blade retracts on open, reignites on close) ----------
+  // ---------- header logo menu: left slide-out panel ----------
+  // Open: blade retracts at once (CSS, .62s, no delay); the panel slides in slow (1s after a .25s delay) and covers the logo; blade stays down while open.
+  // Close: panel slides back (.6s); the blade's base transition carries a .55s delay, so it reignites only once the panel has left.
   var nswWrap = document.querySelector('.nsw-logo-wrap');
   var nswBtn = nswWrap ? nswWrap.querySelector('.nsw-logo-btn') : null;
-  if (nswWrap && nswBtn) {
+  var nswMenu = nswWrap ? nswWrap.querySelector('.nsw-menu') : null;
+  if (nswWrap && nswBtn && nswMenu) {
+    document.body.appendChild(nswMenu); // body-level so the fixed panel paints above every section
+    if (!nswMenu.querySelector('.nsw-menu-close')) {
+      var nswClose = document.createElement('button');
+      nswClose.type = 'button';
+      nswClose.className = 'nsw-menu-close';
+      nswClose.setAttribute('aria-label', 'Close menu');
+      nswClose.innerHTML = '&times;&nbsp;Close';
+      nswMenu.insertBefore(nswClose, nswMenu.firstChild);
+      nswClose.addEventListener('click', function (e) { e.stopPropagation(); closeNsw(); });
+    }
+    function openNsw() {
+      nswWrap.classList.add('open');
+      nswMenu.classList.add('open');
+      nswBtn.setAttribute('aria-expanded', 'true');
+    }
+    function closeNsw() {
+      nswWrap.classList.remove('open');
+      nswMenu.classList.remove('open');
+      nswBtn.setAttribute('aria-expanded', 'false');
+    }
     nswBtn.addEventListener('click', function (e) {
       e.stopPropagation();
-      var open = nswWrap.classList.toggle('open');
-      nswBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      if (nswWrap.classList.contains('open')) closeNsw(); else openNsw();
+    });
+    nswMenu.querySelectorAll('a').forEach(function (a) {
+      a.addEventListener('click', function () { closeNsw(); });
     });
     document.addEventListener('click', function (e) {
-      if (!nswWrap.contains(e.target)) {
-        nswWrap.classList.remove('open');
-        nswBtn.setAttribute('aria-expanded', 'false');
-      }
+      if (nswWrap.classList.contains('open') && !nswWrap.contains(e.target) && !nswMenu.contains(e.target)) closeNsw();
     });
     document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape') {
-        nswWrap.classList.remove('open');
-        nswBtn.setAttribute('aria-expanded', 'false');
-      }
+      if (e.key === 'Escape') closeNsw();
     });
   }
 

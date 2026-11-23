@@ -146,7 +146,7 @@
   var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var starZones = Array.prototype.slice.call(document.querySelectorAll('.site-header,.space-zone'));
   // homepage: a fixed full-page sky behind everything, same star style; static (rect never moves), so it never fights the zones' parallax
-  if (document.body.classList.contains('home')) {
+  if (!document.querySelector('.page-sky')) {
     var pageSky = document.createElement('div');
     pageSky.className = 'page-sky'; pageSky.setAttribute('aria-hidden', 'true');
     document.body.insertBefore(pageSky, document.body.firstChild);

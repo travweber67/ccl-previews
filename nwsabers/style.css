@@ -719,3 +719,50 @@ body.home .about h2{display:inline-block}
 .nsw-menu{background-color:#14181c;background-image:linear-gradient(rgba(10,13,16,.40),rgba(10,13,16,.50)),url('img/hull-panel.jpg');background-size:cover;background-repeat:no-repeat;background-position:32% 18%}
 .nsw-menu a{text-shadow:0 1px 3px rgba(0,0,0,.97),0 0 12px rgba(0,0,0,.8)}
 .nsw-menu .menu-head{text-shadow:0 1px 3px rgba(0,0,0,.97),0 0 12px rgba(0,0,0,.8)}
+
+/* ============ ROUND 6 ITEM B: shop + product pages join the homepage system ============ */
+/* Same sky (the page-sky layer now builds on every page), Fredoka headings with the
+   homepage glow, the same body-text treatment, hull-plating buttons, and the shop grid
+   cards rebuilt in the Featured Sabers plate language. Content, data and structure
+   untouched - look and feel only. */
+body.inner{background:#04070d;color:#d7ded7}
+body.inner .shop-head h1{font-family:'Fredoka',sans-serif;font-weight:600;letter-spacing:.04em;color:#dfe4e8;text-shadow:0 2px 0 #4a5157,0 4px 16px rgba(0,0,0,.85),0 12px 30px rgba(0,201,60,.30),0 0 40px rgba(0,201,60,.18)}
+body.inner .shop-count{color:#9db8a2}
+body.inner .chip{background:#10160f;border-color:#3c453c;color:#dfeee0}
+body.inner .chip:hover{border-color:#00c93c;color:#fff}
+body.inner .chip.active{background:#00c93c;border-color:#00c93c;color:#06130a;font-weight:600}
+body.inner .shop-tools{color:#c9d8c9}
+body.inner .shop-tools select{background:#10160f;border:1px solid #3c453c;color:#eef3ea;font-family:inherit;padding:6px 8px}
+body.inner .no-results{color:#9db8a2}
+.grid .card{position:relative;border:2px solid #090b0d;border-radius:10px;padding:12px 12px 14px;background-image:linear-gradient(rgba(10,14,12,.16),rgba(10,14,12,.16)),url('img/hull.jpg');background-size:auto,cover;background-position:center;box-shadow:inset 0 2px 0 rgba(255,255,255,.55),inset 0 -3px 0 rgba(0,0,0,.50),inset 2px 0 0 rgba(255,255,255,.16),inset -2px 0 0 rgba(0,0,0,.30),0 8px 18px rgba(0,0,0,.55);transition:box-shadow .35s ease,transform .35s ease}
+.grid .card:hover{transform:translateY(-3px);box-shadow:0 0 24px rgba(0,201,60,.42),0 0 64px rgba(0,201,60,.24),0 0 120px rgba(0,201,60,.12),inset 0 0 18px rgba(0,201,60,.08)}
+.grid .card .card-img{background:#22262b;border:1px solid #0a0c0e;border-radius:6px;box-shadow:0 2px 8px rgba(0,0,0,.5);overflow:hidden}
+.grid .card .c-name{font-family:'Fredoka',sans-serif;font-weight:500;font-size:16px;color:#eef2ee;text-shadow:0 1px 3px rgba(0,0,0,.92)}
+.grid .card .c-price{color:#aeb9ae;font-size:15px}
+.grid .card .c-price .was{color:#8b968b;text-decoration:line-through}
+.grid .card .c-price .now{color:#ff8291;font-weight:600}
+.grid .card .c-cat{color:#8fae94}
+body.inner .crumb{color:#8fae94}
+body.inner .crumb a{color:#b9d6ae}
+body.inner .p-main-img{border-color:#3c453c;outline:none;border-radius:6px;box-shadow:0 4px 18px rgba(0,0,0,.5)}
+body.inner .p-info h1{font-family:'Fredoka',sans-serif;font-weight:600;letter-spacing:.02em;color:#f0f4f0;text-shadow:0 2px 0 #4a5157,0 4px 16px rgba(0,0,0,.85),0 0 40px rgba(0,201,60,.18)}
+body.inner .p-price{color:#d7ded7}
+body.inner .p-price .was{color:#8b968b}
+body.inner .p-price .now{color:#ff8291;font-weight:600}
+body.inner .p-tax{color:#9db8a2}
+body.inner .p-info a{color:#8fe3a8}
+body.inner .p-field label{color:#dfeee0}
+body.inner .p-field select,body.inner .p-field input[type=text]{background:#10160f;border-color:#3c453c;color:#eef3ea}
+body.inner .p-field .counter{color:#8fae94}
+body.inner .qty-row button{background:#10160f;border-color:#3c453c;color:#eef3ea}
+body.inner .qty-row input{background:#10160f;border-color:#3c453c;color:#eef3ea}
+body.inner .add-cart{font-family:'Fredoka',sans-serif;font-weight:700;letter-spacing:.05em;color:#f6f9f6;text-shadow:0 1px 3px rgba(0,0,0,.92);border:2px solid #090b0d;border-radius:10px;background-color:#14181c;background-image:linear-gradient(rgba(13,17,21,.20),rgba(13,17,21,.20)),url('img/hull.jpg');background-size:auto,300px;background-position:center;box-shadow:inset 0 2px 0 rgba(255,255,255,.85),inset 0 -3px 0 rgba(0,0,0,.55),inset 2px 0 0 rgba(255,255,255,.20),inset -2px 0 0 rgba(0,0,0,.32),0 7px 16px rgba(0,0,0,.62)}
+body.inner .add-cart:hover{filter:brightness(1.13)}
+body.inner .p-thumbs img{border-color:#3c453c}
+body.inner .p-thumbs img.sel{border-color:#00c93c}
+body.inner .p-desc{color:#d7ded7}
+body.inner .acc{border-bottom-color:#2c362c}
+body.inner .acc-head{color:#eef2ee;font-family:'Fredoka',sans-serif;font-weight:500}
+body.inner .acc-body{color:#c9d8c9}
+body.inner .share-row a{color:#8fe3a8}
+@media (prefers-reduced-motion:reduce){.grid .card{transition:none}}

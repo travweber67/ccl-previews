@@ -259,7 +259,7 @@ header .wrap{position:relative;z-index:1}
 
 /* ---------- featured carousel + neon card glow ---------- */
 .carousel{display:flex;align-items:center;gap:8px;margin-bottom:34px;text-align:left}
-.car-viewport{overflow:hidden;flex:1;padding:16px 6px}
+.car-viewport{overflow:hidden;flex:1;padding:74px 6px 16px}
 .car-track{display:flex;transition:transform .55s cubic-bezier(.22,.8,.3,1)}
 .car-page{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;flex:0 0 100%;padding:2px}
 .car-arrow{flex:none;width:56px;height:56px;border-radius:50%;border:0;padding:0;font-size:0;color:transparent;background-color:#22262a;background-size:cover;background-position:center;cursor:pointer;box-shadow:0 6px 16px rgba(0,0,0,.5);transition:box-shadow .25s ease,transform .12s ease}
@@ -269,7 +269,7 @@ header .wrap{position:relative;z-index:1}
 .returning-card{border-radius:12px;padding:8px 8px 12px;transition:box-shadow .35s ease,transform .35s ease}
 .returning-card:hover{transform:translateY(-3px);box-shadow:0 0 24px rgba(0,201,60,.42),0 0 64px rgba(0,201,60,.24),0 0 120px rgba(0,201,60,.12),inset 0 0 18px rgba(0,201,60,.08)}
 @media (prefers-reduced-motion:reduce){.car-track{transition:none}.returning-card{transition:none}}
-@media (max-width:640px){.car-page{gap:10px}.car-arrow{width:44px;height:44px}.car-viewport{padding:12px 2px}}
+@media (max-width:640px){.car-page{gap:10px}.car-arrow{width:44px;height:44px}.car-viewport{padding:52px 2px 12px}}
 
 /* ---------- hero space zone (welcome + featured carousel) ---------- */
 .space-zone{background:#04070d;position:relative}
@@ -418,8 +418,9 @@ body.home .about h2{color:#dfe4e8;text-shadow:0 2px 0 #4a5157,0 4px 16px rgba(0,
 .hull-btn{font-size:16.5px;letter-spacing:.07em}
 .space-zone .btn{font-size:19px}
 .search-go{font-size:15px}
-.sale-item{font-size:17.5px}
-.sale-item strong{font-size:16.5px}
+.sale-item{font-family:'Fredoka',sans-serif;font-weight:600;font-size:21px;letter-spacing:.02em;text-shadow:0 2px 4px rgba(0,0,0,.97),0 0 18px rgba(0,0,0,.85),0 0 44px rgba(0,0,0,.65)}
+.sale-item strong{font-size:20px;font-weight:700}
+@media (max-width:640px){.sale-item{font-size:17.5px}.sale-item strong{font-size:16.5px}}
 .thanks p{font-size:17.5px}
 .about p{font-size:17.5px}
 .space-zone .rc-name{font-size:16px}
@@ -432,13 +433,16 @@ body.home .about h2{color:#dfe4e8;text-shadow:0 2px 0 #4a5157,0 4px 16px rgba(0,
 .space-zone .rc-price{text-shadow:0 1px 3px rgba(0,0,0,.92)}
 .space-zone .rc-price .was{color:#ccd4cc}
 
-/* --- greeble: tiny sensor-mast antenna on a few cards (lives in the viewport's top padding, never clipped) --- */
-.card-antenna{position:absolute;top:-11px;width:2px;height:11px;background:linear-gradient(180deg,#c7ced4,#5b636a 60%,#2c3136);border-radius:1px;z-index:2;pointer-events:none}
-.card-antenna::before{content:'';position:absolute;left:50%;top:-4px;transform:translateX(-50%);width:5px;height:5px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#f2f5f6,#79828a 55%,#22262a);box-shadow:0 0 4px rgba(0,0,0,.6)}
-.card-antenna::after{content:'';position:absolute;left:50%;bottom:-2px;transform:translateX(-50%);width:8px;height:4px;border-radius:2px;background:linear-gradient(180deg,#79828a,#33383d)}
-.ant-a{left:26px}
-.ant-b{right:30px}
-.ant-c{left:46%}
+/* --- greeble: generated Imperial-style sensor mast on a few cards (modeled on a Star Destroyer
+       bridge tower: bolted tower, sensor crossbar with a globe at each end, whip antenna).
+       Generated artwork, background knocked out; its flanged foot overlaps the card's top edge so
+       it reads as mounted hardware. Lives in the viewport's top padding band, never clipped. --- */
+.card-antenna{position:absolute;top:-66px;width:72px;z-index:2;pointer-events:none;line-height:0}
+.card-antenna img{width:100%;height:auto;display:block;filter:drop-shadow(0 3px 5px rgba(0,0,0,.55))}
+.ant-a{left:16px}
+.ant-b{right:20px}
+.ant-c{left:50%;transform:translateX(-50%)}
+@media (max-width:640px){.card-antenna{width:50px;top:-46px}}
 
 /* --- the sky is alive: twinkling stars + one slow-drifting layer (spans/anim added by app.js; parallax untouched) --- */
 .star-layer .tw-dot{position:absolute;border-radius:50%;background:#fff;pointer-events:none;animation:twinkle var(--twd,3s) ease-in-out var(--twdel,0s) infinite alternate}

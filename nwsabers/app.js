@@ -371,35 +371,70 @@
   }
 
   // ---------- carousels (page-by-3, wrap-around, neighbors peek + fade) ----------
-  // Featured Sabers plus the six Build Your Own component rows share this one engine.
-  // Each page is 84% of the viewport width and sits centered, so ~8% of the previous and next
-  // pages peek in at the edges; the viewport's CSS mask dissolves those peeks into the sky.
+  // One shared engine (Featured Sabers is the homepage instance). Each page is 84% of the
+  // viewport width and sits centered, so ~8% of the previous and next pages peek in at the
+  // edges; the viewport's CSS mask dissolves those peeks into the sky.
   // A carousel with a single page of cards sits static and centered instead (.is-static).
+  // WRAP RULE (round 6 fix): the end clones are bridges, not destinations. Paging past either
+  // end slides ONE page into the clone, then snaps without animation to the matching real
+  // page and RESTS there - every real page is a stable stop, and the wrap is never a
+  // multi-page rewind sweep (the old engine wrapped the page counter first, so the track
+  // animated backwards across every page and the end pages could not be rested on).
   function initCarousel(car) {
     var track = car.querySelector('.car-track');
     var pageEls = track.querySelectorAll('.car-page');
     var pages = pageEls.length;
     if (!pages) return;
     if (pages === 1) { car.classList.add('is-static'); return; }
-    // Clone the last page before the first and the first page after the last, so the centered
-    // 84% layout has a neighbor peeking in on BOTH sides even on the first and last pages.
+    // Clone the last page before the first and the first page after the last: neighbors peek
+    // in on BOTH sides even on the first and last pages, and the clones bridge the wrap.
     var lastClone = pageEls[pages - 1].cloneNode(true);
     lastClone.setAttribute('aria-hidden', 'true');
     track.insertBefore(lastClone, pageEls[0]);
     var firstClone = pageEls[0].cloneNode(true);
     firstClone.setAttribute('aria-hidden', 'true');
     track.appendChild(firstClone);
-    var page = 0;
-    function go(p) {
-      page = ((p % pages) + pages) % pages;
+    var idx = 1; // track position: 1..pages are the real pages; 0 and pages+1 are the clones
+    var snapTimer = null;
+    function offsetFor(i) {
       var tw = track.clientWidth;
       var pw = tw * 0.84;
-      var off = (tw - pw) / 2 - (page + 1) * pw;
-      track.style.transform = 'translateX(' + off + 'px)';
+      return (tw - pw) / 2 - i * pw;
     }
-    car.querySelector('.car-prev').addEventListener('click', function () { go(page - 1); });
-    car.querySelector('.car-next').addEventListener('click', function () { go(page + 1); });
-    window.addEventListener('resize', function () { go(page); });
-    go(0);
+    function render(animate) {
+      if (!animate) {
+        track.style.transition = 'none';
+        track.style.transform = 'translateX(' + offsetFor(idx) + 'px)';
+        void track.offsetWidth; // flush so the no-animation jump applies at once
+        track.style.transition = '';
+      } else {
+        track.style.transform = 'translateX(' + offsetFor(idx) + 'px)';
+      }
+    }
+    function settle() {
+      // Landed on a clone: snap (no animation) to the matching real page and rest there.
+      if (idx === 0) { idx = pages; render(false); }
+      else if (idx === pages + 1) { idx = 1; render(false); }
+    }
+    function go(delta) {
+      if (idx === 0 || idx === pages + 1) settle(); // a wrap snap was still pending: finish it first
+      idx += delta;
+      render(true);
+      if (snapTimer) { clearTimeout(snapTimer); snapTimer = null; }
+      if (idx === 0 || idx === pages + 1) {
+        // Fallback in case transitionend does not fire (e.g. reduced motion kills the transition)
+        snapTimer = setTimeout(function () { snapTimer = null; settle(); }, 580);
+      }
+    }
+    track.addEventListener('transitionend', function (e) {
+      if (e.propertyName === 'transform' && (idx === 0 || idx === pages + 1)) {
+        if (snapTimer) { clearTimeout(snapTimer); snapTimer = null; }
+        settle();
+      }
+    });
+    car.querySelector('.car-prev').addEventListener('click', function () { go(-1); });
+    car.querySelector('.car-next').addEventListener('click', function () { go(1); });
+    window.addEventListener('resize', function () { render(false); });
+    render(false);
   }
   document.querySelectorAll('.carousel').forEach(initCarousel);

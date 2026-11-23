@@ -766,3 +766,9 @@ body.inner .acc-head{color:#eef2ee;font-family:'Fredoka',sans-serif;font-weight:
 body.inner .acc-body{color:#c9d8c9}
 body.inner .share-row a{color:#8fe3a8}
 @media (prefers-reduced-motion:reduce){.grid .card{transition:none}}
+
+/* Round 7e (Travis): menu scroll belongs to the panel alone. overscroll-behavior:contain
+   stops scroll chaining when the panel hits its top/bottom; while the panel is open the
+   page itself is scroll-locked (class toggled by app.js with the open state). */
+.nsw-menu{overscroll-behavior:contain}
+html.nsw-scroll-lock,body.nsw-scroll-lock{overflow:hidden !important}

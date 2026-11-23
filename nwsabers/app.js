@@ -386,7 +386,29 @@
       nswMenu.insertBefore(nswClose, nswMenu.firstChild);
       nswClose.addEventListener('click', function (e) { e.stopPropagation(); closeNsw(); });
     }
+    // Round 7e (Travis): while the panel is open, scrolling belongs to the panel alone.
+    // The page is locked (overflow hidden on html+body, toggled with the open state) and
+    // the panel itself carries overscroll-behavior:contain (style.css), so hitting the
+    // panel's top/bottom never chains through to the page. The pre-open scroll position
+    // is recorded and restored verbatim on close.
+    var nswSavedScrollY = null;
+    function lockPageScroll() {
+      if (nswSavedScrollY === null) {
+        nswSavedScrollY = window.scrollY || window.pageYOffset || 0;
+        document.documentElement.classList.add('nsw-scroll-lock');
+        document.body.classList.add('nsw-scroll-lock');
+      }
+    }
+    function unlockPageScroll() {
+      if (nswSavedScrollY !== null) {
+        document.documentElement.classList.remove('nsw-scroll-lock');
+        document.body.classList.remove('nsw-scroll-lock');
+        if ((window.scrollY || window.pageYOffset || 0) !== nswSavedScrollY) window.scrollTo(0, nswSavedScrollY);
+        nswSavedScrollY = null;
+      }
+    }
     function openNsw() {
+      lockPageScroll();
       nswWrap.classList.add('open');
       nswMenu.classList.add('open');
       nswBtn.setAttribute('aria-expanded', 'true');
@@ -395,6 +417,7 @@
       nswWrap.classList.remove('open');
       nswMenu.classList.remove('open');
       nswBtn.setAttribute('aria-expanded', 'false');
+      unlockPageScroll();
     }
     nswBtn.addEventListener('click', function (e) {
       e.stopPropagation();

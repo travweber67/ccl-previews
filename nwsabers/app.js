@@ -147,9 +147,16 @@
   var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (header && !reduceMotion) {
     var ticking = false;
+    var zone = document.querySelector('.space-zone');
     function parallax() {
       var y = window.scrollY || 0;
       if (y < 600) header.style.backgroundPosition = 'center ' + Math.round(y * 0.22) + 'px';
+      if (zone) {
+        var rel = y - zone.offsetTop + (window.innerHeight || 800);
+        if (rel > -400 && y < zone.offsetTop + zone.offsetHeight) {
+          zone.style.backgroundPosition = 'center ' + Math.round(rel * 0.14) + 'px';
+        }
+      }
       ticking = false;
     }
     window.addEventListener('scroll', function () {

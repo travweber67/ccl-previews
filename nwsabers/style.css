@@ -272,3 +272,16 @@ header .wrap{position:relative;z-index:1}
 .returning-card:hover{transform:translateY(-3px);box-shadow:0 0 16px rgba(57,255,122,.55),0 0 44px rgba(57,255,122,.32),0 0 92px rgba(57,255,122,.16),inset 0 0 12px rgba(57,255,122,.10)}
 @media (prefers-reduced-motion:reduce){.car-track{transition:none}.returning-card{transition:none}}
 @media (max-width:640px){.car-page{gap:10px}.car-arrow{width:38px;height:38px;font-size:22px}.car-viewport{padding:12px 2px}}
+
+/* ---------- hero space zone (welcome + featured carousel) ---------- */
+.space-zone{background:#04070d url('img/space-header.jpg') center 0/cover no-repeat;position:relative}
+.space-zone .welcome{padding:72px 0 30px}
+.welcome-logo img{filter:drop-shadow(0 0 3px rgba(205,212,218,.95)) drop-shadow(0 0 10px rgba(160,170,178,.55)) drop-shadow(0 22px 26px rgba(0,0,0,.75))}
+.space-zone .welcome-text p{font-family:'Orbitron',sans-serif;font-weight:900;letter-spacing:.1em;color:#ccd1d6;text-shadow:0 2px 0 #4a5157,0 3px 3px rgba(0,0,0,.65),0 6px 18px rgba(0,0,0,.85),0 16px 34px rgba(57,255,122,.38),0 0 46px rgba(57,255,122,.22)}
+.space-zone .returning h2{color:#dfe4e8;text-shadow:0 2px 0 #4a5157,0 4px 16px rgba(0,0,0,.85),0 12px 30px rgba(57,255,122,.30),0 0 40px rgba(57,255,122,.18)}
+.space-zone .rc-name{color:#eef2ee}
+.space-zone .rc-price{color:#aeb9ae}
+.space-zone .rc-price .was{color:#8b968b}
+.space-zone .rc-price .now{color:#ff8291;font-weight:600}
+.space-zone .btn{font-family:'Orbitron',sans-serif;font-weight:700;letter-spacing:.14em;color:#eef1ee;border:1px solid #14171a;border-radius:7px;background:linear-gradient(180deg,var(--hull-hi) 0%,var(--hull-mid) 46%,#454c52 54%,var(--hull-lo) 100%);text-shadow:0 1px 2px rgba(0,0,0,.75);box-shadow:inset 0 1px 0 rgba(255,255,255,.55),inset 0 -2px 4px rgba(0,0,0,.5),0 4px 10px rgba(0,0,0,.55)}
+.space-zone .btn:hover{filter:brightness(1.14);background:linear-gradient(180deg,var(--hull-hi) 0%,var(--hull-mid) 46%,#454c52 54%,var(--hull-lo) 100%);box-shadow:inset 0 1px 0 rgba(255,255,255,.6),inset 0 -2px 4px rgba(0,0,0,.5),0 4px 10px rgba(0,0,0,.55),0 0 18px rgba(57,255,122,.4)}

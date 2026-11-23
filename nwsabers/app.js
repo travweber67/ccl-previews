@@ -316,8 +316,18 @@
       if (o.heightPct) ship.style.height = o.heightPct + '%';
       tieLayer.appendChild(ship);
       var w = ship.offsetWidth || 130;
-      var startX = (o.ltr ? -w - 16 : bw + 16) - o.flip * o.behind;
-      var endX = (o.ltr ? bw + 16 : -w - 16) - o.flip * o.behind;
+      // Round 7f (Travis): BOTH endpoints are the FULL crossing for every ship - start
+      // fully off the entry edge, end fully off the exit edge. The old code shifted both
+      // endpoints by the formation offset, so the trailer's final keyframe sat gap-px
+      // SHORT of the exit edge and the ship was removed while still on screen (the
+      // mid-air vanish on right-bound crossings; mirrored on left-bound). The offset
+      // now rides as a start DELAY on the same full path: the trailer follows a beat
+      // behind the leader, which holds the gap (breathing via the +/-3-6% duration
+      // delta, as before) and guarantees a ship only finishes once it has fully
+      // cleared the edge it is exiting.
+      var startX = o.ltr ? -w - 16 : bw + 16;
+      var endX = o.ltr ? bw + 16 : -w - 16;
+      var delayMs = o.behind > 0 ? (o.behind / (bw + w + 32)) * o.dur : 0;
       var frames = [];
       for (var i = 0; i <= TIE_STEPS; i++) {
         var t = i / TIE_STEPS;
@@ -330,9 +340,9 @@
         var rot = o.bank * Math.cos(t * Math.PI) + Math.sin(t * o.rotCycles * 2 * Math.PI + o.rotPhase) * o.rotAmp;
         frames.push({ transform: 'translate(' + x.toFixed(1) + 'px, ' + y.toFixed(1) + 'px) rotate(' + rot.toFixed(2) + 'deg) scale(' + (o.flip * s).toFixed(3) + ', ' + s.toFixed(3) + ')' });
       }
-      var anim = ship.animate(frames, { duration: o.dur, easing: 'linear' });
+      var anim = ship.animate(frames, { duration: o.dur, delay: delayMs, fill: 'backwards', easing: 'linear' });
       anim.onfinish = function () { ship.remove(); };
-      setTimeout(function () { ship.remove(); }, o.dur + 500); // safety cleanup
+      setTimeout(function () { ship.remove(); }, o.dur + delayMs + 500); // safety cleanup
     }
     function spawnFormation() {
       var ltr = Math.random() < 0.5;

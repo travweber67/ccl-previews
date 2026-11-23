@@ -519,3 +519,51 @@ body.home .about h2{color:#dfe4e8;text-shadow:0 2px 0 #4a5157,0 4px 16px rgba(0,
   .rc-name{font-size:13px;line-height:1.25}
   .rc-price{display:flex;flex-direction:column;gap:1px;font-size:12.5px}
 }
+
+/* ================= ROUND 3.5 (Nov 22, 22:27): smaller holiday strip, true mast cutouts, soft heading glow =================
+   Travis's notes on round 3: (1) the holiday scene strip covered too much of the screen;
+   (2) the masts baked into the plate artwork read as boxed-in pictures with a hard line at
+   the photo's top — the antennas are now EXACT cutouts (silhouette knocked out of the plate
+   generation to transparency) layered over the card's top edge, so they rise out of the
+   card against the sky, and the photos on mast cards sit a little lower; (3) the green
+   glow behind the Featured Sabers heading showed hard top/bottom lines (a clipped
+   text-shadow stack) — replaced below with a radial glow that fades in every direction. */
+
+/* --- 1. holiday strip: a banner, not a takeover (marquee type size unchanged) --- */
+.sale-band{max-width:920px;margin:16px auto 2px;border:1px solid #17301c;border-radius:14px;min-height:106px;box-shadow:0 10px 26px rgba(0,0,0,.5)}
+.sale-track{padding:15px 0}
+@media (max-width:640px){.sale-band{margin:10px 10px 0;min-height:86px}}
+
+/* --- 2. mast cutouts: exact silhouettes rising out of the card's top edge --- */
+.mast-cut{position:absolute;bottom:calc(100% - 9px);transform:translateX(-50%);background-repeat:no-repeat;background-size:contain;background-position:center bottom;pointer-events:none;z-index:3}
+.mast-cut.mast1{left:65%;width:33%;aspect-ratio:230/133;background-image:url('img/mast1.png')}
+.mast-cut.mast2{left:50.3%;width:35%;aspect-ratio:244/249;background-image:url('img/mast2.png')}
+/* mast cards: photo sits a little lower, giving the mast its rise (supersedes the 3G sky-band offsets) */
+.space-zone .returning-card.has-mast>img{margin-top:11%}
+.space-zone .returning-card.has-mast2>img{margin-top:11%}
+/* carousel headroom: the viewport's top padding is the sky the masts poke into — never clipped,
+   including mid-slide and inside the horizontal edge-fade mask. The carousel is pulled up by
+   half the added band so the heading-to-cards gap stays close to round 3's. */
+.car-viewport{padding:104px 6px 16px}
+.carousel{margin-top:-58px}
+.car-arrow{position:relative;top:44px}
+@media (max-width:640px){
+  .car-viewport{padding:42px 2px 12px}
+  .carousel{margin-top:-26px}
+  .car-arrow{position:absolute;top:50%;margin-top:15px}
+}
+
+/* --- 3. heading glow: radial falloff, no band, no hard lines ---
+   The old glow was stacked text-shadow layers: every letter casts the same shadow, the
+   shadows merge into a flat band the shape of the text line, and the band's straight
+   top/bottom ramps read as hard lines. The green now comes from a radial-gradient
+   ellipse centered behind the heading — brightest at the center, fading to zero in
+   every direction well inside the element's box, so nothing is ever clipped into a line.
+   The text-shadows keep only their black depth layers. */
+.space-zone .returning h2{position:relative;z-index:0;text-shadow:0 2px 0 #4a5157,0 4px 16px rgba(0,0,0,.85)}
+.space-zone .returning h2::before{content:'';position:absolute;left:50%;top:50%;width:min(880px,125%);height:200px;transform:translate(-50%,-50%);background:radial-gradient(ellipse at center,rgba(0,201,60,.20) 0%,rgba(0,201,60,.085) 42%,rgba(0,201,60,0) 70%);z-index:-1;pointer-events:none}
+.space-zone .welcome-text{position:relative;z-index:0}
+.space-zone .welcome-text p{text-shadow:0 2px 0 #4a5157,0 3px 3px rgba(0,0,0,.65),0 6px 18px rgba(0,0,0,.85)}
+.space-zone .welcome-text::before{content:'';position:absolute;left:50%;top:50%;width:112%;height:118%;transform:translate(-50%,-50%);background:radial-gradient(ellipse at center,rgba(0,201,60,.17) 0%,rgba(0,201,60,.07) 45%,rgba(0,201,60,0) 72%);z-index:-1;pointer-events:none}
+body.home .thanks h2,body.home .about h2{position:relative;z-index:0;text-shadow:0 2px 0 #4a5157,0 4px 16px rgba(0,0,0,.85)}
+body.home .thanks h2::before,body.home .about h2::before{content:'';position:absolute;left:50%;top:50%;width:min(620px,120%);height:150px;transform:translate(-50%,-50%);background:radial-gradient(ellipse at center,rgba(0,201,60,.16) 0%,rgba(0,201,60,.06) 45%,rgba(0,201,60,0) 70%);z-index:-1;pointer-events:none}

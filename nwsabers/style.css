@@ -233,7 +233,7 @@ header .wrap{position:relative;z-index:1}
 .more-menu .menu-head{color:#8fd694;font-family:'Fredoka',sans-serif}
 
 /* holiday band — snowy pines + scrolling marquee */
-.sale-band{background:#0a1410 url('img/holiday-street.jpg') center 50%/cover no-repeat;color:#f2f8ee;text-align:left;padding:0;overflow:hidden;position:relative;border-bottom:2px solid #17301c}
+.sale-band{background:#0a1410;color:#f2f8ee;text-align:left;padding:0;overflow:hidden;position:relative;border-bottom:2px solid #17301c}
 .sale-band::before{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(3,8,14,.34),rgba(3,8,14,.06) 42%,rgba(3,8,14,.40)),linear-gradient(90deg,rgba(3,8,14,.34),rgba(3,8,14,.06) 55%,rgba(3,8,14,.34))}
 .sale-track{position:relative;display:flex;width:max-content;animation:sale-scroll 46s linear infinite;padding:13px 0}
 .sale-band:hover .sale-track{animation-play-state:paused}
@@ -674,3 +674,32 @@ body.home .about h2{display:inline-block}
 .byo .carousel:last-child{margin-bottom:6px}
 .carousel.is-static .car-track{justify-content:center}
 .carousel.is-static .car-arrow{visibility:hidden}
+/* static rows: cards center as a group inside their page, at the same size the grid gives them */
+.carousel.is-static .car-page{display:flex;justify-content:center}
+.carousel.is-static .returning-card{flex:0 1 calc((100% - 44px)/3)}
+@media (max-width:640px){.carousel.is-static .returning-card{flex-basis:calc((100% - 24px)/3)}}
+
+/* ================= ROUND 5 (Nov 23): holiday street scene killed, Santa-hat TIE fly-by =================
+   Travis's verdict: the snowy street-scene card threw the whole space theme off. The scene is
+   gone — the sale marquee is now just its Fredoka text line riding the page sky — and the
+   holiday ship (his own art: a TIE in a Santa hat, cut out of his image, nothing else taken)
+   makes slow, rare crossings of the upper sky instead (spawner in app.js). */
+.sale-band{background:transparent;border-bottom:0;min-height:0}
+.tie-layer{position:fixed;inset:0;z-index:40;overflow:hidden;pointer-events:none}
+.tie-ship{position:absolute;left:0;width:clamp(120px,16vw,210px);height:auto;pointer-events:none;filter:drop-shadow(0 10px 18px rgba(0,0,0,.5));will-change:transform}
+@media (max-width:640px){.tie-ship{width:clamp(92px,30vw,140px)}}
+
+/* ================= ROUND 5b (Nov 23): logo blade = ONE piece sliding under the base =================
+   Travis: the old blade layer was literally the visible fragments of the blade (three floating
+   segments, cut where the S crosses) squashed by scaleY — pieces, with gaps. Now the blade is a
+   single whole strip (img/logo-blade-full.png: real tip + the source's own cross-section run
+   continuously to the hilt, axis centroid x=502.00 at every row = the Nov 22 alignment, commit
+   e4614d0, untouched) sliding DOWN into the hilt as one piece. It runs inside a fixed wrapper
+   wearing a window mask (img/logo-blade-window.png, built from the old fragment footprint,
+   dilated for the glow): the strip shows only where the letterform lets it through, so it reads
+   as passing UNDER the base art, and a clip at the hilt line (83.5%) stops any below-hilt poke.
+   Same choreography: .62s, retract at once on open, reignite on the .55s delay as the panel leaves. */
+.nsw-blade-clip{position:absolute;left:0;top:0;width:100%;aspect-ratio:1048/855;overflow:hidden;pointer-events:none;clip-path:inset(0 0 16.5% 0);-webkit-mask-image:url('img/logo-blade-window.png');-webkit-mask-size:100% 100%;mask-image:url('img/logo-blade-window.png');mask-size:100% 100%}
+.nsw-blade{transform:translateY(0)}
+.nsw-logo-wrap.open .nsw-blade{transform:translateY(67%);filter:drop-shadow(0 0 1px rgba(0,201,60,0)) drop-shadow(0 0 2px rgba(0,201,60,0)) drop-shadow(0 0 3px rgba(0,201,60,0));transition:transform .62s cubic-bezier(.55,0,.85,.36) 0s,filter .62s ease 0s}
+@media (prefers-reduced-motion:reduce){.nsw-logo-wrap.open .nsw-blade{transform:translateY(0)}}

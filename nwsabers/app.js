@@ -287,105 +287,86 @@
     setTimeout(meteorLoop, 3000 + Math.random() * 6000);
   }
 
-  // ---------- holiday fly-by INSIDE the banner: the Santa-hat TIE crosses the snowy-planet band ----------
-  // Round 6 (Travis's correction of round 5): the ship belongs INSIDE the holiday banner - the
-  // snowy alien-planet band under the header - not roaming the whole page sky. The banner clips
-  // it (overflow:hidden, .tie-layer absolute inset 0). Crossings are slow and clearly visible
-  // (5-8s across the band), gaps randomized ~15-40s, direction varies, gentle banking. Pure
-  // decoration: pointer-events:none, aria-hidden; hidden tabs skip; reduced-motion gets none.
+  // ---------- holiday fly-by INSIDE the banner: TWO Santa-hat TIEs in loose formation ----------
+  // Round 6 put the ship inside the holiday banner (the snowy alien-planet band under the
+  // header), not roaming the whole page sky. Round 7 (Travis): the fly-by SOUND is cut
+  // entirely, and the lone ship becomes a two-ship formation - a leader and a trailing
+  // wingman flying together but NOT on rails. The trailer sits ~90-160px behind the leader
+  // and ~10-25% of the band height above or below it, is a little smaller, runs +/-3-6%
+  // faster or slower, and each ship wobbles on its own period (a few px of vertical drift,
+  // a degree or two of rotation), so the gap breathes like two pilots, not a duplicated
+  // image. Each ship keeps the depth pass (small at the edges, biggest near the middle)
+  // with its peak offset from the other's, so they never swell in lockstep. The banner
+  // clips them (overflow:hidden, .tie-layer absolute inset 0). Crossings are slow (5-8s),
+  // gaps ~15-40s randomized, direction varies per crossing and the formation flips
+  // together. Pure decoration: pointer-events:none, aria-hidden; hidden tabs skip;
+  // reduced-motion gets none.
   var saleBand = document.querySelector('.sale-band');
   if (!reduceMotion && saleBand && document.body.classList.contains('home')) {
     var tieLayer = document.createElement('div');
     tieLayer.className = 'tie-layer'; tieLayer.setAttribute('aria-hidden', 'true');
     saleBand.appendChild(tieLayer);
-    // Fly-by SOUND (Travis, round 6): the classic TIE screech at NATURAL length - the clip is
-    // 2.3s and is never stretched or looped across the slow 5-8s crossing. It is scheduled so
-    // the clip's own peak lands as the ship crosses the banner's middle, and a volume envelope
-    // rides on top (swell in, peak ~0.5 at the center, fade out) for a Doppler-style pass.
-    // Autoplay reality: the audio stays locked until the visitor's first pointer/key press;
-    // that gesture creates and primes the element. Crossings before any interaction stay
-    // silent, and every failure path fails silent - no errors, no UI, no mute button.
-    var tieAudio = null, tieAudioUnlocked = false, tiePrimed = false;
-    function unlockTieAudio() {
-      try {
-        if (!tieAudio) {
-          tieAudio = new Audio('audio/tie-flyby.mp3');
-          tieAudio.preload = 'auto';
-          window.NSW = window.NSW || {};
-          window.NSW.tieAudio = tieAudio; // QC handle
-        }
-        tieAudioUnlocked = true; // the gesture itself is the unlock - do not gate on the prime's promise
-        if (!tiePrimed) {
-          tiePrimed = true;
-          tieAudio.volume = 0;
-          var pr = tieAudio.play(); // silent prime under the gesture; the clip just ends on its own
-          if (pr && pr.catch) pr.catch(function () {});
-        }
-      } catch (e) { /* no audio support: silent forever */ }
-    }
-    document.addEventListener('pointerdown', unlockTieAudio);
-    document.addEventListener('keydown', unlockTieAudio);
-    function playTieScreech(dur) {
-      if (!tieAudio || !tieAudioUnlocked || document.hidden) return;
-      try {
-        var CLIP = 2.3, PEAK_AT = 0.6; // clip seconds; where its loudest moment sits
-        var delay = Math.max(0, dur / 2 - PEAK_AT * 1000); // so the peak lands at banner center
-        setTimeout(function () {
-          if (document.hidden || !tieAudio) return;
-          try {
-            tieAudio.currentTime = 0;
-            tieAudio.volume = 0.12;
-            var p = tieAudio.play();
-            if (p && p.catch) p.catch(function () {});
-            var t0 = Date.now();
-            var ramp = setInterval(function () {
-              var t = (Date.now() - t0) / 1000;
-              if (t >= CLIP || !tieAudio) { clearInterval(ramp); return; }
-              var env = t < PEAK_AT ? (0.24 + 0.76 * (t / PEAK_AT))
-                                    : Math.max(0.18, 1 - 0.82 * ((t - PEAK_AT) / (CLIP - PEAK_AT)));
-              try { tieAudio.volume = 0.5 * env; } catch (e) { clearInterval(ramp); }
-            }, 90);
-          } catch (e) { /* fail silent */ }
-        }, delay);
-      } catch (e) { /* fail silent */ }
-    }
-    function spawnTie() {
+    var TIE_STEPS = 12; // keyframes per crossing; the extra steps carry the wobble
+    function flyShip(o) {
       var bw = saleBand.clientWidth || 1200;
       var ship = document.createElement('img');
       ship.className = 'tie-ship';
       ship.src = 'img/tie-santa.png'; ship.alt = '';
-      ship.style.top = (3 + Math.random() * 9) + '%';   // ship is ~76% of band height at scale 1
+      ship.style.top = o.topPct + '%';
+      if (o.heightPct) ship.style.height = o.heightPct + '%';
       tieLayer.appendChild(ship);
       var w = ship.offsetWidth || 130;
-      var ltr = Math.random() < 0.5;
-      var dur = 5000 + Math.random() * 3000;              // 5-8s crossing of the band
-      var bank = (2 + Math.random() * 4) * (ltr ? 1 : -1);
-      var startX = ltr ? -w - 16 : bw + 16;
-      var endX = ltr ? bw + 16 : -w - 16;
-      var flip = ltr ? 1 : -1;
-      // Depth pass (Travis, round 6): the ship starts small at the entry edge, grows to its
-      // biggest at the banner's middle (closest approach - the same moment the screech peaks),
-      // then shrinks away toward the exit. Peak scale 1.1 keeps the hull inside the band
-      // (76% height x 1.1 + max 12% top = ~96% of the band). Scale is folded into a single
-      // scale(sx, sy) per keyframe so the horizontal direction flip survives.
-      var scales = [0.55, 0.8, 1.1, 0.8, 0.55];
-      var banks = [bank, bank * 0.35, 0, -bank * 0.35, -bank * 0.4];
-      var frames = scales.map(function (s, i) {
-        var x = startX + (endX - startX) * (i / (scales.length - 1));
-        return { transform: 'translate(' + x + 'px, 0px) rotate(' + banks[i] + 'deg) scale(' + (flip * s) + ', ' + s + ')' };
-      });
-      var anim = ship.animate(frames, { duration: dur, easing: 'linear' });
+      var startX = (o.ltr ? -w - 16 : bw + 16) - o.flip * o.behind;
+      var endX = (o.ltr ? bw + 16 : -w - 16) - o.flip * o.behind;
+      var frames = [];
+      for (var i = 0; i <= TIE_STEPS; i++) {
+        var t = i / TIE_STEPS;
+        var x = startX + (endX - startX) * t;
+        // depth pass: small at the edges, biggest at this ship's own closest point
+        var d = (t - o.peakAt) / Math.max(o.peakAt, 1 - o.peakAt);
+        var s = o.edgeScale + (o.peakScale - o.edgeScale) * Math.max(0, 1 - d * d);
+        // independent wobble: slow vertical drift + a whisper of rotation, own period/phase
+        var y = Math.sin(t * o.wobCycles * 2 * Math.PI + o.wobPhase) * o.wobAmp;
+        var rot = o.bank * Math.cos(t * Math.PI) + Math.sin(t * o.rotCycles * 2 * Math.PI + o.rotPhase) * o.rotAmp;
+        frames.push({ transform: 'translate(' + x.toFixed(1) + 'px, ' + y.toFixed(1) + 'px) rotate(' + rot.toFixed(2) + 'deg) scale(' + (o.flip * s).toFixed(3) + ', ' + s.toFixed(3) + ')' });
+      }
+      var anim = ship.animate(frames, { duration: o.dur, easing: 'linear' });
       anim.onfinish = function () { ship.remove(); };
-      playTieScreech(dur);
-      setTimeout(function () { ship.remove(); }, dur + 500); // safety cleanup
+      setTimeout(function () { ship.remove(); }, o.dur + 500); // safety cleanup
+    }
+    function spawnFormation() {
+      var ltr = Math.random() < 0.5;
+      var flip = ltr ? 1 : -1;
+      var gap = 90 + Math.random() * 70;                     // trailer rides 90-160px behind
+      var leaderTop = 4 + Math.random() * 7;                 // % of band height
+      var vOff = (10 + Math.random() * 15) * (Math.random() < 0.5 ? -1 : 1); // +/-10-25%
+      var trailerTop = Math.min(30, Math.max(1, leaderTop + vOff));
+      var leaderDur = 5000 + Math.random() * 3000;           // 5-8s crossing of the band
+      var trailerDur = leaderDur * (1 + (0.03 + Math.random() * 0.03) * (Math.random() < 0.5 ? -1 : 1)); // +/-3-6%
+      var bankBase = (2 + Math.random() * 4) * (ltr ? 1 : -1);
+      // Wingman spawned first so it paints behind the leader.
+      flyShip({
+        ltr: ltr, flip: flip, behind: gap, topPct: trailerTop, heightPct: 63,
+        dur: trailerDur, edgeScale: 0.5, peakScale: 1.0, peakAt: 0.5 + (Math.random() * 0.14 - 0.07),
+        bank: bankBase * (0.7 + Math.random() * 0.5),
+        wobAmp: 2.5 + Math.random() * 2, wobCycles: 1.4 + Math.random() * 1.2, wobPhase: Math.random() * 6.28,
+        rotAmp: 1.0 + Math.random() * 0.8, rotCycles: 1.2 + Math.random() * 1.1, rotPhase: Math.random() * 6.28
+      });
+      flyShip({
+        ltr: ltr, flip: flip, behind: 0, topPct: leaderTop, heightPct: 0,
+        dur: leaderDur, edgeScale: 0.55, peakScale: 1.1, peakAt: 0.5,
+        bank: bankBase,
+        wobAmp: 2 + Math.random() * 1.5, wobCycles: 1.3 + Math.random() * 1.1, wobPhase: Math.random() * 6.28,
+        rotAmp: 0.8 + Math.random() * 0.7, rotCycles: 1.1 + Math.random() * 1.0, rotPhase: Math.random() * 6.28
+      });
     }
     function tieLoop() {
-      if (!document.hidden) spawnTie();
+      if (!document.hidden) spawnFormation();
       setTimeout(tieLoop, 15000 + Math.random() * 25000);   // gaps ~15-40s, randomized
     }
     setTimeout(tieLoop, 3500 + Math.random() * 3000);
     window.NSW = window.NSW || {};
-    window.NSW.tieFlyby = spawnTie; // test hook: force a crossing on demand (QC)
+    window.NSW.tieFlyby = spawnFormation; // test hook: force a formation crossing on demand (QC)
   }
 
   // ---------- header logo menu: left slide-out panel ----------

@@ -452,3 +452,11 @@ body.home .about h2{color:#dfe4e8;text-shadow:0 2px 0 #4a5157,0 4px 16px rgba(0,
 @media (prefers-reduced-motion:reduce){
   .star-layer .tw-dot,.star-drift{animation:none}
 }
+
+/* ================= ROUND 3C: ONE SKY — no section backdrops =================
+   Header and space-zone drop their own background color and nebula gradients entirely.
+   The fixed .page-sky (one nebula, one static star field, behind the whole page) is now the
+   only backdrop; the zones contribute only their parallax star layers, generated with the
+   same parameters, so the heading, cards, welcome text and giant logo all sit in the same
+   single uniform sky as the rest of the page — no panel, no tint restart, no seam. */
+.site-header,.space-zone{background-color:transparent;background-image:none}

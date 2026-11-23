@@ -317,3 +317,4 @@ header .wrap{position:relative;z-index:1}
 .search-go{background-image:linear-gradient(rgba(0,110,42,.50),rgba(0,90,34,.55)),url('img/hull.jpg');background-size:auto,320px;background-position:center;color:#eaffea;text-shadow:0 1px 3px rgba(0,0,0,.7)}
 .space-zone .btn{background-image:linear-gradient(rgba(18,22,26,.42),rgba(18,22,26,.42)),url('img/hull.jpg');background-size:auto,320px;background-position:center;color:#f4f7f4;border:1px solid rgba(255,255,255,.38);text-shadow:0 1px 3px rgba(0,0,0,.85)}
 .space-zone .btn:hover{background-image:linear-gradient(rgba(18,22,26,.30),rgba(18,22,26,.30)),url('img/hull.jpg');border-color:rgba(0,201,60,.7)}
+.space-zone .rc-price .was{text-decoration:line-through;margin-right:7px}

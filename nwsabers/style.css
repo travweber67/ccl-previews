@@ -567,3 +567,51 @@ body.home .about h2{color:#dfe4e8;text-shadow:0 2px 0 #4a5157,0 4px 16px rgba(0,
 .space-zone .welcome-text::before{content:'';position:absolute;left:50%;top:50%;width:112%;height:118%;transform:translate(-50%,-50%);background:radial-gradient(ellipse at center,rgba(0,201,60,.17) 0%,rgba(0,201,60,.07) 45%,rgba(0,201,60,0) 72%);z-index:-1;pointer-events:none}
 body.home .thanks h2,body.home .about h2{position:relative;z-index:0;text-shadow:0 2px 0 #4a5157,0 4px 16px rgba(0,0,0,.85)}
 body.home .thanks h2::before,body.home .about h2::before{content:'';position:absolute;left:50%;top:50%;width:min(620px,120%);height:150px;transform:translate(-50%,-50%);background:radial-gradient(ellipse at center,rgba(0,201,60,.16) 0%,rgba(0,201,60,.06) 45%,rgba(0,201,60,0) 70%);z-index:-1;pointer-events:none}
+
+/* ================= ROUND 3.6 (Nov 22, 22:54): full-width shorter strip, card-glow bottom fade, glows halved, About glow aligned =================
+   Travis's notes on round 3.5: (1) the holiday strip SHOULD span the full width edge to
+   edge like the original — his complaint was its HEIGHT, not its width ("I told you too
+   wide, my bad") — so the centered 920px banner is undone, full width restored, but the
+   height drops well under the original 150px; marquee type size unchanged (he liked the
+   big text). (2) The cards' shadow / neon glow still cut off in a hard straight line at
+   the BOTTOM: 3.5 fixed the top with 104px of viewport headroom, but the bottom had only
+   16px, so the resting shadow (~26px of falloff) and the hover glow were guillotined by
+   the viewport's overflow:hidden edge. The bottom now gets real headroom too, with a
+   compensating negative margin so the gap to the Shop All Sabers button doesn't move,
+   and the arrow offsets re-tuned for the taller viewport so the arrows stay centered on
+   the cards. (3) The weird line above the banner was the header's 1px #d9ddd3
+   border-bottom — exposed when round 3C made the header transparent over the sky, it
+   floated as a pale line in the 3.5 banner's top margin. Border removed on the homepage;
+   the full-width banner now sits flush under the header, no line. (4) The green glows
+   behind Featured Sabers and the Welcome text were a little too much — radial alphas
+   halved, soft fades from 3.5 unchanged. (5) About Us + Thank You glows also halved, and
+   the About glow didn't line up: About's h2 is a full-column block with LEFT-aligned
+   text, so the box-centered ellipse sat in the middle of the column, right of the words.
+   The h2 is now inline-block, so the glow centers on the text itself. Thank You is
+   centered text in a centered section — its box center IS its text center; verified. */
+
+/* --- 1. holiday strip: full width again, shorter --- */
+.sale-band{max-width:none;margin:0;border:0;border-bottom:2px solid #17301c;border-radius:0;min-height:102px;box-shadow:none}
+.sale-track{padding:12px 0}
+@media (max-width:640px){.sale-band{margin:0;min-height:84px}}
+
+/* --- 3. no pale header line floating on the sky above the banner --- */
+body.home .site-header{border-bottom:0}
+
+/* --- 2. card glow/shadow: bottom headroom so the falloff never clips into a line --- */
+.car-viewport{padding-bottom:64px}
+.carousel{margin-bottom:-14px}
+.car-arrow{top:20px}
+@media (max-width:640px){
+  .car-viewport{padding-bottom:36px}
+  .carousel{margin-bottom:10px}
+  .car-arrow{margin-top:3px}
+}
+
+/* --- 4+5. text glows turned down ~half (radial fades from 3.5 unchanged) --- */
+.space-zone .returning h2::before{background:radial-gradient(ellipse at center,rgba(0,201,60,.10) 0%,rgba(0,201,60,.04) 42%,rgba(0,201,60,0) 70%)}
+.space-zone .welcome-text::before{background:radial-gradient(ellipse at center,rgba(0,201,60,.085) 0%,rgba(0,201,60,.03) 45%,rgba(0,201,60,0) 72%)}
+body.home .thanks h2::before,body.home .about h2::before{background:radial-gradient(ellipse at center,rgba(0,201,60,.08) 0%,rgba(0,201,60,.03) 45%,rgba(0,201,60,0) 70%)}
+
+/* --- 5. About Us: the glow centers on the words, not the middle of the column --- */
+body.home .about h2{display:inline-block}

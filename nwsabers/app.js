@@ -278,7 +278,9 @@
     });
   }
 
-  // ---------- featured sabers carousel (page-by-3, wrap-around) ----------
+  // ---------- featured sabers carousel (page-by-3, wrap-around, neighbors peek + fade) ----------
+  // Each page is 84% of the viewport width and sits centered, so ~8% of the previous and next
+  // pages peek in at the edges; the viewport's CSS mask dissolves those peeks into the sky.
   var car = document.getElementById('featured-carousel');
   if (car) {
     var track = car.querySelector('.car-track');
@@ -286,8 +288,13 @@
     var page = 0;
     function go(p) {
       page = ((p % pages) + pages) % pages;
-      track.style.transform = 'translateX(' + (-page * 100) + '%)';
+      var tw = track.clientWidth;
+      var pw = tw * 0.84;
+      var off = (tw - pw) / 2 - page * pw;
+      track.style.transform = 'translateX(' + off + 'px)';
     }
     car.querySelector('.car-prev').addEventListener('click', function () { go(page - 1); });
     car.querySelector('.car-next').addEventListener('click', function () { go(page + 1); });
+    window.addEventListener('resize', function () { go(page); });
+    go(0);
   }

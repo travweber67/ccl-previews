@@ -261,7 +261,7 @@ header .wrap{position:relative;z-index:1}
 .carousel{display:flex;align-items:center;gap:8px;margin-bottom:34px;text-align:left}
 .car-viewport{overflow:hidden;flex:1;padding:74px 6px 16px}
 .car-track{display:flex;transition:transform .55s cubic-bezier(.22,.8,.3,1)}
-.car-page{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;flex:0 0 100%;padding:2px}
+.car-page{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;flex:0 0 84%;padding:2px}
 .car-arrow{flex:none;width:56px;height:56px;border-radius:50%;border:0;padding:0;font-size:0;color:transparent;background-color:#22262a;background-size:cover;background-position:center;cursor:pointer;box-shadow:0 6px 16px rgba(0,0,0,.5);transition:box-shadow .25s ease,transform .12s ease}
 .car-prev{background-image:url('img/arrow-left.jpg')}
 .car-next{background-image:url('img/arrow-right.jpg')}
@@ -460,3 +460,11 @@ body.home .about h2{color:#dfe4e8;text-shadow:0 2px 0 #4a5157,0 4px 16px rgba(0,
    same parameters, so the heading, cards, welcome text and giant logo all sit in the same
    single uniform sky as the rest of the page — no panel, no tint restart, no seam. */
 .site-header,.space-zone{background-color:transparent;background-image:none}
+
+/* ================= ROUND 3D: carousel peeks (supersedes the round-1 no-fade rule) =================
+   Pages are 84% wide and centered (JS offsets in app.js): the neighboring sets peek in ~8% on
+   both sides, beside arrows pushed out toward the wrap edge. The viewport mask fades the CARD
+   CONTENT itself at both edges — transparent mask, so the one page sky shows through the fade. */
+.carousel{margin-left:-14px;margin-right:-14px}
+.car-viewport{-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 8%,#000 92%,transparent 100%);mask-image:linear-gradient(90deg,transparent 0,#000 8%,#000 92%,transparent 100%)}
+@media (max-width:640px){.carousel{margin-left:-4px;margin-right:-4px}}

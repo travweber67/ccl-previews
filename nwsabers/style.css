@@ -461,6 +461,9 @@ body.home .about h2{color:#dfe4e8;text-shadow:0 2px 0 #4a5157,0 4px 16px rgba(0,
    both sides, beside arrows pushed out toward the wrap edge. The viewport mask fades the CARD
    CONTENT itself at both edges — transparent mask, so the one page sky shows through the fade. */
 .carousel{margin-left:-14px;margin-right:-14px}
+.car-page{min-width:0}
+.car-viewport{min-width:0}
+.returning-card{min-width:0}
 .car-viewport{-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 8%,#000 92%,transparent 100%);mask-image:linear-gradient(90deg,transparent 0,#000 8%,#000 92%,transparent 100%)}
 @media (max-width:640px){.carousel{margin-left:-4px;margin-right:-4px}}
 

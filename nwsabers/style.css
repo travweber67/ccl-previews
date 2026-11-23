@@ -210,8 +210,6 @@ header .wrap{position:relative;z-index:1}
 .hull-btn{position:relative;display:inline-flex;align-items:center;gap:8px;font-family:'Fredoka',sans-serif;font-weight:700;font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;color:#eef1ee;padding:10px 18px;border-radius:7px;border:1px solid #14171a;background:linear-gradient(180deg,var(--hull-hi) 0%,var(--hull-mid) 46%,#454c52 54%,var(--hull-lo) 100%);text-shadow:0 1px 2px rgba(0,0,0,.75);box-shadow:inset 0 1px 0 rgba(255,255,255,.55),inset 0 -2px 4px rgba(0,0,0,.5),inset 1px 0 0 rgba(255,255,255,.18),inset -1px 0 0 rgba(0,0,0,.35),0 4px 10px rgba(0,0,0,.55);cursor:pointer}
 .hull-btn::before,.hull-btn::after{content:'';position:absolute;top:50%;width:5px;height:5px;margin-top:-2.5px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#e8ecee,#596066 60%,#22262a);box-shadow:inset 0 -1px 1px rgba(0,0,0,.7)}
 .hull-btn::before{left:6px}.hull-btn::after{right:6px}
-.hull-btn:hover{filter:brightness(1.14);box-shadow:inset 0 1px 0 rgba(255,255,255,.6),inset 0 -2px 4px rgba(0,0,0,.5),0 4px 10px rgba(0,0,0,.55),0 0 28px rgba(0,201,60,.32),0 0 58px rgba(0,201,60,.16)}
-.hull-btn:active{transform:translateY(1px);filter:brightness(.94)}
 .cart-ico{width:17px;height:14px;flex:none;background:linear-gradient(180deg,#dfe4e7,#79828a);clip-path:polygon(0 0,100% 0,88% 72%,18% 72%);box-shadow:inset 0 -2px 2px rgba(0,0,0,.4)}
 .utils-row{gap:12px}
 .site-header .nav-toggle{display:none}
@@ -220,7 +218,6 @@ header .wrap{position:relative;z-index:1}
 .search-box input::placeholder{color:#7fae7f}
 .search-box input:focus{outline:none;box-shadow:inset 0 2px 6px rgba(0,0,0,.8),0 0 0 2px rgba(0,201,60,.45),0 0 22px rgba(0,201,60,.30)}
 .search-go{border:0;border-left:1px solid #14171a;border-radius:0 6px 6px 0;background:linear-gradient(180deg,#767f86,#454c52);color:#eef1ee;font-family:'Fredoka',sans-serif;font-weight:700;font-size:11px;letter-spacing:.12em;text-transform:uppercase;padding:0 14px;cursor:pointer;text-shadow:0 1px 2px rgba(0,0,0,.7)}
-.search-go:hover{filter:brightness(1.2)}
 
 /* nav — Orbitron, spaced, green underglow */
 .main-nav{gap:clamp(30px,6vw,84px);padding:14px 0 20px;align-items:center}
@@ -265,10 +262,9 @@ header .wrap{position:relative;z-index:1}
 .car-viewport{overflow:hidden;flex:1;padding:16px 6px}
 .car-track{display:flex;transition:transform .55s cubic-bezier(.22,.8,.3,1)}
 .car-page{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;flex:0 0 100%;padding:2px}
-.car-arrow{flex:none;width:56px;height:56px;border-radius:50%;border:0;padding:0;font-size:0;color:transparent;background-color:#22262a;background-size:cover;background-position:center;cursor:pointer;box-shadow:0 6px 16px rgba(0,0,0,.5);transition:filter .18s ease,box-shadow .25s ease,transform .12s ease}
+.car-arrow{flex:none;width:56px;height:56px;border-radius:50%;border:0;padding:0;font-size:0;color:transparent;background-color:#22262a;background-size:cover;background-position:center;cursor:pointer;box-shadow:0 6px 16px rgba(0,0,0,.5);transition:box-shadow .25s ease,transform .12s ease}
 .car-prev{background-image:url('img/arrow-left.jpg')}
 .car-next{background-image:url('img/arrow-right.jpg')}
-.car-arrow:hover{filter:brightness(1.13);box-shadow:0 6px 16px rgba(0,0,0,.5),0 0 30px rgba(0,201,60,.40),0 0 64px rgba(0,201,60,.20)}
 .car-arrow:active{transform:translateY(1px)}
 .returning-card{border-radius:12px;padding:8px 8px 12px;transition:box-shadow .35s ease,transform .35s ease}
 .returning-card:hover{transform:translateY(-3px);box-shadow:0 0 24px rgba(0,201,60,.42),0 0 64px rgba(0,201,60,.24),0 0 120px rgba(0,201,60,.12),inset 0 0 18px rgba(0,201,60,.08)}
@@ -286,7 +282,6 @@ header .wrap{position:relative;z-index:1}
 .space-zone .rc-price .was{color:#8b968b}
 .space-zone .rc-price .now{color:#ff8291;font-weight:600}
 .space-zone .btn{font-family:'Fredoka',sans-serif;font-weight:700;letter-spacing:.14em;color:#eef1ee;border:1px solid #14171a;border-radius:7px;background:linear-gradient(180deg,var(--hull-hi) 0%,var(--hull-mid) 46%,#454c52 54%,var(--hull-lo) 100%);text-shadow:0 1px 2px rgba(0,0,0,.75);box-shadow:inset 0 1px 0 rgba(255,255,255,.55),inset 0 -2px 4px rgba(0,0,0,.5),0 4px 10px rgba(0,0,0,.55)}
-.space-zone .btn:hover{filter:brightness(1.14);background:linear-gradient(180deg,var(--hull-hi) 0%,var(--hull-mid) 46%,#454c52 54%,var(--hull-lo) 100%);box-shadow:inset 0 1px 0 rgba(255,255,255,.6),inset 0 -2px 4px rgba(0,0,0,.5),0 4px 10px rgba(0,0,0,.55),0 0 30px rgba(0,201,60,.34),0 0 62px rgba(0,201,60,.16)}
 
 .space-zone .price-band{margin-top:0}
 
@@ -298,25 +293,19 @@ header .wrap{position:relative;z-index:1}
 .header-title .tagline{font-family:'Fredoka',sans-serif;font-weight:500;letter-spacing:.08em;text-transform:none;text-decoration:none;font-size:13.5px}
 .hull-btn{background:rgba(9,15,11,.55);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.28);border-radius:999px;box-shadow:0 2px 10px rgba(0,0,0,.35);text-shadow:none;font-family:'Fredoka',sans-serif;font-weight:600;font-size:13.5px;letter-spacing:.04em;text-transform:none;padding:9px 18px}
 .hull-btn::before,.hull-btn::after{display:none}
-.hull-btn:hover{filter:none;background:rgba(16,26,18,.68);border-color:rgba(0,201,60,.65);box-shadow:0 2px 10px rgba(0,0,0,.35),0 0 24px rgba(0,201,60,.28),0 0 52px rgba(0,201,60,.14)}
-.hull-btn:active{transform:translateY(1px);filter:brightness(.96)}
 .cart-ico{background:linear-gradient(180deg,#f2f5f6,#aeb8bd)}
 .search-box{background:rgba(8,12,10,.55);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.25);border-radius:999px;box-shadow:0 2px 10px rgba(0,0,0,.35);padding:3px}
 .search-box:focus-within{border-color:rgba(0,201,60,.6);box-shadow:0 2px 10px rgba(0,0,0,.35),0 0 22px rgba(0,201,60,.25)}
 .search-box input{background:transparent;box-shadow:none;border-radius:999px 0 0 999px;color:#eef3ea;padding:9px 14px}
 .search-box input:focus{box-shadow:none}
 .search-go{background:linear-gradient(180deg,#14d84e,#00a832);color:#04150a;border:0;border-radius:999px;font-family:'Fredoka',sans-serif;font-weight:600;font-size:13px;letter-spacing:.02em;text-transform:none;padding:0 18px;text-shadow:none}
-.search-go:hover{filter:brightness(1.1)}
 .space-zone .btn{font-family:'Fredoka',sans-serif;font-weight:600;letter-spacing:.03em;text-transform:none;background:rgba(9,15,11,.55);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.28);border-radius:999px;box-shadow:0 2px 10px rgba(0,0,0,.35);text-shadow:none;padding:13px 30px}
-.space-zone .btn:hover{filter:none;background:rgba(16,26,18,.68);border-color:rgba(0,201,60,.65);box-shadow:0 2px 10px rgba(0,0,0,.35),0 0 24px rgba(0,201,60,.28),0 0 52px rgba(0,201,60,.14)}
 @media (max-width:640px){.header-logo img{height:78px}}
 
 /* ================= HULL MATERIAL (Nov 22, note 8) ================= */
 .hull-btn{background-image:linear-gradient(rgba(18,22,26,.42),rgba(18,22,26,.42)),url('img/hull.jpg');background-size:auto,320px;background-position:center;color:#f4f7f4;border:1px solid rgba(255,255,255,.38);text-shadow:0 1px 3px rgba(0,0,0,.85)}
-.hull-btn:hover{background-image:linear-gradient(rgba(18,22,26,.30),rgba(18,22,26,.30)),url('img/hull.jpg');border-color:rgba(0,201,60,.7)}
 .search-go{background-image:linear-gradient(rgba(0,110,42,.50),rgba(0,90,34,.55)),url('img/hull.jpg');background-size:auto,320px;background-position:center;color:#eaffea;text-shadow:0 1px 3px rgba(0,0,0,.7)}
 .space-zone .btn{background-image:linear-gradient(rgba(18,22,26,.42),rgba(18,22,26,.42)),url('img/hull.jpg');background-size:auto,320px;background-position:center;color:#f4f7f4;border:1px solid rgba(255,255,255,.38);text-shadow:0 1px 3px rgba(0,0,0,.85)}
-.space-zone .btn:hover{background-image:linear-gradient(rgba(18,22,26,.30),rgba(18,22,26,.30)),url('img/hull.jpg');border-color:rgba(0,201,60,.7)}
 .space-zone .rc-price .was{text-decoration:line-through;margin-right:7px}
 
 /* ================= FIX PASS (Nov 22): crisp procedural starfield, hull-plate buttons, logo menu + saber, holiday scene ================= */
@@ -336,14 +325,12 @@ header .wrap{position:relative;z-index:1}
 
 /* --- hull-plate buttons: bigger, hard bevel edges, pronounced creases --- */
 .hull-btn{font-size:15px;font-weight:700;letter-spacing:.05em;padding:14px 26px;border-radius:10px;border:2px solid #090b0d;background-image:linear-gradient(rgba(13,17,21,.20),rgba(13,17,21,.20)),url('img/hull.jpg');background-size:auto,300px;background-position:center;color:#f6f9f6;text-shadow:0 1px 3px rgba(0,0,0,.92),0 0 12px rgba(0,0,0,.45);box-shadow:inset 0 2px 0 rgba(255,255,255,.85),inset 0 -3px 0 rgba(0,0,0,.55),inset 2px 0 0 rgba(255,255,255,.20),inset -2px 0 0 rgba(0,0,0,.32),0 7px 16px rgba(0,0,0,.62);backdrop-filter:none;-webkit-backdrop-filter:none}
-.hull-btn:hover{background-image:linear-gradient(rgba(13,17,21,.10),rgba(13,17,21,.10)),url('img/hull.jpg');border-color:#090b0d;box-shadow:inset 0 2px 0 rgba(255,255,255,.92),inset 0 -3px 0 rgba(0,0,0,.55),inset 2px 0 0 rgba(255,255,255,.22),inset -2px 0 0 rgba(0,0,0,.32),0 7px 16px rgba(0,0,0,.62),0 0 30px rgba(0,201,60,.35),0 0 64px rgba(0,201,60,.18)}
 .cart-ico{width:20px;height:16px}
 .search-box{border:2px solid #090b0d;border-radius:12px;padding:4px;background-image:linear-gradient(rgba(13,17,21,.36),rgba(13,17,21,.36)),url('img/hull.jpg');background-size:auto,300px;background-position:center;box-shadow:inset 0 2px 0 rgba(255,255,255,.55),inset 0 -3px 0 rgba(0,0,0,.50),0 7px 16px rgba(0,0,0,.62);backdrop-filter:none;-webkit-backdrop-filter:none}
 .search-box input{padding:12px 16px;font-size:14.5px;border-radius:8px 0 0 8px;background:rgba(5,9,7,.80);box-shadow:inset 0 2px 7px rgba(0,0,0,.85)}
 .search-box input:focus{box-shadow:inset 0 2px 7px rgba(0,0,0,.85),0 0 0 2px rgba(0,201,60,.5)}
 .search-go{font-size:14px;font-weight:700;padding:0 24px;border-left:2px solid #090b0d;border-radius:0 8px 8px 0;background-image:linear-gradient(rgba(0,104,40,.36),rgba(0,88,34,.42)),url('img/hull.jpg');background-size:auto,300px;background-position:center;box-shadow:inset 0 2px 0 rgba(255,255,255,.50),inset 0 -3px 0 rgba(0,0,0,.45);text-shadow:0 1px 3px rgba(0,0,0,.8)}
 .space-zone .btn{font-size:17px;font-weight:700;letter-spacing:.05em;padding:18px 44px;border-radius:10px;border:2px solid #090b0d;background-image:linear-gradient(rgba(13,17,21,.20),rgba(13,17,21,.20)),url('img/hull.jpg');background-size:auto,300px;background-position:center;color:#f6f9f6;text-shadow:0 1px 3px rgba(0,0,0,.92);box-shadow:inset 0 2px 0 rgba(255,255,255,.85),inset 0 -3px 0 rgba(0,0,0,.55),inset 2px 0 0 rgba(255,255,255,.20),inset -2px 0 0 rgba(0,0,0,.32),0 7px 16px rgba(0,0,0,.62);backdrop-filter:none;-webkit-backdrop-filter:none}
-.space-zone .btn:hover{background-image:linear-gradient(rgba(13,17,21,.10),rgba(13,17,21,.10)),url('img/hull.jpg');border-color:#090b0d;box-shadow:inset 0 2px 0 rgba(255,255,255,.92),inset 0 -3px 0 rgba(0,0,0,.55),inset 2px 0 0 rgba(255,255,255,.22),inset -2px 0 0 rgba(0,0,0,.32),0 7px 16px rgba(0,0,0,.62),0 0 30px rgba(0,201,60,.35),0 0 64px rgba(0,201,60,.18)}
 .car-arrow{width:64px;height:64px;box-shadow:0 0 0 2px #04060a,0 0 0 4px rgba(206,216,224,.55),0 10px 22px rgba(0,0,0,.65)}
 .car-arrow:hover{box-shadow:0 0 0 2px #04060a,0 0 0 4px rgba(206,216,224,.72),0 10px 22px rgba(0,0,0,.65),0 0 36px rgba(0,201,60,.50),0 0 78px rgba(0,201,60,.24)}
 @media (max-width:640px){.car-arrow{width:52px;height:52px}.hull-btn{padding:12px 20px;font-size:14px}.space-zone .btn{padding:15px 32px;font-size:16px}}
@@ -381,12 +368,7 @@ header .wrap{position:relative;z-index:1}
 
 /* hover = a little lift + glow ONLY. The hull texture is pixel-identical at rest, hover and active: no background change, no filter, no scaling. */
 .hull-btn{transition:transform .16s ease,box-shadow .22s ease}
-.hull-btn:hover{background-image:linear-gradient(rgba(13,17,21,.20),rgba(13,17,21,.20)),url('img/hull.jpg');filter:none;transform:translateY(-2px);border-color:#090b0d;box-shadow:inset 0 2px 0 rgba(255,255,255,.85),inset 0 -3px 0 rgba(0,0,0,.55),inset 2px 0 0 rgba(255,255,255,.20),inset -2px 0 0 rgba(0,0,0,.32),0 10px 20px rgba(0,0,0,.66),0 0 30px rgba(0,201,60,.35),0 0 64px rgba(0,201,60,.18)}
-.hull-btn:active{filter:none}
 .space-zone .btn{transition:transform .16s ease,box-shadow .22s ease}
-.space-zone .btn:hover{background-image:linear-gradient(rgba(13,17,21,.20),rgba(13,17,21,.20)),url('img/hull.jpg');filter:none;transform:translateY(-2px);border-color:#090b0d;box-shadow:inset 0 2px 0 rgba(255,255,255,.85),inset 0 -3px 0 rgba(0,0,0,.55),inset 2px 0 0 rgba(255,255,255,.20),inset -2px 0 0 rgba(0,0,0,.32),0 10px 20px rgba(0,0,0,.66),0 0 30px rgba(0,201,60,.35),0 0 64px rgba(0,201,60,.18)}
-.space-zone .btn:active{filter:none}
-.search-go:hover{filter:none;background-image:linear-gradient(rgba(0,104,40,.36),rgba(0,88,34,.42)),url('img/hull.jpg')}
 @media (prefers-reduced-motion:reduce){
   .hull-btn,.space-zone .btn{transition:none}
   .hull-btn:hover,.space-zone .btn:hover{transform:none}
@@ -409,4 +391,59 @@ body.home .about h2{color:#dfe4e8;text-shadow:0 2px 0 #4a5157,0 4px 16px rgba(0,
   .header-utils{width:100%;max-width:100%}
   .search-box{width:100%}
   .search-go{flex:none}
+}
+
+/* ================= ROUND 3 (Nov 22, 20:28): hover lockdown, aggressive text, hull-plate cards, living sky ================= */
+/* --- THE hover rules for textured elements. ONLY transform + box-shadow change on hover.
+       background-image/-size/-position are re-declared at the exact rest values so no earlier
+       shorthand anywhere in this file can reset background-size mid-hover (the round 1-2 zoom bug:
+       a `background:` shorthand in an old hover rule reset background-size to auto, so hull.jpg
+       jumped from its 300px tile to its natural 700px on hover). Transitions stay transform+shadow only. --- */
+.hull-btn:hover{background-image:linear-gradient(rgba(13,17,21,.20),rgba(13,17,21,.20)),url('img/hull.jpg');background-size:auto,300px;background-position:center;filter:none;transform:translateY(-2px);border-color:#090b0d;box-shadow:inset 0 2px 0 rgba(255,255,255,.85),inset 0 -3px 0 rgba(0,0,0,.55),inset 2px 0 0 rgba(255,255,255,.20),inset -2px 0 0 rgba(0,0,0,.32),0 10px 20px rgba(0,0,0,.66),0 0 30px rgba(0,201,60,.35),0 0 64px rgba(0,201,60,.18)}
+.hull-btn:active{filter:none;transform:translateY(1px)}
+.space-zone .btn:hover{background-image:linear-gradient(rgba(13,17,21,.20),rgba(13,17,21,.20)),url('img/hull.jpg');background-size:auto,300px;background-position:center;filter:none;transform:translateY(-2px);border-color:#090b0d;box-shadow:inset 0 2px 0 rgba(255,255,255,.85),inset 0 -3px 0 rgba(0,0,0,.55),inset 2px 0 0 rgba(255,255,255,.20),inset -2px 0 0 rgba(0,0,0,.32),0 10px 20px rgba(0,0,0,.66),0 0 30px rgba(0,201,60,.35),0 0 64px rgba(0,201,60,.18)}
+.space-zone .btn:active{filter:none;transform:translateY(1px)}
+.search-go:hover{filter:none;background-image:linear-gradient(rgba(0,104,40,.36),rgba(0,88,34,.42)),url('img/hull.jpg');background-size:auto,300px;background-position:center}
+
+/* --- text: bigger and more aggressive --- */
+.header-title .shop-name{font-size:clamp(25px,3.1vw,38px);font-weight:700;letter-spacing:.04em}
+.header-title .tagline{font-size:15px;font-weight:600;letter-spacing:.14em}
+.main-nav>a,.main-nav .more-btn{font-size:19px;letter-spacing:.2em}
+.space-zone .welcome-text p{font-size:clamp(19px,2.6vw,27px)}
+.space-zone .returning h2{font-size:clamp(29px,4.2vw,46px)}
+.thanks h2{font-size:34px}
+.about h2{font-size:36px}
+.price-band h2{font-size:clamp(23px,3.6vw,37px)}
+.price-band h3{font-size:clamp(19px,2.7vw,27px)}
+.hull-btn{font-size:16.5px;letter-spacing:.07em}
+.space-zone .btn{font-size:19px}
+.search-go{font-size:15px}
+.sale-item{font-size:17.5px}
+.sale-item strong{font-size:16.5px}
+.thanks p{font-size:17.5px}
+.about p{font-size:17.5px}
+.space-zone .rc-name{font-size:16px}
+.space-zone .rc-price{font-size:15px}
+
+/* --- carousel cards: pieces of hull plate --- */
+.returning-card{position:relative;border:2px solid #090b0d;border-radius:10px;padding:12px 12px 14px;background-image:linear-gradient(rgba(13,17,21,.30),rgba(13,17,21,.30)),url('img/hull.jpg');background-size:auto,340px;background-position:center;box-shadow:inset 0 2px 0 rgba(255,255,255,.55),inset 0 -3px 0 rgba(0,0,0,.50),inset 2px 0 0 rgba(255,255,255,.16),inset -2px 0 0 rgba(0,0,0,.30),0 8px 18px rgba(0,0,0,.55)}
+.returning-card img{border:1px solid #0a0c0e;border-radius:6px;box-shadow:0 2px 8px rgba(0,0,0,.5)}
+.space-zone .rc-name{text-shadow:0 1px 3px rgba(0,0,0,.92)}
+.space-zone .rc-price{text-shadow:0 1px 3px rgba(0,0,0,.92)}
+
+/* --- greeble: tiny sensor-mast antenna on a few cards (lives in the viewport's top padding, never clipped) --- */
+.card-antenna{position:absolute;top:-11px;width:2px;height:11px;background:linear-gradient(180deg,#c7ced4,#5b636a 60%,#2c3136);border-radius:1px;z-index:2;pointer-events:none}
+.card-antenna::before{content:'';position:absolute;left:50%;top:-4px;transform:translateX(-50%);width:5px;height:5px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#f2f5f6,#79828a 55%,#22262a);box-shadow:0 0 4px rgba(0,0,0,.6)}
+.card-antenna::after{content:'';position:absolute;left:50%;bottom:-2px;transform:translateX(-50%);width:8px;height:4px;border-radius:2px;background:linear-gradient(180deg,#79828a,#33383d)}
+.ant-a{left:26px}
+.ant-b{right:30px}
+.ant-c{left:46%}
+
+/* --- the sky is alive: twinkling stars + one slow-drifting layer (spans/anim added by app.js; parallax untouched) --- */
+.star-layer .tw-dot{position:absolute;border-radius:50%;background:#fff;pointer-events:none;animation:twinkle var(--twd,3s) ease-in-out var(--twdel,0s) infinite alternate}
+@keyframes twinkle{from{opacity:var(--twlo,.15)}to{opacity:var(--twhi,.95)}}
+.star-drift{animation:stardrift 115s ease-in-out infinite alternate}
+@keyframes stardrift{from{transform:translate(0,0)}to{transform:translate(9px,-6px)}}
+@media (prefers-reduced-motion:reduce){
+  .star-layer .tw-dot,.star-drift{animation:none}
 }

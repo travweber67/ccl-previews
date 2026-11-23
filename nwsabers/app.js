@@ -186,6 +186,28 @@
         }
         dot.style.boxShadow = sh.join(',');
         div.appendChild(dot);
+        // ambient life (skipped entirely for reduced-motion users): the mid layer drifts very
+        // slowly, and a scatter of individual stars twinkle at unsynchronized rates
+        if (!reduceMotion) {
+          if (L.cls === 'mid') dot.classList.add('star-drift');
+          if (L.cls === 'mid' || L.cls === 'near') {
+            var twN = L.cls === 'near' ? 9 : 13;
+            for (var t2 = 0; t2 < twN; t2++) {
+              var tw = document.createElement('span');
+              tw.className = 'tw-dot';
+              var ts = L.size + (rnd() < .3 ? 1 : 0);
+              tw.style.width = ts + 'px'; tw.style.height = ts + 'px';
+              tw.style.left = Math.round(rnd() * W) + 'px';
+              tw.style.top = Math.round(rnd() * Hh) + 'px';
+              tw.style.setProperty('--twd', (2.4 + rnd() * 2.6).toFixed(2) + 's');
+              tw.style.setProperty('--twdel', (-rnd() * 5).toFixed(2) + 's');
+              tw.style.setProperty('--twlo', (0.10 + rnd() * 0.20).toFixed(2));
+              tw.style.setProperty('--twhi', (0.75 + rnd() * 0.25).toFixed(2));
+              if (rnd() < .22) tw.style.background = '#bcd8ff';
+              div.appendChild(tw);
+            }
+          }
+        }
         sf.appendChild(div);
         els.push({ el: div, rate: L.rate });
       });

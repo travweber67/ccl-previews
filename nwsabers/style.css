@@ -806,3 +806,20 @@ html.nsw-scroll-lock,body.nsw-scroll-lock{overflow:hidden !important}
 .nsw-q-done p{font-size:13.5px;color:#c9d8c9;margin:0 0 12px}
 .nsw-q-again{background:none;border:none;color:#39ff7a;font-family:'Fredoka',sans-serif;font-size:13.5px;font-weight:600;cursor:pointer;text-decoration:underline}
 @media (prefers-reduced-motion:reduce){.nsw-q-btn,.nsw-q-panel{transition:none}}
+
+/* ================= ROUND 8 (Nov 23, Travis final fix): the menu control must READ as a button, on every page =================
+   Travis: on the homepage the logo menu control "doesn't quite look like a button," and on inner
+   pages the Menu label was missing entirely (inner-page headers were generated without the
+   .nsw-menu-label span — now present in all 119 files, markup identical everywhere).
+   Fix: the logo button gets the full house hull-button treatment — hull texture, pill-plate
+   border, hard bevel, drop shadow, hover lift + green glow, active press — framing the logo
+   and the Menu label as ONE control. The blade artwork layers are untouched; the blade clip
+   is re-registered to the base image's new position inside the padded button (padding box:
+   left 14px / top 10px, width = button width minus the 28px of horizontal padding), so the
+   retract/reignite registration is pixel-identical to before. */
+.nsw-logo-btn{display:flex;flex-direction:column;align-items:center;padding:10px 14px 9px;border:2px solid #090b0d;border-radius:12px;background-color:#22262a;background-image:linear-gradient(rgba(13,17,21,.20),rgba(13,17,21,.20)),url('img/hull.jpg');background-size:auto,300px;background-position:center;box-shadow:inset 0 2px 0 rgba(255,255,255,.85),inset 0 -3px 0 rgba(0,0,0,.55),inset 2px 0 0 rgba(255,255,255,.20),inset -2px 0 0 rgba(0,0,0,.32),0 7px 16px rgba(0,0,0,.62);transition:transform .16s ease,box-shadow .22s ease}
+.nsw-logo-btn:hover{transform:translateY(-2px);box-shadow:inset 0 2px 0 rgba(255,255,255,.85),inset 0 -3px 0 rgba(0,0,0,.55),inset 2px 0 0 rgba(255,255,255,.20),inset -2px 0 0 rgba(0,0,0,.32),0 10px 20px rgba(0,0,0,.66),0 0 30px rgba(0,201,60,.35),0 0 64px rgba(0,201,60,.18)}
+.nsw-logo-btn:active{transform:translateY(1px)}
+.nsw-blade-clip{left:14px;top:10px;width:calc(100% - 28px)}
+.nsw-menu-label{color:#f6f9f6;margin-top:5px}
+@media (prefers-reduced-motion:reduce){.nsw-logo-btn{transition:none}.nsw-logo-btn:hover{transform:none}}

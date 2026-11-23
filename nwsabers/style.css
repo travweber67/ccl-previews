@@ -187,7 +187,7 @@ h1,h2,h3,.cinzel{font-family:'Cinzel',serif;letter-spacing:.14em;text-transform:
 
 /* ================= HEADER REDESIGN (Nov 22) ================= */
 :root{--glow:#00c93c;--hull-hi:#8f979e;--hull-mid:#5b636a;--hull-lo:#33383d}
-.site-header{background:#04070d url('img/space-header.jpg') center 0/cover no-repeat;color:#eef3ea;border-bottom:2px solid #1d2b1f}
+.site-header{background:#04070d;color:#eef3ea;border-bottom:2px solid #1d2b1f}
 header .wrap{position:relative;z-index:1}
 .header-grid{padding:18px 0 8px;gap:22px}
 .header-title .shop-name{color:#f4f8f0;text-shadow:0 2px 14px rgba(0,0,0,.85),0 0 26px rgba(0,201,60,.18)}
@@ -236,8 +236,8 @@ header .wrap{position:relative;z-index:1}
 .more-menu .menu-head{color:#8fd694;font-family:'Fredoka',sans-serif}
 
 /* holiday band — snowy pines + scrolling marquee */
-.sale-band{background:#0a1410 url('img/snowy-pines.jpg') center 42%/cover no-repeat;color:#f2f8ee;text-align:left;padding:0;overflow:hidden;position:relative;border-bottom:2px solid #17301c}
-.sale-band::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(4,12,6,.55),rgba(4,12,6,.18) 55%,rgba(4,12,6,.45))}
+.sale-band{background:#0a1410 url('img/holiday-street.jpg') center 50%/cover no-repeat;color:#f2f8ee;text-align:left;padding:0;overflow:hidden;position:relative;border-bottom:2px solid #17301c}
+.sale-band::before{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(3,8,14,.34),rgba(3,8,14,.06) 42%,rgba(3,8,14,.40)),linear-gradient(90deg,rgba(3,8,14,.34),rgba(3,8,14,.06) 55%,rgba(3,8,14,.34))}
 .sale-track{position:relative;display:flex;width:max-content;animation:sale-scroll 46s linear infinite;padding:13px 0}
 .sale-band:hover .sale-track{animation-play-state:paused}
 .sale-item{white-space:nowrap;padding-right:90px;font-size:15px;text-shadow:0 1px 6px rgba(0,0,0,.9)}
@@ -276,7 +276,7 @@ header .wrap{position:relative;z-index:1}
 @media (max-width:640px){.car-page{gap:10px}.car-arrow{width:44px;height:44px}.car-viewport{padding:12px 2px}}
 
 /* ---------- hero space zone (welcome + featured carousel) ---------- */
-.space-zone{background:#04070d url('img/space-header.jpg') center 0/cover no-repeat;position:relative}
+.space-zone{background:#04070d;position:relative}
 .space-zone .welcome{padding:72px 0 30px}
 .welcome-logo img{filter:drop-shadow(0 0 3px rgba(205,212,218,.95)) drop-shadow(0 0 10px rgba(160,170,178,.55)) drop-shadow(0 22px 26px rgba(0,0,0,.75))}
 .space-zone .welcome-text p{font-family:'Fredoka',sans-serif;font-weight:700;letter-spacing:.1em;color:#ccd1d6;text-shadow:0 2px 0 #4a5157,0 3px 3px rgba(0,0,0,.65),0 6px 18px rgba(0,0,0,.85),0 16px 34px rgba(0,201,60,.38),0 0 46px rgba(0,201,60,.22)}
@@ -318,3 +318,51 @@ header .wrap{position:relative;z-index:1}
 .space-zone .btn{background-image:linear-gradient(rgba(18,22,26,.42),rgba(18,22,26,.42)),url('img/hull.jpg');background-size:auto,320px;background-position:center;color:#f4f7f4;border:1px solid rgba(255,255,255,.38);text-shadow:0 1px 3px rgba(0,0,0,.85)}
 .space-zone .btn:hover{background-image:linear-gradient(rgba(18,22,26,.30),rgba(18,22,26,.30)),url('img/hull.jpg');border-color:rgba(0,201,60,.7)}
 .space-zone .rc-price .was{text-decoration:line-through;margin-right:7px}
+
+/* ================= FIX PASS (Nov 22): crisp procedural starfield, hull-plate buttons, logo menu + saber, holiday scene ================= */
+/* --- nebula tint under the procedural stars (soft gradients only, stars are JS box-shadow layers) --- */
+.site-header,.space-zone{background-image:radial-gradient(1100px 520px at 18% -60px,rgba(38,74,128,.32),rgba(38,74,128,0) 62%),radial-gradient(900px 620px at 86% 12%,rgba(9,84,54,.19),rgba(9,84,54,0) 60%),radial-gradient(760px 520px at 55% 112%,rgba(64,32,96,.15),rgba(64,32,96,0) 65%)}
+.starfield{position:absolute;inset:0;overflow:hidden;z-index:0;pointer-events:none}
+.star-layer{position:absolute;left:0;right:0;top:-110px;bottom:-110px;will-change:transform}
+.star-layer i{position:absolute;left:0;top:0;border-radius:50%;background:transparent}
+.space-zone>*{position:relative;z-index:1}
+
+/* --- holiday scene strip: a real scene card, tall, warm against the starfield --- */
+.sale-band{display:flex;align-items:center;min-height:150px}
+.sale-track{padding:22px 0}
+.sale-item{font-size:16.5px;text-shadow:0 1px 3px rgba(0,0,0,.96),0 2px 16px rgba(0,0,0,.85),0 0 34px rgba(0,0,0,.55)}
+.sale-item strong{font-size:15.5px}
+@media (max-width:640px){.sale-band{min-height:118px}.sale-item{font-size:15px}}
+
+/* --- hull-plate buttons: bigger, hard bevel edges, pronounced creases --- */
+.hull-btn{font-size:15px;font-weight:700;letter-spacing:.05em;padding:14px 26px;border-radius:10px;border:2px solid #090b0d;background-image:linear-gradient(rgba(13,17,21,.20),rgba(13,17,21,.20)),url('img/hull.jpg');background-size:auto,300px;background-position:center;color:#f6f9f6;text-shadow:0 1px 3px rgba(0,0,0,.92),0 0 12px rgba(0,0,0,.45);box-shadow:inset 0 2px 0 rgba(255,255,255,.85),inset 0 -3px 0 rgba(0,0,0,.55),inset 2px 0 0 rgba(255,255,255,.20),inset -2px 0 0 rgba(0,0,0,.32),0 7px 16px rgba(0,0,0,.62);backdrop-filter:none;-webkit-backdrop-filter:none}
+.hull-btn:hover{background-image:linear-gradient(rgba(13,17,21,.10),rgba(13,17,21,.10)),url('img/hull.jpg');border-color:#090b0d;box-shadow:inset 0 2px 0 rgba(255,255,255,.92),inset 0 -3px 0 rgba(0,0,0,.55),inset 2px 0 0 rgba(255,255,255,.22),inset -2px 0 0 rgba(0,0,0,.32),0 7px 16px rgba(0,0,0,.62),0 0 30px rgba(0,201,60,.35),0 0 64px rgba(0,201,60,.18)}
+.cart-ico{width:20px;height:16px}
+.search-box{border:2px solid #090b0d;border-radius:12px;padding:4px;background-image:linear-gradient(rgba(13,17,21,.36),rgba(13,17,21,.36)),url('img/hull.jpg');background-size:auto,300px;background-position:center;box-shadow:inset 0 2px 0 rgba(255,255,255,.55),inset 0 -3px 0 rgba(0,0,0,.50),0 7px 16px rgba(0,0,0,.62);backdrop-filter:none;-webkit-backdrop-filter:none}
+.search-box input{padding:12px 16px;font-size:14.5px;border-radius:8px 0 0 8px;background:rgba(5,9,7,.80);box-shadow:inset 0 2px 7px rgba(0,0,0,.85)}
+.search-box input:focus{box-shadow:inset 0 2px 7px rgba(0,0,0,.85),0 0 0 2px rgba(0,201,60,.5)}
+.search-go{font-size:14px;font-weight:700;padding:0 24px;border-left:2px solid #090b0d;border-radius:0 8px 8px 0;background-image:linear-gradient(rgba(0,104,40,.36),rgba(0,88,34,.42)),url('img/hull.jpg');background-size:auto,300px;background-position:center;box-shadow:inset 0 2px 0 rgba(255,255,255,.50),inset 0 -3px 0 rgba(0,0,0,.45);text-shadow:0 1px 3px rgba(0,0,0,.8)}
+.space-zone .btn{font-size:17px;font-weight:700;letter-spacing:.05em;padding:18px 44px;border-radius:10px;border:2px solid #090b0d;background-image:linear-gradient(rgba(13,17,21,.20),rgba(13,17,21,.20)),url('img/hull.jpg');background-size:auto,300px;background-position:center;color:#f6f9f6;text-shadow:0 1px 3px rgba(0,0,0,.92);box-shadow:inset 0 2px 0 rgba(255,255,255,.85),inset 0 -3px 0 rgba(0,0,0,.55),inset 2px 0 0 rgba(255,255,255,.20),inset -2px 0 0 rgba(0,0,0,.32),0 7px 16px rgba(0,0,0,.62);backdrop-filter:none;-webkit-backdrop-filter:none}
+.space-zone .btn:hover{background-image:linear-gradient(rgba(13,17,21,.10),rgba(13,17,21,.10)),url('img/hull.jpg');border-color:#090b0d;box-shadow:inset 0 2px 0 rgba(255,255,255,.92),inset 0 -3px 0 rgba(0,0,0,.55),inset 2px 0 0 rgba(255,255,255,.22),inset -2px 0 0 rgba(0,0,0,.32),0 7px 16px rgba(0,0,0,.62),0 0 30px rgba(0,201,60,.35),0 0 64px rgba(0,201,60,.18)}
+.car-arrow{width:64px;height:64px;box-shadow:0 0 0 2px #04060a,0 0 0 4px rgba(206,216,224,.55),0 10px 22px rgba(0,0,0,.65)}
+.car-arrow:hover{box-shadow:0 0 0 2px #04060a,0 0 0 4px rgba(206,216,224,.72),0 10px 22px rgba(0,0,0,.65),0 0 36px rgba(0,201,60,.50),0 0 78px rgba(0,201,60,.24)}
+@media (max-width:640px){.car-arrow{width:52px;height:52px}.hull-btn{padding:12px 20px;font-size:14px}.space-zone .btn{padding:15px 32px;font-size:16px}}
+
+/* --- header logo = menu button (hero NSW mark, blade layer + retract/ignite) --- */
+.nsw-logo-wrap{position:relative;flex:none}
+.nsw-logo-btn{position:relative;display:block;background:none;border:0;padding:0;cursor:pointer;line-height:0;border-radius:6px}
+.nsw-logo-btn:focus-visible{outline:2px solid rgba(0,201,60,.85);outline-offset:3px}
+.nsw-logo-base{height:98px;width:auto;display:block}
+.nsw-blade{position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:none;transform-origin:47.9% 83.5%;transition:transform .62s cubic-bezier(.55,0,.85,.36),filter .62s ease;filter:drop-shadow(0 0 5px rgba(0,201,60,.90)) drop-shadow(0 0 15px rgba(0,201,60,.55)) drop-shadow(0 0 34px rgba(0,201,60,.30))}
+.nsw-logo-wrap.open .nsw-blade{transform:scaleY(0);filter:drop-shadow(0 0 1px rgba(0,201,60,0)) drop-shadow(0 0 2px rgba(0,201,60,0)) drop-shadow(0 0 3px rgba(0,201,60,0))}
+.nsw-menu{position:absolute;top:calc(100% + 12px);left:0;width:300px;max-height:72vh;overflow:auto;background:linear-gradient(180deg,#131b13,#090e09);border:1px solid #39543a;border-radius:12px;box-shadow:0 26px 54px rgba(0,0,0,.78),0 0 0 1px rgba(0,201,60,.12);padding:10px 0;z-index:300;opacity:0;visibility:hidden;transform:translateY(-8px) scaleY(.92);transform-origin:top left;transition:opacity .30s ease,transform .38s cubic-bezier(.2,.8,.3,1),visibility 0s linear .38s}
+.nsw-logo-wrap.open .nsw-menu{opacity:1;visibility:visible;transform:translateY(0) scaleY(1);transition:opacity .30s ease,transform .38s cubic-bezier(.2,.8,.3,1)}
+.nsw-menu a{display:block;padding:8px 18px;text-decoration:none;font-size:14.5px;color:#e7f2df;letter-spacing:.03em;font-family:'Fredoka',sans-serif}
+.nsw-menu a:hover{background:rgba(0,201,60,.13);color:#fff}
+.nsw-menu .menu-head{display:block;font-family:'Fredoka',sans-serif;font-size:10.5px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:#8fd694;padding:11px 18px 3px}
+@media (max-width:640px){.nsw-logo-base{height:78px}.nsw-menu{width:min(300px,86vw)}}
+@media (prefers-reduced-motion:reduce){
+  .nsw-blade{transition:none}
+  .nsw-logo-wrap.open .nsw-blade{transform:none;filter:drop-shadow(0 0 5px rgba(0,201,60,.90)) drop-shadow(0 0 15px rgba(0,201,60,.55)) drop-shadow(0 0 34px rgba(0,201,60,.30))}
+  .nsw-menu{transition:none}
+}

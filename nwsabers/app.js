@@ -142,26 +142,92 @@
     });
   }
 
-  // ---------- header starfield parallax (subtle, rAF-throttled) ----------
-  var header = document.querySelector('.site-header');
+  // ---------- procedural starfield: 3 depths, pin-sharp box-shadow stars, layered parallax ----------
   var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (header && !reduceMotion) {
-    var ticking = false;
-    var zone = document.querySelector('.space-zone');
-    function parallax() {
-      var y = window.scrollY || 0;
-      if (y < 600) header.style.backgroundPosition = 'center ' + Math.round(y * 0.22) + 'px';
-      if (zone) {
-        var rel = y - zone.offsetTop + (window.innerHeight || 800);
-        if (rel > -400 && y < zone.offsetTop + zone.offsetHeight) {
-          zone.style.backgroundPosition = 'center ' + Math.round(rel * 0.14) + 'px';
+  var starZones = document.querySelectorAll('.site-header,.space-zone');
+  if (starZones.length) {
+    var _seed = 987654321;
+    function rnd() { _seed = (_seed * 1664525 + 1013904223) >>> 0; return _seed / 4294967296; }
+    var starLayers = [
+      { cls: 'far', size: 1, per: 6500, max: 650, aMin: .30, aMax: .62, rate: .05, glow: 0 },
+      { cls: 'mid', size: 2, per: 17000, max: 300, aMin: .55, aMax: .90, rate: .11, glow: 0 },
+      { cls: 'near', size: 3, per: 52000, max: 110, aMin: .85, aMax: 1, rate: .19, glow: 1 }
+    ];
+    var builtZones = [];
+    function buildStars(zone) {
+      var old = zone.querySelector('.starfield');
+      if (old) old.remove();
+      var W = zone.offsetWidth, Hh = zone.offsetHeight + 220;
+      if (!W || !zone.offsetHeight) return;
+      var sf = document.createElement('div');
+      sf.className = 'starfield'; sf.setAttribute('aria-hidden', 'true');
+      var els = [];
+      starLayers.forEach(function (L) {
+        var div = document.createElement('div');
+        div.className = 'star-layer sl-' + L.cls;
+        var dot = document.createElement('i');
+        dot.style.width = L.size + 'px'; dot.style.height = L.size + 'px';
+        var n = Math.min(L.max, Math.round(W * Hh / L.per));
+        var sh = [];
+        for (var k = 0; k < n; k++) {
+          var x = Math.round(rnd() * W), y = Math.round(rnd() * Hh);
+          var al = (L.aMin + rnd() * (L.aMax - L.aMin)).toFixed(2);
+          var t = rnd();
+          var col = t < .72 ? '255,255,255' : (t < .88 ? '190,214,255' : '255,238,205');
+          sh.push(x + 'px ' + y + 'px 0 0 rgba(' + col + ',' + al + ')');
+          if (L.glow) sh.push(x + 'px ' + y + 'px 7px 1px rgba(190,220,255,' + (al * .45).toFixed(2) + ')');
         }
-      }
-      ticking = false;
+        dot.style.boxShadow = sh.join(',');
+        div.appendChild(dot);
+        sf.appendChild(div);
+        els.push({ el: div, rate: L.rate });
+      });
+      zone.insertBefore(sf, zone.firstChild);
+      builtZones.push({ zone: zone, layers: els });
     }
-    window.addEventListener('scroll', function () {
-      if (!ticking) { ticking = true; window.requestAnimationFrame(parallax); }
-    }, { passive: true });
+    function buildAllStars() { builtZones = []; starZones.forEach(buildStars); }
+    buildAllStars();
+    var rzT = null;
+    window.addEventListener('resize', function () { clearTimeout(rzT); rzT = setTimeout(buildAllStars, 250); });
+    if (!reduceMotion) {
+      var starTick = false;
+      function starParallax() {
+        builtZones.forEach(function (b) {
+          var r = b.zone.getBoundingClientRect();
+          if (r.bottom < -120 || r.top > (window.innerHeight || 800) + 120) return;
+          var shift = Math.max(-95, Math.min(95, -r.top));
+          b.layers.forEach(function (L) { L.el.style.transform = 'translateY(' + (shift * L.rate).toFixed(1) + 'px)'; });
+        });
+        starTick = false;
+      }
+      window.addEventListener('scroll', function () {
+        if (!starTick) { starTick = true; window.requestAnimationFrame(starParallax); }
+      }, { passive: true });
+      starParallax();
+    }
+  }
+
+  // ---------- header logo menu (blade retracts on open, reignites on close) ----------
+  var nswWrap = document.querySelector('.nsw-logo-wrap');
+  var nswBtn = nswWrap ? nswWrap.querySelector('.nsw-logo-btn') : null;
+  if (nswWrap && nswBtn) {
+    nswBtn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      var open = nswWrap.classList.toggle('open');
+      nswBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    document.addEventListener('click', function (e) {
+      if (!nswWrap.contains(e.target)) {
+        nswWrap.classList.remove('open');
+        nswBtn.setAttribute('aria-expanded', 'false');
+      }
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') {
+        nswWrap.classList.remove('open');
+        nswBtn.setAttribute('aria-expanded', 'false');
+      }
+    });
   }
 
   // ---------- featured sabers carousel (page-by-3, wrap-around) ----------

@@ -404,3 +404,9 @@ body.home .about h2{color:#dfe4e8;text-shadow:0 2px 0 #4a5157,0 4px 16px rgba(0,
 /* section spacing for the new homepage order (carousel first under the header, welcome below it) */
 .space-zone .returning{padding-top:46px}
 .space-zone .welcome{padding:40px 0 36px}
+@media (max-width:640px){
+  /* keep the header search inside the row now that the header wrap is full-width */
+  .header-utils{width:100%;max-width:100%}
+  .search-box{width:100%}
+  .search-go{flex:none}
+}

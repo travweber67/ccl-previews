@@ -305,25 +305,26 @@
     // Autoplay reality: the audio stays locked until the visitor's first pointer/key press;
     // that gesture creates and primes the element. Crossings before any interaction stay
     // silent, and every failure path fails silent - no errors, no UI, no mute button.
-    var tieAudio = null, tieAudioUnlocked = false;
+    var tieAudio = null, tieAudioUnlocked = false, tiePrimed = false;
     function unlockTieAudio() {
-      if (tieAudio) return;
       try {
-        tieAudio = new Audio('audio/tie-flyby.mp3');
-        tieAudio.preload = 'auto';
-        tieAudio.volume = 0;
-        var pr = tieAudio.play();
-        if (pr && pr.then) pr.then(function () {
-          try { tieAudio.pause(); tieAudio.currentTime = 0; } catch (e) {}
-          tieAudioUnlocked = true;
-        }).catch(function () { tieAudioUnlocked = true; });
-        else tieAudioUnlocked = true;
+        if (!tieAudio) {
+          tieAudio = new Audio('audio/tie-flyby.mp3');
+          tieAudio.preload = 'auto';
+          window.NSW = window.NSW || {};
+          window.NSW.tieAudio = tieAudio; // QC handle
+        }
+        tieAudioUnlocked = true; // the gesture itself is the unlock - do not gate on the prime's promise
+        if (!tiePrimed) {
+          tiePrimed = true;
+          tieAudio.volume = 0;
+          var pr = tieAudio.play(); // silent prime under the gesture; the clip just ends on its own
+          if (pr && pr.catch) pr.catch(function () {});
+        }
       } catch (e) { /* no audio support: silent forever */ }
-      window.NSW = window.NSW || {};
-      window.NSW.tieAudio = tieAudio; // QC handle
     }
-    document.addEventListener('pointerdown', unlockTieAudio, { once: true });
-    document.addEventListener('keydown', unlockTieAudio, { once: true });
+    document.addEventListener('pointerdown', unlockTieAudio);
+    document.addEventListener('keydown', unlockTieAudio);
     function playTieScreech(dur) {
       if (!tieAudio || !tieAudioUnlocked || document.hidden) return;
       try {

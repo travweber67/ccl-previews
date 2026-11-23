@@ -287,42 +287,43 @@
     setTimeout(meteorLoop, 3000 + Math.random() * 6000);
   }
 
-  // ---------- holiday fly-by: the Santa-hat TIE on a slow, rare crossing (homepage only) ----------
-  // Same spawner discipline as the shooting stars, but rarer and slower: irregular 20-45s gaps
-  // (never back-to-back), one unhurried 6-9s crossing of the upper sky, direction varies, gentle
-  // banking. Pure decoration: the layer is pointer-events:none and aria-hidden, sits above the
-  // starfield (z-40) and below the header/menus; hidden tabs skip; reduced-motion gets none.
-  if (!reduceMotion && document.body.classList.contains('home')) {
+  // ---------- holiday fly-by INSIDE the banner: the Santa-hat TIE crosses the snowy-planet band ----------
+  // Round 6 (Travis's correction of round 5): the ship belongs INSIDE the holiday banner - the
+  // snowy alien-planet band under the header - not roaming the whole page sky. The banner clips
+  // it (overflow:hidden, .tie-layer absolute inset 0). Crossings are slow and clearly visible
+  // (5-8s across the band), gaps randomized ~15-40s, direction varies, gentle banking. Pure
+  // decoration: pointer-events:none, aria-hidden; hidden tabs skip; reduced-motion gets none.
+  var saleBand = document.querySelector('.sale-band');
+  if (!reduceMotion && saleBand && document.body.classList.contains('home')) {
     var tieLayer = document.createElement('div');
     tieLayer.className = 'tie-layer'; tieLayer.setAttribute('aria-hidden', 'true');
-    document.body.appendChild(tieLayer);
+    saleBand.appendChild(tieLayer);
     function spawnTie() {
-      var vw = window.innerWidth || 1200;
+      var bw = saleBand.clientWidth || 1200;
       var ship = document.createElement('img');
       ship.className = 'tie-ship';
       ship.src = 'img/tie-santa.png'; ship.alt = '';
-      ship.style.top = (4 + Math.random() * 14) + 'vh';   // upper sky band
+      ship.style.top = (4 + Math.random() * 14) + '%';   // ship is ~76% of band height: stays inside
       tieLayer.appendChild(ship);
-      var w = ship.offsetWidth || 190;
+      var w = ship.offsetWidth || 130;
       var ltr = Math.random() < 0.5;
-      var dur = 6000 + Math.random() * 3000;              // 6-9s crossing
-      var bank = (2 + Math.random() * 5) * (ltr ? 1 : -1);
-      var drift = Math.random() * 30 - 15;
-      var startX = ltr ? -w - 30 : vw + 30;
-      var endX = ltr ? vw + 30 : -w - 30;
+      var dur = 5000 + Math.random() * 3000;              // 5-8s crossing of the band
+      var bank = (2 + Math.random() * 4) * (ltr ? 1 : -1);
+      var startX = ltr ? -w - 16 : bw + 16;
+      var endX = ltr ? bw + 16 : -w - 16;
       var flip = ltr ? 1 : -1;
       var anim = ship.animate([
         { transform: 'translate(' + startX + 'px, 0px) rotate(' + bank + 'deg) scaleX(' + flip + ')' },
-        { transform: 'translate(' + endX + 'px, ' + drift + 'px) rotate(' + (-bank * 0.4) + 'deg) scaleX(' + flip + ')' }
+        { transform: 'translate(' + endX + 'px, 0px) rotate(' + (-bank * 0.4) + 'deg) scaleX(' + flip + ')' }
       ], { duration: dur, easing: 'linear' });
       anim.onfinish = function () { ship.remove(); };
       setTimeout(function () { ship.remove(); }, dur + 500); // safety cleanup
     }
     function tieLoop() {
       if (!document.hidden) spawnTie();
-      setTimeout(tieLoop, 20000 + Math.random() * 25000);   // gaps ~20-45s, randomized
+      setTimeout(tieLoop, 15000 + Math.random() * 25000);   // gaps ~15-40s, randomized
     }
-    setTimeout(tieLoop, 5000 + Math.random() * 5000);
+    setTimeout(tieLoop, 3500 + Math.random() * 3000);
     window.NSW = window.NSW || {};
     window.NSW.tieFlyby = spawnTie; // test hook: force a crossing on demand (QC)
   }

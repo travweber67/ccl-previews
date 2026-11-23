@@ -664,14 +664,11 @@ body.home .about h2{display:inline-block}
 .price-band h2,.price-band h3,.price-band .assure,.price-band .pickup{text-shadow:0 2px 0 rgba(20,24,27,.55),0 3px 4px rgba(0,0,0,.82),0 8px 22px rgba(0,0,0,.92)}
 @media (max-width:640px){.price-saber{width:152%}}
 
-/* --- 4. BUILD YOUR OWN CUSTOM SABER ---
-   Same section language as Featured Sabers (the block reuses .returning for its heading
-   treatment), one labeled carousel per component type. Rows with a single page of cards
-   sit static and centered (JS adds .is-static): arrows keep their gutters so every row
-   lines up, but hidden — no dead controls. */
-.byo{padding-top:8px}
-.byo-label{font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(16px,2.2vw,21px);letter-spacing:.24em;text-transform:uppercase;color:#aef2bc;text-shadow:0 1px 3px rgba(0,0,0,.92),0 0 18px rgba(0,201,60,.28);margin:30px 0 2px}
-.byo .carousel:last-child{margin-bottom:6px}
+/* --- 4. CAROUSEL ENGINE (shared) ---
+   Rows with a single page of cards sit static and centered (JS adds .is-static): arrows
+   keep their gutters so every row lines up, but hidden — no dead controls.
+   (The Build Your Own section that introduced this was removed in round 6 at Travis's
+   direction; the engine rules stay for the shared carousel code.) */
 .carousel.is-static .car-track{justify-content:center}
 .carousel.is-static .car-arrow{visibility:hidden}
 /* static rows: cards center as a group inside their page, at the same size the grid gives them */
@@ -679,15 +676,19 @@ body.home .about h2{display:inline-block}
 .carousel.is-static .returning-card{flex:0 1 calc((100% - 44px)/3)}
 @media (max-width:640px){.carousel.is-static .returning-card{flex-basis:calc((100% - 24px)/3)}}
 
-/* ================= ROUND 5 (Nov 23): holiday street scene killed, Santa-hat TIE fly-by =================
-   Travis's verdict: the snowy street-scene card threw the whole space theme off. The scene is
-   gone — the sale marquee is now just its Fredoka text line riding the page sky — and the
-   holiday ship (his own art: a TIE in a Santa hat, cut out of his image, nothing else taken)
-   makes slow, rare crossings of the upper sky instead (spawner in app.js). */
-.sale-band{background:transparent;border-bottom:0;min-height:0}
-.tie-layer{position:fixed;inset:0;z-index:40;overflow:hidden;pointer-events:none}
-.tie-ship{position:absolute;left:0;width:clamp(120px,16vw,210px);height:auto;pointer-events:none;filter:drop-shadow(0 10px 18px rgba(0,0,0,.5));will-change:transform}
-@media (max-width:640px){.tie-ship{width:clamp(92px,30vw,140px)}}
+/* ================= ROUND 5/6 (Nov 23): holiday banner = snowy alien planet, TIE flies INSIDE it =================
+   Round 5 killed the street-scene card and flew the TIE across the whole page sky; Travis
+   corrected that in round 6: the banner is a banner again — a full-width band whose ground is
+   the surface of a snowy alien planet (img/holiday-planet.jpg: snowfields under a ringed gas
+   giant, moons and aurora — no Earth scenery, no text) — the sale marquee rides over it as
+   before, and the holiday ship (his own art: a TIE in a Santa hat, cut out of his image,
+   nothing else taken) flies by INSIDE the band only, clipped by it (spawner in app.js). */
+.sale-band{position:relative;overflow:hidden;background:#0a1020 url('img/holiday-planet.jpg') 68% 50%/cover no-repeat;border-bottom:2px solid #17301c;min-height:142px}
+.sale-band::before{z-index:1;background:linear-gradient(180deg,rgba(3,8,14,.40),rgba(3,8,14,.30) 45%,rgba(3,8,14,.50)),linear-gradient(90deg,rgba(3,8,14,.30),rgba(3,8,14,.05) 55%,rgba(3,8,14,.30))}
+.sale-band .tie-layer{position:absolute;inset:0;z-index:2;overflow:hidden;pointer-events:none}
+.sale-band .tie-ship{position:absolute;left:0;height:76%;width:auto;pointer-events:none;filter:drop-shadow(0 8px 14px rgba(0,0,0,.55));will-change:transform}
+.sale-track{z-index:3}
+@media (max-width:640px){.sale-band{min-height:110px}}
 
 /* ================= ROUND 5b (Nov 23): logo blade = ONE piece sliding under the base =================
    Travis: the old blade layer was literally the visible fragments of the blade (three floating
@@ -703,3 +704,16 @@ body.home .about h2{display:inline-block}
 .nsw-blade{transform:translateY(0)}
 .nsw-logo-wrap.open .nsw-blade{transform:translateY(67%);filter:drop-shadow(0 0 1px rgba(0,201,60,0)) drop-shadow(0 0 2px rgba(0,201,60,0)) drop-shadow(0 0 3px rgba(0,201,60,0));transition:transform .62s cubic-bezier(.55,0,.85,.36) 0s,filter .62s ease 0s}
 @media (prefers-reduced-motion:reduce){.nsw-logo-wrap.open .nsw-blade{transform:translateY(0)}}
+
+/* ================= ROUND 6 (Nov 23): menu panel = ONE piece of hull, lighter =================
+   Travis: the round-4 skin tiled hull.jpg at 340px (the same piece repeated over and over)
+   and sat under an 87-91% black gradient — "really dark... I don't want to see the same
+   repeating pattern." Now the panel wears ONE piece of a much bigger hull: img/hull-panel.jpg
+   (1120x2240 generated plating, brightened ~1.28x), cover + no-repeat, positioned off-center
+   so it reads as a random cut section of a big ship. The black overlay drops to ~40-50%
+   (about half of round 4) so the plating actually reads; text keeps its contrast from a
+   stronger double text-shadow instead of a darker panel. Items, order, Close button,
+   scrollbar, slide/blade behavior and the z-index fix are unchanged from round 4. */
+.nsw-menu{background-color:#14181c;background-image:linear-gradient(rgba(10,13,16,.40),rgba(10,13,16,.50)),url('img/hull-panel.jpg');background-size:cover;background-repeat:no-repeat;background-position:32% 18%}
+.nsw-menu a{text-shadow:0 1px 3px rgba(0,0,0,.97),0 0 12px rgba(0,0,0,.8)}
+.nsw-menu .menu-head{text-shadow:0 1px 3px rgba(0,0,0,.97),0 0 12px rgba(0,0,0,.8)}

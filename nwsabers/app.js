@@ -156,3 +156,17 @@
       if (!ticking) { ticking = true; window.requestAnimationFrame(parallax); }
     }, { passive: true });
   }
+
+  // ---------- featured sabers carousel (page-by-3, wrap-around) ----------
+  var car = document.getElementById('featured-carousel');
+  if (car) {
+    var track = car.querySelector('.car-track');
+    var pages = car.querySelectorAll('.car-page').length;
+    var page = 0;
+    function go(p) {
+      page = ((p % pages) + pages) % pages;
+      track.style.transform = 'translateX(' + (-page * 100) + '%)';
+    }
+    car.querySelector('.car-prev').addEventListener('click', function () { go(page - 1); });
+    car.querySelector('.car-next').addEventListener('click', function () { go(page + 1); });
+  }

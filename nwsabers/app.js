@@ -329,14 +329,17 @@
     });
   }
 
-  // ---------- featured sabers carousel (page-by-3, wrap-around, neighbors peek + fade) ----------
+  // ---------- carousels (page-by-3, wrap-around, neighbors peek + fade) ----------
+  // Featured Sabers plus the six Build Your Own component rows share this one engine.
   // Each page is 84% of the viewport width and sits centered, so ~8% of the previous and next
   // pages peek in at the edges; the viewport's CSS mask dissolves those peeks into the sky.
-  var car = document.getElementById('featured-carousel');
-  if (car) {
+  // A carousel with a single page of cards sits static and centered instead (.is-static).
+  function initCarousel(car) {
     var track = car.querySelector('.car-track');
     var pageEls = track.querySelectorAll('.car-page');
     var pages = pageEls.length;
+    if (!pages) return;
+    if (pages === 1) { car.classList.add('is-static'); return; }
     // Clone the last page before the first and the first page after the last, so the centered
     // 84% layout has a neighbor peeking in on BOTH sides even on the first and last pages.
     var lastClone = pageEls[pages - 1].cloneNode(true);
@@ -358,3 +361,4 @@
     window.addEventListener('resize', function () { go(page); });
     go(0);
   }
+  document.querySelectorAll('.carousel').forEach(initCarousel);

@@ -618,3 +618,59 @@ body.home .thanks h2::before,body.home .about h2::before{background:radial-gradi
 
 /* --- 5. About Us: the glow centers on the words, not the middle of the column --- */
 body.home .about h2{display:inline-block}
+
+/* ================= ROUND 4 (Nov 23): menu stacking fix + Imperial menu restyle, floating price-band saber, Build Your Own =================
+   Travis's notes: (1) the open category menu rendered UNDER the hero heading and carousel
+   cards — unreadable, unclickable; (2) the slide-out panel should wear the Imperial hull-
+   plating look of the cards/buttons, with a finished ship-style scrollbar instead of the
+   rudimentary default; (3) the price-band's photo background becomes the page sky with the
+   very saber from that photo (the AS V8's own product shot) cut out, enhanced and floating
+   in front of the stars; (4) a Build Your Own Custom Saber section under Featured Sabers:
+   six labeled component carousels in the Featured carousel's exact language. */
+
+/* --- 1. MENU STACKING FIX ---
+   Root cause: header .wrap is a stacking context capped at z-index 1, and every .space-zone
+   section is ALSO z-index 1 but later in the DOM, so sections painted (and took clicks) over
+   the open "More" dropdown — its own z-index 60 was trapped inside the header's context.
+   The header now holds its own top-level stacking level above all page content; the slide-out
+   panel already lives at body level (fixed, z-index 1000) and stays above everything. */
+.site-header{position:relative;z-index:500}
+.more-menu{z-index:600}
+
+/* --- 2. SLIDE-OUT MENU: Imperial hull plating + ship scrollbar (skin only — same items,
+   same order, same slide/blade timing). The plating is toned down behind the text exactly
+   like the cards tone theirs; where texture and text fight, the texture loses. --- */
+.nsw-menu{background-color:#0b0e10;background-image:linear-gradient(rgba(9,12,10,.87),rgba(9,12,10,.91)),url('img/hull.jpg');background-size:auto,340px;background-position:center;border-right:2px solid #05070a;box-shadow:26px 0 54px rgba(0,0,0,.62),inset -1px 0 0 rgba(0,201,60,.38),inset 0 1px 0 rgba(255,255,255,.14)}
+.nsw-menu a{text-shadow:0 1px 3px rgba(0,0,0,.95)}
+.nsw-menu .menu-head{text-shadow:0 1px 3px rgba(0,0,0,.95)}
+.nsw-menu-close{background-color:#22262a;background-image:linear-gradient(rgba(13,17,21,.25),rgba(13,17,21,.25)),url('img/hull.jpg');background-size:auto,300px;background-position:center;border:2px solid #090b0d;border-radius:10px;box-shadow:inset 0 2px 0 rgba(255,255,255,.5),inset 0 -3px 0 rgba(0,0,0,.5),0 4px 10px rgba(0,0,0,.55);color:#f4f7f4;text-shadow:0 1px 3px rgba(0,0,0,.9)}
+.nsw-menu-close:hover{background-color:#22262a;color:#fff;box-shadow:inset 0 2px 0 rgba(255,255,255,.5),inset 0 -3px 0 rgba(0,0,0,.5),0 4px 10px rgba(0,0,0,.55),0 0 18px rgba(0,201,60,.35)}
+.nsw-menu{scrollbar-width:thin;scrollbar-color:#3d454c #0a0c0e}
+.nsw-menu::-webkit-scrollbar{width:9px}
+.nsw-menu::-webkit-scrollbar-track{background:#0a0c0e;border-left:1px solid rgba(255,255,255,.07);box-shadow:inset 1px 0 2px rgba(0,0,0,.8)}
+.nsw-menu::-webkit-scrollbar-thumb{background:linear-gradient(180deg,#59616a,#2b3036 55%,#454c52);border:2px solid #0a0c0e;border-radius:6px;box-shadow:inset 0 1px 0 rgba(255,255,255,.45)}
+.nsw-menu::-webkit-scrollbar-thumb:hover{background:linear-gradient(180deg,#5f7263,#2e4034 55%,#48604e);box-shadow:inset 0 1px 0 rgba(255,255,255,.45),0 0 8px rgba(0,201,60,.55)}
+
+/* --- 3. PRICE BAND: sky behind, the AS V8 hilt floating in front ---
+   The old section background WAS the AS V8 product photo (David's own Wix media for the
+   AS V8), darkened 78%. Now the section is transparent over the one page sky, and that same
+   saber — cut out of that same photo, denoised, 2x upscaled, sharpened — floats diagonally
+   in front of the stars. A soft dark radial scrim + the headings' black depth shadows keep
+   every word readable where it crosses the bright hilt; the saber layer takes no clicks. */
+.price-band{background:transparent;overflow:hidden}
+.price-band::before{background:radial-gradient(ellipse 92% 80% at 50% 46%,rgba(4,7,13,.62) 0%,rgba(4,7,13,.36) 55%,rgba(4,7,13,0) 84%);z-index:0}
+.price-band .inner{z-index:2}
+.price-saber{position:absolute;z-index:1;left:50%;top:50%;width:min(1180px,118%);height:auto;transform:translate(-50%,-54%) rotate(-2deg);pointer-events:none;filter:drop-shadow(0 26px 34px rgba(0,0,0,.55))}
+.price-band h2,.price-band h3,.price-band .assure,.price-band .pickup{text-shadow:0 2px 0 rgba(20,24,27,.55),0 3px 4px rgba(0,0,0,.82),0 8px 22px rgba(0,0,0,.92)}
+@media (max-width:640px){.price-saber{width:152%}}
+
+/* --- 4. BUILD YOUR OWN CUSTOM SABER ---
+   Same section language as Featured Sabers (the block reuses .returning for its heading
+   treatment), one labeled carousel per component type. Rows with a single page of cards
+   sit static and centered (JS adds .is-static): arrows keep their gutters so every row
+   lines up, but hidden — no dead controls. */
+.byo{padding-top:8px}
+.byo-label{font-family:'Fredoka',sans-serif;font-weight:600;font-size:clamp(16px,2.2vw,21px);letter-spacing:.24em;text-transform:uppercase;color:#aef2bc;text-shadow:0 1px 3px rgba(0,0,0,.92),0 0 18px rgba(0,201,60,.28);margin:30px 0 2px}
+.byo .carousel:last-child{margin-bottom:6px}
+.carousel.is-static .car-track{justify-content:center}
+.carousel.is-static .car-arrow{visibility:hidden}

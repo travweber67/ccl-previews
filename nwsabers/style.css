@@ -184,3 +184,77 @@ h1,h2,h3,.cinzel{font-family:'Cinzel',serif;letter-spacing:.14em;text-transform:
   .p-info h1{font-size:29px}
   .about{padding-top:36px}
 }
+
+/* ================= HEADER REDESIGN (Nov 22) ================= */
+:root{--glow:#39ff7a;--hull-hi:#8f979e;--hull-mid:#5b636a;--hull-lo:#33383d}
+.site-header{background:#04070d url('img/space-header.jpg') center 0/cover no-repeat;color:#eef3ea;border-bottom:2px solid #1d2b1f}
+header .wrap{position:relative;z-index:1}
+.header-grid{padding:18px 0 8px;gap:22px}
+.header-title .shop-name{color:#f4f8f0;text-shadow:0 2px 14px rgba(0,0,0,.85),0 0 26px rgba(57,255,122,.18)}
+.header-title .tagline{color:#b9d6ae;text-shadow:0 1px 8px rgba(0,0,0,.9)}
+
+/* logo as a chunky button */
+.logo-wrap{position:relative;flex:none}
+.logo-btn{display:flex;align-items:center;gap:8px;background:linear-gradient(180deg,#fdfdf8,#dfe3d2);border:2px solid #101408;border-radius:14px;padding:7px 12px 7px 8px;cursor:pointer;box-shadow:0 6px 0 #060a05,0 14px 28px rgba(0,0,0,.65),inset 0 1px 0 #fff,inset 0 -3px 6px rgba(0,0,0,.18);transition:transform .08s ease,box-shadow .08s ease,filter .15s ease}
+.logo-btn img{height:104px;width:auto;border-radius:8px}
+.logo-btn .logo-caret{font-size:19px;color:#233018;line-height:1}
+.logo-btn:hover{filter:brightness(1.05);box-shadow:0 6px 0 #060a05,0 14px 28px rgba(0,0,0,.65),0 0 22px rgba(57,255,122,.45),inset 0 1px 0 #fff}
+.logo-btn:active,.logo-btn[aria-expanded="true"]{transform:translateY(4px);box-shadow:0 2px 0 #060a05,0 6px 14px rgba(0,0,0,.6),0 0 22px rgba(57,255,122,.5),inset 0 1px 0 #fff}
+.logo-menu{display:none;position:absolute;top:calc(100% + 12px);left:0;width:290px;max-height:70vh;overflow:auto;background:linear-gradient(180deg,#121a12,#0a0f0a);border:1px solid #39543a;border-radius:12px;box-shadow:0 24px 50px rgba(0,0,0,.75),0 0 0 1px rgba(57,255,122,.12);padding:8px 0;z-index:200}
+.logo-wrap.open .logo-menu{display:block}
+.logo-menu a{display:block;padding:8px 18px;text-decoration:none;font-size:14px;color:#e7f2df;letter-spacing:.03em}
+.logo-menu a:hover{background:rgba(57,255,122,.13);color:#fff}
+.logo-menu .menu-head{font-family:'Orbitron',sans-serif;font-size:10.5px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:#8fd694;padding:11px 18px 3px}
+
+/* starship hull-panel buttons */
+.hull-btn{position:relative;display:inline-flex;align-items:center;gap:8px;font-family:'Orbitron',sans-serif;font-weight:700;font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;color:#eef1ee;padding:10px 18px;border-radius:7px;border:1px solid #14171a;background:linear-gradient(180deg,var(--hull-hi) 0%,var(--hull-mid) 46%,#454c52 54%,var(--hull-lo) 100%);text-shadow:0 1px 2px rgba(0,0,0,.75);box-shadow:inset 0 1px 0 rgba(255,255,255,.55),inset 0 -2px 4px rgba(0,0,0,.5),inset 1px 0 0 rgba(255,255,255,.18),inset -1px 0 0 rgba(0,0,0,.35),0 4px 10px rgba(0,0,0,.55);cursor:pointer}
+.hull-btn::before,.hull-btn::after{content:'';position:absolute;top:50%;width:5px;height:5px;margin-top:-2.5px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#e8ecee,#596066 60%,#22262a);box-shadow:inset 0 -1px 1px rgba(0,0,0,.7)}
+.hull-btn::before{left:6px}.hull-btn::after{right:6px}
+.hull-btn:hover{filter:brightness(1.14);box-shadow:inset 0 1px 0 rgba(255,255,255,.6),inset 0 -2px 4px rgba(0,0,0,.5),0 4px 10px rgba(0,0,0,.55),0 0 16px rgba(57,255,122,.35)}
+.hull-btn:active{transform:translateY(1px);filter:brightness(.94)}
+.cart-ico{width:17px;height:14px;flex:none;background:linear-gradient(180deg,#dfe4e7,#79828a);clip-path:polygon(0 0,100% 0,88% 72%,18% 72%);box-shadow:inset 0 -2px 2px rgba(0,0,0,.4)}
+.utils-row{gap:12px}
+.search-box{display:flex;margin-top:12px;border-radius:9px;padding:3px;background:linear-gradient(180deg,#9aa2a8,#4a5157 55%,#2c3136);border:1px solid #10131a;box-shadow:inset 0 1px 0 rgba(255,255,255,.5),inset 0 -2px 5px rgba(0,0,0,.55),0 5px 12px rgba(0,0,0,.5)}
+.search-box input{flex:1;width:auto;min-width:0;border:0;border-radius:6px 0 0 6px;background:#0a0f14;color:#dff5d8;padding:10px 12px;font-size:13.5px;box-shadow:inset 0 2px 6px rgba(0,0,0,.8)}
+.search-box input::placeholder{color:#7fae7f}
+.search-box input:focus{outline:2px solid rgba(57,255,122,.55);outline-offset:-2px}
+.search-go{border:0;border-left:1px solid #14171a;border-radius:0 6px 6px 0;background:linear-gradient(180deg,#767f86,#454c52);color:#eef1ee;font-family:'Orbitron',sans-serif;font-weight:700;font-size:11px;letter-spacing:.12em;text-transform:uppercase;padding:0 14px;cursor:pointer;text-shadow:0 1px 2px rgba(0,0,0,.7)}
+.search-go:hover{filter:brightness(1.2)}
+
+/* nav — Orbitron, spaced, green underglow */
+.main-nav{gap:clamp(30px,6vw,84px);padding:14px 0 20px;align-items:center}
+.main-nav>a,.main-nav .more-btn{font-family:'Orbitron',sans-serif;font-weight:700;font-size:17px;letter-spacing:.18em;color:#f2f7ee;padding:8px 6px;position:relative;text-shadow:0 2px 10px rgba(0,0,0,.9);transition:color .15s ease,text-shadow .2s ease}
+.main-nav>a::after,.main-nav .more-btn::after{content:'';position:absolute;left:8%;right:8%;bottom:-2px;height:12px;border-radius:50%;background:radial-gradient(ellipse at center,rgba(57,255,122,.95) 0%,rgba(57,255,122,.35) 45%,transparent 72%);opacity:0;transform:scaleX(.4);transition:opacity .2s ease,transform .2s ease;pointer-events:none}
+.main-nav>a:hover,.main-nav .more-btn:hover{color:#d9ffe2;text-shadow:0 0 14px rgba(57,255,122,.55),0 2px 10px rgba(0,0,0,.9)}
+.main-nav>a:hover::after,.main-nav .more-btn:hover::after{opacity:1;transform:scaleX(1)}
+.main-nav>a.active{color:#aef2bc}
+.main-nav>a.active::after{opacity:.85;transform:scaleX(1)}
+.more-menu{background:linear-gradient(180deg,#121a12,#0a0f0a);border:1px solid #39543a;border-radius:12px;box-shadow:0 24px 50px rgba(0,0,0,.75);padding:8px 0}
+.more-menu a{color:#e7f2df}
+.more-menu a:hover{background:rgba(57,255,122,.13)}
+.more-menu .menu-head{color:#8fd694;font-family:'Orbitron',sans-serif}
+
+/* holiday band — snowy pines + scrolling marquee */
+.sale-band{background:#0a1410 url('img/snowy-pines.jpg') center 42%/cover no-repeat;color:#f2f8ee;text-align:left;padding:0;overflow:hidden;position:relative;border-bottom:2px solid #17301c}
+.sale-band::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(4,12,6,.55),rgba(4,12,6,.18) 55%,rgba(4,12,6,.45))}
+.sale-track{position:relative;display:flex;width:max-content;animation:sale-scroll 46s linear infinite;padding:13px 0}
+.sale-band:hover .sale-track{animation-play-state:paused}
+.sale-item{white-space:nowrap;padding-right:90px;font-size:15px;text-shadow:0 1px 6px rgba(0,0,0,.9)}
+.sale-item strong{font-family:'Orbitron',sans-serif;letter-spacing:.1em;font-size:14px}
+.sale-item .pct{color:#7dff9e;font-weight:700}
+@keyframes sale-scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.about{padding:52px 0 64px}
+
+@media (prefers-reduced-motion:reduce){
+  .sale-track{animation:none;flex-wrap:wrap;width:auto}
+  .sale-item{white-space:normal;padding-right:20px}
+  .sale-item:nth-child(n+2){display:none}
+}
+@media (max-width:640px){
+  .logo-btn img{height:82px}
+  .logo-menu{width:min(290px,86vw)}
+  .main-nav{gap:16px}
+  .main-nav>a,.main-nav .more-btn{font-size:16px}
+  .nav-toggle{margin:6px auto 2px}
+  .header-title .shop-name{text-shadow:0 2px 12px rgba(0,0,0,.9)}
+}

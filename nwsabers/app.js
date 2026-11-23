@@ -118,3 +118,41 @@
     document.getElementById('qty-plus').addEventListener('click', function () { qtyInp.value = Math.min(99, parseInt(qtyInp.value || '1', 10) + 1); });
   }
 })();
+
+  // ---------- logo button dropdown menu ----------
+  var logoWrap = document.querySelector('.logo-wrap');
+  var logoBtn = document.getElementById('logo-menu-btn');
+  if (logoWrap && logoBtn) {
+    logoBtn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      var open = logoWrap.classList.toggle('open');
+      logoBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    document.addEventListener('click', function (e) {
+      if (!logoWrap.contains(e.target)) {
+        logoWrap.classList.remove('open');
+        logoBtn.setAttribute('aria-expanded', 'false');
+      }
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') {
+        logoWrap.classList.remove('open');
+        logoBtn.setAttribute('aria-expanded', 'false');
+      }
+    });
+  }
+
+  // ---------- header starfield parallax (subtle, rAF-throttled) ----------
+  var header = document.querySelector('.site-header');
+  var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (header && !reduceMotion) {
+    var ticking = false;
+    function parallax() {
+      var y = window.scrollY || 0;
+      if (y < 600) header.style.backgroundPosition = 'center ' + Math.round(y * 0.22) + 'px';
+      ticking = false;
+    }
+    window.addEventListener('scroll', function () {
+      if (!ticking) { ticking = true; window.requestAnimationFrame(parallax); }
+    }, { passive: true });
+  }

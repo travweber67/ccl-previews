@@ -298,12 +298,62 @@
     var tieLayer = document.createElement('div');
     tieLayer.className = 'tie-layer'; tieLayer.setAttribute('aria-hidden', 'true');
     saleBand.appendChild(tieLayer);
+    // Fly-by SOUND (Travis, round 6): the classic TIE screech at NATURAL length - the clip is
+    // 2.3s and is never stretched or looped across the slow 5-8s crossing. It is scheduled so
+    // the clip's own peak lands as the ship crosses the banner's middle, and a volume envelope
+    // rides on top (swell in, peak ~0.5 at the center, fade out) for a Doppler-style pass.
+    // Autoplay reality: the audio stays locked until the visitor's first pointer/key press;
+    // that gesture creates and primes the element. Crossings before any interaction stay
+    // silent, and every failure path fails silent - no errors, no UI, no mute button.
+    var tieAudio = null, tieAudioUnlocked = false;
+    function unlockTieAudio() {
+      if (tieAudio) return;
+      try {
+        tieAudio = new Audio('audio/tie-flyby.mp3');
+        tieAudio.preload = 'auto';
+        tieAudio.volume = 0;
+        var pr = tieAudio.play();
+        if (pr && pr.then) pr.then(function () {
+          try { tieAudio.pause(); tieAudio.currentTime = 0; } catch (e) {}
+          tieAudioUnlocked = true;
+        }).catch(function () { tieAudioUnlocked = true; });
+        else tieAudioUnlocked = true;
+      } catch (e) { /* no audio support: silent forever */ }
+      window.NSW = window.NSW || {};
+      window.NSW.tieAudio = tieAudio; // QC handle
+    }
+    document.addEventListener('pointerdown', unlockTieAudio, { once: true });
+    document.addEventListener('keydown', unlockTieAudio, { once: true });
+    function playTieScreech(dur) {
+      if (!tieAudio || !tieAudioUnlocked || document.hidden) return;
+      try {
+        var CLIP = 2.3, PEAK_AT = 0.6; // clip seconds; where its loudest moment sits
+        var delay = Math.max(0, dur / 2 - PEAK_AT * 1000); // so the peak lands at banner center
+        setTimeout(function () {
+          if (document.hidden || !tieAudio) return;
+          try {
+            tieAudio.currentTime = 0;
+            tieAudio.volume = 0.12;
+            var p = tieAudio.play();
+            if (p && p.catch) p.catch(function () {});
+            var t0 = Date.now();
+            var ramp = setInterval(function () {
+              var t = (Date.now() - t0) / 1000;
+              if (t >= CLIP || !tieAudio) { clearInterval(ramp); return; }
+              var env = t < PEAK_AT ? (0.24 + 0.76 * (t / PEAK_AT))
+                                    : Math.max(0.18, 1 - 0.82 * ((t - PEAK_AT) / (CLIP - PEAK_AT)));
+              try { tieAudio.volume = 0.5 * env; } catch (e) { clearInterval(ramp); }
+            }, 90);
+          } catch (e) { /* fail silent */ }
+        }, delay);
+      } catch (e) { /* fail silent */ }
+    }
     function spawnTie() {
       var bw = saleBand.clientWidth || 1200;
       var ship = document.createElement('img');
       ship.className = 'tie-ship';
       ship.src = 'img/tie-santa.png'; ship.alt = '';
-      ship.style.top = (4 + Math.random() * 14) + '%';   // ship is ~76% of band height: stays inside
+      ship.style.top = (3 + Math.random() * 9) + '%';   // ship is ~76% of band height at scale 1
       tieLayer.appendChild(ship);
       var w = ship.offsetWidth || 130;
       var ltr = Math.random() < 0.5;
@@ -312,11 +362,20 @@
       var startX = ltr ? -w - 16 : bw + 16;
       var endX = ltr ? bw + 16 : -w - 16;
       var flip = ltr ? 1 : -1;
-      var anim = ship.animate([
-        { transform: 'translate(' + startX + 'px, 0px) rotate(' + bank + 'deg) scaleX(' + flip + ')' },
-        { transform: 'translate(' + endX + 'px, 0px) rotate(' + (-bank * 0.4) + 'deg) scaleX(' + flip + ')' }
-      ], { duration: dur, easing: 'linear' });
+      // Depth pass (Travis, round 6): the ship starts small at the entry edge, grows to its
+      // biggest at the banner's middle (closest approach - the same moment the screech peaks),
+      // then shrinks away toward the exit. Peak scale 1.1 keeps the hull inside the band
+      // (76% height x 1.1 + max 12% top = ~96% of the band). Scale is folded into a single
+      // scale(sx, sy) per keyframe so the horizontal direction flip survives.
+      var scales = [0.55, 0.8, 1.1, 0.8, 0.55];
+      var banks = [bank, bank * 0.35, 0, -bank * 0.35, -bank * 0.4];
+      var frames = scales.map(function (s, i) {
+        var x = startX + (endX - startX) * (i / (scales.length - 1));
+        return { transform: 'translate(' + x + 'px, 0px) rotate(' + banks[i] + 'deg) scale(' + (flip * s) + ', ' + s + ')' };
+      });
+      var anim = ship.animate(frames, { duration: dur, easing: 'linear' });
       anim.onfinish = function () { ship.remove(); };
+      playTieScreech(dur);
       setTimeout(function () { ship.remove(); }, dur + 500); // safety cleanup
     }
     function tieLoop() {

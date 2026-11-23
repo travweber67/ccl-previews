@@ -335,13 +335,22 @@
   var car = document.getElementById('featured-carousel');
   if (car) {
     var track = car.querySelector('.car-track');
-    var pages = car.querySelectorAll('.car-page').length;
+    var pageEls = track.querySelectorAll('.car-page');
+    var pages = pageEls.length;
+    // Clone the last page before the first and the first page after the last, so the centered
+    // 84% layout has a neighbor peeking in on BOTH sides even on the first and last pages.
+    var lastClone = pageEls[pages - 1].cloneNode(true);
+    lastClone.setAttribute('aria-hidden', 'true');
+    track.insertBefore(lastClone, pageEls[0]);
+    var firstClone = pageEls[0].cloneNode(true);
+    firstClone.setAttribute('aria-hidden', 'true');
+    track.appendChild(firstClone);
     var page = 0;
     function go(p) {
       page = ((p % pages) + pages) % pages;
       var tw = track.clientWidth;
       var pw = tw * 0.84;
-      var off = (tw - pw) / 2 - page * pw;
+      var off = (tw - pw) / 2 - (page + 1) * pw;
       track.style.transform = 'translateX(' + off + 'px)';
     }
     car.querySelector('.car-prev').addEventListener('click', function () { go(page - 1); });

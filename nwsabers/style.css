@@ -772,3 +772,37 @@ body.inner .share-row a{color:#8fe3a8}
    page itself is scroll-locked (class toggled by app.js with the open state). */
 .nsw-menu{overscroll-behavior:contain}
 html.nsw-scroll-lock,body.nsw-scroll-lock{overflow:hidden !important}
+
+/* Round 7h (Travis): Return of the Sabers - static 3-card row under the Featured
+   carousel, mirroring David's live homepage (LS V3, AS V2, Starkiller V2). */
+.returning-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin:4px 0 26px;text-align:left}
+.returning-grid .returning-card{display:block;min-width:0}
+.space-zone .rc-tag{font-family:'Fredoka',sans-serif;font-weight:600;font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;color:#39ff7a;margin-top:6px;text-shadow:0 1px 3px rgba(0,0,0,.92)}
+@media (max-width:640px){.returning-grid{grid-template-columns:1fr;gap:18px}}
+
+/* Round 7g (Travis): "Questions" chat widget - mirrors the Wix Chat tab on David's live
+   site (bottom-right, NSW logo + QUESTIONS), restyled to the house buttons: hull pill,
+   Fredoka, saber-green glow on hover. z-index 900 sits below the slide-out menu (1000)
+   and above page content/carousel arrows. */
+.nsw-q-btn{position:fixed;right:18px;bottom:18px;z-index:900;display:flex;align-items:center;gap:9px;padding:10px 20px 10px 12px;border:2px solid #090b0d;border-radius:999px;background-color:#22262a;background-image:linear-gradient(rgba(13,17,21,.25),rgba(13,17,21,.25)),url('img/hull.jpg');background-size:auto,300px;background-position:center;color:#f4f7f4;font-family:'Fredoka',sans-serif;font-weight:700;font-size:15px;letter-spacing:.12em;cursor:pointer;box-shadow:inset 0 2px 0 rgba(255,255,255,.5),inset 0 -3px 0 rgba(0,0,0,.5),0 6px 16px rgba(0,0,0,.6);transition:box-shadow .22s ease,transform .16s ease}
+.nsw-q-btn:hover{transform:translateY(-2px);box-shadow:inset 0 2px 0 rgba(255,255,255,.5),inset 0 -3px 0 rgba(0,0,0,.5),0 6px 16px rgba(0,0,0,.6),0 0 18px rgba(0,201,60,.45)}
+.nsw-q-btn img{width:27px;height:22px;object-fit:contain;display:block}
+.nsw-q-panel{position:fixed;right:18px;bottom:84px;z-index:900;width:min(348px,calc(100vw - 32px));max-height:min(560px,calc(100dvh - 110px));overflow-y:auto;overscroll-behavior:contain;background-color:#14181c;background-image:linear-gradient(rgba(10,13,16,.55),rgba(10,13,16,.62)),url('img/hull-panel.jpg');background-size:cover;background-position:32% 18%;border:2px solid #05070a;border-radius:14px;box-shadow:0 18px 44px rgba(0,0,0,.65),inset 0 1px 0 rgba(255,255,255,.14);color:#eef2ee;font-family:'Fredoka',sans-serif;opacity:0;visibility:hidden;transform:translateY(12px);transition:opacity .25s ease,transform .25s ease,visibility 0s linear .3s}
+.nsw-q-panel.open{opacity:1;visibility:visible;transform:translateY(0);transition:opacity .25s ease,transform .25s ease}
+.nsw-q-head{display:flex;align-items:center;justify-content:space-between;padding:14px 16px 10px;border-bottom:1px solid rgba(0,201,60,.35)}
+.nsw-q-title{font-weight:700;font-size:17px;letter-spacing:.06em;text-shadow:0 1px 3px rgba(0,0,0,.95)}
+.nsw-q-close{background:rgba(0,201,60,.10);border:1px solid #39543a;color:#d9ffe2;font-family:'Fredoka',sans-serif;font-weight:600;font-size:13px;padding:5px 12px;border-radius:999px;cursor:pointer}
+.nsw-q-close:hover{background:rgba(0,201,60,.24);color:#fff}
+.nsw-q-body{padding:13px 16px 16px}
+.nsw-q-intro{font-size:13.5px;color:#c9d8c9;margin:0 0 12px;text-shadow:0 1px 3px rgba(0,0,0,.9)}
+.nsw-q-form label{display:block;font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#8fd694;margin:10px 0 4px;text-shadow:0 1px 3px rgba(0,0,0,.9)}
+.nsw-q-form input,.nsw-q-form textarea{width:100%;box-sizing:border-box;background:rgba(5,8,6,.72);border:1px solid #39543a;border-radius:8px;color:#eef2ee;font-family:'Fredoka',sans-serif;font-size:14.5px;padding:9px 11px}
+.nsw-q-form input:focus,.nsw-q-form textarea:focus{outline:2px solid rgba(0,201,60,.55);outline-offset:1px}
+.nsw-q-form textarea{min-height:84px;resize:vertical}
+.nsw-q-send{width:100%;margin-top:14px;padding:12px 20px;border:2px solid #090b0d;border-radius:10px;background-color:#22262a;background-image:linear-gradient(rgba(13,17,21,.25),rgba(13,17,21,.25)),url('img/hull.jpg');background-size:auto,300px;background-position:center;color:#f4f7f4;font-family:'Fredoka',sans-serif;font-weight:700;font-size:15px;letter-spacing:.05em;cursor:pointer;box-shadow:inset 0 2px 0 rgba(255,255,255,.5),inset 0 -3px 0 rgba(0,0,0,.5),0 4px 10px rgba(0,0,0,.55);text-shadow:0 1px 3px rgba(0,0,0,.9)}
+.nsw-q-send:hover{box-shadow:inset 0 2px 0 rgba(255,255,255,.5),inset 0 -3px 0 rgba(0,0,0,.5),0 4px 10px rgba(0,0,0,.55),0 0 18px rgba(0,201,60,.4)}
+.nsw-q-done{display:none;text-align:center;padding:10px 2px 4px}
+.nsw-q-done .q-big{font-size:17px;font-weight:700;margin:0 0 6px;text-shadow:0 1px 3px rgba(0,0,0,.95)}
+.nsw-q-done p{font-size:13.5px;color:#c9d8c9;margin:0 0 12px}
+.nsw-q-again{background:none;border:none;color:#39ff7a;font-family:'Fredoka',sans-serif;font-size:13.5px;font-weight:600;cursor:pointer;text-decoration:underline}
+@media (prefers-reduced-motion:reduce){.nsw-q-btn,.nsw-q-panel{transition:none}}

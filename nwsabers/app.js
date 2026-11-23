@@ -444,6 +444,65 @@
     });
   }
 
+  // ---------- "Questions" chat widget (round 7g, Travis) ----------
+  // Mirrors the Wix Chat tab on David's live site (bottom-right, NSW logo + QUESTIONS),
+  // restyled to the house buttons. The panel carries the same contact form his widget
+  // asks for (name, email, message). STATIC PREVIEW: the submit interaction and success
+  // state are fully wired, but nothing is transmitted anywhere - on David's live site
+  // this form posts into his Wix Chat / Wix Inbox, which is where the production
+  // version connects when the rebuild goes live on his domain.
+  (function initQuestions() {
+    if (document.querySelector('.nsw-q-btn')) return;
+    var root = window.location.pathname.indexOf('/product/') >= 0 ? '../' : '';
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'nsw-q-btn';
+    btn.setAttribute('aria-expanded', 'false');
+    btn.setAttribute('aria-label', 'Questions - send us a message');
+    btn.innerHTML = '<img src="' + root + 'img/logo-base.png" alt="">QUESTIONS';
+    var panel = document.createElement('div');
+    panel.className = 'nsw-q-panel';
+    panel.setAttribute('role', 'dialog');
+    panel.setAttribute('aria-label', 'Send us a message');
+    panel.innerHTML =
+      '<div class="nsw-q-head"><span class="nsw-q-title">Questions</span>' +
+      '<button type="button" class="nsw-q-close" aria-label="Close chat">&times;&nbsp;Close</button></div>' +
+      '<div class="nsw-q-body">' +
+      '<form class="nsw-q-form" novalidate>' +
+      '<p class="nsw-q-intro">Send us a message and we will get back to you, usually within 24 hours.</p>' +
+      '<label for="nsw-q-name">Name</label><input id="nsw-q-name" name="name" type="text" autocomplete="name" required>' +
+      '<label for="nsw-q-email">Email</label><input id="nsw-q-email" name="email" type="email" autocomplete="email" required>' +
+      '<label for="nsw-q-msg">Message</label><textarea id="nsw-q-msg" name="message" required></textarea>' +
+      '<button type="submit" class="nsw-q-send">Send Message</button></form>' +
+      '<div class="nsw-q-done"><p class="q-big">Message sent!</p>' +
+      '<p>Thanks for reaching out - we will get back to you soon.</p>' +
+      '<button type="button" class="nsw-q-again">Send another message</button></div>' +
+      '</div>';
+    document.body.appendChild(panel);
+    document.body.appendChild(btn);
+    var form = panel.querySelector('.nsw-q-form');
+    var done = panel.querySelector('.nsw-q-done');
+    function setOpen(open) {
+      panel.classList.toggle('open', open);
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      if (open) { var f = panel.querySelector('input'); if (f) f.focus(); }
+    }
+    btn.addEventListener('click', function () { setOpen(!panel.classList.contains('open')); });
+    panel.querySelector('.nsw-q-close').addEventListener('click', function () { setOpen(false); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') setOpen(false); });
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      if (!form.checkValidity()) { form.reportValidity(); return; }
+      form.style.display = 'none';
+      done.style.display = 'block';
+    });
+    panel.querySelector('.nsw-q-again').addEventListener('click', function () {
+      form.reset();
+      done.style.display = 'none';
+      form.style.display = '';
+    });
+  })();
+
   // ---------- carousels (page-by-3, wrap-around, neighbors peek + fade) ----------
   // One shared engine (Featured Sabers is the homepage instance). Each page is 84% of the
   // viewport width and sits centered, so ~8% of the previous and next pages peek in at the

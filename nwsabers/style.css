@@ -491,6 +491,7 @@ body.home .about h2{color:#dfe4e8;text-shadow:0 2px 0 #4a5157,0 4px 16px rgba(0,
    position, so the texture cannot zoom (see the ROUND 3 hover block). */
 .space-zone .returning-card{background-image:linear-gradient(rgba(10,14,12,.16),rgba(10,14,12,.16)),var(--plate,url('img/hull.jpg'));background-size:auto,cover;background-position:center,center}
 .space-zone .returning-card:hover{background-image:linear-gradient(rgba(10,14,12,.16),rgba(10,14,12,.16)),var(--plate,url('img/hull.jpg'));background-size:auto,cover;background-position:center,center}
-.space-zone .returning-card.has-mast{background-position:center,center 12%}
-.space-zone .returning-card.has-mast:hover{background-position:center,center 12%}
-.space-zone .returning-card.has-mast .rc-photo{margin-top:52px}
+.space-zone .returning-card.has-mast,.space-zone .returning-card.has-mast2{background-position:center,center 0%}
+.space-zone .returning-card.has-mast:hover,.space-zone .returning-card.has-mast2:hover{background-position:center,center 0%}
+.space-zone .returning-card.has-mast>img{margin-top:16%}
+.space-zone .returning-card.has-mast2>img{margin-top:34%}

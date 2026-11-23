@@ -430,6 +430,7 @@ body.home .about h2{color:#dfe4e8;text-shadow:0 2px 0 #4a5157,0 4px 16px rgba(0,
 .returning-card img{border:1px solid #0a0c0e;border-radius:6px;box-shadow:0 2px 8px rgba(0,0,0,.5)}
 .space-zone .rc-name{text-shadow:0 1px 3px rgba(0,0,0,.92)}
 .space-zone .rc-price{text-shadow:0 1px 3px rgba(0,0,0,.92)}
+.space-zone .rc-price .was{color:#ccd4cc}
 
 /* --- greeble: tiny sensor-mast antenna on a few cards (lives in the viewport's top padding, never clipped) --- */
 .card-antenna{position:absolute;top:-11px;width:2px;height:11px;background:linear-gradient(180deg,#c7ced4,#5b636a 60%,#2c3136);border-radius:1px;z-index:2;pointer-events:none}

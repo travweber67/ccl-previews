@@ -259,7 +259,7 @@ header .wrap{position:relative;z-index:1}
 
 /* ---------- featured carousel + neon card glow ---------- */
 .carousel{display:flex;align-items:center;gap:8px;margin-bottom:34px;text-align:left}
-.car-viewport{overflow:hidden;flex:1;padding:74px 6px 16px}
+.car-viewport{overflow:hidden;flex:1;padding:18px 6px 16px}
 .car-track{display:flex;transition:transform .55s cubic-bezier(.22,.8,.3,1)}
 .car-page{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;flex:0 0 84%;padding:2px}
 .car-arrow{flex:none;width:56px;height:56px;border-radius:50%;border:0;padding:0;font-size:0;color:transparent;background-color:#22262a;background-size:cover;background-position:center;cursor:pointer;box-shadow:0 6px 16px rgba(0,0,0,.5);transition:box-shadow .25s ease,transform .12s ease}
@@ -269,7 +269,7 @@ header .wrap{position:relative;z-index:1}
 .returning-card{border-radius:12px;padding:8px 8px 12px;transition:box-shadow .35s ease,transform .35s ease}
 .returning-card:hover{transform:translateY(-3px);box-shadow:0 0 24px rgba(0,201,60,.42),0 0 64px rgba(0,201,60,.24),0 0 120px rgba(0,201,60,.12),inset 0 0 18px rgba(0,201,60,.08)}
 @media (prefers-reduced-motion:reduce){.car-track{transition:none}.returning-card{transition:none}}
-@media (max-width:640px){.car-page{gap:10px}.car-arrow{width:44px;height:44px}.car-viewport{padding:52px 2px 12px}}
+@media (max-width:640px){.car-page{gap:10px}.car-arrow{width:44px;height:44px}.car-viewport{padding:14px 2px 12px}}
 
 /* ---------- hero space zone (welcome + featured carousel) ---------- */
 .space-zone{background:#04070d;position:relative}
@@ -437,12 +437,7 @@ body.home .about h2{color:#dfe4e8;text-shadow:0 2px 0 #4a5157,0 4px 16px rgba(0,
        bridge tower: bolted tower, sensor crossbar with a globe at each end, whip antenna).
        Generated artwork, background knocked out; its flanged foot overlaps the card's top edge so
        it reads as mounted hardware. Lives in the viewport's top padding band, never clipped. --- */
-.card-antenna{position:absolute;top:-66px;width:72px;z-index:2;pointer-events:none;line-height:0}
-.card-antenna img{width:100%;height:auto;display:block;filter:drop-shadow(0 3px 5px rgba(0,0,0,.55))}
-.ant-a{left:16px}
-.ant-b{right:20px}
-.ant-c{left:50%;transform:translateX(-50%)}
-@media (max-width:640px){.card-antenna{width:50px;top:-46px}}
+/* (overlay antennas removed in ROUND 3G — masts are baked into the plate artwork) */
 
 /* --- the sky is alive: twinkling stars + one slow-drifting layer (spans/anim added by app.js; parallax untouched) --- */
 .star-layer .tw-dot{position:absolute;border-radius:50%;background:#fff;pointer-events:none;animation:twinkle var(--twd,3s) ease-in-out var(--twdel,0s) infinite alternate}
@@ -486,3 +481,16 @@ body.home .about h2{color:#dfe4e8;text-shadow:0 2px 0 #4a5157,0 4px 16px rgba(0,
 .header-title .shop-name{font-family:'Archivo Black',sans-serif;color:transparent;-webkit-text-stroke:2.2px #FFE81F;letter-spacing:.02em;text-shadow:0 3px 0 rgba(0,0,0,.45)}
 .header-title .tagline{font-family:'Archivo Black',sans-serif;color:transparent;-webkit-text-stroke:1.1px #FFE81F;letter-spacing:.03em;text-shadow:0 2px 0 rgba(0,0,0,.45)}
 @media (max-width:640px){.header-title .shop-name{-webkit-text-stroke-width:1.4px}.header-title .tagline{-webkit-text-stroke-width:.8px}}
+
+/* ================= ROUND 3G: generated plate cards =================
+   Every carousel card's plate is a SINGLE generated artwork (hull plating, panel lines,
+   greebles, beveled edges — one object, no composites), rotated across the 12 cards via the
+   inline --plate property. Four cards use plates whose artwork grows a sensor mast out of
+   the plate's top edge (single-mast and double-mast variants, no globes); .has-mast drops
+   the photo below the artwork's sky band. Rest and hover use the same image, size and
+   position, so the texture cannot zoom (see the ROUND 3 hover block). */
+.space-zone .returning-card{background-image:linear-gradient(rgba(10,14,12,.16),rgba(10,14,12,.16)),var(--plate,url('img/hull.jpg'));background-size:auto,cover;background-position:center,center}
+.space-zone .returning-card:hover{background-image:linear-gradient(rgba(10,14,12,.16),rgba(10,14,12,.16)),var(--plate,url('img/hull.jpg'));background-size:auto,cover;background-position:center,center}
+.space-zone .returning-card.has-mast{background-position:center,center 12%}
+.space-zone .returning-card.has-mast:hover{background-position:center,center 12%}
+.space-zone .returning-card.has-mast .rc-photo{margin-top:52px}

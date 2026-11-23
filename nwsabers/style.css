@@ -468,3 +468,10 @@ body.home .about h2{color:#dfe4e8;text-shadow:0 2px 0 #4a5157,0 4px 16px rgba(0,
 .carousel{margin-left:-14px;margin-right:-14px}
 .car-viewport{-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 8%,#000 92%,transparent 100%);mask-image:linear-gradient(90deg,transparent 0,#000 8%,#000 92%,transparent 100%)}
 @media (max-width:640px){.carousel{margin-left:-4px;margin-right:-4px}}
+
+/* ================= ROUND 3E: shooting stars =================
+   Fixed layer on the same plane as the page sky (z-index -1, after it in DOM order): meteors
+   ride the one sky and pass behind page content. Spawner lives in app.js; reduced-motion = none. */
+.meteor-layer{position:fixed;inset:0;z-index:-1;overflow:hidden;pointer-events:none}
+.meteor{position:absolute;height:2px;border-radius:2px;background:linear-gradient(90deg,rgba(255,255,255,0) 0%,rgba(190,215,255,.35) 55%,rgba(255,255,255,.95) 100%);filter:drop-shadow(0 0 6px rgba(200,225,255,.75));will-change:transform,opacity}
+.meteor::after{content:'';position:absolute;right:-1px;top:50%;transform:translateY(-50%);width:5px;height:5px;border-radius:50%;background:#fff;box-shadow:0 0 8px 2px rgba(220,235,255,.85)}

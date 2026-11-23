@@ -236,6 +236,57 @@
     }
   }
 
+  // ---------- shooting stars: random spawner on the page sky (homepage only) ----------
+  // Irregular everything: gaps of ~6-20s (occasionally longer), scattered start points (never the
+  // same quadrant twice in a row), random diagonal direction/steepness, length, speed, brightness,
+  // and a low chance of a near-simultaneous second streak. Reduced-motion users get none.
+  if (!reduceMotion && document.body.classList.contains('home')) {
+    var skyFx = document.createElement('div');
+    skyFx.className = 'meteor-layer'; skyFx.setAttribute('aria-hidden', 'true');
+    document.body.appendChild(skyFx);
+    var lastQuad = -1;
+    function spawnMeteor() {
+      var vw = window.innerWidth || 1200, vh = window.innerHeight || 800;
+      var x, y, quad, tries = 0;
+      do {
+        x = vw * (0.05 + Math.random() * 0.80);
+        y = vh * (0.02 + Math.random() * 0.50);
+        quad = (x > vw / 2 ? 1 : 0) + (y > vh / 3 ? 2 : 0);
+        tries++;
+      } while (quad === lastQuad && tries < 6);
+      lastQuad = quad;
+      var m = document.createElement('div');
+      m.className = 'meteor';
+      var len = 90 + Math.random() * 110;              // streak length 90-200px
+      m.style.width = len + 'px';
+      m.style.left = x + 'px'; m.style.top = y + 'px';
+      m.style.opacity = (0.55 + Math.random() * 0.45).toFixed(2);
+      var ang = 24 + Math.random() * 26;               // steepness 24-50 degrees
+      if (Math.random() < 0.5) ang = 180 - ang;        // half travel down-left, half down-right
+      var dist = 200 + Math.random() * 260;            // travel 200-460px
+      var dur = 800 + Math.random() * 600;             // 0.8-1.4s
+      var rad = ang * Math.PI / 180;
+      m.style.transform = 'rotate(' + ang + 'deg)';
+      var anim = m.animate([
+        { transform: 'rotate(' + ang + 'deg) translateX(0px)', opacity: 0 },
+        { opacity: 1, offset: 0.18 },
+        { opacity: 1, offset: 0.72 },
+        { transform: 'rotate(' + ang + 'deg) translateX(' + dist + 'px)', opacity: 0 }
+      ], { duration: dur, easing: 'ease-out' });
+      skyFx.appendChild(m);
+      anim.onfinish = function () { m.remove(); };
+      setTimeout(function () { m.remove(); }, dur + 400); // safety cleanup
+    }
+    function meteorLoop() {
+      if (!document.hidden) {
+        spawnMeteor();
+        if (Math.random() < 0.12) setTimeout(spawnMeteor, 120 + Math.random() * 240); // rare double
+      }
+      setTimeout(meteorLoop, 6000 + Math.random() * 14000 + (Math.random() < 0.18 ? 9000 : 0));
+    }
+    setTimeout(meteorLoop, 3000 + Math.random() * 6000);
+  }
+
   // ---------- header logo menu: left slide-out panel ----------
   // Open: blade retracts at once (CSS, .62s, no delay); the panel slides in slow (1s after a .25s delay) and covers the logo; blade stays down while open.
   // Close: panel slides back (.6s); the blade's base transition carries a .55s delay, so it reignites only once the panel has left.

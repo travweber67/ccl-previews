@@ -1,5 +1,11 @@
 // NW Saber Syndicate — static preview copy interactions
 (function () {
+  // Travis (round 9, standing rule for all his apps): no pinch-zoom on mobile — the
+  // viewport meta blocks scaling in most browsers, but iOS Safari ignores
+  // user-scalable=no, so swallow the pinch gesture events there too.
+  document.addEventListener('gesturestart', function (e) { e.preventDefault(); });
+  document.addEventListener('gesturechange', function (e) { e.preventDefault(); });
+
   // mobile nav + MORE dropdown
   var toggle = document.querySelector('.nav-toggle');
   var nav = document.querySelector('.main-nav');
@@ -518,6 +524,10 @@
     var pageEls = track.querySelectorAll('.car-page');
     var pages = pageEls.length;
     if (!pages) return;
+    // Round 9 (Travis): on phones the carousel is a native swipe strip — the round-9
+    // CSS turns the viewport into a scroll-snap scroller and flattens the pages, so
+    // the paging engine (clones, transform offsets, arrow wiring) must NOT run there.
+    if (window.matchMedia('(max-width: 640px)').matches) { car.classList.add('is-native'); return; }
     if (pages === 1) { car.classList.add('is-static'); return; }
     // Clone the last page before the first and the first page after the last: neighbors peek
     // in on BOTH sides even on the first and last pages, and the clones bridge the wrap.

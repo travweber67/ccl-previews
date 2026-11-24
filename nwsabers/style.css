@@ -821,3 +821,46 @@ html.nsw-scroll-lock,body.nsw-scroll-lock{overflow:hidden !important}
 .nsw-menu-label{width:fit-content;margin:4px auto 0;padding:3px 12px 4px calc(12px + .34em);border:2px solid #090b0d;border-radius:999px;background-color:#22262a;background-image:linear-gradient(rgba(13,17,21,.20),rgba(13,17,21,.20)),url('img/hull.jpg');background-size:auto,300px;background-position:center;color:#f6f9f6;box-shadow:inset 0 1px 0 rgba(255,255,255,.7),inset 0 -2px 0 rgba(0,0,0,.5),0 3px 7px rgba(0,0,0,.55);transition:box-shadow .22s ease}
 .nsw-logo-btn:hover .nsw-menu-label,.nsw-logo-btn:focus-visible .nsw-menu-label{box-shadow:inset 0 1px 0 rgba(255,255,255,.7),inset 0 -2px 0 rgba(0,0,0,.5),0 3px 7px rgba(0,0,0,.55),0 0 14px rgba(0,201,60,.45),0 0 30px rgba(0,201,60,.20)}
 @media (max-width:640px){.nsw-menu-label{margin-top:3px;padding:2px 10px 3px calc(10px + .34em)}}
+
+/* ================= ROUND 9 (Nov 23, Travis's mobile review) =================
+   Four fixes from Travis walking the preview on his phone, plus his standing
+   no-pinch-zoom rule (viewport meta in every page + gesturestart guard in app.js):
+   1. DUPLICATE MENU BUTTON: the big hull-plate .nav-toggle under the search bar is
+      removed from all 119 pages. The only menu control is the Menu pill under the
+      logo, which opens the slide-out menu exactly as before. (The .nav-toggle CSS
+      rules above are now dead and harmless; the .main-nav row stays desktop-only,
+      hidden on phones as it already was until toggled.)
+   2+3. FEATURED CAROUSEL ON PHONES: no more paged 3-across skinny plates and no
+      arrow buttons — the viewport becomes a native horizontal scroller with
+      scroll-snap and the pages flatten (display:contents), so all 12 cards form
+      one swipe strip. Cards are 228px wide: at 390px that shows one full card and
+      about half of the next peeking in. Cards size to their own content height
+      (align-self:flex-start) instead of stretching into long empty plates.
+      app.js skips its paging engine at this width (.is-native). Desktop is
+      untouched. Top padding grows because the mast cutouts scale with the wider
+      cards (mast2 needs ~81px of sky); a negative top margin keeps the
+      heading-to-cards gap close to before. The edge-fade mask is off here: with
+      snap scrolling it would fade the resting first card.
+   4. QUESTIONS BUTTON CLIPPED: at phone widths the fixed pill sat at right:18px
+      against a layout viewport a few px wider than the screen on Travis's phone,
+      pushing its right edge off-screen. It now hugs right:12px / bottom:12px with
+      a max-width guard, and the panel matches. */
+@media (max-width:640px){
+  .carousel{display:block;margin:-36px 0 10px}
+  .car-arrow{display:none}
+  .car-viewport{overflow-x:auto;overflow-y:visible;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding:86px 10px 22px;-webkit-mask-image:none;mask-image:none}
+  .car-viewport::-webkit-scrollbar{display:none}
+  .car-track{display:flex;gap:12px;width:max-content;transform:none!important;transition:none}
+  .car-page{display:contents}
+  .car-page .returning-card{flex:0 0 228px;scroll-snap-align:start;align-self:flex-start}
+  .nsw-q-btn{right:12px;bottom:12px;max-width:calc(100vw - 24px)}
+  .nsw-q-panel{right:12px;bottom:78px}
+  /* Audit find (round 9 walk): the section headings' radial-glow pseudo-elements
+     are wider than the headings themselves (125% / 120%, centered) and nothing
+     clips them, so on phones they pushed the document to 431px on a 390px screen -
+     the whole page scrolled sideways. Capped to the heading box at phone widths;
+     the radial fade still reads the same. Desktop measured clean and is untouched. */
+  .space-zone .returning h2::before{width:100%}
+  .space-zone .welcome-text::before{width:100%}
+  body.home .thanks h2::before,body.home .about h2::before{width:100%}
+}

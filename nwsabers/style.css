@@ -787,13 +787,13 @@ html.nsw-scroll-lock,body.nsw-scroll-lock{overflow:hidden !important}
 .nsw-q-btn{position:fixed;right:18px;bottom:18px;z-index:900;display:flex;align-items:center;gap:9px;padding:10px 20px 10px 12px;border:2px solid #090b0d;border-radius:999px;background-color:#22262a;background-image:linear-gradient(rgba(13,17,21,.25),rgba(13,17,21,.25)),url('img/hull.jpg');background-size:auto,300px;background-position:center;color:#f4f7f4;font-family:'Fredoka',sans-serif;font-weight:700;font-size:15px;letter-spacing:.12em;cursor:pointer;box-shadow:inset 0 2px 0 rgba(255,255,255,.5),inset 0 -3px 0 rgba(0,0,0,.5),0 6px 16px rgba(0,0,0,.6);transition:box-shadow .22s ease,transform .16s ease}
 .nsw-q-btn:hover{transform:translateY(-2px);box-shadow:inset 0 2px 0 rgba(255,255,255,.5),inset 0 -3px 0 rgba(0,0,0,.5),0 6px 16px rgba(0,0,0,.6),0 0 18px rgba(0,201,60,.45)}
 .nsw-q-btn img{width:27px;height:22px;object-fit:contain;display:block}
-.nsw-q-panel{position:fixed;right:18px;bottom:84px;z-index:900;width:min(348px,calc(100vw - 32px));max-height:min(560px,calc(100dvh - 110px));overflow-y:auto;overscroll-behavior:contain;background-color:#14181c;background-image:linear-gradient(rgba(10,13,16,.55),rgba(10,13,16,.62)),url('img/hull-panel.jpg');background-size:cover;background-position:32% 18%;border:2px solid #05070a;border-radius:14px;box-shadow:0 18px 44px rgba(0,0,0,.65),inset 0 1px 0 rgba(255,255,255,.14);color:#eef2ee;font-family:'Fredoka',sans-serif;opacity:0;visibility:hidden;transform:translateY(12px);transition:opacity .25s ease,transform .25s ease,visibility 0s linear .3s}
+.nsw-q-panel{position:fixed;right:18px;bottom:var(--q-bottom,84px);z-index:900;width:min(348px,calc(100vw - 32px));max-height:var(--q-maxh,min(560px,calc(100dvh - 110px)));display:flex;flex-direction:column;overflow:hidden;background-color:#14181c;background-image:linear-gradient(rgba(10,13,16,.55),rgba(10,13,16,.62)),url('img/hull-panel.jpg');background-size:cover;background-position:32% 18%;border:2px solid #05070a;border-radius:14px;box-shadow:0 18px 44px rgba(0,0,0,.65),inset 0 1px 0 rgba(255,255,255,.14);color:#eef2ee;font-family:'Fredoka',sans-serif;opacity:0;visibility:hidden;transform:translateY(12px);transition:opacity .25s ease,transform .25s ease,visibility 0s linear .3s}
 .nsw-q-panel.open{opacity:1;visibility:visible;transform:translateY(0);transition:opacity .25s ease,transform .25s ease}
-.nsw-q-head{display:flex;align-items:center;justify-content:space-between;padding:14px 16px 10px;border-bottom:1px solid rgba(0,201,60,.35)}
+.nsw-q-head{flex:0 0 auto;display:flex;align-items:center;justify-content:space-between;padding:14px 16px 10px;border-bottom:1px solid rgba(0,201,60,.35)}
 .nsw-q-title{font-weight:700;font-size:17px;letter-spacing:.06em;text-shadow:0 1px 3px rgba(0,0,0,.95)}
 .nsw-q-close{background:rgba(0,201,60,.10);border:1px solid #39543a;color:#d9ffe2;font-family:'Fredoka',sans-serif;font-weight:600;font-size:13px;padding:5px 12px;border-radius:999px;cursor:pointer}
 .nsw-q-close:hover{background:rgba(0,201,60,.24);color:#fff}
-.nsw-q-body{padding:13px 16px 16px}
+.nsw-q-body{flex:1 1 auto;min-height:0;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;padding:13px 16px 16px}
 .nsw-q-intro{font-size:13.5px;color:#c9d8c9;margin:0 0 12px;text-shadow:0 1px 3px rgba(0,0,0,.9)}
 .nsw-q-form label{display:block;font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#8fd694;margin:10px 0 4px;text-shadow:0 1px 3px rgba(0,0,0,.9)}
 .nsw-q-form input,.nsw-q-form textarea{width:100%;box-sizing:border-box;background:rgba(5,8,6,.72);border:1px solid #39543a;border-radius:8px;color:#eef2ee;font-family:'Fredoka',sans-serif;font-size:14.5px;padding:9px 11px}
@@ -854,7 +854,7 @@ html.nsw-scroll-lock,body.nsw-scroll-lock{overflow:hidden !important}
   .car-page{display:contents}
   .car-page .returning-card{flex:0 0 228px;scroll-snap-align:start;align-self:flex-start}
   .nsw-q-btn{right:12px;bottom:12px;max-width:calc(100vw - 24px)}
-  .nsw-q-panel{right:12px;bottom:78px}
+  .nsw-q-panel{right:12px;bottom:var(--q-bottom,78px)}
   /* Audit find (round 9 walk): the section headings' radial-glow pseudo-elements
      are wider than the headings themselves (125% / 120%, centered) and nothing
      clips them, so on phones they pushed the document to 431px on a 390px screen -
@@ -864,3 +864,20 @@ html.nsw-scroll-lock,body.nsw-scroll-lock{overflow:hidden !important}
   .space-zone .welcome-text::before{width:100%}
   body.home .thanks h2::before,body.home .about h2::before{width:100%}
 }
+
+/* ================= ROUND 10 (Nov 23, Travis): QUESTIONS PANEL vs THE PHONE KEYBOARD =================
+   Travis, on his phone: open Questions, tap a field, the keyboard comes up and covers
+   the form - you cannot see what you are typing or reach the other fields. Cause: the
+   panel is position:fixed against the full LAYOUT viewport, but the keyboard covers
+   the bottom of that viewport; the panel just sat there extending behind it.
+   Fix, in the round-7g rules above (this block is the documentation):
+   - The panel is now a flex column: .nsw-q-head is pinned (flex:0 0 auto) and
+     .nsw-q-body is the scroller (flex:1 1 auto, min-height:0, overflow-y:auto), so
+     every field and the Send button stay reachable by scrolling INSIDE the panel
+     and the title/Close never scroll away. Before, the whole panel scrolled as one.
+   - bottom / max-height now read var(--q-bottom) / var(--q-maxh) with the round-9
+     values as fallbacks (84px desktop / 78px phone, min(560px, 100dvh - 110px)).
+     app.js sets those vars from the VISUAL viewport while the keyboard is up
+     (panel bottom pinned 12px above the keyboard, height capped to the visible
+     area) and removes them otherwise - so desktop and keyboard-closed geometry
+     are byte-for-byte the round-9 values. The closed pill is untouched. */

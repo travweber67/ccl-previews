@@ -488,10 +488,79 @@
     document.body.appendChild(btn);
     var form = panel.querySelector('.nsw-q-form');
     var done = panel.querySelector('.nsw-q-done');
+
+    // ---------- Round 10 (Travis): keep the open panel usable with the phone
+    // keyboard up. The keyboard covers the bottom of the LAYOUT viewport, but a
+    // position:fixed panel is laid out against that full viewport, so the lower
+    // fields sat behind the keyboard - invisible and unreachable. The VISUAL
+    // viewport is the part of the page actually visible: when it shrinks well
+    // below the layout viewport (keyboard open), pin the panel just above the
+    // keyboard via the --q-bottom / --q-maxh custom properties the stylesheet
+    // reads, capped to the visible height. The form area scrolls inside the
+    // panel (stylesheet: flex column, .nsw-q-body is the scroller, header
+    // pinned), and the focused field is scrolled into view inside that area.
+    // Desktop and the keyboard-closed phone state clear the overrides, so the
+    // round-9 geometry is exactly what returns when the keyboard goes away,
+    // the panel closes, or the phone rotates.
+    var qBody = panel.querySelector('.nsw-q-body');
+    var qVV = window.visualViewport || null;
+    var qPhone = window.matchMedia('(max-width: 640px)');
+    var qSyncTimer = null;
+    function clearQViewport() {
+      panel.style.removeProperty('--q-bottom');
+      panel.style.removeProperty('--q-maxh');
+    }
+    function scrollQFieldIntoView(field) {
+      if (!field || !qBody.contains(field)) return;
+      var c = qBody.getBoundingClientRect();
+      var topEl = field;
+      var prev = field.previousElementSibling;
+      if (prev && prev.tagName === 'LABEL') topEl = prev; // keep the field's label in view too
+      var tr = topEl.getBoundingClientRect();
+      var fr = field.getBoundingClientRect();
+      var pad = 10;
+      if (tr.top < c.top + pad) qBody.scrollTop -= (c.top + pad - tr.top);
+      else if (fr.bottom > c.bottom - pad) qBody.scrollTop += (fr.bottom - (c.bottom - pad));
+    }
+    function syncQViewport() {
+      if (!qVV || !panel.classList.contains('open') || !qPhone.matches) { clearQViewport(); return; }
+      // Layout-viewport px hidden below the visible area = the keyboard's height when it is up.
+      var hiddenBelow = window.innerHeight - (qVV.offsetTop + qVV.height);
+      if (hiddenBelow > 100) {
+        panel.style.setProperty('--q-bottom', Math.round(hiddenBelow + 12) + 'px');
+        panel.style.setProperty('--q-maxh', Math.max(180, Math.round(qVV.height - 24)) + 'px');
+      } else {
+        clearQViewport();
+      }
+    }
+    function syncQViewportSoon() {
+      if (qSyncTimer) clearTimeout(qSyncTimer);
+      qSyncTimer = setTimeout(function () {
+        qSyncTimer = null;
+        syncQViewport();
+        var a = document.activeElement;
+        if (a && panel.contains(a) && (a.tagName === 'INPUT' || a.tagName === 'TEXTAREA')) scrollQFieldIntoView(a);
+      }, 60);
+    }
+    if (qVV) {
+      qVV.addEventListener('resize', syncQViewportSoon);
+      qVV.addEventListener('scroll', syncQViewportSoon);
+    }
+    window.addEventListener('orientationchange', syncQViewportSoon);
+    panel.addEventListener('focusin', function (e) {
+      var t = e.target;
+      if (!t || (t.tagName !== 'INPUT' && t.tagName !== 'TEXTAREA')) return;
+      scrollQFieldIntoView(t); // keyboard already up, or field already in the scroll area
+      // A freshly opening keyboard takes a few hundred ms to resize the visual
+      // viewport; re-check once it settles so the field stays in view.
+      setTimeout(function () { syncQViewport(); scrollQFieldIntoView(t); }, 350);
+    });
+
     function setOpen(open) {
       panel.classList.toggle('open', open);
       btn.setAttribute('aria-expanded', open ? 'true' : 'false');
-      if (open) { var f = panel.querySelector('input'); if (f) f.focus(); }
+      if (open) { syncQViewportSoon(); var f = panel.querySelector('input'); if (f) f.focus(); }
+      else clearQViewport();
     }
     btn.addEventListener('click', function () { setOpen(!panel.classList.contains('open')); });
     panel.querySelector('.nsw-q-close').addEventListener('click', function () { setOpen(false); });
